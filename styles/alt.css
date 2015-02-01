@@ -1,0 +1,202 @@
+body 
+{
+	color:			  #110e16;
+	background-color: #7e8673;
+	padding:          0px 0px 0px 0px;	
+    font-style:       normal;
+	text-align:       center;
+}
+
+div.header
+{
+	color:            #FFFFFF;
+}
+
+div.section
+{
+}
+
+a 
+{
+	color:            #110e16;
+	text-decoration:  none;
+}
+
+a:hover
+{
+	text-decoration:  underline;
+}
+
+span 
+{
+	font-weight:      bold;
+	text-decoration:  none;
+}
+
+h1
+{
+	font-size:        11pt;
+	margin:           0px 0px 0px 0px;
+	padding:          0px 0px 0px 7px;
+}
+
+#page
+{
+	width:            770px;    
+	background-color: #4a6232;
+	text-align:       left;
+	margin-right:     auto;
+	margin-left:      auto;
+}
+
+#masthead 
+{
+	width:            770px;
+	height:           160px;
+    background:       url("/images/banners/alt_masthead.jpg") no-repeat center;
+	margin:           0px 0px 0px 0px;
+}
+
+#content
+{
+	height:           auto;
+}
+
+#footer
+{
+	clear:			  both;
+	width:            770px;
+	height:           20px;
+	float:            none;
+	font-size:        8pt;
+	text-align:       center;
+	margin:           0px 0px 0px 0px;
+	padding:	      5px 0px 0px 0px;
+}
+
+#navigation
+{
+	width:            160px;
+	position:         relative;
+	float:            left;  
+	padding-left:     10px;
+	font-family:      "Arial Narrow", Verdana, Arial;
+	font-size:        9pt;
+}
+
+#navigation div.header
+{
+	height:           25px;
+}
+
+#navigation div.section
+{
+	margin-bottom:    10px;
+}
+
+#navigation ul 
+{
+	height:           auto;
+	background-color: #e6dfdb;
+	padding:          3px 0px 3px 0px;
+	margin:           0px 0px 0px 0px;
+}
+
+#navigation li 
+{
+	background-color: #ffffff;
+	width:            160px;
+	height:           20px;	
+	padding:          0px 0px 0px 0px;
+	margin:           1px 0px 1px 0px;
+	list-style-type:  none;
+	display:          block;
+	text-indent:      15px;	
+}
+
+#navigation a
+{
+	color:            #121f18;
+	display:          block;
+	width:            auto;
+	height:           20px;
+}
+
+#navigation a:hover
+{
+	text-decoration:  none;
+    background-color: #e6dfdb;
+}
+
+#navigation span
+{
+	display:          block;
+	width:            auto;
+	height:           20px;
+}
+
+#main
+{
+	width:            580px;
+	position:         relative;
+	float:            right; 
+	margin-left:      10px;
+	margin-right:     10px;
+	font-family:      Georgia, "Times New Roman", Times, serif;
+	font-size:        10pt;
+}
+
+#main div.section
+{
+	padding-bottom:   0px;
+}
+
+#article 
+{
+	color:            #171517;
+	background-color: #ffffff;
+}
+
+#article div.header
+{
+	height:           25px;
+	background-color: #c7c8d4;
+	color:			  #110e16;
+	border-bottom:    3px solid #e6dfdb;
+}
+
+#article div.text
+{
+	height:           auto;
+	background-color: #ffffff;
+	padding:          10px 0px 10px 0px;
+}
+
+#article h1
+{
+	margin:           0px 0px 0px 0px;
+	padding:          3px 0px 0px 7px;
+}
+
+#article p
+{
+	margin:           0px 0px 0px 0px;
+	padding:          0px 15px 8px 10px;
+	text-indent:      10px;
+}
+
+#article a
+{
+	font-weight:      bold;
+	color:            #202c38;	
+}
+
+#toc div.header
+{
+	background-color: #163513;	
+}
+
+#resources div.header
+{
+	background-color: #404c38;	
+}
