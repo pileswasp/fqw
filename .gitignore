@@ -1,5 +1,11 @@
 # CoffeeCup Droppings
 ~tm*
+*.cpf
+
+# Dada Mail
+*.mbox
+dadamaildata
+errors.txt
 
 # Windows image file caches
 Thumbs.db
