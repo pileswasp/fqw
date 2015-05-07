@@ -1,0 +1,246 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Tracker</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Tracker---tracker.cgi">Tracker - tracker.cgi</a></li>
+  <li><a href="#User-Guide">User Guide</a>
+    <ul>
+      <li><a href="#Birds-Eye-View">Birds-Eye View</a></li>
+      <li><a href="#Individual-Messages-Campaigns">Individual Messages/Campaigns</a></li>
+    </ul>
+  </li>
+  <li><a href="#Installing-tracker.cgi">Installing tracker.cgi</a>
+    <ul>
+      <li><a href="#List-Control-Panel-Menu">List Control Panel Menu</a></li>
+    </ul>
+  </li>
+  <li><a href="#Specific-Plugin-Config-Variables">Specific Plugin Config Variables</a>
+    <ul>
+      <li><a href="#Plugin_Name">Plugin_Name</a></li>
+      <li><a href="#Plugin_URL">Plugin_URL</a></li>
+      <li><a href="#GeoIP_Db">GeoIP_Db</a></li>
+      <li><a href="#GeoLiteCity_Db">GeoLiteCity_Db</a></li>
+    </ul>
+  </li>
+  <li><a href="#Compatibility-with-clickthrough_tracking.cgi">Compatibility with clickthrough_tracking.cgi</a>
+    <ul>
+      <li><a href="#Backwards-Compatibility-with-the-redirect-tag">Backwards Compatibility with the [redirect=] tag</a></li>
+      <li><a href="#Limitations-of-Redirect-tags">Limitations of Redirect tags</a></li>
+      <li><a href="#Upgrade-Notes">Upgrade Notes</a>
+        <ul>
+          <li>
+            <ul>
+              <li><a href="#Importing-Old-Clickthrough-Logs">Importing Old Clickthrough Logs</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="Tracker---tracker.cgi">Tracker - tracker.cgi</h1>
+
+<p>The Tracker plugin creates analytic reports of activity of your mass mailings. You can think of a mass mailing being a <b>campaign</b> if you&#39;d like and the Tracker plugin being what presents data on your campaign.</p>
+
+<p>The activities that are logged and reported include:</p>
+
+<ul>
+
+<li><p># subscribers when a mass mailing was sent out</p>
+
+</li>
+<li><p># of recorded clickthroughs</p>
+
+</li>
+<li><p># of recorded opens/views</p>
+
+</li>
+<li><p># of unsubscribes</p>
+
+</li>
+<li><p># bounces, both soft and hard</p>
+
+</li>
+</ul>
+
+<h1 id="User-Guide">User Guide</h1>
+
+<p>For a guide on using Tracker, see the <b>Dada Mail Manual</b>:</p>
+
+<p><a href="http://dadamailproject.com/pro_dada/using_tracker.html">http://dadamailproject.com/pro_dada/using_tracker.html</a></p>
+
+<p>For more information on Pro Dada/Dada Mail Manual:</p>
+
+<p><a href="http://dadamailproject.com/purchase/pro.html">http://dadamailproject.com/purchase/pro.html</a></p>
+
+<h2 id="Birds-Eye-View">Birds-Eye View</h2>
+
+<p>These reports include the above information in tabular data, as well as in a line graph, for past mass mailings to help you spot general trends. This information can also be exported into .csv files, giving you more flexibility, specific to your needs.</p>
+
+<h2 id="Individual-Messages-Campaigns">Individual Messages/Campaigns</h2>
+
+<p>Along with the birds-eye view of seeing data of many messages at once, each mass mailing/campaign can also be explored.</p>
+
+<ul>
+
+<li><p>Clickthroughs are broken down per # of clicks per link</p>
+
+</li>
+<li><p>Clickthroughs are also broken down by country of origin, displayed in both a table and map.</p>
+
+</li>
+<li><p>Message opens are also broken down by country of origin and displayed both in a table and map.</p>
+
+</li>
+<li><p>Bounces, both soft and hard bounces are listed by date and email address of the bouncee.</p>
+
+<p>Clicking on the email address will allow you to view the data about the bounced message itself in the bounce handler plugin.</p>
+
+<p><i>(No bounces will be recorded, unless you&#39;ve separately set up and installed the Bounce Handler plugin that comes with Dada Mail)</i></p>
+
+<p>If you suddenly get a ton of bounced messages for a mailing from addresses you know look legitimate, there&#39;s a good chance that something seriously went wrong in the delivery part of a mass mailing. The reports that the Tracker plugin links to may help in resolving this problem.</p>
+
+</li>
+</ul>
+
+<p>All this message-specific data can also be exported via .csv files that may be downloaded.</p>
+
+<p>What&#39;s below will go into installing the plugin and advanced configuration.</p>
+
+<h1 id="Installing-tracker.cgi">Installing tracker.cgi</h1>
+
+<p>This plugin can be installed during a Dada Mail install/upgrade, using the included installer that comes with Dada Mail. The below installation instructions go through how to install the plugin manually.</p>
+
+<p>The tracker.cgi plugin comes with Dada Mail. You&#39;ll find it in the, <i>dada/plugins</i> directory with the file name, <i>tracker.cgi</i></p>
+
+<p>Change its permission to, <code>755</code>.</p>
+
+<h2 id="List-Control-Panel-Menu">List Control Panel Menu</h2>
+
+<p>Now, edit your <code>.dada_config</code> file, so that it shows the Tracker in the left-hand menu, under the, <b>Plugins</b> heading:</p>
+
+<p>First, see if the following lines are present in your <code>.dada_config</code> file:</p>
+
+<pre><code> # start cut for list control panel menu
+ =cut
+
+ =cut
+ # end cut for list control panel menu</code></pre>
+
+<p>If they are, remove them.</p>
+
+<p>Then, find these lines:</p>
+
+<pre><code> #                                      {
+ #                                      -Title      =&gt; &#39;Tracker&#39;,
+ #                                      -Title_URL  =&gt; $PLUGIN_URL.&quot;/tracker.cgi&quot;,
+ #                                      -Function   =&gt; &#39;tracker&#39;,
+ #                                      -Activated  =&gt; 1,
+ #                                      },</code></pre>
+
+<p>Uncomment the lines, by taking off the, &quot;#&quot;&#39;s:</p>
+
+<pre><code>                                        {
+                                        -Title      =&gt; &#39;Tracker&#39;,
+                                        -Title_URL  =&gt; $PLUGIN_URL.&quot;/tracker.cgi&quot;,
+                                        -Function   =&gt; &#39;tracker&#39;,
+                                        -Activated  =&gt; 1,
+                                        },</code></pre>
+
+<p>Save your <code>.dada_config</code> file.</p>
+
+<h1 id="Specific-Plugin-Config-Variables">Specific Plugin Config Variables</h1>
+
+<p>These variables have defaults saved in this plugin itself, but encourage you to reset the defaults to the values you may want, instead in your <code>.dada_config</code> file, in the, <code>$PLUGIN_CONFIGS</code> variable, under the, <code>Tracker</code> entry</p>
+
+<h2 id="Plugin_Name">Plugin_Name</h2>
+
+<p>The name of this plugin</p>
+
+<h2 id="Plugin_URL">Plugin_URL</h2>
+
+<p>The URL of this plugin. This is usually found by default, but sometimes the default doesn&#39;t work correctly. If this happens to you, fill it out in this variable</p>
+
+<h2 id="GeoIP_Db">GeoIP_Db</h2>
+
+<p>This variable holds the file path to the location ofthe GeoIP database. The GeoIP database is a IP Address -&gt; Location lookup table, to quickly and easily figure out the location based on the IP Address.</p>
+
+<p>This database is updated monthly and new copies can be obtained at:</p>
+
+<p><a href="http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz">http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz</a></p>
+
+<p>The database is licensed under the LGPL, so it&#39;s OK to ship Dada Mail with a copy of this database.</p>
+
+<p>If you find it necessary, you may keep a copy of this database outside of Dada Mail and update it regularly and tell this plugin where to find the database to use.</p>
+
+<p>For more information, see:</p>
+
+<p>http://search.cpan.org/~borisz/Geo-IP-PurePerl-1.25/lib/Geo/IP/PurePerl.pm</p>
+
+<p><i>This product includes GeoLite data created by MaxMind, available <a>&quot;/www.maxmind.com/&quot; in from http:</a></i></p>
+
+<h2 id="GeoLiteCity_Db">GeoLiteCity_Db</h2>
+
+<p>Like, <code>GeoIP_Db</code>, this variables holds the absolute file path to the City Geo IP database. Copies are obtained from,</p>
+
+<p><a href="http://www.maxmind.com/download/geoip/database/GeoLiteCity.dat.xz">http://www.maxmind.com/download/geoip/database/GeoLiteCity.dat.xz</a></p>
+
+<h1 id="Compatibility-with-clickthrough_tracking.cgi">Compatibility with clickthrough_tracking.cgi</h1>
+
+<p>The previous iteration of this plugin (tracker.cgi) was called, <b>clickthrough_tracker.cgi</b>. Do not use this old plugin with anything newer than v4.5.0 of Dada Mail. It will not work correctly.</p>
+
+<h2 id="Backwards-Compatibility-with-the-redirect-tag">Backwards Compatibility with the [redirect=] tag</h2>
+
+<p>Past versions of Dada Mail (before v4.5.0) used a different syntax for redirect URLs. The syntax looked like this:</p>
+
+<pre><code> [redirect=http://example.com]</code></pre>
+
+<p>This tag format is still supported, but consider it deprecated.</p>
+
+<h2 id="Limitations-of-Redirect-tags">Limitations of Redirect tags</h2>
+
+<p>One thing that you cannot do with the redirect tags, is embedd other Dada Mail Template Tags within the redirect tag.</p>
+
+<p>This will not work:</p>
+
+<pre><code> &lt;?dada redirect url=&quot;http://example.com/index.html?email=&lt;!-- tmpl_var subscriber.email --&gt;&quot; ?&gt;</code></pre>
+
+<h2 id="Upgrade-Notes">Upgrade Notes</h2>
+
+<p>The below is information for people who have used the <b>clickthrough_tracking.cgi</b> script in past versions of Dada Mail (before v4.5.0) and want to take advantage of the new Tracker plugin and also want to move over the old logged data.</p>
+
+<h4 id="Importing-Old-Clickthrough-Logs">Importing Old Clickthrough Logs</h4>
+
+<p>Data saved within the older, PlainText clickthrough logs would have to be moved over,</p>
+
+<p>There is a script called, <i>dada_clickthrough_plaintext_to_sql.pl</i> located in the, <i>dada/extras/scripts</i> directory that will do this conversion. Move it into your, <i>dada</i> directory, change its permissions to, <code>755</code> and run it <i>once</i> in your web browser. It may take a few minutes to run to completion.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

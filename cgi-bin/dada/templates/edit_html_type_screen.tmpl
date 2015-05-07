@@ -1,0 +1,194 @@
+<!-- begin edit_html_type_screen.tmpl -->
+
+<!-- tmpl_set name="title" value="Appearance and Templates &#187; HTML Screen Templates" -->
+<div id="screen_meta" data-menu_highlight="edit_html_type"></div>
+
+
+<div id="screentitle"> 
+	<div id="screentitlepadding">
+		<!-- tmpl_var title --> 
+	</div> 
+	<!-- tmpl_include help_link_widget.tmpl -->
+</div>
+
+<!-- tmpl_if done -->
+	<!-- tmpl_include changes_saved_dialog_box_widget.tmpl  -->
+<!--/tmpl_if-->
+
+<p>
+ You can customize many of the HTML screens 
+ <!-- tmpl_var PROGRAM_NAME --> produces specifically for your Mailing List.
+</p>
+
+<p> <!-- tmpl_var PROGRAM_NAME --> uses 
+ template tags to represent data that may change regularly. 
+ A list of relevant tags is shown at the end of this screen.
+</p>
+
+
+<form action="<!-- tmpl_var S_PROGRAM_URL -->" method="post" name="default_form" accept-charset="<!-- tmpl_var HTML_CHARSET -->">
+
+
+
+<fieldset> 
+<legend>
+	Subscription Confirmation:
+ </legend>
+
+<!-- tmpl_if list_settings.enable_closed_loop_opt_in --> 
+	<p class="alert">Closed-Loop Opt-In is enabled.</p>
+<!-- tmpl_else --> 
+	<p class="alert">Closed-Loop Opt-In  is disabled.</p>
+<!-- /tmpl_if --> 
+
+
+<p>
+ <textarea name="html_confirmation_message" id="html_confirmation_message" rows="10" cols="50"><!-- tmpl_var list_settings.html_confirmation_message --></textarea> 
+</p>
+
+</fieldset> 
+
+<fieldset> 
+	
+ <legend>Subscription Successful:
+ </legend>
+ 
+<p>
+ <textarea name="html_subscribed_message" id="html_subscribed_message" rows="10" cols="50"><!-- tmpl_var list_settings.html_subscribed_message --></textarea>
+</p>
+</fieldset> 
+
+
+<fieldset> 
+	
+ <legend> Subscription Requests:</legend>
+ 
+<!-- tmpl_if list_settings.enable_subscription_approval_step --> 
+	<p class="alert">Subscription Requests Approving/Denying is enabled.</p>
+<!-- tmpl_else --> 
+	<p class="alert">Subscription Requests Approving/Denying is disabled.</p>
+<!-- /tmpl_if --> 
+<p>
+ <textarea name="html_subscription_request_message" id="html_subscription_request_message" rows="10" cols="50"><!-- tmpl_var list_settings.html_subscription_request_message --></textarea>
+</p>
+</fieldset> 
+
+	
+<fieldset>
+	<legend>Unsubscription Successful:</legend>
+<p>
+ <textarea name="html_unsubscribed_message" id="html_unsubscribed_message" rows="10" cols="50"><!-- tmpl_var list_settings.html_unsubscribed_message --></textarea>
+</p>
+</fieldset> 
+
+
+<input type="hidden" name="process" value="1" />
+<input type="hidden" name="f"       value="edit_html_type" />
+<div class="buttonfloat">
+ <input type="reset"  class="cautionary" value="Clear All Changes" />
+ <input type="submit" class="processing" value="Save All Changes" />
+</div>
+<div class="floatclear"></div>
+
+
+
+</form>
+
+<fieldset>
+	<legend>
+	Available Template Tags
+   </legend>    
+   
+   <div id="template_tags">
+<table class="tagchart">
+ <tr align="center">
+  <td>
+   <strong>
+    This Tag
+   </strong>
+  </td>
+  <td>
+   <strong>
+    Value
+   </strong>
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   <code>&lt;!-- tmpl_var chrome --&gt;</code>
+  </td>
+  <td>
+	This variable is set to, B<1>, if the message is shown in <!-- tmpl_var PROGRAM_NAME -->'s own layout, 
+	and set to, B<0> if the message is instead shown alone in a modal window. 
+  </td>
+ </tr>
+
+ <tr>
+  <td>
+   <code>&lt;!-- tmpl_var  subscriber.email --&gt;</code>
+  </td>
+  <td>
+   The email address of the subscriber.
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <code>&lt;!-- tmpl_var  list_settings.list_name --&gt;</code>
+  </td>
+  <td>
+   The name of your list.
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <code>&lt;!-- tmpl_var  list_settings.info --&gt;</code>
+  </td>
+  <td>
+   The description of your list.
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <code>&lt;!-- tmpl_var  list_settings.privacy_policy --&gt;</code>
+  </td>
+  <td>
+   The privacy policy of your list.
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <code>&lt;!-- tmpl_var  list_settings.list_owner_email --&gt;</code>
+  </td>
+  <td>
+   The list owner's email address.
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <code>&lt;!-- tmpl_var  list_settings.admin_email --&gt;</code>
+  </td>
+  <td>
+   The list administrator's email address.
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <code>&lt;!-- tmpl_var  PROGRAM_URL --&gt;</code>
+  </td>
+  <td>
+   The URL of the program 
+   (<a href="<!-- tmpl_var PROGRAM_URL -->" target="_blank"><!-- tmpl_var PROGRAM_URL --></a>).
+  </td>
+ </tr>
+</table>
+
+</div> 
+
+</fieldset> 
+
+
+ 
+
+<!-- end edit_html_type_screen.tmpl -->
+ 

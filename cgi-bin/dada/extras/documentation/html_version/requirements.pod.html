@@ -1,0 +1,140 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Requirements to Run Dada Mail</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#REQUIREMENTS">REQUIREMENTS</a>
+    <ul>
+      <li><a href="#Environment">Environment</a></li>
+      <li><a href="#Supported-Operating-Systems">Supported Operating Systems</a></li>
+      <li><a href="#Perl-5.8.1">Perl 5.8.1</a></li>
+      <li><a href="#Mail-Transport-Agent">Mail Transport Agent</a></li>
+      <li><a href="#Backend-Options">Backend Options</a></li>
+      <li><a href="#SQL-Backend">SQL Backend</a></li>
+      <li><a href="#Configuration">Configuration</a></li>
+      <li><a href="#Guide-to-Hosting-Companies">Guide to Hosting Companies</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="REQUIREMENTS">REQUIREMENTS</h1>
+
+<p>Requirements needed to run Dada Mail</p>
+
+<p>Dada Mail is designed to be fairly flexible in the type of environment you run it in, so long as that environment is Unix/Linux-like, you have access to Perl v5.8.1 or later and your web server can execute CGI scripts.</p>
+
+<h2 id="Environment">Environment</h2>
+
+<p>For the most part, Dada Mail is a web application; you interact with it via a web browser and it lives on top of a web server. Dada Mail is a simple CGI app for the most part, it does not currently support <code>mod_perl</code> or even <code>Fast CGI</code>, so those are not prerequisites.</p>
+
+<p>Dada Mail is not a desktop application.</p>
+
+<p>When we talk about what operating system, version of Perl, etc that&#39;s needed for Dada Mail to run - we&#39;re talking about what&#39;s needed on the <i>server</i> end. All you need to use Dada Mail is a modern web browser (we suggest Mozilla Firefox) and because of this, any operating system that can run a modern web browser can be used.</p>
+
+<h2 id="Supported-Operating-Systems">Supported Operating Systems</h2>
+
+<p>Linux, Free BSD and Mac OS X should all work well.</p>
+
+<p>Solaris should also work well, but there are some issue with Sun&#39;s file locking system and Dada Mail. There may be workarounds.</p>
+
+<p>Dada Mail isn&#39;t ever tested on a Windows Server or even Apache running on top of Windows.</p>
+
+<p>Fair warning.</p>
+
+<p>One major stumbling block is Perl for Windows lack of support for the <code>fork()</code> built-in, but this support has gotten better in time. We still don&#39;t test Dada Mail on Windows, though.</p>
+
+<p>You&#39;ll also want to use the SQL backend if you ever attempt to run Dada Mail on a Windows-based server</p>
+
+<h2 id="Perl-5.8.1">Perl 5.8.1</h2>
+
+<p>Since Dada Mail is a CGI app, you&#39;ll need support for Perl CGI scripts within your web server environment.</p>
+
+<p>Dada Mail is not a PHP script, so the version of PHP that you have available will not make much of a difference.</p>
+
+<p>Perl v5.8.1 is the lowest version of Perl that Dada Mail requires to run, and corresponds to two things: the least version of Perl that has good-enough UTF-8 support, as well as the lowest common denominator when it comes to the vendor-supplied version of Perl.</p>
+
+<p>Saying that, v5.8.1 is freakin&#39; old - released on September of 2003, and we don&#39;t suggest using it if a much more recent copy of Perl is available to you, either something you&#39;ve installed yourself, or another version of Perl available in your hosting environment.</p>
+
+<p>For example, cPanel-powered hosting environments, which run a good majority of shared hosting accounts usually have vendor supplied copy of Perl of v5.8.1, v5.8.8 or v5.10. All these will work with Dada Mail, but they may also have a copy of v5.14 of Perl available at the following path:</p>
+
+<p><a href="#usr-local-cpanel-3rdparty-perl-514-bin-perl">&quot;usr/local/cpanel/3rdparty/perl/514/bin/perl&quot;</a></p>
+
+<p>See:</p>
+
+<p><a href="https://documentation.cpanel.net/display/SDK/_PerlEnvironments">https://documentation.cpanel.net/display/SDK/_PerlEnvironments</a></p>
+
+<p>For more information.</p>
+
+<p>To utilize this version of Perl, you&#39;ll need to change the shebang line (first line of the scripts, bundled with Dada Mail) to this path, rather than what Dada Mail ships with (<code>/usr/bin/perl</code>)</p>
+
+<h2 id="Mail-Transport-Agent">Mail Transport Agent</h2>
+
+<p>Dada Mail can pass messages to send to a sendmail-like command that applications like sendmail, qmail, postfix, exim, etc come with, or it can pass messages using the SMTP protocol. Amazon SES support is also avaiable. You will need one of these. Dada Mail is not an SMTP server itself.</p>
+
+<h2 id="Backend-Options">Backend Options</h2>
+
+<h2 id="SQL-Backend">SQL Backend</h2>
+
+<p>Dada Mail is tested with MySQL <b>5</b>, PostgreSQL <b>8</b> and SQLite <b>3</b>. We highly suggest using Dada Mail with either MySQL or PostgreSQL.</p>
+
+<p>To utilize these backens, not only will you have to have these databases installed, you will need the Perl driver for these databases:</p>
+
+<ul>
+
+<li><p>MySQL</p>
+
+<p><code>DBD::mysql</code></p>
+
+<p><a href="https://metacpan.org/pod/DBD::mysql">https://metacpan.org/pod/DBD::mysql</a></p>
+
+</li>
+<li><p>PostgreSQL</p>
+
+<p><code>DBD::Pg</code></p>
+
+<p><a href="https://metacpan.org/pod/DBD::Pg">https://metacpan.org/pod/DBD::Pg</a></p>
+
+</li>
+<li><p>SQLite</p>
+
+<p><code>DBD::SQLite</code></p>
+
+<p><a href="https://metacpan.org/pod/DBD::SQLite">https://metacpan.org/pod/DBD::SQLite</a></p>
+
+<p>(only utilize the SQLite backend for testing purposes, and not for production)</p>
+
+</li>
+</ul>
+
+<p>If these modules are not available, you&#39;ll need to install them using the operating system package management system, or using the <code>cpan</code> or <code>cpanm</code> command line tool, which should be installed when Perl is installed, or some hosts (like Cpanel) may have a way to install Perl modules through Cpanel. See:</p>
+
+<p><a href="http://dadamailproject.com/support/documentation-6_8_1/FAQ-general.pod.html#How-do-you-install-CPAN-Perl-Modules">http://dadamailproject.com/support/documentation-6_8_1/FAQ-general.pod.html#How-do-you-install-CPAN-Perl-Modules</a></p>
+
+<h2 id="Configuration">Configuration</h2>
+
+<p>Dada Mail is shipped with an installer. It can also upgrade your Dada Mail.</p>
+
+<h2 id="Guide-to-Hosting-Companies">Guide to Hosting Companies</h2>
+
+<p>This:</p>
+
+<p><a href="http://dadamailproject.com/support/hosting.html">http://dadamailproject.com/support/hosting.html</a></p>
+
+<p>is a very <b>incomplete</b> list of hosting companies that seem to work well with Dada Mail.</p>
+
+
+</body>
+
+</html>
+
+

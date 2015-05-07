@@ -1,0 +1,350 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::MailingList::Archives</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#get_neighbors">get_neighbors</a></li>
+      <li><a href="#check_if_entry_exists">check_if_entry_exists;</a></li>
+      <li><a href="#set_archive_subject">set_archive_subject();</a></li>
+      <li><a href="#set_archive_message">set_archive_message();</a></li>
+      <li><a href="#set_archive_format">set_archive_format</a></li>
+      <li><a href="#get_archive_subject">get_archive_subject</a></li>
+      <li><a href="#get_archive_format">get_archive_format</a></li>
+      <li><a href="#get_archive_message">get_archive_message</a></li>
+      <li><a href="#create_index">create_index</a></li>
+      <li><a href="#newest_entry">newest_entry</a></li>
+      <li><a href="#oldest_entry">oldest_entry</a></li>
+      <li><a href="#create_index_nav">create_index_nav</a></li>
+      <li><a href="#make_nav_table">make_nav_table,</a></li>
+      <li><a href="#make_search_form">make_search_form</a></li>
+      <li><a href="#zap_sig_plaintext">_zap_sig_plaintext</a></li>
+      <li><a href="#zap_sig_html">_zap_sig_html</a></li>
+      <li><a href="#massage">massage</a></li>
+      <li><a href="#make_search_summary">make_search_summary</a></li>
+      <li><a href="#faked_oldstyle_message">_faked_oldstyle_message</a></li>
+      <li><a href="#message_blurb">message_blurb</a></li>
+      <li><a href="#massage_msg_for_resending">massage_msg_for_resending</a></li>
+      <li><a href="#take_off_sigs">_take_off_sigs</a></li>
+      <li><a href="#massaged_msg_for_display">massaged_msg_for_display</a></li>
+      <li><a href="#chomp_off_body">_chomp_off_body</a></li>
+      <li><a href="#add_a_body_if_needed">_add_a_body_if_needed</a></li>
+      <li><a href="#get_body_entity">_get_body_entity</a></li>
+      <li><a href="#bs_raw_msg">_bs_raw_msg</a></li>
+      <li><a href="#W3CDTF">W3CDTF</a></li>
+      <li><a href="#atom_index">atom_index</a></li>
+      <li><a href="#rss_index">rss_index</a></li>
+      <li><a href="#send_pings">send_pings</a></li>
+      <li><a href="#massaged_key">_massaged_key</a></li>
+    </ul>
+  </li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::MailingList::Archives</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module holds the shared methods between the different archive backends</p>
+
+<p>Many of these methods have to do with massaging the message for viewing;</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="get_neighbors">get_neighbors</h2>
+
+<pre><code>        my ($prev, $next) = $archive-&gt;get_neighbors();</code></pre>
+
+<p>this will tell you in the frame of reference of what message you&#39;re on, what the previous and next entry keys are.</p>
+
+<h2 id="check_if_entry_exists">check_if_entry_exists;</h2>
+
+<p>see if an entry exists, returns 1 when its there, 0 if it aint</p>
+
+<h2 id="set_archive_subject">set_archive_subject();</h2>
+
+<p>$archive-&gt;set_archive_subject($subject);</p>
+
+<p>changes the archive&#39;s subject</p>
+
+<h2 id="set_archive_message">set_archive_message();</h2>
+
+<pre><code>        $archive-&gt;set_archive_message($message);</code></pre>
+
+<p>changes the archive&#39;s message (yo)</p>
+
+<h2 id="set_archive_format">set_archive_format</h2>
+
+<pre><code>        $archive -&gt; set_archive_format($format);</code></pre>
+
+<p>changes the archive&#39;s format (yo)</p>
+
+<h2 id="get_archive_subject">get_archive_subject</h2>
+
+<pre><code>        my $format = get_archive_subject($key); </code></pre>
+
+<p>gets the subject of the given $key</p>
+
+<h2 id="get_archive_format">get_archive_format</h2>
+
+<pre><code>        my $format = get_archive_format($key); </code></pre>
+
+<p>gets the format of the given $key</p>
+
+<h2 id="get_archive_message">get_archive_message</h2>
+
+<pre><code>        my $format = get_archive_message($key); </code></pre>
+
+<p>gets the message of the given $key</p>
+
+<h2 id="create_index">create_index</h2>
+
+<pre><code>        my ($begin, $stop) = $archive-&gt;create_index($start);</code></pre>
+
+<p>This &#39;ll tell you what to print on each archive index. something like, &#39;start on the 40th message and end on the 50th&#39;</p>
+
+<h2 id="newest_entry">newest_entry</h2>
+
+<p>returns the the key/id of the most recent archive message</p>
+
+<h2 id="oldest_entry">oldest_entry</h2>
+
+<p>returns the key/of the first archive message</p>
+
+<h2 id="create_index_nav">create_index_nav</h2>
+
+<pre><code>        print $archive-&gt;create_index_nav($stopped_at);</code></pre>
+
+<p>creates a HTML table that looks like this:</p>
+
+<pre><code>            &lt;&lt;Prev                      Next &gt;&gt;</code></pre>
+
+<p>at the bottom of each archive index</p>
+
+<h2 id="make_nav_table">make_nav_table,</h2>
+
+<pre><code>        print $archive -&gt; make_nav_table(-Id =&gt; $id, -List =&gt; $list_info{list}); </code></pre>
+
+<p>this will make a HTML table that has the previous message, the index and the next message like this:</p>
+
+<p>&lt;&lt; My Previous Message |Archive Index| My Next Message</p>
+
+<h2 id="make_search_form">make_search_form</h2>
+
+<pre><code>        print $archive -&gt; make_search_form(); </code></pre>
+
+<p>this prints out the correct HTML form to make for your archives.</p>
+
+<h2 id="zap_sig_plaintext">_zap_sig_plaintext</h2>
+
+<p><i>(Private Method)</i></p>
+
+<pre><code> my $msg = $self-&gt;_zap_sig_plaintext($msg); </code></pre>
+
+<p>Given a string, $msg, returns the message without the opening or signature.</p>
+
+<p>In a PlainText message, the opening is terminated using the (Dada Mail specific):</p>
+
+<p>__</p>
+
+<p>Which is:</p>
+
+<pre><code> [newline][underscore][underscore][space][newline]</code></pre>
+
+<p>The signature is begun with:</p>
+
+<p>--</p>
+
+<p>Which is:</p>
+
+<pre><code> [newline][dash][dash][space][newline]</code></pre>
+
+<h2 id="zap_sig_html">_zap_sig_html</h2>
+
+<p><i>(Private Method)</i></p>
+
+<pre><code> $msg = $self-&gt;_zap_sig_html($msg);</code></pre>
+
+<p>Given a string $msg, returns a string that does not have the information located between the opening and signature comments.</p>
+
+<p>The opening comments look like this:</p>
+
+<pre><code> &lt;!--opening--&gt;
+ &lt;!--/opening--&gt;</code></pre>
+
+<p>The signature comments look like this:</p>
+
+<pre><code> &lt;!--signature--&gt;
+ &lt;!--/signature--&gt; </code></pre>
+
+<p>These are both very Dada Mail-specific.</p>
+
+<h2 id="massage">massage</h2>
+
+<h2 id="make_search_summary">make_search_summary</h2>
+
+<pre><code> my $summaries = $archive-&gt;make_search_summary($keyword, $search_results); </code></pre>
+
+<p>Given a $keyword (string) and $search_results (array ref of archive keys/ids) will return a hashref of each line the keyword appears in.</p>
+
+<h2 id="faked_oldstyle_message">_faked_oldstyle_message</h2>
+
+<p><i>Private Method</i></p>
+
+<pre><code> ($new_message, $new_format) = $self-&gt;_faked_oldstyle_message($raw_msg);</code></pre>
+
+<p><b>background:</b></p>
+
+<p>Before version 2.9, Dada Mail did not save the complete email message, including the headers, in its archive. Beginning with 2.9, if you&#39;re using one of the SQL backends, it will - but for backwards compatability, the old style, message-only sort of method is still used.</p>
+
+<h2 id="message_blurb">message_blurb</h2>
+
+<pre><code> print $archives-&gt;message_blurb(-key  =&gt; $key,
+                                -size =&gt; 256, 
+                               ),  </code></pre>
+
+<p>Given a key/id of an archived message, returns a plaintext snippet of the archived message. -size will change who large the archive blurb is. <b>NOTE:</b> that this is the maximum size. If the message is smaller, the blurb will reflect that.</p>
+
+<h2 id="massage_msg_for_resending">massage_msg_for_resending</h2>
+
+<pre><code> print $archive-&gt;massage_msg_for_resending(-key =&gt; $entry),</code></pre>
+
+<p>given a -key - a key/id of an archived message, will return a copy of that archived message formatted to be resent. Basically, this means that the email message template has been stripped from the saved message.</p>
+
+<h2 id="take_off_sigs">_take_off_sigs</h2>
+
+<pre><code> $entity = $self-&gt;_take_off_sigs($entity); </code></pre>
+
+<p>($entity is a MIME::Entity object)</p>
+
+<p>Returns a copy of the entity without the email message template apply (attempts to, anyways)</p>
+
+<h2 id="massaged_msg_for_display">massaged_msg_for_display</h2>
+
+<pre><code> $message = $self-&gt;massaged_msg_for_display(-key =&gt; $key);</code></pre>
+
+<p>returns a string, given a -key - an id/key of an archived message.</p>
+
+<p>Can have many parameters passed to it:</p>
+
+<ul>
+
+<li><p>-plain_text</p>
+
+<p>will give back a plaintext formatted message.</p>
+
+</li>
+<li><p>-body_only</p>
+
+<p>Will return a message formatted in HTML, but will not be a complete HTML document.</p>
+
+</li>
+</ul>
+
+<h2 id="chomp_off_body">_chomp_off_body</h2>
+
+<p><i>Private Method</i></p>
+
+<pre><code> $body = $self-&gt;_chomp_off_body($body); </code></pre>
+
+<p>Give a string, will return the contents of the string that were found between HTML &lt;body&gt; tags. If no content was found, will return the entire string back, unchanged.</p>
+
+<h2 id="add_a_body_if_needed">_add_a_body_if_needed</h2>
+
+<p><i>Private Method</i></p>
+
+<pre><code> $body = $self-&gt;_add_a_body_if_needed($body)</code></pre>
+
+<p>Given a string, looks if the string is a complete HTML document, and, if it&#39;s not, wraps one around it.</p>
+
+<p>Used for showing archived messages.</p>
+
+<h2 id="get_body_entity">_get_body_entity</h2>
+
+<p><i>Private Methid</i></p>
+
+<pre><code> $entity = $self-&gt;_get_body_entity($entity); </code></pre>
+
+<p>Given an entity, attempts to find the main message - will default to HTML for multipart/alternative messages.</p>
+
+<h2 id="bs_raw_msg">_bs_raw_msg</h2>
+
+<pre><code> $raw_msg = $self-&gt;_bs_raw_msg($subject, $message, $format); </code></pre>
+
+<p>Tries to munge a complete MIME-compliant message, given a Subject, the body of a message and a format (text/plain, text/html)</p>
+
+<h2 id="W3CDTF">W3CDTF</h2>
+
+<pre><code> print $self-&gt;W3CDTF($key); </code></pre>
+
+<p>Given a key/id of an archived message, which is created from the date the message was sent, returns a string in the W3CDTF format.</p>
+
+<p>More information:</p>
+
+<p>http://www.w3.org/TR/NOTE-datetime</p>
+
+<p>This is used for the Atom Feed.</p>
+
+<h2 id="atom_index">atom_index</h2>
+
+<pre><code> print $archive-&gt;atom_index();</code></pre>
+
+<p>returns a string representing the Atom Feed. More on Atom:</p>
+
+<p>http://www.atomenabled.org/</p>
+
+<p>See Also:</p>
+
+<p>http://search.cpan.org/~minter/XML-Atom-SimpleFeed-0.5/lib/XML/Atom/SimpleFeed.pm</p>
+
+<h2 id="rss_index">rss_index</h2>
+
+<pre><code> print $archive-&gt;rss_index();</code></pre>
+
+<p>returns a string representing the Rss Feed. More on Atom:</p>
+
+<h2 id="send_pings">send_pings</h2>
+
+<pre><code> $self-&gt;send_pings();</code></pre>
+
+<p>Sends a notice to updating services, telling them that they should check out the new Syndication Feeds. More information:</p>
+
+<p>http://www.xmlrpc.com/weblogsCom</p>
+
+<h2 id="massaged_key">_massaged_key</h2>
+
+<p><i>Private Method</i></p>
+
+<p>Attempts to cleanse a key given to this object that contains weird things. Usually used to massage the id created from the Message-ID header of a email message.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

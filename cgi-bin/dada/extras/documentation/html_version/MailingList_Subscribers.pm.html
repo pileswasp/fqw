@@ -1,0 +1,1290 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::MailingList::Subscribers</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#Subscription-List-Model">Subscription List Model</a>
+        <ul>
+          <li><a href="#A-subscriber-is-mostly-identified-by-their-email-address">A subscriber is mostly identified by their email address</a></li>
+          <li><a href="#The-Subscription-List-is-made-up-of-Sublists">The Subscription List is made up of Sublists.</a></li>
+          <li><a href="#A-Subscription-List-can-have-Profile-Fields">A Subscription List can have Profile Fields</a></li>
+          <li><a href="#Restrictions-are-enforced-by-Dada-Mail-to-only-allow-correct-information-to-be-saved-in-the-Subscription-List">Restrictions are enforced by Dada Mail to only allow correct information to be saved in the Subscription List</a></li>
+          <li><a href="#The-Subscription-List-has-various-backend-options">The Subscription List has various backend options</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#Public-Methods">Public Methods</a>
+    <ul>
+      <li><a href="#Initializing">Initializing</a></li>
+      <li><a href="#new">new</a></li>
+      <li><a href="#Add-Get-Edit-Move-Copy-Remove-a-Subscriber">Add/Get/Edit/Move/Copy/Remove a Subscriber</a></li>
+      <li><a href="#add_subscriber">add_subscriber</a>
+        <ul>
+          <li><a href="#Diagnostics">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#get_subscriber">get_subscriber</a>
+        <ul>
+          <li><a href="#Diagnostics1">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#edit_subscriber">edit_subscriber</a>
+        <ul>
+          <li><a href="#Diagnostics2">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#move_subscriber">move_subscriber</a>
+        <ul>
+          <li><a href="#Diagnostics3">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#copy_subscriber">copy_subscriber</a>
+        <ul>
+          <li><a href="#Diagnostics4">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#remove_subscriber">remove_subscriber</a>
+        <ul>
+          <li><a href="#Diagnostics5">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#Validating-a-Subscriber">Validating a Subscriber</a></li>
+      <li><a href="#get_list_types">get_list_types</a></li>
+      <li><a href="#check_for_double_email">check_for_double_email</a></li>
+      <li><a href="#subscription_check">subscription_check</a></li>
+      <li><a href="#unsubscription_check">unsubscription_check</a></li>
+      <li><a href="#Add-Get-Edit-Remove-a-Subscription-Field">Add/Get/Edit/Remove a Subscription Field</a></li>
+      <li><a href="#filter_subscribers">filter_subscribers</a></li>
+      <li><a href="#filter_subscribers_w_meta">filter_subscribers_w_meta</a></li>
+      <li><a href="#add_subscriber_field">add_subscriber_field</a>
+        <ul>
+          <li><a href="#Diagnostics6">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#subscriber_fields">subscriber_fields</a>
+        <ul>
+          <li><a href="#Diagnostics7">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#edit_subscriber_field_name">edit_subscriber_field_name</a>
+        <ul>
+          <li><a href="#Diagnostics8">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#remove_subscriber_field">remove_subscriber_field</a>
+        <ul>
+          <li><a href="#Diagnostics9">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#subscriber_field_exists">subscriber_field_exists</a>
+        <ul>
+          <li><a href="#Diagnostics10">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#validate_subscriber_field_name">validate_subscriber_field_name</a>
+        <ul>
+          <li><a href="#Subscriber-Validation-Requirements">Subscriber Validation Requirements</a></li>
+        </ul>
+      </li>
+      <li><a href="#validate_remove_subscriber_field_name">validate_remove_subscriber_field_name</a></li>
+      <li><a href="#get_all_field_attributes">get_all_field_attributes</a></li>
+      <li><a href="#save_field_attributes">_save_field_attributes</a>
+        <ul>
+          <li><a href="#Diagnostics11">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#remove_field_attributes">remove_field_attributes</a>
+        <ul>
+          <li><a href="#Diagnostics12">Diagnostics</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::MailingList::Subscribers - API for the Dada Mailing List Subscribers</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code> # Import
+ use DADA::MailingList::Subscribers; 
+  
+ # Create a new object
+ my $lh = DADA::MailingList::Subscribers-&gt;new({-list =&gt; &#39;mylist&#39;}); 
+ 
+ # Check if this can be a valid subscription: 
+ 
+ my ($status, $errors) = $lh-&gt;subscription_check(
+        {
+                -email =&gt; &#39;user@example.com&#39;, 
+        }
+ );
+ 
+ # How about to unsubscribe: 
+ 
+ my ($status, $errors) = $lh-&gt;unsubscription_check(
+        {
+                -email =&gt; &#39;user@example.com&#39;, 
+        }
+  );
+ 
+ # Add
+ $lh-&gt;add_subscriber(
+        {
+                -email =&gt; &#39;user@example.com&#39;,
+                -type  =&gt; &#39;list&#39;, 
+        }
+ );
+ 
+ # Move
+ $lh-&gt;move_subscriber(
+        {
+                -email =&gt; &#39;user@example.com&#39;,
+                -from  =&gt; &#39;list&#39;, 
+                -to    =&gt; &#39;black_list&#39;, 
+        }
+  );
+ 
+ # Copy
+ $lh-&gt;copy_subscriber(
+        {
+                -email =&gt; &#39;user@example.com&#39;,
+                -from  =&gt; &#39;black_list&#39;, 
+                -to    =&gt; &#39;list&#39;, 
+        }
+  );
+ 
+ # Remove
+ $lh-&gt;remove_subscriber(
+        {
+                -email =&gt; &#39;user@example.com&#39;,
+                -type  =&gt; &#39;list&#39;, 
+        }
+  );</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module represents the API for Dada Mail&#39;s subscriptions lists.</p>
+
+<h2 id="Subscription-List-Model">Subscription List Model</h2>
+
+<p>Dada Mail&#39;s Subscription List system is currently fairly simple:</p>
+
+<h3 id="A-subscriber-is-mostly-identified-by-their-email-address">A subscriber is mostly identified by their email address</h3>
+
+<p>Usually, when we talk of a, &quot;Subscriber&quot;, we&#39;re talking about a email address that has been included in a Dada Mail Subscription List.</p>
+
+<h3 id="The-Subscription-List-is-made-up-of-Sublists">The Subscription List is made up of Sublists.</h3>
+
+<p>A sublist is a list of subscribers. Each sublist is completely separated from each other sublist.</p>
+
+<p>Each sublist is known because of its type.</p>
+
+<p>The types of sublists are as follows:</p>
+
+<ul>
+
+<li><p>list</p>
+
+<p>This is your main subscription list and is the most important type of sublist. It holds a Mailing List&#39;s <b>subscribers</b>. When a mailing list message is sent out, this is the list whose addresses are used.</p>
+
+</li>
+<li><p>black_list</p>
+
+<p>This is the sublist of addresses that are not allowed to join the sublist, <b>list</b></p>
+
+<p>The addresses in this sublist do not have to be fully qualified email addresses, but can be simple strings, which are then used to match on other addresses, for verification.</p>
+
+</li>
+<li><p>white_list</p>
+
+<p>This is the sublist of addresses that are allowed to join the sublist, <b>list</b></p>
+
+<p>The addresses in this sublist do not have to be fully qualified email addresses, but can be simple strings, which are then used to match on other addresses, for verification.</p>
+
+</li>
+<li><p>authorized_senders</p>
+
+<p>This is the sublist of addresses that can be allowed to post to a mailing list, from an email client, via the <b>Bridge</b> plugin, if this feature has been enabled.</p>
+
+</li>
+<li><p>moderators</p>
+
+<p>This is the sublist of addresses that can be sent a moderation message, for discussion lists.</p>
+
+</li>
+<li><p>sub_confirm_list</p>
+
+<p>This is the sublist that keeps subscription information on potential subscribers, when they&#39;ve asked to join a list, but have not yet been verified via an email confirmation to subscribe.</p>
+
+</li>
+<li><p>unsub_confirm_list</p>
+
+<p>This is the sublist that keeps unsubscription information on potential unsubscribers, when they&#39;ve asked to leave a list, but have not yet been verified via an email confirmation to unsubscribe.</p>
+
+</li>
+<li><p>invitelist</p>
+
+<p>This is a sublist of temporary subscribers, who&#39;ve been invited to join a mailing list. It&#39;s only used internally and is removed shortly after sending out a list invitation has begun.</p>
+
+</li>
+</ul>
+
+<h3 id="A-Subscription-List-can-have-Profile-Fields">A Subscription List can have Profile Fields</h3>
+
+<p>The Profile Fields are information that&#39;s separate than the email address of a subscriber. Their values are arbitrary and can be set to most anything you&#39;d like.</p>
+
+<p>Internally, the Profile Fields are mapped almost exactly to SQL columns - adding a subscriber field will add a column in an SQL table. Removing a field will remove a column.</p>
+
+<h3 id="Restrictions-are-enforced-by-Dada-Mail-to-only-allow-correct-information-to-be-saved-in-the-Subscription-List">Restrictions are enforced by Dada Mail to only allow correct information to be saved in the Subscription List</h3>
+
+<p>The most obvious enforcement is that the subscriber has to have a valid email address.</p>
+
+<p>Another enforcement is that a subscriber cannot be subscribed to a sublist twice.</p>
+
+<p>A subscriber can be on more than one sublist at the same time.</p>
+
+<p>Some sublists are used to enforce subscription on other sublists. For example, a subscriber in the <b>black_list</b> sublist will not be allowed to joing the, <b>list</b> sublist.</p>
+
+<p>These enforcements are currently lazy - You <i>can</i> easily break these rules, but you don&#39;t want to, and checking the validation of a subscriber is easy. The easiest way to break these rules is to work with the backend that the subscribers are saved in directly.</p>
+
+<h3 id="The-Subscription-List-has-various-backend-options">The Subscription List has various backend options</h3>
+
+<p>The Subscription List can either be saved as a series of PlainText files (one file for each type of sublist), or as an SQL table.</p>
+
+<p>Each type of backend has different features that are available. The most notable feature is that the SQL backend supports arbitrary Profile Fields and the PlainText backend does not.</p>
+
+<p>Currently, the following SQL flavors are supported:</p>
+
+<ul>
+
+<li><p>MySQL</p>
+
+</li>
+<li><p>PostgreSQL</p>
+
+</li>
+<li><p>SQLite</p>
+
+</li>
+</ul>
+
+<p>Except for being able to change the name of a Subscriber Field in SQLite, every SQL flavor has the same feature set.</p>
+
+<h1 id="Public-Methods">Public Methods</h1>
+
+<p>Below are the list of <i>Public</i> methods that we recommend using when manipulating a Dada Mail Subscription List:</p>
+
+<p>Every method has its parameters, if required (and when it&#39;s stated that they&#39;re required, <i>they are</i>), passed as a hashref.</p>
+
+<h2 id="Initializing">Initializing</h2>
+
+<h2 id="new">new</h2>
+
+<pre><code> my $lh = DADA::MailingList::Subscribers-&gt;new({-list =&gt; &#39;mylist&#39;}); </code></pre>
+
+<p><code>new</code> requires you to pass a <b>listshortname</b> in, <code>-list</code>. If you don&#39;t, your script will die.</p>
+
+<p>A <code>DADA::MailingList::Subscribers</code> object will be returned.</p>
+
+<h2 id="Add-Get-Edit-Move-Copy-Remove-a-Subscriber">Add/Get/Edit/Move/Copy/Remove a Subscriber</h2>
+
+<h2 id="add_subscriber">add_subscriber</h2>
+
+<pre><code> $lh-&gt;add_subscriber(
+        {
+                -email  =&gt; &#39;user@example.com&#39;, 
+                -type   =&gt; &#39;list&#39;,
+                -fields =&gt; {
+                                        # ...
+                                   },
+        }
+);</code></pre>
+
+<p><code>add_subscriber</code> adds a subscriber to a sublist.</p>
+
+<p><code>-email</code> is required and should hold a valid email address in form of: <code>user@example.com</code></p>
+
+<p><code>-type</code> holds the sublist you want to subscribe the address to, if no sublist is passed, <b>list</b> is used as a default.</p>
+
+<p><code>-fields</code> holds the subscription fields you&#39;d like associated with the subscription, passed as a hashref.</p>
+
+<p>For example, if you have two fields, <b>first_name</b> and, <b>last_name</b>, you would pass the Profile Fields like this:</p>
+
+<pre><code> $lh-&gt;add_subscriber(
+        {
+                -email  =&gt; &#39;user@example.com&#39;, 
+                -type   =&gt; &#39;list&#39;,
+                -fields =&gt; {
+                                        first_name =&gt; &quot;John&quot;, 
+                                        last_name  =&gt; &quot;Doe&quot;, 
+                                   },
+        }
+ );</code></pre>
+
+<p>Passing field values is optional.</p>
+
+<p>Fields that are not actual fields that are being passed will be ignored.</p>
+
+<p><code>-dupe_check</code> can also be optionally passed. It should contain a hashref with other options. For example:</p>
+
+<pre><code>    $lh-&gt;add_subscriber(
+        {
+                -email  =&gt; &#39;user@example.com&#39;, 
+                -type   =&gt; &#39;list&#39;,
+                -fields =&gt; {
+                                        first_name =&gt; &quot;John&quot;, 
+                                        last_name  =&gt; &quot;Doe&quot;, 
+                                   },
+        }, 
+        -dupe_check    =&gt; {
+                -enable  =&gt; 1,
+                -on_dupe =&gt; &#39;ignore_add&#39;,
+        },
+        
+    );</code></pre>
+
+<p><code>-enable</code> can either be set to, <code>1</code> or, <code>0</code>. <code>1</code> enables the check for dupes, right before subscribing an address. <code>0</code> ignores the dupe check, so don&#39;t set it to <code>0</code></p>
+
+<p><code>-on_dupe</code> may be set to, <code>ignore_add</code> to simply ignore subscribing the address. A warning will be logged in the error log. You may also set this to, <code>error</code>, which will cause the program to die.</p>
+
+<p>Setting this to anything else will cause the program to die. Forgetting to set it will have it default to, <code>ignore_add</code>.</p>
+
+<p>If the Duplicate subscriber check fails, (and <code>-on_dupe</code> is set to, <code>ignore_add</code> this method will return, <code>0</code> and not a DADA::MailingList::Subscriber object.</p>
+
+<h3 id="Diagnostics">Diagnostics</h3>
+
+<ul>
+
+<li><p>You must pass an email in the -email parameter!</p>
+
+<p>You forgot to pass an email in the, -email parameter, ie:</p>
+
+<pre><code> # DON&#39;T do this:
+ $lh-&gt;add_subscriber();</code></pre>
+
+</li>
+<li><p>cannot do statement (at add_subscriber)!</p>
+
+<p>Something went wrong in the SQL side of things.</p>
+
+</li>
+</ul>
+
+<p><b>returns</b> a DADA::MailingList::Subscriber object on success, <code>undef</code> or croaks on failure.</p>
+
+<h2 id="get_subscriber">get_subscriber</h2>
+
+<pre><code> my $sub_info = $lh-&gt;get_subscriber(
+                {
+                        -email =&gt; &#39;user@example.com&#39;, 
+                        -type  =&gt; &#39;list&#39;, 
+                }
+        );</code></pre>
+
+<p>Returns the Profile Fields information in the form of a hashref.</p>
+
+<p><code>-email</code> is required and should hold a valid email address in form of: <code>user@example.com</code>. The address should also be subscribed and no check is done if the address you passed isn&#39;t.</p>
+
+<p><code>-type</code> holds the sublist you want to work with. If no sublist is passed, <b>list</b> is used as a default.</p>
+
+<h3 id="Diagnostics1">Diagnostics</h3>
+
+<ul>
+
+<li><p>You must pass an email in the -email parameter!</p>
+
+<p>You forgot to pass an email in the, -email parameter, ie:</p>
+
+<pre><code> # DON&#39;T do this:
+ $lh-&gt;get_subscriber();</code></pre>
+
+</li>
+<li><p>cannot do statement (at get_subscriber)!</p>
+
+<p>Something went wrong in the SQL side of things.</p>
+
+</li>
+</ul>
+
+<h2 id="edit_subscriber">edit_subscriber</h2>
+
+<pre><code> $lh-&gt;edit_subscriber(
+        {
+                -email  =&gt; &#39;user@example.com&#39;, 
+                -type   =&gt; &#39;list&#39;, 
+                -fields =&gt; 
+                        {
+                                # ...
+                        },
+                -method =&gt; &#39;writeover&#39;,
+        }
+ );             </code></pre>
+
+<p>returns <code>1</code> on success.</p>
+
+<p>Internally, this method removes a subscriber and adds the same subscriber again to the same list.</p>
+
+<p><code>-email</code> is required and should hold a valid email address in form of: <code>user@example.com</code></p>
+
+<p><code>-type</code> holds the sublist you want to subscribe the address to, if no sublist is passed, <b>list</b> is used as a default.</p>
+
+<p><code>-fields</code> holds the subscription fields you&#39;d like associated with the subscription, passed as a hashref.</p>
+
+<p>For example, if you have two fields, <b>first_name</b> and, <b>last_name</b>, you would pass the Profile Fields like this:</p>
+
+<pre><code> $lh-&gt;edit_subscriber(
+        {
+                -email  =&gt; &#39;user@example.com&#39;, 
+                -type   =&gt; &#39;list&#39;,
+                -fields =&gt; {
+                                        first_name =&gt; &quot;Jon&quot;, 
+                                        last_name  =&gt; &quot;Doh&quot;, 
+                                   },
+        }
+ );</code></pre>
+
+<p>Passing field values is optional, although you probably would want to, as this is the point of the entire method.</p>
+
+<p>Fields that are not actual fields that are being passed will be ignored.</p>
+
+<p><code>-method</code> holds the type of editing you want to do. Currently, this can be either, <code>update</code>, or, <code>writeover</code>.</p>
+
+<p><code>update</code> will only save the fields you pass - any other fields saved for this subscriber will not be erased.</p>
+
+<p><code>writeover</code> will save only the fields you pass - any other fields will be removed from the subscriber.</p>
+
+<p>If no <code>-method</code> is passed, <b>update</b> is used as a default.</p>
+
+<h3 id="Diagnostics2">Diagnostics</h3>
+
+<p>Internally, the subscriber is first removed, than added, using the <code>add_subscriber</code> and, <code>remove_subscriber</code> methods. Those diagnostics may pop up, if you use this method incorrectly</p>
+
+<ul>
+
+<li><p>The -mode parameter must be set to, &#39;update&#39;, &#39;writeover&#39; or left undefined!</p>
+
+<p>You didn&#39;t set the -mode parameter correctly.</p>
+
+</li>
+</ul>
+
+<h2 id="move_subscriber">move_subscriber</h2>
+
+<pre><code> $lh-&gt;move_subscriber(
+        {
+                -email =&gt; &#39;user@example.com&#39;, 
+                -from  =&gt; &#39;list&#39;, 
+                -to    =&gt; &#39;black_list&#39;,
+        }
+ );</code></pre>
+
+<p><code>-email</code> holds the email address of the subscriber you want to move.</p>
+
+<p><code>-from</code> holds the sublist you&#39;re moving from.</p>
+
+<p><code>-to</code> holds the sublist you&#39;re moving to.</p>
+
+<p>All parameters are required. No other parameters will be honored.</p>
+
+<p>This method will <code>die</code> if the subscriber isn&#39;t actually subscribed to the sublist set in, <code>-from</code> or, <b>is</b> already subscribed in the sublist set in, <code>-to</code>.</p>
+
+<h3 id="Diagnostics3">Diagnostics</h3>
+
+<ul>
+
+<li><p>email passed in, -email is not subscribed to list passed in, &#39;-from&#39;</p>
+
+<p>The subscriber isn&#39;t actually subscribed to the sublist set in, <code>-from</code></p>
+
+</li>
+<li><p>email passed in, -email ( ) is already subscribed to list passed in, &#39;-to&#39;</p>
+
+<p>The Subscriber is already subscribed in the sublist set in, <code>-to</code>.</p>
+
+</li>
+<li><p>list_type passed in, -to is not valid</p>
+
+</li>
+<li><p>list_type passed in, -from is not valid</p>
+
+</li>
+<li><p>email passed in, -email is not valid</p>
+
+</li>
+<li><p>cannot do statement (at move_subscriber)!</p>
+
+<p>Something went wrong in the SQL side of things.</p>
+
+</li>
+</ul>
+
+<h2 id="copy_subscriber">copy_subscriber</h2>
+
+<pre><code> $lh-&gt;copy_subscriber(
+        {
+                -email =&gt; &#39;user@example.com&#39;, 
+                -from  =&gt; &#39;list&#39;, 
+                -to    =&gt; &#39;black_list&#39;,
+        }
+ );</code></pre>
+
+<p><code>-email</code> holds the email address of the subscriber you want to copy.</p>
+
+<p><code>-from</code> holds the sublist you&#39;re copying from.</p>
+
+<p><code>-to</code> holds the sublist you&#39;re copying to.</p>
+
+<p>All parameters are required. No other parameters will be honored.</p>
+
+<p>This method will <code>die</code> if the subscriber isn&#39;t actually subscribed to the sublist set in, <code>-from</code> or, <b>is</b> already subscribed in the sublist set in, <code>-to</code>.</p>
+
+<h3 id="Diagnostics4">Diagnostics</h3>
+
+<ul>
+
+<li><p>email passed in, -email is not subscribed to list passed in, &#39;-from&#39;</p>
+
+<p>The subscriber isn&#39;t actually subscribed to the sublist set in, <code>-from</code></p>
+
+</li>
+<li><p>email passed in, -email ( ) is already subscribed to list passed in, &#39;-to&#39;</p>
+
+<p>The Subscriber is already subscribed in the sublist set in, <code>-to</code>.</p>
+
+</li>
+<li><p>list_type passed in, -to is not valid</p>
+
+</li>
+<li><p>list_type passed in, -from is not valid</p>
+
+</li>
+<li><p>email passed in, -email is not valid</p>
+
+</li>
+<li><p>cannot do statement (at move_subscriber)!</p>
+
+<p>Something went wrong in the SQL side of things.</p>
+
+</li>
+</ul>
+
+<h2 id="remove_subscriber">remove_subscriber</h2>
+
+<pre><code> $lh-&gt;remove_subscriber(
+        {
+                -email =&gt; &#39;user@example.com&#39;, 
+                -type  =&gt; &#39;list&#39;, 
+        }
+ ); </code></pre>
+
+<p><code>remove_subscriber</code> removes a subscriber from a sublist.</p>
+
+<p><code>-email</code> is required and should hold a valid email address in form of: <code>user@example.com</code></p>
+
+<p><code>-type</code> holds the sublist you want to subscribe the address to - you&#39;ll want to always explicitly set the type.</p>
+
+<p>No other parameters are honored.</p>
+
+<h3 id="Diagnostics5">Diagnostics</h3>
+
+<ul>
+
+<li><p>You must pass an email in the -email parameter!</p>
+
+<p>You forgot to pass an email in the, -email parameter, ie:</p>
+
+<pre><code> # DON&#39;T do this:
+ $lh-&gt;remove_subscriber();</code></pre>
+
+</li>
+</ul>
+
+<h2 id="Validating-a-Subscriber">Validating a Subscriber</h2>
+
+<h2 id="get_list_types">get_list_types</h2>
+
+<pre><code> my $list_types = $lh-&gt;get_list_types</code></pre>
+
+<p>Returns a hashref of the allowed sublist types. The keys are the actual sublist types, the value is simply set to, <code>1</code>, for easy lookup tabling.</p>
+
+<p>Takes no parameters.</p>
+
+<p>The current list of allowed sublist types are:</p>
+
+<ul>
+
+<li><p>list</p>
+
+</li>
+<li><p>black_list</p>
+
+</li>
+<li><p>authorized_senders</p>
+
+</li>
+<li><p>moderators</p>
+
+</li>
+<li><p>testers</p>
+
+</li>
+<li><p>white_list</p>
+
+</li>
+<li><p>sub_confirm_list</p>
+
+</li>
+<li><p>unsub_confirm_list</p>
+
+</li>
+<li><p>invitelist</p>
+
+</li>
+</ul>
+
+<h2 id="check_for_double_email">check_for_double_email</h2>
+
+<p><b>Note!</b> The naming, coding and parameter style is somewhat old and crufty and this method is on the chopping block for a re-write</p>
+
+<pre><code> my $is_subscribed = $lh-&gt;check_for_double_email(
+        -Email          =&gt; &#39;user@example.com,
+        -Type           =&gt; &#39;list&#39;,
+        -Match_Type     =&gt; &#39;sublist_centric&#39;,
+        );</code></pre>
+
+<p>Returns <b>1</b> if the email address passed in, <code>-Email</code> is subscribed to the sublist passed in, <code>-Type</code>.</p>
+
+<p><code>-Email</code> should hold a string that <i>usually</i> is an email address, although can be only a part of an email address.</p>
+
+<p><code>-Type</code> should hold a valid sublist name.</p>
+
+<p><code>-Type</code> will default to, <code>list</code> if no <code>-Type</code> is passed.</p>
+
+<p><code>-Status</code></p>
+
+<p><code>-Match_Type</code> controls the behavior of how a email address is looked for and is usualy something you want to override for the, <code>black_list</code> and <code>white_list</code> sublists.</p>
+
+<p>The sublists have different matching behaviors. For example, if, <code>bad</code> is subscribed to the <code>black_list</code> sublist, this will return <code>1</code></p>
+
+<pre><code> my $is_subscribed = $lh-&gt;check_for_double_email(
+        -Email          =&gt; &#39;bad@example.com,
+        -Type           =&gt; &#39;list&#39;,
+        -Match_Type     =&gt; &#39;sublist_centric&#39;,
+        );</code></pre>
+
+<p>Since the black list is not simply a list of addresses that are black listed, it&#39;s a list of patterns that are black listed.</p>
+
+<p><code>-Match_Type</code> can also be set to, <code>exact</code>, in which case, this would return, <code>0</code></p>
+
+<pre><code> my $is_subscribed = $lh-&gt;check_for_double_email(
+        -Email          =&gt; &#39;bad@example.com,
+        -Type           =&gt; &#39;list&#39;,
+        -Match_Type     =&gt; &#39;exact&#39;,
+        );</code></pre>
+
+<p><code>-Match_Type</code> will default to, <code>sublist_centric</code> id no <code>-Math_Type</code> is passed.</p>
+
+<h2 id="subscription_check">subscription_check</h2>
+
+<pre><code>        my ($status, $errors) =  $lh-&gt;subscription_check(
+                {
+                        -email =&gt; &#39;user@example.com&#39;, 
+                        -type  =&gt; &#39;list&#39;
+                        -skip  =&gt; []
+                }
+        ); </code></pre>
+
+<p><code>-email</code> holds the address you&#39;d like to validate. It is required.</p>
+
+<p><code>-type</code> holds the sublist you want to work on. If not passed, <code>list</code> will be used as the default.</p>
+
+<p><code>-skip</code> holds an arrary ref of checks you&#39;d like not to have done. The checks are named the same as the errors.</p>
+
+<p>For example:</p>
+
+<pre><code> my ($status, $errors) = $lh-&gt;subscription_check(
+                                                                {
+                                -email =&gt; &#39;user@example.com&#39;, 
+                                                -skip =&gt; [qw(black_listed closed_list)],
+                                }
+                                                        ); </code></pre>
+
+<p>This method returns an array with two elements.</p>
+
+<p>The first element is the status of the validation. <b>1</b> will be set if the validation was successful, <b>0</b> if there was an error.</p>
+
+<p>The second element is a list of the errors that were found when validating, in the form of a hashref, with its name as the name of the error and the value set to, <b>1</b> if that error was found.</p>
+
+<p>The errors, which are fairly self-explainitory are as follows:</p>
+
+<ul>
+
+<li><p>invalid_email</p>
+
+</li>
+<li><p>subscribed</p>
+
+</li>
+<li><p>closed_list</p>
+
+</li>
+<li><p>invite_only_list</p>
+
+</li>
+<li><p>mx_lookup_failed</p>
+
+</li>
+<li><p>black_listed</p>
+
+</li>
+<li><p>not_white_listed</p>
+
+</li>
+<li><p>over_subscription_quota</p>
+
+</li>
+<li><p>already_sent_sub_confirmation</p>
+
+</li>
+<li><p>settings_possibly_corrupted</p>
+
+</li>
+<li><p>no_list</p>
+
+</li>
+</ul>
+
+<p>Unless you have a special case, always use this method to validate an email subscription.</p>
+
+<h2 id="unsubscription_check">unsubscription_check</h2>
+
+<pre><code> my ($status, $errors) =  $lh-&gt;unsubscription_check(
+                                                                {
+                                                                        -email =&gt; &#39;user@example.com&#39;,
+                                                                        -type  =&gt; &#39;list&#39;, 
+                                                                        -skip  =&gt; [],
+                                                                        
+                                                                }
+                                                   ); </code></pre>
+
+<p>Like the subscription_check method, this method returns a $status and a hashref of $%errors when checking the validity of an unsubscription. The following errors may be returned:</p>
+
+<ul>
+
+<li><p>no_list</p>
+
+</li>
+<li><p>invalid_email</p>
+
+</li>
+<li><p>not_subscribed</p>
+
+</li>
+<li><p>settings_possibly_corrupted</p>
+
+</li>
+<li><p>already_sent_unsub_confirmation</p>
+
+</li>
+</ul>
+
+<p>Again, any of these tests can be skipped using the -skp argument.</p>
+
+<h2 id="Add-Get-Edit-Remove-a-Subscription-Field">Add/Get/Edit/Remove a Subscription Field</h2>
+
+<p>As noted, Profile Fields are only available in the SQL backends.</p>
+
+<p>It should be also noted that future revisions of Dada Mail may see these types of methods in their own object, ie:</p>
+
+<p><code>DADA::MailingList::Subscribers::Fields</code></p>
+
+<p>or, whatever.</p>
+
+<h2 id="filter_subscribers">filter_subscribers</h2>
+
+<pre><code> my (
+        $subscribed, 
+        $not_subscribed, 
+        $black_listed, 
+        $not_white_listed, 
+        $invalid
+        ) = $lh-&gt;filter_subscribers(
+                {
+                        -emails =&gt; [], 
+                        -type   =&gt; &#39;list&#39;,
+                }
+        );</code></pre>
+
+<p>This is a very powerful and complex method. There&#39;s dragons in the code, but the API is pretty simple.</p>
+
+<p>Used to validated a large amount of addresses at one time. Similar to <code>subscripton_check</code> but is meant for more than one address. It&#39;s also meant to be bit faster than looping a list of addresses through <code>subscripton_check</code>.</p>
+
+<p>Accepts two parameters.</p>
+
+<p><code>-email</code> is an array ref of email addresses .</p>
+
+<p><code>-type</code> is the sublist we want to validate undef.</p>
+
+<p>Depending on the type of sublist we&#39;re working on, validation works slightly different.</p>
+
+<p>Returns a 5 element array, each element contains an array ref of email addresses.</p>
+
+<p>This method also sets the precendence of black listed and white listed addresses, since an address can be a member of both sublists.</p>
+
+<p>The precendence is the same as what&#39;s returned:</p>
+
+<ul>
+
+<li><p>black_list</p>
+
+</li>
+<li><p>white_list</p>
+
+</li>
+<li><p>invalid</p>
+
+</li>
+</ul>
+
+<p>In other words, if someone is both black listed and white listed, during validation, it&#39;ll be returned that they&#39;re black listed.</p>
+
+<h2 id="filter_subscribers_w_meta">filter_subscribers_w_meta</h2>
+
+<pre><code> my (
+        $subscribed, 
+        $not_subscribed, 
+        $black_listed, 
+        $not_white_listed, 
+        $invalid
+     ) = $lh-&gt;filter_subscribers_w_meta(
+                {
+                        -emails =&gt; [], 
+                        -type   =&gt; &#39;list&#39;,
+                }
+        );</code></pre>
+
+<p>Similar to <code>filter_subscribers</code>, but allows you to pass the subscriber field information with the email address.</p>
+
+<p>The, <code>-email</code> parameter should hold an arrayref of hashrefs, instead of just an array ref. The hashref itself should have the form of:</p>
+
+<pre><code> {
+        -email =&gt; &#39;user@example.com&#39;,
+        -fields =&gt; { 
+                -field1 =&gt; &#39;blah&#39;, 
+                -field2 =&gt; &#39;blahblah&#39;, 
+        }
+ }</code></pre>
+
+<p>No validation is done on the Profile Fields - they&#39;re simply passed through and returned.</p>
+
+<p>Returns a 5 element array of hashrefs, in the same format as what&#39;s passed.</p>
+
+<h2 id="add_subscriber_field">add_subscriber_field</h2>
+
+<pre><code> $lh-&gt;add_subscriber_field(
+        -field          =&gt; &#39;myfield&#39;, 
+        -fallback_value =&gt; &#39;My Fallback Value&#39;, 
+ ); </code></pre>
+
+<p><code>add_subscriber_field</code> adds a new subscriber field.</p>
+
+<p><code>-field</code> Should hold the name of the subscriber field you&#39;d like to add. It is required.</p>
+
+<p><code>-fallback_value</code> holds what&#39;s known as the, <b>fallback value</b>, which is a value used in some instances of Dada Mail, if no value is saved in this field for a particular subscriber. It is optional.</p>
+
+<h3 id="Diagnostics6">Diagnostics</h3>
+
+<ul>
+
+<li><p>You must pass a value in the -field parameter!</p>
+
+<p>You forget to name your new field.</p>
+
+</li>
+<li><p>Something&#39;s wrong with the field name you&#39;re trying to pass (yourfieldname). Validate the field name before attempting to add the field with, &#39;validate_subscriber_field_name&#39; You forgot to validate the field name you passed in, <code>-field</code>.</p>
+
+<p>This will only be a warning and won&#39;t be fatal.</p>
+
+<p>This error should actually be followed by more warnings, looking like this:</p>
+
+<p><code>Field Error:</code></p>
+
+<p>Which will tell you exactly which test you failed.</p>
+
+</li>
+<li><p>cannot do statement (at add_subscriber_field)!</p>
+
+<p>Something went wrong in the SQL side of things.</p>
+
+</li>
+</ul>
+
+<h2 id="subscriber_fields">subscriber_fields</h2>
+
+<pre><code> my $fields = $lh-&gt;subscriber_fields;
+ 
+ # or: 
+ 
+ for(@{$lh-&gt;subscriber_fields}){
+  # ... 
+ }</code></pre>
+
+<p>Returns the Profile Fields in the Subscription List, in the form of an array ref.</p>
+
+<p>Takes no arguments... usually.</p>
+
+<p>Internally (and privately), it does accept the, <code>-dotted</code> parameter. This will prepend, &#39;subscriber.&#39; to every field name.</p>
+
+<h3 id="Diagnostics7">Diagnostics</h3>
+
+<p>None that I can think of.</p>
+
+<h2 id="edit_subscriber_field_name">edit_subscriber_field_name</h2>
+
+<pre><code> $lh-&gt;edit_subscriber_field_name(
+        { 
+                -old_name =&gt; &#39;old&#39;, 
+                -new_name =&gt; &#39;new&#39;, 
+                
+        }
+ ); </code></pre>
+
+<p>Changes the name of a Subscriber Field.</p>
+
+<p>Returns 1 on success.</p>
+
+<p><code>-old_name</code> holds the name of the field you want to rename.</p>
+
+<p><code>-new_name</code> holds what you&#39;d like to rename the field in <code>-old_name</code> to.</p>
+
+<p>Both parameters are required.</p>
+
+<h3 id="Diagnostics8">Diagnostics</h3>
+
+<ul>
+
+<li><p>You MUST supply the old field name in the -old_name parameter!</p>
+
+<p>You forgot to pass the old field name.</p>
+
+</li>
+<li><p>You MUST supply the new field name in the -new_name parameter!</p>
+
+<p>You forgot to pass the new field name.</p>
+
+</li>
+</ul>
+
+<h2 id="remove_subscriber_field">remove_subscriber_field</h2>
+
+<pre><code> $lh-&gt;remove_subscriber_field(
+        {
+                -field =&gt; &#39;myfield&#39;, 
+        },
+ ); </code></pre>
+
+<p>Removes the field specified in, <code>-field</code>. <code>-field</code> is required.</p>
+
+<p>Returns <code>1</code> upon success.</p>
+
+<h3 id="Diagnostics9">Diagnostics</h3>
+
+<ul>
+
+<li><p>You MUST pass a field name in, -field!</p>
+
+<p>You forgot to set, <code>-field</code></p>
+
+</li>
+<li><p>cannot do statement! (at: remove_subscriber_field)</p>
+
+<p>Something went wrong on the SQL side of things.</p>
+
+</li>
+</ul>
+
+<h2 id="subscriber_field_exists">subscriber_field_exists</h2>
+
+<pre><code> my $exists = $lh-&gt;subscriber_field_exists(
+        {
+                -field =&gt; &#39;myfield&#39;, 
+        }
+ ); </code></pre>
+
+<p>Checks the existance of a subscriber field name.</p>
+
+<h3 id="Diagnostics10">Diagnostics</h3>
+
+<ul>
+
+<li><p>You MUST pass a field name in, -field!</p>
+
+<p>You forgot to set, <code>-field</code></p>
+
+</li>
+<li><p>cannot do statement! (at: remove_subscriber_field)</p>
+
+<p>Something went wrong on the SQL side of things.</p>
+
+</li>
+</ul>
+
+<h2 id="validate_subscriber_field_name">validate_subscriber_field_name</h2>
+
+<pre><code> my ($status, $errors) = $lh-&gt;validate_subscriber_field_name(
+                                                        {
+                                                                -field =&gt; $field,
+                                                                -skip  =&gt; [],
+                                                        }
+                                                ); </code></pre>
+
+<p>Used to validate a subscriber field name and meant to be used before a subscriber field is added.</p>
+
+<p>Returns a two element array,</p>
+
+<p>The first element is either <code>1</code> or <code>0</code> and is the status of the validation. A status of, <b>1</b> means the validation was successful; <b>0</b> means the validation had problems.</p>
+
+<p>The second element is a list of the errors that were found when validating, in the form of a hashref, with the name of the error set as the key and the value set to, <b>1</b> if this error was found.</p>
+
+<p><code>-field</code> is required and should be the name of the field you&#39;re attempting to validate.</p>
+
+<p><code>-skip</code> is an optional parameter and is used to list the errors you&#39;re not so interested in. It should be set to an array ref.</p>
+
+<h3 id="Subscriber-Validation-Requirements">Subscriber Validation Requirements</h3>
+
+<p>Profile Fields are validated mostly to make sure they&#39;re also valid SQL column names for all the SQL backends that are supported and also that the fields are not already used for internal SQL fields used by the program for other purposes. Validation is also done sparingly for reserved words.</p>
+
+<p>The entire list of errors that can be reported back are as follows:</p>
+
+<ul>
+
+<li><p>field_blank</p>
+
+</li>
+<li><p>field_name_too_long</p>
+
+<p>length of 64</p>
+
+</li>
+<li><p>slashes_in_field_name</p>
+
+<p><code>/</code> or, <code>\</code></p>
+
+</li>
+<li><p>spaces</p>
+
+</li>
+<li><p>weird_characters</p>
+
+<p>Basically anything that&#39;s not alpha/numeric</p>
+
+</li>
+<li><p>quotes</p>
+
+<p><code>&#39;</code> and, <code>&quot;</code></p>
+
+</li>
+<li><p>field_exists</p>
+
+</li>
+<li><p>field_is_special_field</p>
+
+<p>The field name is one of the following:</p>
+
+<ul>
+
+<li><p>email_id</p>
+
+</li>
+<li><p>email</p>
+
+</li>
+<li><p>list</p>
+
+</li>
+<li><p>list_type</p>
+
+</li>
+<li><p>list_status</p>
+
+</li>
+<li><p>email_name</p>
+
+</li>
+<li><p>email_domain</p>
+
+</li>
+</ul>
+
+</li>
+</ul>
+
+<h2 id="validate_remove_subscriber_field_name">validate_remove_subscriber_field_name</h2>
+
+<pre><code> my ($status, $errors) = $lh-&gt;validate_remove_subscriber_field_name(
+                                                        { 
+                                                                -field      =&gt; $field,
+                                                                -skip       =&gt; [],
+                                                                -die_for_me =&gt; 0, 
+                                                        }
+                                                ); 
+  </code></pre>
+
+<p>Similar to, <code>validate_subscriber_field_name</code> is used to validate a subscriber field name and is meant to be used before a subscriber field is <i>removed</i>.</p>
+
+<p>Returns a two element array,</p>
+
+<p>The first element is either <code>1</code> or <code>0</code> and is the status of the validation. A status of, <b>1</b> means the validation was successful; <b>0</b> means the validation had problems.</p>
+
+<p>The second element is a list of the errors that were found when validating, in the form of a hashref, with the name of the error set as the key and the value set to, <b>1</b> if this error was found.</p>
+
+<p><code>-field</code> is required and should be the name of the field you&#39;re attempting to validate.</p>
+
+<p><code>-skip</code> is an optional parameter and is used to list the errors you&#39;re not so interested in. It should be set to an array ref.</p>
+
+<p><code>-die_for_me</code> is another optional parameter. If set to, <code>1</code>, an error found in validation will prove fatal.</p>
+
+<p>The entire list of errors that can be reported back are as follows:</p>
+
+<ul>
+
+<li><p>field_is_special_field</p>
+
+<p>The field name is one of the following:</p>
+
+<ul>
+
+<li><p>email_id</p>
+
+</li>
+<li><p>email</p>
+
+</li>
+<li><p>list</p>
+
+</li>
+<li><p>list_type</p>
+
+</li>
+<li><p>list_status</p>
+
+</li>
+<li><p>email_name</p>
+
+</li>
+<li><p>email_domain</p>
+
+</li>
+</ul>
+
+</li>
+<li><p>field_exists</p>
+
+</li>
+<li><p>number_of_fields_limit_reached</p>
+
+</li>
+</ul>
+
+<h2 id="get_all_field_attributes">get_all_field_attributes</h2>
+
+<pre><code> my $field_values = $lh-&gt;get_all_field_attributes;</code></pre>
+
+<p>Returns the name of every subscriber field and its fallback value in the form of a hashref.</p>
+
+<p>The fallback values are actually saved in the List Settings.</p>
+
+<p>Take no arguments.</p>
+
+<h2 id="save_field_attributes">_save_field_attributes</h2>
+
+<pre><code> $lh-&gt;_save_field_attributes(
+                {
+                        -field          =&gt; $field, 
+                        -fallback_value =&gt; $fallback_field_value, 
+                        -fallback_value =&gt; $fallback_value, 
+                }
+ );</code></pre>
+
+<p><b>Currently marked as a private method</b>.</p>
+
+<p>Used to save a new fallback field value for the field set in, <code>-field</code>. <i>usually</i> shouldn&#39;t be used alone, but there is actually no way to edit a fallback field value, without using this method.</p>
+
+<p>If used on an existing field, make sure to remove the fallback field value first, using, <code>_remove_field_attributes</code>, ala:</p>
+
+<pre><code> $lh-&gt;remove_field_attributes({-field =&gt; &#39;myfield&#39;});
+ $lh-&gt;save_field_attributes({-field =&gt; &#39;myfield&#39;}, -fallback_value =&gt; &#39;new_value&#39;);
+ </code></pre>
+
+<p>Is called internally, when creating a new field via, <code>add_subscriber_field</code>, so make sure not to call it twice.</p>
+
+<h3 id="Diagnostics11">Diagnostics</h3>
+
+<ul>
+
+<li><p>You MUST pass a value in the -field parameter!</p>
+
+</li>
+</ul>
+
+<h2 id="remove_field_attributes">remove_field_attributes</h2>
+
+<pre><code> $lh-&gt;remove_field_attributes(
+                {
+                        -field =&gt; &#39;myfield&#39;, 
+                }
+ ); </code></pre>
+
+<p><b>Currently marked as a private method</b>.</p>
+
+<p>Used to remove a fallback field value. Used internally.</p>
+
+<h3 id="Diagnostics12">Diagnostics</h3>
+
+<ul>
+
+<li><p>You MUST pass a value in the -field parameter!</p>
+
+</li>
+</ul>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Justin Simoni http://dadamailproject.com</p>
+
+<h1 id="LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,401 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Mass Mailing FAQ</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Mass-Mailing-FAQ">Mass Mailing FAQ</a>
+    <ul>
+      <li><a href="#General-Advice">General Advice</a></li>
+      <li><a href="#See-Also">See Also:</a></li>
+      <li><a href="#Batch-Settings">Batch Settings</a>
+        <ul>
+          <li><a href="#What-are-Batch-Settings">What are Batch Settings?</a></li>
+        </ul>
+      </li>
+      <li><a href="#Terminology">Terminology</a></li>
+      <li><a href="#Benefits-of-using-Batch-Settings">Benefits of using Batch Settings</a></li>
+      <li><a href="#Why-Slow-Down-a-Mass-Mailing">Why Slow Down a Mass Mailing?</a>
+        <ul>
+          <li><a href="#Hourly-Email-Sending-Limitations">Hourly Email Sending Limitations</a></li>
+          <li><a href="#Some-of-your-subscribers-arent-receiving-your-message">Some of your subscribers aren&#39;t receiving your message</a></li>
+          <li><a href="#You-receive-a-whole-lot-of-bounced-messages">You receive a whole lot of bounced messages</a></li>
+          <li><a href="#Errors-in-the-error-log">Errors in the error log</a></li>
+          <li><a href="#Sending-Errors-Reported">Sending Errors Reported</a></li>
+          <li><a href="#Be-Kind-to-Your-Web-Server">Be Kind to Your Web Server</a></li>
+        </ul>
+      </li>
+      <li><a href="#Auto-Pickup-Options">Auto Pickup Options</a></li>
+      <li><a href="#The-Mailing-Monitor-Plugin">The Mailing Monitor Plugin</a>
+        <ul>
+          <li><a href="#Alternatives-to-the-Mailing-Monitor-Plugin">Alternatives to the Mailing Monitor Plugin</a>
+            <ul>
+              <li><a href="#The-Monitor-Your-Mailings-Screen">The Monitor Your Mailings Screen</a></li>
+              <li><a href="#During-a-Mass-Mailing-is-it-safe-to-navigate-away-from-the-Sending-Monitor-screen">During a Mass Mailing, is it safe to navigate away from the Sending Monitor screen?</a></li>
+              <li><a href="#How-do-you-get-back-to-the-Monitor-Your-Mailings-screen-if-you-navigate-away">How do you get back to the Monitor Your Mailings screen if you navigate away?</a></li>
+              <li><a href="#Setting-MONITOR_MAILOUTS_AFTER_EVERY_EXECUTION-to-1">Setting, $MONITOR_MAILOUTS_AFTER_EVERY_EXECUTION to, 1</a></li>
+              <li><a href="#Bridge">Bridge</a></li>
+              <li><a href="#Mass-Mailings-Auto-Pickup-API">Mass Mailings/Auto Pickup API</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#Multiple-Mass-Mailings-at-the-Same-Time">Multiple Mass Mailings at the Same Time</a></li>
+      <li><a href="#Stale-Mass-Mailings">Stale Mass Mailings</a></li>
+      <li><a href="#Alternatives-to-Rate-Limited-Sending">Alternatives to Rate Limited Sending</a>
+        <ul>
+          <li><a href="#Amazon-SES">Amazon SES</a></li>
+          <li><a href="#WHM">WHM</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Mass-Mailing-FAQ">Mass Mailing FAQ</h1>
+
+<h2 id="General-Advice">General Advice</h2>
+
+<p>For hosting accounts with Dada Mail installed that have sending limits imposed by the hosting company, you&#39;ll want to follow the below advice closely. The majority of the problems people experience with sending out a mass mailing with Dada Mail can be avoided by simply sending messages at a rate slightly lower than the server-imposed limit.</p>
+
+<p>For this example, we&#39;ll state that our own limit is sending out <b>500</b> messages, every <b>hour</b>.</p>
+
+<p>If you have Dada Mail installed on a shared hosting account, you most likely also have a limit on how many email messages you may send out. Generally the only way to find out exactly what you&#39;re limit is, is to contact your host&#39;s support directly. We&#39;ll also be assuming you&#39;re using <b>sendmail</b> to send, we&#39;ll cover other options later in this doc.</p>
+
+<p>In your list control panel, go to, <b>Mail Sending - Mass Mailing Options</b></p>
+
+<ul>
+
+<li><p>Enable Batch Sending</p>
+
+<p>Check the option labeled, <b>Enable Batch Sending</b></p>
+
+</li>
+<li><p>Set your batch settings to send <i>below</i> 500 message/hour. For example, set the two parameters below the, <b>Enable Batch Sending</b> to the following:</p>
+
+<ul>
+
+<li><p>Send: <b>1</b> message(s) per batch</p>
+
+</li>
+<li><p>and then wait: <b>8</b> seconds, before the next batch.</p>
+
+</li>
+</ul>
+
+<p>This will have Dada Mail send a mass mailing below your hourly limit, giving a little room for other messages to be sent by other people/apps.</p>
+
+</li>
+<li><p>Enable: Adjust Sleep Time</p>
+
+</li>
+<li><p>Enable: Auto-Pickup Dropped Mass Mailings</p>
+
+</li>
+</ul>
+
+<p>These are also the default settings for Dada Mail.</p>
+
+<ul>
+
+<li><p>Keep the Monitor Your Mailings screen open</p>
+
+<p>After you&#39;ve submitted a mailing list message, keep that screen open until your message has completed!</p>
+
+<p>Read below on how to set up a cronjob (scheduled task) to monitor your mailing for you, so you don&#39;t have to keep this window open.</p>
+
+</li>
+</ul>
+
+<h2 id="See-Also">See Also:</h2>
+
+<p>The Dada Mail Manual goes over every option in the <b>Mail Sending - Mass Mailing Options</b> screen:</p>
+
+<p><a href="http://dadamailproject.com/pro_dada/mass_mailing_preferences.html">http://dadamailproject.com/pro_dada/mass_mailing_preferences.html</a></p>
+
+<h2 id="Batch-Settings">Batch Settings</h2>
+
+<h3 id="What-are-Batch-Settings">What are Batch Settings?</h3>
+
+<p>Dada Mail sends out a mass mailing by sending one message after another. Without batch settings enabled, The speed of the mass mailing is dependent on basically two things:</p>
+
+<ul>
+
+<li><p>The amount of time it takes to create a message</p>
+
+</li>
+<li><p>The amount of time it takes to send a message</p>
+
+</li>
+</ul>
+
+<p>Message creation varies with the size and complexity of your message, but with a modern server that&#39;s not overloaded, it&#39;s pretty quick - less than a second per message.</p>
+
+<p>Message sending also varies on the load of the mail server (which could be the same as the mail server) and whatever settings the mail server is set up with. This is also where network lag could come in play, if you mail server/service is on a different server than your webserver. But generally, if things are working well, this is also pretty quick - less than a second. Give a tiny bit more time when talking to an outside server.</p>
+
+<p>This means sending out a mass sending to thousands can potentially take little time - minutes, perhaps. This is good if your server can handle it, this is bad if it cannot.</p>
+
+<p>If you&#39;re on a shared hosting account, you&#39;re going to have a set limit on how many messages you&#39;re allowed to send out, regardless of what the potential is, for your server setup. Sending out faster than your limit is not a good thing, as messages received by the mail server, once this limit is reached are usually ignored and trashed, sometimes without any warning.</p>
+
+<p>So given that mass mailing takes little time to actual complete, <b>Batch Sending</b> is used primarily to <i>slow down</i> a mass mailing and <i>space out message sending</i> over a longer period of time. It has basically two parts to it:</p>
+
+<ul>
+
+<li><p>How many messages get sent out at once (how large your batch is)</p>
+
+</li>
+<li><p>How long to wait before mailing another batch of messages</p>
+
+</li>
+</ul>
+
+<p>During a Mass Mailing, Dada Mail will send a specific amount of messages out, wait a specific amount of time and then send another, &quot;batch&quot; of messages.</p>
+
+<p>Batch sending does <b>not</b> work by sending a specific amount of messages during a specific amount of time. Close, but it&#39;s not exactly that.</p>
+
+<p>Batch setting is configured in the list&#39;s control panel: Log into your list and go to: <b>Mail Sending - Mass Mailing Options</b>.</p>
+
+<h2 id="Terminology">Terminology</h2>
+
+<p>We&#39;ll be throwing a few words around that you may not be familiar with, so here&#39;s a list:</p>
+
+<ul>
+
+<li><p>Mass Mailing</p>
+
+<p>Sending a message to your mailing list. Usually, this means you&#39;re entire mailing list or at the very least, a part of it.</p>
+
+<p>This type of mailing is a little different from the other types of mailings Dada Mail does, which include subscription and unsubscription requests, sending archives to individucals, etc. These are known as <b>transaction emails</b></p>
+
+</li>
+</ul>
+
+<h2 id="Benefits-of-using-Batch-Settings">Benefits of using Batch Settings</h2>
+
+<p>One benefit of using the batch settings is that you&#39;ll receive a message in your Dada Mail&#39;s mass mailing log when a batch is completed, with some verbose information on the status of your list mailing.</p>
+
+<p>It sort of looks like this (broken up into a few lines:</p>
+
+<pre><code> [Fri Oct 13 00:44:41 2006]     listshortname   127.0.0.1       Batch Successfully Completed
+ Subject: My Message!, Start Time: Mailing Started: 10/13/2006 00:44:11
+ process_has_stalled: 0 should_be_restarted: 0 first_access: 1160721851
+ percent_done: 0 is_batch_locked: 1 last_access: 1160721881 id: 
+ &lt;20061013004408.77295734@example.com&gt; total_sending_out_num: 1014 type: list   
+ total_sent_out: 4</code></pre>
+
+<p>This log can be accessed in the individual mass mailing&#39;s monitor screen. In your list control panel, go to: <b>Mass Mailing - Monitor Your Mailings</b>. Select the mass mailing that you&#39;d like to view the log for. On that screen, click the button labeled, <b>Open Mass Mailing Log in a New Window</b></p>
+
+<p>This log is deleted, once a mass mailing is finished. To help with debugging mass mailings, you can keep these logs, after the mass mailing is finished, by enabling the setting, <b> Save Mass Mailing Logs </b> in the list control panel under, <b>Mail Sending - Mass Mailing Options</b>.</p>
+
+<p>These logs will be saved in the, <code>.dada_files/.logs</code> directory, and can be viewed using Dada Mails <b>Log Viewer</b> plugin, that comes with Dada Mail.</p>
+
+<h2 id="Why-Slow-Down-a-Mass-Mailing">Why Slow Down a Mass Mailing?</h2>
+
+<p>Consider these <b>extremely</b> important points:</p>
+
+<h3 id="Hourly-Email-Sending-Limitations">Hourly Email Sending Limitations</h3>
+
+<p>Check up with your hosting company:</p>
+
+<p>If you&#39;re on a shared hosting account, <b>you have a limit imposed by the mail server on how many messages you can send out over a period of time</b>.</p>
+
+<p>For inexpensive hosting accounts - ones that cost between $5 - $50 a month, you&#39;re probably limited to <b>500 messages/hour</b>. Please check with your <b>own</b> hosting company and get the exact amount that they say is, &quot;OK&quot;. Set your batch settings a little lower than what the limit is - since you may receive sub/unsub requests, etc.</p>
+
+<p>So, if your hosting account limits you to 500/messages an hour, try setting your batches to something like: <b>1 message, every 8 seconds</b>. In fact, that may be the factory default setting.</p>
+
+<p>A few tell-tale signs your going over you&#39;re sending limit:</p>
+
+<h3 id="Some-of-your-subscribers-arent-receiving-your-message">Some of your subscribers aren&#39;t receiving your message</h3>
+
+<h3 id="You-receive-a-whole-lot-of-bounced-messages">You receive a whole lot of bounced messages</h3>
+
+<p>Like, the last half of your entire list bounce back and you know, <b>know</b> they&#39;ll valid email addresses, with mailboxes attached to them.</p>
+
+<p>Sometimes the bounce will say something like:</p>
+
+<pre><code> user@example.com
+ unrouteable mail domain &quot;example.com&quot;</code></pre>
+
+<h3 id="Errors-in-the-error-log">Errors in the error log</h3>
+
+<p>Sending errors don&#39;t always get logged in Dada Mail&#39;s error log - the mail server just won&#39;t send back an error, as it will happily and silently not send your message out, which is a real head scratcher.</p>
+
+<p>Sometimes errors are logged - here&#39;s tell-tale sign you&#39;ve hit your account&#39;s hourly limit:</p>
+
+<pre><code>    451-SPEED LIMIT: Account has exceeded the max emails per hour allowed</code></pre>
+
+<p>Clear as crystal.</p>
+
+<h3 id="Sending-Errors-Reported">Sending Errors Reported</h3>
+
+<p>Dada Mail does detect sending errors during mass mailing.</p>
+
+<p>If a message to an specific email address does not successfully send out, Dada Mail waits the total time you&#39;ve set for batches to wait, it&#39;ll try two more times, with a similar wait. If after, three times unsuccessfully sending a message out, Dada Mail will stop the entire mass mailing, and restart itself, at exactly the same place it stopped, with this same email address, trying for an additional three times.</p>
+
+<p>If none of these tries is successful, Dada Mail will log the problem address, and move on with the rest of the addresses to send to. Clearly there&#39;s going to be something wrong with sending to this address.</p>
+
+<p>Reports for these sending errors can be viewed in the included Tracker plugin. If there are <i>many</i> sending errors of <i>many</i> addresses, one reason could be that you&#39;re going over your sending limits. The above process of trying three times, and then three more times after a largish break is purposely used to slow down batch sending, so that after your (potentially) hourly limits are reset, the least amount of addresses would have a failed delivery on your side.</p>
+
+<h3 id="Be-Kind-to-Your-Web-Server">Be Kind to Your Web Server</h3>
+
+<p>Sending out a lot of email messages is CPU and memory resource intensive.</p>
+
+<p>If you&#39;re using a shared hosting account, you&#39;re going to run into problems just blazing a few million messages - so don&#39;t. Usually, you&#39;ll have imposed limits on how much <b>CPU Time</b> you&#39;re taking up and also actual server memory. If you go over these limits, you&#39;re likely to get an angry (but calmly angry) email from your hosting account support team, telling you to knock it off.</p>
+
+<p><b>Consider:</b></p>
+
+<p>Let&#39;s say your email message - what you&#39;re sending, is 40k is size. You have 25,000 subscribers (a big list, by some scales). In that total mailing, you&#39;re moving almost a GIG of information out of the server. That&#39;s quite the load. If you try to do this without using batching - meaning, in the course of a few seconds/minutes - first off, unless you have some fat pipes, it&#39;s not going to happen and secondly if you do somehow make it out, that&#39;s a whole load the server has to take on.</p>
+
+<p>Now, 25,000 messages at once will <b>flood your mail server</b>. It&#39;s going to hate you and probably tell you, in its own little way, to stop - it won&#39;t want to process that many messages at once. Sometimes this is by silently dropping the messages you send to it, into the Great Ether of the Intarweb. A big culprit in the, &quot;My messages aren&#39;t being delivered&quot; puzzle. It drops messages, because it&#39;s better to do this than crash.</p>
+
+<p>And also consider that every mailing list message mailing that you do, <b>will have bounces</b> - for whatever reason. Sending a whole lot of messages out, will give you many messages coming in - from different places - basically, you&#39;ll give yourself a Denial of Service attack. Don&#39;t do that.</p>
+
+<p>So have a heart, batch at something that&#39;s realistic. If you&#39;re on a shared server, realistic may mean what you&#39;re hosting companies impose. Follow their restrictions - don&#39;t ever go over. If it&#39;s too strict, tell them - ask them what can be done. Use your right as a consumer. Find a better host that&#39;ll work and tell your current host about it. Hosting companies are nothing if competitive against each other. By again, <b>be realisitic</b>: For a few bucks a month for hosting, you are not going to get the moon and stars - hopefully, you&#39;ll get something usable. If you need more, consider upgrading to a plan that allows more resources at your disposal. If you have a large enough list, you may have a big enough business to require it.</p>
+
+<h2 id="Auto-Pickup-Options">Auto Pickup Options</h2>
+
+<p>Once enabled, this feature will help make sure the process of sending out a mailing will succeed to completion.</p>
+
+<p>You can configure the feature in your List Control Panel, under <b>Mail Sending - Mass Mailing Options</b>.</p>
+
+<p>You have two settings to which to play with:</p>
+
+<ul>
+
+<li><p>Auto-Pickup Dropped Mass Mailings</p>
+
+<p>That turns on the feature. Have that checked.</p>
+
+</li>
+<li><p>Restart Mailings After Each Batch</p>
+
+</li>
+</ul>
+
+<h2 id="The-Mailing-Monitor-Plugin">The Mailing Monitor Plugin</h2>
+
+<p>The <b>Mailing Monitor</b> plugin, which comes with Dada Mail is designed to run on a schedule, and monitor any outgoing mass mailings. If it detects a mass mailing has stopped sending, it will safely restartt the mass mailing at the point it left off.</p>
+
+<p>Setting it up correctly means that you <b>do not have to keep the Monitor Your Mailings</b> screen open - monitoring of your mass mailings will happen in the background.</p>
+
+<p><b>See the Mailing Monitor Plugin Documentation:</b></p>
+
+<p><a href="http://dadamailproject.com/d/mailing_monitor.cgi.html">http://dadamailproject.com/d/mailing_monitor.cgi.html</a></p>
+
+<p>This plugin is designed to be run via cronjob, on a repeating schedule (say, every 5 minutes).</p>
+
+<h3 id="Alternatives-to-the-Mailing-Monitor-Plugin">Alternatives to the Mailing Monitor Plugin</h3>
+
+<p>We highly suggest the Mailing Monitor plugin, but other options are present - you may use any of these options with each other.</p>
+
+<h4 id="The-Monitor-Your-Mailings-Screen">The Monitor Your Mailings Screen</h4>
+
+<p>The <b>Monitor Your Mailings</b> screen will tell you how far along your mass mailing has gone.</p>
+
+<p>In the list control panel, when you send out a message, by pressing <b>Send Mass Mailing</b> button on the, <b>Send a Message</b> screen (and friends), the screen will refresh and you&#39;ll see another screen, stating your mailing is on its way. The screen will refresh again to the <b>Monitor Your Mailing</b> screen.</p>
+
+<p>Keeping this screen open until your mass mailing has finished will make sure your mass mailing goes to completion. If you haven&#39;t set up the cronjob for the Mailing Monitor <b>plugin</b> this is the best way to keep things running smoothly.</p>
+
+<p>The Monitor Your Mailings screen should refresh every few seconds to update the status of your mass mailing. During a refresh, if Dada Mail sees a mailing has been dropped, it will automatically pick up the lost mailing at the exact spot it was dropped.</p>
+
+<p><b>If you are not on the Monitor Your Mailings screen, its Auto-Pickup feature will not work.</b></p>
+
+<h4 id="During-a-Mass-Mailing-is-it-safe-to-navigate-away-from-the-Sending-Monitor-screen">During a Mass Mailing, is it safe to navigate away from the Sending Monitor screen?</h4>
+
+<p>Yes! Absolutely.</p>
+
+<p>The Monitor Your Mailings screen does not control a mass mailing - it only monitors and reports what&#39;s going on. If it finds a mass mailing has dropped, it <i>will</i> initiate the auto-pickup function and restart your mailing.</p>
+
+<p>But! If a mass mailing is dropped, it won&#39;t be restarted, until you go back to this Monitor Your Mailings screen, so it is a good idea to keep it open.</p>
+
+<p>If you do navigate away by mistake, it&#39;s not the end of the world, just navigate back.</p>
+
+<h4 id="How-do-you-get-back-to-the-Monitor-Your-Mailings-screen-if-you-navigate-away">How do you get back to the Monitor Your Mailings screen if you navigate away?</h4>
+
+<p>Log into your list via the list control panel. Under Send a Message, click on, <b>Monitor Your Mailings</b>. This screen will give you a list of the mass mailings currently active. Click on the subject of the mass mailing you&#39;d like to monitor. And, you&#39;re back.</p>
+
+<h4 id="Setting-MONITOR_MAILOUTS_AFTER_EVERY_EXECUTION-to-1">Setting, $MONITOR_MAILOUTS_AFTER_EVERY_EXECUTION to, 1</h4>
+
+<p>Another option, is to set the global config variable, <code>$MONITOR_MAILOUTS_AFTER_EVERY_EXECUTION</code> to, <b>1</b>.</p>
+
+<p>When set to, <b>1</b> after every time Dada Mail is run via the, <code>mail.cgi</code> script, the mailing monitor will be run, exactly like the <code>Mailing Monitor</code> plugin and monitor your mailings. This is somewhat of an imperfect option for you, but could come in handy if you cannot or do not know how to set up a cronjob.</p>
+
+<p>The problem is, you never are guaranteed when Dada Mail is going to be run, so your mailing monitoring will be somewhat lopsided.</p>
+
+<h4 id="Bridge">Bridge</h4>
+
+<p>If you&#39;re using the Bridge plugin, it also has the same functionality as the <b>Mailing Monitor</b> plugin built in.</p>
+
+<h4 id="Mass-Mailings-Auto-Pickup-API">Mass Mailings/Auto Pickup API</h4>
+
+<p>See: <a href="Mail_MailOut.pm.html">Mail_MailOut.pm.html</a></p>
+
+<p>in Dada Mail itself, see the <b>Mailing Monitor</b> plugin noted above, or the <code>sending_monitor()</code> subroutine in the mail.cgi file.</p>
+
+<h2 id="Multiple-Mass-Mailings-at-the-Same-Time">Multiple Mass Mailings at the Same Time</h2>
+
+<p>Multiple Mass Mailings can go on at one time.</p>
+
+<p>By default (conservatively) Dada Mail only allows you to have <b>one</b> mass mailing at one time. You can change this limit in the Dada Mail Installer under, <b>Advanced Configuration (Optional)</b>, <b>Configure Global Mass Mailing Options</b>, <b>Mass Mailings at Once Limit</b>.</p>
+
+<p>You may also change this variable directly in your global config via the variable, <code>$MAILOUT_AT_ONCE_LIMIT</code>.</p>
+
+<p>Be careful with setting this limit higher than the default. If you&#39;re allowed to send 500 messages and hour, and you have your batch settings set to send one message every 8 seconds, that&#39;s approx. 450 messages you&#39;ll be sending each hour. If you&#39;re only allowing one mass mailing to go out at one time, you&#39;ll be sending approx. 450 messages each hour - pretty easy.</p>
+
+<p>There&#39;s a bit of wiggle room for other emails that may get sent out, like subscription and unsubscription notifications.</p>
+
+<p>Any mass mailings that have been submitted to Dada Mail that are over the limit set will be <b>queued</b>. They&#39;ll just wait in line until the number of mass mailings is less than the limit.</p>
+
+<p>One exception to this rule is sending out test mass mailings. Test mass mailings will go through to completion, without having to wait in the queue.</p>
+
+<p>The order at which awaiting mass mailings are sent is <b>usually</b> chronological, first in, first out. If you submit a mass mailing that&#39;s submitted at 10:00am and submit another mass mailing at 11:00am, the mass mailing you submitted at 10:00 am will be sent out first.</p>
+
+<p>There is one way to change this queue and that&#39;s by <b>pausing</b> a mass mailing.</p>
+
+<p>Pausing a mass mailing will basically move that mass mailing to the bottom of the queue and it won&#39;t ever be reloaded to be sent until after its manually unpaused.</p>
+
+<p>If you do unpause a mass mailing, it <b>will</b> jump back in line where it once was. For example, if you have three mass mailings, one that is submitted at 10:00am and one at 11:00am and another at 12:00pm and you decide to pause the 10:00am one, it will <b>stop sending out</b> and the mass mailing submitted at 11:00am will start. The 10:00am mass mailing will be at the bottom of the queue.</p>
+
+<p>If you then unpassed the 10:00am one, it will jump back where it once was, but since the 11:00am mass mailing is going, it won&#39;t restart until either the 11:00 am mass mailing has unexpectantly stopped, or the 11:00am mass mailing has finishe</p>
+
+<h2 id="Stale-Mass-Mailings">Stale Mass Mailings</h2>
+
+<p>Mass Mailings can become <b>stale</b>, meaning, they&#39;ve been inactive in mail sending for a specific period of time and won&#39;t automatically restart. This is to stop mailings that, for whatever reason, aren&#39;t active not become all of a sudden, active and start sending out a message that may be a little bit old in the news department.</p>
+
+<p>By default, mass mailings that haven&#39;t sent anything in a day are considered stale. You may change this time in the Dada Mail Installer under, <b>Advanced Configuration (Optional)</b>, <b>Configure Global Mass Mailing Options</b>, <b>Mass Mailings Stale After</b></p>
+
+<p>You may also change this variable directly in your global config, via in the variable, <code>$MAILOUT_STALE_AFTER</code>, which expresses this time in <b>seconds</b>.</p>
+
+<h2 id="Alternatives-to-Rate-Limited-Sending">Alternatives to Rate Limited Sending</h2>
+
+<p>If you are running Dada Mail on a shared hosting account and find the limits they set less than ideal for what you want to with your own mailing list, you may be able to talk to your support to get your personal limit raised.</p>
+
+<p>If you cannot get them raised, it&#39;s time to start looking for alternatives to sending out your mail.</p>
+
+<h3 id="Amazon-SES">Amazon SES</h3>
+
+<p>One service we highly suggest is to use Amazon SES, which works seamlessly with your already-installed Dada Mail, hosting setup, and is quite inexpensive. More information on SES and Dada Mail:</p>
+
+<p><a href="http://dadamailproject.com/support/documentation-6_8_1/features-amazon_ses_support.pod.html">http://dadamailproject.com/support/documentation-6_8_1/features-amazon_ses_support.pod.html</a></p>
+
+<h3 id="WHM">WHM</h3>
+
+<p>If you&#39;re running a group of hosting accounts powered by <b>WHM</b>, here are the docs on changing the email limit settings for each account:</p>
+
+<p><a href="http://docs.cpanel.net/twiki/bin/view/AllDocumentation/WHMDocs/MailLimitingFeatures">http://docs.cpanel.net/twiki/bin/view/AllDocumentation/WHMDocs/MailLimitingFeatures</a></p>
+
+
+</body>
+
+</html>
+
+

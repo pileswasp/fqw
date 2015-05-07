@@ -1,0 +1,317 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::App::Guts</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#SUBROUTINES">SUBROUTINES</a>
+    <ul>
+      <li><a href="#check_for_valid_email">check_for_valid_email</a></li>
+      <li><a href="#strip">strip</a></li>
+      <li><a href="#pretty">pretty</a></li>
+      <li><a href="#make_pin">make_pin</a></li>
+      <li><a href="#check_email_pin">check_email_pin</a></li>
+      <li><a href="#make_template">make_template</a></li>
+      <li><a href="#delete_list_template">delete_list_template</a></li>
+      <li><a href="#delete_list_info">delete_list_info</a></li>
+      <li><a href="#check_if_list_exists">check_if_list_exists</a></li>
+      <li><a href="#available_lists">available_lists</a></li>
+      <li><a href="#date_this">date_this</a></li>
+      <li><a href="#convert_to_ascii">convert_to_ascii</a></li>
+      <li><a href="#uriescape">uriescape</a></li>
+      <li><a href="#lc_email">lc_email</a></li>
+      <li><a href="#make_safer">make_safer</a></li>
+      <li><a href="#check_list_setup">check_list_setup</a></li>
+      <li><a href="#user_error">user_error</a></li>
+      <li><a href="#make_all_list_files">make_all_list_files</a></li>
+      <li><a href="#message_id">message_id</a></li>
+      <li><a href="#check_setup">check_setup</a></li>
+      <li><a href="#cased">cased</a></li>
+      <li><a href="#xss_filter">xss_filter</a></li>
+      <li><a href="#check_referer">check_referer</a></li>
+    </ul>
+  </li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::App::Guts</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code> use DADA::App::Guts; </code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module holds commonly used subroutines for the variety of other modules in Dada Mail. This module is slowly fading away, in favor of having much of Dada Mail Object Oriented. There are some subroutines that are, in reality, just wrappers around the new, Object Oriented ways of doing things. They are noted here.</p>
+
+<h1 id="SUBROUTINES">SUBROUTINES</h1>
+
+<h2 id="check_for_valid_email">check_for_valid_email</h2>
+
+<pre><code>        $e_test = check_for_valid_email($email_address); </code></pre>
+
+<p>returns 1 if the email is invalid.</p>
+
+<p>But will return 0 if an email is invalid if you specify that addres in the <b>@DADA::Config::EMAIL_EXCEPTIONS</b> array in the Config file. Good for testing.</p>
+
+<h2 id="strip">strip</h2>
+
+<pre><code>        my $str = strip($str);  
+  </code></pre>
+
+<p>a simple subroutine to take off leading and trailing white spaces</p>
+
+<h2 id="pretty">pretty</h2>
+
+<pre><code>        $str = pretty($str); </code></pre>
+
+<p>a simple subroutine to turn underscores to whitespace</p>
+
+<h2 id="make_pin">make_pin</h2>
+
+<pre><code>        $pin = make_pin(-Email =&gt; $email); </code></pre>
+
+<p>Returns a pin number to validate subscriptions</p>
+
+<p>You can change how the pin number is generated a few ways;</p>
+
+<p>There are two variables in the Config.pm file called the $DADA::Config::PIN_WORD and the $DADA::Config::PIN_NUM , they&#39;ll change the outcome of $pin, The algorithym to make a pin number isn&#39;t that sophisticated, I&#39;m not trying to keep a nuclear submarine from launching its missles, although if you create your own $DADA::Config::PIN_NUM and $DADA::Config::PIN_WORD , it&#39;ll be pretty hard to decipher 6230 from justin@example.com</p>
+
+<h2 id="check_email_pin">check_email_pin</h2>
+
+<pre><code>        my $check = check_email_pin(-Email=&gt;$email, -Pin=&gt; $pin);  </code></pre>
+
+<p>checks a given e-mail with the given pin, returns 0 on when the pin is VALID (Weird, yes?), 1 on FAILURE.</p>
+
+<h2 id="make_template">make_template</h2>
+
+<pre><code>        make_template({ 
+                      -List     =&gt; $list, 
+                      -Template =&gt; $template
+                     });</code></pre>
+
+<p>takes where you want the template to be saved, the list that this template belongs to and the actual data to be saved in the template and saved this to a file. Usually, a template file is made when a list is created, using either the default Dada Mail template.</p>
+
+<p>Templates are stored in the $DADA::Config::TEMPLATES directory (which is usually set the same as $DADA::Config::FILES) under the name $listname.template, where $listname is the List&#39;s shortname.</p>
+
+<h2 id="delete_list_template">delete_list_template</h2>
+
+<pre><code>        delete_list_template({ -List =&gt; $list }); </code></pre>
+
+<p>deletes a template file for a list.</p>
+
+<h2 id="delete_list_info">delete_list_info</h2>
+
+<pre><code>        delete_list_info(-List =&gt; $list); </code></pre>
+
+<p>deletes the db file for a list.</p>
+
+<h2 id="check_if_list_exists">check_if_list_exists</h2>
+
+<pre><code>        check_if_list_exists(-List =&gt; $list, ); </code></pre>
+
+<p>checks to see if theres a filename called $list returns 1 for success, 0 for failure.</p>
+
+<h2 id="available_lists">available_lists</h2>
+
+<pre><code>        my @lists = available_lists();</code></pre>
+
+<p>return an array containing the listshortnames of available list.</p>
+
+<p>Can take a few parameters - all are optional:</p>
+
+<ul>
+
+<li><p>-As_Ref</p>
+
+<p>returns a reference to an array, instead of an array</p>
+
+</li>
+<li><p>-In_Order</p>
+
+<p>returns the array in alphabetic order - but <b>NOTE:</b> not in alphabetical order based on the listshortnames, but of the actual list names.</p>
+
+</li>
+<li><p>-Dont_Die</p>
+
+<p>As the name implies, the subroutine won&#39;t kill the program calling it, if there&#39;s a problem opening the directory you&#39;ve set in the Config.pm <b>$FILES</b> variable.</p>
+
+</li>
+</ul>
+
+<p>Using all these parameters at once would look something like this:</p>
+
+<pre><code> my $available_lists = available_lists(
+                                        -As_Ref =&gt; 1, 
+                                        -In_Order =&gt; 1, 
+                                        -Dont_Die =&gt; 1, 
+                                       );</code></pre>
+
+<h2 id="date_this">date_this</h2>
+
+<pre><code>        my $readable_date =     date_this($packed_date)</code></pre>
+
+<p>this takes a packed date, say, the key of an archive entry and transforms it into an html data. the date is packed as</p>
+
+<p>yyyymmdd</p>
+
+<p>where, yyyy is the year in this form: 2000 mm is the month in this form: 01 dd is the day in this for 31</p>
+
+<p>it returns something that looks like this:</p>
+
+<pre><code>        &lt;i&gt;Sent January 1st, 2001&lt;/i&gt;</code></pre>
+
+<h2 id="convert_to_ascii">convert_to_ascii</h2>
+
+<pre><code>        $string = convert_to_ascii($string); </code></pre>
+
+<p>takes a string and dumbly strips out HTML tags,</p>
+
+<h2 id="uriescape">uriescape</h2>
+
+<pre><code>        $string = uriescape($string); 
+ </code></pre>
+
+<p>use to escape strings to be used as url strings.</p>
+
+<h2 id="lc_email">lc_email</h2>
+
+<pre><code>        $email = lc_email($email); </code></pre>
+
+<p>used to lowercase the domain part of the email address the name part of the email address is case sensitive although 99.99% its not thought of as.</p>
+
+<h2 id="make_safer">make_safer</h2>
+
+<pre><code>        $string = make_safer($string); </code></pre>
+
+<p>This subroutine is used to make sure strings, such as list names, path to directories, critical stuff like that. This is in effort to make Dada Mail able to run in &#39;Taint&#39; Mode. If you need to run in taint mode, it may need still some tweakin.</p>
+
+<h2 id="check_list_setup">check_list_setup</h2>
+
+<p>check_list_setup() is used when creating and editing the core basic list information, like the list name, list password, list owner&#39;s email address and the list password. to check a new list, you&#39;ll want to do this:</p>
+
+<pre><code> my ($list_errors,$flags) = 
+     check_list_setup(-fields =&gt; {list            =&gt; $list, 
+                                   list_owner_email      =&gt; $list_owner_email, 
+                                    password        =&gt; $password, 
+                                    retype_password =&gt; $retype_password, 
+                                    info            =&gt; $info,
+                                    }); </code></pre>
+
+<p>Its a big boy. What&#39;s happening? this function returns two things, a reference to a hash with any errors it finds, and a scalar who&#39;s value is 1 or above if it finds any errors. here&#39;s a small reference to what $list_errors would return, all values in the hash ref will be one IF they are found to have something wrong in em:</p>
+
+<p>list - no list name was given list_exists - the list exists password - no password given retype_password - the second password was not given password_ne_retype_password - the first password didn&#39;t math the second slashes_in_name - slashes were found in the list name weird_characters - unprintable characters were found in the list name quotes - quotes were found in the list name invalid_list_owner_email - the email address for the list owner is invlaid info - no list info was given.</p>
+
+<p>here&#39;s a better example on how to use this:</p>
+
+<pre><code> my ($list_errors,$flags) = 
+ check_list_setup(-fields =&gt; {list            =&gt; $list, 
+                                list_owner_email      =&gt; $list_owner_email, 
+                                password        =&gt; $password, 
+                                retype_password =&gt; $retype_password, 
+                                info            =&gt; $info,
+                                });
+        if($flags &gt;= 1){
+        print &quot;your list name was never entered!&quot; if $list_errors -&gt; {list} == 1; 
+        }</code></pre>
+
+<p>Now, if you want to check the setup of a list already created (editing a list) just set the -new_list flag to &#39;no&#39;, like this:</p>
+
+<pre><code> my ($list_errors,$flags) = 
+ check_list_setup(-fields =&gt; {list            =&gt; $list, 
+                                list_owner_email      =&gt; $list_owner_email, 
+                                password        =&gt; $password, 
+                                retype_password =&gt; $retype_password, 
+                                info            =&gt; $info,
+                                },
+                    -new_list =&gt; &#39;no&#39;                
+                                );      </code></pre>
+
+<p>This will stop checks on the list name (which is already set) and if the list exists (which, hopefully it does, since we&#39;re editing it)</p>
+
+<h2 id="user_error">user_error</h2>
+
+<p>deals with errors from a CGI interface</p>
+
+<pre><code>        user_error({-list =&gt; &#39;my_list&#39;, 
+                   -error =&gt; &#39;some_error&#39;, 
+                   -email =&gt; &#39;some@email.com&#39;}); </code></pre>
+
+<h2 id="make_all_list_files">make_all_list_files</h2>
+
+<pre><code>        make_all_list_files(-List =&gt; $list); </code></pre>
+
+<p>makes all the list files needed for a Dada Mail list.</p>
+
+<h2 id="message_id">message_id</h2>
+
+<p>returns an id, based on the date.</p>
+
+<h2 id="check_setup">check_setup</h2>
+
+<p>makes sure the following directories exists and can be written into:</p>
+
+<p>$DADA::Config::FILES $DADA::Config::TEMPLATES $DADA::Config::TMP</p>
+
+<p>returns &#39;1&#39; if this is the case, 0 otherwise.</p>
+
+<p>This test is disabled is $OS is set to a windows ( ^Win|^MSWin/i ) variant.</p>
+
+<h2 id="cased">cased</h2>
+
+<p>my $email = cased(&#39;SOME@WHERE.COM&#39;);</p>
+
+<p>cased takes a string and recases the string, depending on what $DADA::Config::EMAIL_CASE is set to.</p>
+
+<p>if the email address is: SOME@WHERE.com,</p>
+
+<p>it will be changed to: some@where.com if $DADA::Config::EMAIL_CASE is set to: &#39;lc_all&#39;</p>
+
+<p>it will be changed to: SOME@where.com if $DADA::Config::EMAIL_CASE is set to: &#39;lc_domain&#39;</p>
+
+<h2 id="xss_filter">xss_filter</h2>
+
+<pre><code> $str = xss_filter($str); </code></pre>
+
+<p>Simple subroutine that strips &#39;&lt;&#39;, &#39;&gt;&#39; and &#39;&quot;&#39;, and replaces them with HTML entities. This is used to stop text that can be interpretted as javascript, etc code from being executed.</p>
+
+<h2 id="check_referer">check_referer</h2>
+
+<pre><code> check_referer($q-&gt;referer());</code></pre>
+
+<p>Checks to see if the referer is the same as what&#39;s set in $DADA::Config::PROGRAM_URL</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni</p>
+
+<p>http://justinsimoni.com</p>
+
+<p>All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

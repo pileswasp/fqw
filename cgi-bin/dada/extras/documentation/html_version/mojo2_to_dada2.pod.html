@@ -1,0 +1,232 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Mojo Mail 2.x to Dada Mail 2.x Guide</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li>
+    <ul>
+      <li><a href="#Upgrading-Dada-Mail-from-Mojo-Mail-2.8.9-and-below">Upgrading Dada Mail from Mojo Mail 2.8.9 and below</a></li>
+      <li><a href="#The-Really-Really-Good-News">The Really Really Good News</a></li>
+      <li><a href="#Differences-In-Terms">Differences In Terms</a></li>
+      <li><a href="#Programs-Scripts-and-Files-Renamed">Programs, Scripts and Files Renamed</a></li>
+      <li><a href="#The-Four-Required-Config.pm-variables">The Four Required Config.pm variables</a></li>
+      <li><a href="#Other-Variables">Other Variables</a></li>
+      <li><a href="#Library-Directory-Structure">Library Directory Structure</a></li>
+      <li><a href="#List-Settings">List Settings</a></li>
+      <li><a href="#Template-tags">Template tags</a></li>
+      <li><a href="#And-the-rest">And the rest</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="Upgrading-Dada-Mail-from-Mojo-Mail-2.8.9-and-below">Upgrading Dada Mail from Mojo Mail 2.8.9 and below</h2>
+
+<h2 id="The-Really-Really-Good-News">The Really Really Good News</h2>
+
+<p>2.8.10 of Dada Mail is backwards compatible with all versions below, most of the name changes are superficial (ie, the <b>name</b> was changed, nothing else). This document is to get you familiar with this tweaked interface, both inside and out. It&#39;s not too too scary, but is hopefully exhausting.</p>
+
+<h2 id="Differences-In-Terms">Differences In Terms</h2>
+
+<p>So not to have to repeat myself everytime, I&#39;ll use a similar notation of</p>
+
+<ul>
+
+<li><p><b>What Something Was Called</b> -&gt; <b>What It&#39;s Called Now</b></p>
+
+</li>
+</ul>
+
+<p>for all the changes. If there are any notes, I&#39;ll provide them after the changed term.</p>
+
+<h2 id="Programs-Scripts-and-Files-Renamed">Programs, Scripts and Files Renamed</h2>
+
+<ul>
+
+<li><p>mojo.cgi -&gt; mail.cgi</p>
+
+<p>and..</p>
+
+</li>
+<li><p>mojo (folder/directory) -&gt; dada (folder/directory)</p>
+
+</li>
+</ul>
+
+<p>This means instead of a url like this:</p>
+
+<pre><code> http://heythatsyoursite.com/cgi-bin/mojo/mojo.cgi</code></pre>
+
+<p>you&#39;ll now see:</p>
+
+<pre><code> http://heythatsyoursite.com/cgi-bin/dada/mail.cgi</code></pre>
+
+<p>Also, the <b>MOJO</b> directory has been renamed, <b>DADA</b>, but we&#39;ll get to that in much more detail.</p>
+
+<ul>
+
+<li><p>.mojo_config -&gt; .dada_config</p>
+
+<p>This is only relevant if you use an outside config file. Just remember to rename the outside config file, <b>.dada_config</b></p>
+
+</li>
+<li><p>mojo_send.pl -&gt; dada_send.pl</p>
+
+</li>
+<li><p>mojo_bounce_handler.pl -&gt; dada_bounce_handler.pl</p>
+
+<p>The bounce handler&#39;s name is still, <b>Mystery Girl</b>, as I&#39;m still in love with Karen O, the lead singer of the Yeah Yeah Yeahs and will see her on November 20th at the Gothic Theatre to put my love for her in words.</p>
+
+
+
+<p>(See the <a href="dada_bounce_handler.pl.html#faqs">Mystery Girl FAQ</a> for more information on <em>that</em>)</p>
+
+</li>
+</ul>
+
+<p>These couple few are Magic Book scripts:</p>
+
+<ul>
+
+<li><p>mojo_backup.pl -&gt; dada_backup.pl</p>
+
+</li>
+<li><p>mojo_digest.pl -&gt; dada_digest.pl</p>
+
+</li>
+<li><p>mojo_stats.pl -&gt; dada_stats.pl</p>
+
+</li>
+</ul>
+
+<h2 id="The-Four-Required-Config.pm-variables">The Four Required Config.pm variables</h2>
+
+<ul>
+
+<li><p>$MOJO_ROOT_PASSWORD -&gt; $PROGRAM_ROOT_PASSWORD</p>
+
+<p>You&#39;ll notice that most everything referring to, &quot;mojo&quot; has been changed to either &quot;Dada&quot;, or generically to, &quot;program&quot;.</p>
+
+</li>
+<li><p>$FILES</p>
+
+<p>No change.</p>
+
+</li>
+<li><p>$MAILPROG</p>
+
+<p>No change.</p>
+
+</li>
+<li><p>$MOJO_URL -&gt; $PROGRAM_URL</p>
+
+</li>
+</ul>
+
+<p>Easy enough.</p>
+
+<h2 id="Other-Variables">Other Variables</h2>
+
+<ul>
+
+<li><p>$S_MOJO_URL -&gt; $S_PROGRAM_URL</p>
+
+</li>
+<li><p>$MOJO_CONFIG_FILE_DIR -&gt; $PROGRAM_CONFIG_FILE_DIR</p>
+
+</li>
+<li><p>$MOJO_ERROR_LOG -&gt; $PROGRAM_ERROR_LOG</p>
+
+</li>
+<li><p>$MOJO_LOG -&gt; $PROGRAM_USAGE_LOG</p>
+
+</li>
+</ul>
+
+<h2 id="Library-Directory-Structure">Library Directory Structure</h2>
+
+<p>The Dada Mail library now goes under the name of DADA instead of MOJO. I am not going to list every single library file, but here are some examples.</p>
+
+<ul>
+
+<li><p>MOJO/Config.pm -&gt; DADA/Config.pm</p>
+
+</li>
+<li><p>MOJO/Mail/Send.pm -&gt; DADA/Mail/Send.pm</p>
+
+</li>
+<li><p>MOJO/MailingList/Subscribers/Postgres.pm -&gt; DADA/MailingList/Subscribers/Postgres.pm</p>
+
+</li>
+</ul>
+
+<p>We&#39;re good? Good. Now (and this is the important bit) if you do have a customized program that uses these libraries files, make sure you change those as well, example:</p>
+
+<ul>
+
+<li><p>use MOJO::Config; -&gt; use DADA::Config;</p>
+
+</li>
+<li><p>use MOJO::Mail::Send; -&gt; use DADA::Mail::Send;</p>
+
+</li>
+</ul>
+
+<p>etc, etc.</p>
+
+<h2 id="List-Settings">List Settings</h2>
+
+<p>There&#39;s only one list setting that has been renamed:</p>
+
+<ul>
+
+<li><p>mojo_email -&gt; list_owner_email</p>
+
+<p>This is sort of a, &quot;long time comin&#39;&quot; anyways, since the list owner email was always refered to as, <b>list owner email</b> and never mojo_email, except in code. For the time being, there will be a shin in DADA/MailingList/Settings/Db.pm to look for mojo_email is list_owner_email is not set.</p>
+
+</li>
+</ul>
+
+<h2 id="Template-tags">Template tags</h2>
+
+<ul>
+
+<li><p>[mojo] -&gt; [dada]</p>
+
+<p>Again, there will be a check for both for the time being, but when you upgrade, please update your templates with the [dada] tag, instead of the [mojo] tag.</p>
+
+</li>
+</ul>
+
+<h2 id="And-the-rest">And the rest</h2>
+
+<p>If I totally missed something, you can make a best guess that any other reference:</p>
+
+<ul>
+
+<li><p>mojo -&gt; dada</p>
+
+</li>
+<li><p>Mojo -&gt; Dada</p>
+
+</li>
+<li><p>MOJO -&gt; DADA</p>
+
+</li>
+</ul>
+
+
+</body>
+
+</html>
+
+

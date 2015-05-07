@@ -1,0 +1,98 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::Template::HTML</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a>
+    <ul>
+      <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+    </ul>
+  </li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::Template::HTML</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>Module for generating HTML templates for lists and administration</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<pre><code> use DADA::Template::HTML;
+ 
+ 
+ #print out a admin header template: 
+ print admin_template_header(-Title =&gt; &quot;hola! I am a list header&quot;, 
+                                                   -List =&gt; $list,
+                                                 );  
+                                                 
+ 
+ # now, print the admin footer template: 
+ print admin_template_footer(-List =&gt; $list); 
+ 
+ 
+ # give me the default Dada Mail list template
+ my $default_template = default_template($DADA::Config::PROGRAM_URL); 
+                                
+                                
+                                        
+ # do I have a template? 
+ 
+        my $template_exists = check_if_template_exists(-List =&gt; $list);                                                 
+    print &quot;my template exists!!&quot; if $template_exists &gt;= 1; 
+   
+   
+ # what lists do have templates? 
+ my @list_templates = available_templates(); 
+ 
+ 
+ # open up my template
+ my $list_template = open_template(-List =&gt; $list); 
+ 
+ # print a list template header
+ print list_template(-List      =&gt; $list,       
+                                -Part      =&gt; &#39;header&#39;, 
+                        ); 
+                        
+                        
+ # print the list template footer                       
+  print list_template(-List      =&gt; $list,      
+                                -Part      =&gt; &#39;footer&#39;, 
+                                -Site_Name =&gt;  &quot;justin&#39;s site&quot;, 
+                                -Site_URL  =&gt;  &quot;http://skazat.com&quot;, 
+                        ); 
+ 
+
+ # the &#39;send this archived message to a friend&quot; link maker
+ # print archive_send_link($list, $message_id); </code></pre>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni http://justinsimoni.com All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

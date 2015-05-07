@@ -1,0 +1,153 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>List Settings Cookbook</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Getting-Setting-List-Settings">Getting/Setting List Settings</a>
+    <ul>
+      <li><a href="#How-to-find-out-what-lists-are-available">How to find out what lists are available.</a></li>
+      <li><a href="#Making-Sure-a-Listshortname-is-valid">Making Sure a Listshortname is valid</a></li>
+      <li><a href="#Getting-Information-Stored-in-the-List-Settings">Getting Information Stored in the List Settings</a></li>
+      <li><a href="#Storing-Information-in-the-List-Settings">Storing Information in the List Settings</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Getting-Setting-List-Settings">Getting/Setting List Settings</h1>
+
+<h2 id="How-to-find-out-what-lists-are-available">How to find out what lists are available.</h2>
+
+<p>Before we can use a list, we have to know what lists are available:</p>
+
+<pre><code> #!/usr/bin/perl 
+ 
+ # Adding the lib path to the dada directory: 
+ use lib qw(/home/myaccount/www/cgi-bin/dada); 
+ 
+ use DADA::App::Guts; 
+ 
+ my @lists = DADA::App::Guts::available_lists(); 
+ 
+ for my $list(@lists){ 
+    
+    # prints the &quot;listshortname&quot; of every list available.
+    print &quot;$_\n&quot;;
+  }</code></pre>
+
+<p>For more information on the <i>available_lists()</i> subroutine, see:</p>
+
+<p>App_Guts.pm.html#available_lists</p>
+
+<h2 id="Making-Sure-a-Listshortname-is-valid">Making Sure a Listshortname is valid</h2>
+
+<p>If you already know the listshortname you want to use, you can verify it using, <b>list_exists</b>, like this:</p>
+
+<pre><code> #!/usr/bin/perl 
+ 
+ # Adding the lib path to the dada directory: 
+ use lib qw(/home/myaccount/www/cgi-bin/dada); 
+ 
+ use DADA::App::Guts; 
+ 
+ my $list = &quot;justin&quot;;
+ 
+ my $list_exists = DADA::App::Guts::check_if_list_exists(-List =&gt; $list); 
+ 
+ if($list_exists == 1){ 
+ 
+    print &quot;The list does exist!&quot;; 
+    
+ } else { 
+ 
+    print &quot;The list does not exist!&quot;; 
+ }</code></pre>
+
+<h2 id="Getting-Information-Stored-in-the-List-Settings">Getting Information Stored in the List Settings</h2>
+
+<p>Once you have your listshortname, it&#39;s pretty easy to get the list settings information. You&#39;ll be using the <b>DADA::MailingList::Settings</b> module - getting the list settings uses the, <b>get()</b> method, like this:</p>
+
+<pre><code> #!/usr/bin/perl 
+ 
+ # Adding the lib path to the dada directory: 
+ use lib qw(/home/myaccount/www/cgi-bin/dada); 
+ 
+ use DADA::MailingList::Settings; 
+ 
+ 
+ my $list = &#39;justin&#39;; 
+ 
+ 
+ # I use &quot;$ls&quot; as a shorthand for, &quot;List Settings&quot;
+ my $ls = DADA::MailingList::Settings-&gt;new({-list =&gt; $list}); 
+  
+  
+ my $li = $ls-&gt;get; </code></pre>
+
+<p><b>$li</b> is a hashref, the keys hold the name of your list setting, the value, the setting&#39;s value. Some ways to use it:</p>
+
+<pre><code> # print every list setting saved: 
+ for my $setting(keys %$li){ 
+    print $setting . &#39; =&gt; &#39; . $li-&gt;{$setting} . &quot;\n&quot;;  
+ }
+ 
+ # print just the list name: 
+ print &quot;This list name is: &quot; . $li-&gt;{list_name};</code></pre>
+
+<p>And that&#39;s all there is to it. To understand what list settings are available, you may want to look at the Config.pm variable, <b>%LIST_SETUP_DEFAULTS</b>, which lists just about every list setting being used in Dada Mail. More information on that variable:</p>
+
+<p>global_variables.pod.html#_list_setup_defaults</p>
+
+<p>More information on the <b>get</b> method:</p>
+
+<p>MailingList_Settings_Db.pm.html#get</p>
+
+<h2 id="Storing-Information-in-the-List-Settings">Storing Information in the List Settings</h2>
+
+<p>Storing information is as easy as getting that information. You&#39;ll want to use the, <b>save</b> method, like so:</p>
+
+<pre><code> #!/usr/bin/perl 
+  
+ # Adding the lib path to the dada directory: 
+ use lib qw(/home/myaccount/www/cgi-bin/dada); 
+  
+ use DADA::MailingList::Settings; 
+  
+  
+ my $list = &#39;justin&#39;; 
+  
+  
+ # I use &quot;$ls&quot; as a shorthand for, &quot;List Settings&quot;
+ my $ls = DADA::MailingList::Settings-&gt;new({-list =&gt; $list}); 
+  
+ 
+ $ls-&gt;save(
+            {
+                list_name =&gt; &quot;New List Name!&quot;, 
+            }
+           ); 
+          </code></pre>
+
+<p>The <b>save</b> method takes a hashref of any list setting you&#39;d like to change the value to. In the above example, we&#39;ve changed the setting, <b>list_name</b> to, <b>New List Name!</b></p>
+
+<p>And that&#39;s basically all there is to the <b>save</b> method.</p>
+
+<p>More information on the <b>save</b> method:</p>
+
+<p>MailingList_Settings_Db.pm.html#save</p>
+
+
+</body>
+
+</html>
+
+

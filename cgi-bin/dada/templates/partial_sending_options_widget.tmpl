@@ -1,0 +1,35 @@
+<!-- begin partial_sending_options_widget.tmpl --> 
+
+
+
+
+<!-- tmpl_if can_have_subscriber_fields --> 
+
+
+    <p>
+     Send your Mailing List Message  to your Subscribers where their:
+    </p> 
+    
+        <!-- tmpl_include field_comparisons_widget.tmpl -->
+
+    <div class="buttonfloat">
+     <input type="button" value="Preview Who's Getting This Message..." class="cautionary preview_message_receivers" />  
+    </div>
+    
+    <div class="floatclear">
+    </div>
+	<div id="preview_message_receivers_loading"></div> 
+    <div id="preview_message_receivers_results"></div> 
+
+	
+	
+    
+    
+<!-- tmpl_else --> 
+
+    <!-- Multiple Subscriber Fields isn't support with this backend (Apparently) --> 
+
+<!-- /tmpl_if --> 
+
+    
+<!-- end partial_sending_options_widget.tmpl --> 

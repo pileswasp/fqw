@@ -1,0 +1,333 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>UTF-8 Support</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#The-Dada-Mail-and-UTF-8-FAQ">The Dada Mail and UTF-8 FAQ</a>
+    <ul>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#How-To-Have-a-Pleasant-Experience">How To Have a Pleasant Experience</a></li>
+      <li><a href="#Config-Variable:-HTML_CHARSET">Config Variable: $HTML_CHARSET</a></li>
+      <li><a href="#Mail-Sending---Advanced-Options">Mail Sending - Advanced Options</a>
+        <ul>
+          <li><a href="#Default-Character-Set">Default Character Set</a></li>
+          <li><a href="#Default-Plain-Text-HTML-Message-Encoding">Default Plain Text/HTML Message Encoding</a></li>
+          <li><a href="#Encode-Message-Headers">Encode Message Headers</a></li>
+        </ul>
+      </li>
+      <li><a href="#SQL-Backends">SQL Backends</a>
+        <ul>
+          <li><a href="#Database">Database</a>
+            <ul>
+              <li><a href="#PostgreSQL">PostgreSQL</a></li>
+              <li><a href="#MySQL">MySQL</a></li>
+              <li><a href="#SQLite">SQLite</a></li>
+              <li><a href="#DBM-Files">DBM Files</a></li>
+            </ul>
+          </li>
+          <li><a href="#Schema">Schema</a>
+            <ul>
+              <li><a href="#MySQL1">MySQL</a></li>
+              <li><a href="#PostgreSQL1">PostgreSQL</a></li>
+              <li><a href="#SQLite1">SQLite</a></li>
+            </ul>
+          </li>
+          <li><a href="#Drivers">Drivers</a></li>
+        </ul>
+      </li>
+      <li><a href="#Plugins-Extensions">Plugins/Extensions</a>
+        <ul>
+          <li><a href="#Bridge">Bridge</a></li>
+        </ul>
+      </li>
+      <li><a href="#Upgrading">Upgrading</a></li>
+      <li><a href="#MySQL-Notes">MySQL Notes</a>
+        <ul>
+          <li><a href="#Specified-key-was-too-long-max-key-length-is-1000-bytes-Problem-and-Solution">&quot;Specified key was too long; max key length is 1000 bytes&quot;, Problem (and Solution)</a></li>
+          <li><a href="#Changing-the-character-set-of-tables">Changing the character set of tables</a></li>
+        </ul>
+      </li>
+      <li><a href="#Other-Problems">Other Problems?</a></li>
+      <li><a href="#See-Also">See Also:</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="The-Dada-Mail-and-UTF-8-FAQ">The Dada Mail and UTF-8 FAQ</h1>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>Dada Mail can speak UTF-8 and almost expects that everything else around it does, too.</p>
+
+<p>That means:</p>
+
+<ul>
+
+<li><p>It treats everything it handles as UTF-8</p>
+
+</li>
+<li><p>Everything it returns is in UTF-8</p>
+
+</li>
+</ul>
+
+<h2 id="How-To-Have-a-Pleasant-Experience">How To Have a Pleasant Experience</h2>
+
+<p>If you&#39;re installing Dada Mail for the first time, there&#39;s nothing you&#39;ll need to do, but below are some guidelines on how to keep your lists configured, so you continue to have a good experience.</p>
+
+<p>If you&#39;re upgrading, make sure your configuration reflects the advice below.</p>
+
+<p>It&#39;s heavily advised to keep everything in Dada Mail speaking <code>UTF-8</code> without any real exceptions.</p>
+
+<h2 id="Config-Variable:-HTML_CHARSET">Config Variable: $HTML_CHARSET</h2>
+
+<p>By default, the config variable, <code>$HTML_CHARSET</code> is set to, <code>UTF-8</code></p>
+
+<p>Keep it that way, same case (<b>UTF-8</b>) - same everything.</p>
+
+<p>Dada Mail is only tested with the charset set this way.</p>
+
+<h2 id="Mail-Sending---Advanced-Options">Mail Sending - Advanced Options</h2>
+
+<h3 id="Default-Character-Set">Default Character Set</h3>
+
+<p>Set this as, <code>UTF-8 UTF-8</code></p>
+
+<h3 id="Default-Plain-Text-HTML-Message-Encoding">Default Plain Text/HTML Message Encoding</h3>
+
+<p>There&#39;s really only a few choices recommended for Dada Mail.</p>
+
+<ul>
+
+<li><p>8bit</p>
+
+<p>Should work.</p>
+
+</li>
+<li><p>quoted-printable</p>
+
+<p>If you have any trouble with <code>8bit</code>, try <code>quoted-printable</code>. Because of the amount of time that Dada Mail creates, tweaks, formats and templates out email messages, the encoding can potentially get mucked up.</p>
+
+<p>This potential mucking-up is mitigated when Dada Mail uses <code>quoted-printable</code> encoding internally. This should be the default for email messages.</p>
+
+</li>
+</ul>
+
+<h3 id="Encode-Message-Headers">Encode Message Headers</h3>
+
+<p>Have this option checked.</p>
+
+<h2 id="SQL-Backends">SQL Backends</h2>
+
+<h3 id="Database">Database</h3>
+
+<h4 id="PostgreSQL">PostgreSQL</h4>
+
+<p>Encoding for PostgreSQL databases is done when the database is created - make sure to create your database with a, <code>UTF-8</code> encoding, like so:</p>
+
+<pre><code> CREATE DATABASE dadamail WITH ENCODING &#39;UTF-8&#39;</code></pre>
+
+<h4 id="MySQL">MySQL</h4>
+
+<p>Nothing you&#39;ll have to do, but do note that the schema that&#39;s shipped with Dada Mail for MySQL does set the character set and collation for UTF-8 in the tables where this is needed. If you&#39;re upgrading Dada Mail (from before 4.0.3), you may have to change the charset/encoding of your tables.</p>
+
+<p>You may also want to double-check the version of the Perl MySQL driver (<code>DBD::mysql</code>) and make sure it has the, <code>mysql_enable_utf8</code> flag support. It&#39;s difficult to tell from it&#39;s own docs, but having at least version 4.004 would be prudent.</p>
+
+<h4 id="SQLite">SQLite</h4>
+
+<p>Nothing you&#39;ll have to do.</p>
+
+<h4 id="DBM-Files">DBM Files</h4>
+
+<p>DBM Files have no encoding support, but Dada Mail knows this and compensates.</p>
+
+<h3 id="Schema">Schema</h3>
+
+<h4 id="MySQL1">MySQL</h4>
+
+<p>The MySQL schemas are set to create tables with an encoding of, <code>UTF-8</code></p>
+
+<h4 id="PostgreSQL1">PostgreSQL</h4>
+
+<p>Nothing has changed.</p>
+
+<h4 id="SQLite1">SQLite</h4>
+
+<p>Nothing has changed.</p>
+
+<h3 id="Drivers">Drivers</h3>
+
+<p>The current support SQL backends, <code>mysql</code> (MySQL), <code>Pg</code> (PostgreSQL) and <code>SQLite</code> all have different ways to somewhat, &quot;enable&quot; their UTF-8 support.</p>
+
+<ul>
+
+<li><p>MySQL</p>
+
+<p>add,</p>
+
+<pre><code> mysql_enable_utf8 =&gt; 1, </code></pre>
+
+<p>has been added to the $DBI_PARAMS hashref.</p>
+
+</li>
+<li><p>PostgreSQL</p>
+
+<p>add,</p>
+
+<pre><code> pg_enable_utf8 =&gt; 1, </code></pre>
+
+<p>has been added to the $DBI_PARAMS hashref.</p>
+
+</li>
+<li><p>SQLite</p>
+
+<p>add,</p>
+
+<pre><code> sqlite_unicode =&gt; 1</code></pre>
+
+<p>has been added to the $DBI_PARAMS hashref.</p>
+
+</li>
+</ul>
+
+<p>No explicit encoding/decoding is done in Dada Mail when saving/retrieving data. Hopefully, the drivers are UTF-8-aware enough.</p>
+
+<h2 id="Plugins-Extensions">Plugins/Extensions</h2>
+
+<p>The Plugins and Extensions that come with Dada Mail have not been as thoroughly tested as the main program. There&#39;s still warts.</p>
+
+<h3 id="Bridge">Bridge</h3>
+
+<p>Bridge has a unique position needing to handle a lot of different stuff thown at it and deal with it gracefully. Dada Mail <i>does</i>, in fact, handle, any realistic character set/encoding you throw at it, but Dada Mail will convert messages it receives to its internal format, before it resends it out to your list.</p>
+
+<p>This means the encoding of your choice (8bit or quoted-printable) and the charset of your choice (as long as your charset is, UTF-8)</p>
+
+<h2 id="Upgrading">Upgrading</h2>
+
+<p>You are potentially going to have problems.</p>
+
+<p>Its possible that, since List Settings were never decoded/encoded correctly in past versions, they&#39;ll show up the program (once you&#39;ve upgrade) incorrectly. The easiest thing to do is to edit the mistakes and resave the information. For most of the program, you&#39;re going to have to manually export the information and re-import it with the correct encoding, sadly. Dada Mail will probably fail gracefully with old information, but it&#39;s possible that you&#39;ll see squiggly charaters, instead of what you want to see. There&#39;s nothing in Dada Mail that will stop this from happening. If you experience it (from old information), we&#39;re not going to count it as a bug, but rather a known issue.</p>
+
+<h2 id="MySQL-Notes">MySQL Notes</h2>
+
+<h3 id="Specified-key-was-too-long-max-key-length-is-1000-bytes-Problem-and-Solution">&quot;Specified key was too long; max key length is 1000 bytes&quot;, Problem (and Solution)</h3>
+
+<p>What&#39;s recommended here is to alter some of the fields in some of the tables that make up the MySQL schema.</p>
+
+<p>The majority of the time, when a field is named, <code>email</code> it looks like this:</p>
+
+<pre><code> email text(320),</code></pre>
+
+<p>Changing this field type from, <code>text(320)</code> to, <code>varchar(80)</code> will be both beneficial to this problem, as well as realistic.</p>
+
+<p>The reason why the email fields were set to a size of, <code>320</code> is that the RFC says that email addresses can be this long. In reality, they never really are. Having a field type this long (especially when using for keys and indexes) tends to muck up things, when you have a utf-8 character set.</p>
+
+<p>You&#39;ll see this field in the table schemas, as well as the table indexes. The advice is to delete the old table indexes, alter your tables for anything that <i>had</i> a field type of, <code>text(320)</code> and make it, <code>varchar(80)</code> and if you want, recreate the table indexes, using what&#39;s in the <code>dada/extras/mysql_schema.sql</code> file.</p>
+
+<p>Here&#39;s some SQL that should remove those indexes:</p>
+
+<pre><code> ALTER TABLE `dada_subscribers` DROP INDEX `dada_subscribers_all_index`;
+ ALTER TABLE `dada_archives`    DROP INDEX `dada_subscribers_all_index`;</code></pre>
+
+<p>Here&#39;s some SQL that should work on changing the field types:</p>
+
+<pre><code> ALTER TABLE `dada_bounce_scores`  CHANGE `email` `email` VARCHAR( 80 );
+ ALTER TABLE `dada_profiles`       CHANGE `email` `email` VARCHAR( 80 );
+ ALTER TABLE `dada_profile_fields` CHANGE `email` `email` VARCHAR( 80 );
+ ALTER TABLE `dada_subscribers`    CHANGE `email` `email` VARCHAR( 80 );</code></pre>
+
+<h3 id="Changing-the-character-set-of-tables">Changing the character set of tables</h3>
+
+<p>The following tables should have a character set of, <code>utf8</code> and a collation of <code>utf8_bin</code></p>
+
+<ul>
+
+<li><p>dada_settings</p>
+
+</li>
+<li><p>dada_subscribers</p>
+
+</li>
+<li><p>dada_profiles</p>
+
+</li>
+<li><p>dada_profile_fields</p>
+
+</li>
+<li><p>dada_profile_fields_attributes</p>
+
+</li>
+<li><p>dada_archives</p>
+
+</li>
+</ul>
+
+<p>A quick-and-dirty solution to changing the character sets (if they aren&#39;t already in UTF-8) is to just use the following queries:</p>
+
+<pre><code> ALTER TABLE `dada_settings` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ 
+ ALTER TABLE `dada_profiles` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ 
+ ALTER TABLE `dada_subscribers` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ 
+ ALTER TABLE `dada_profile_fields` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ 
+ ALTER TABLE `dada_profile_fields_attributes` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;
+ 
+ ALTER TABLE `dada_archives` CONVERT TO CHARACTER SET utf8 COLLATE utf8_bin;</code></pre>
+
+<p>There are downsides to this approach - most notably - any UTF-8 encoded (erm, kinda-encoded) stuff is going to get double-decoded, when Dada Mail accesses and uses the information. More information:</p>
+
+<p><a href="http://www.mysqlperformanceblog.com/2009/03/17/converting-character-sets/">http://www.mysqlperformanceblog.com/2009/03/17/converting-character-sets/</a></p>
+
+<h2 id="Other-Problems">Other Problems?</h2>
+
+<p>Please let us know via the Support Boards:</p>
+
+<p><a href="http://dadamailproject.com/support/boards/">http://dadamailproject.com/support/boards/</a></p>
+
+<p>Or the developer mailing list:</p>
+
+<p><a href="http://dadamailproject.com/cgi-bin/dada/mail.cgi/list/dadadev/">http://dadamailproject.com/cgi-bin/dada/mail.cgi/list/dadadev/</a></p>
+
+<p>We would love to help you out.</p>
+
+<p>Thanks!</p>
+
+<h2 id="See-Also">See Also:</h2>
+
+<ul>
+
+<li><p>The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</p>
+
+<p><a href="http://www.joelonsoftware.com/articles/Unicode.html">http://www.joelonsoftware.com/articles/Unicode.html</a></p>
+
+</li>
+<li><p>perlunitut - Perl Unicode Tutorial</p>
+
+<p><a href="http://perldoc.perl.org/perlunitut.html">http://perldoc.perl.org/perlunitut.html</a></p>
+
+</li>
+<li><p>perlunifaq - Perl Unicode FAQ</p>
+
+<p><a href="http://perldoc.perl.org/perlunifaq.html">http://perldoc.perl.org/perlunifaq.html</a></p>
+
+</li>
+</ul>
+
+
+</body>
+
+</html>
+
+

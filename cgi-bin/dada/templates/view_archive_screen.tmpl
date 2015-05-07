@@ -1,0 +1,67 @@
+<!-- begin view_archive_screen.tmpl --> 
+
+<!-- tmpl_set name="title" value="Message Archives &#187; View Archive" -->
+<div id="screen_meta" data-menu_highlight="view_archive"></div>
+
+<div id="screentitle"> 
+	<div id="screentitlepadding">
+		Message Archives 
+		&#187; 
+		<a href="<!-- tmpl_var S_PROGRAM_URL -->?f=view_archive">
+			View Archive
+		</a>
+		 &#187;
+		<!-- tmpl_var name="subject" ESCAPE="HTML" -->
+	</div> 
+	<!-- tmpl_include help_link_widget.tmpl -->
+</div>
+
+
+<p>
+ <em>
+  Sent: <!-- tmpl_var date -->
+ </em>
+</p>
+
+<p class="alert">
+	Note: some archiving formatting options only take affect when viewing messages publicly.
+</p>
+
+<h2>
+ Subject: <!-- tmpl_var name="subject" ESCAPE="HTML" -->
+</h2>
+
+<iframe src="<!-- tmpl_var S_PROGRAM_URL -->?f=archive_bare;l=<!-- tmpl_var list_settings.list-->;id=<!-- tmpl_var id -->;admin=1" id="archived_message_body_container">
+<!-- tmpl_var massaged_msg_for_display --> 
+</iframe>
+
+ 
+
+
+
+
+
+<div class="buttonfloat">
+	<form action="<!-- tmpl_var S_PROGRAM_URL -->" method="get"> 
+		<input type="hidden" name="f" value="delete_archive" /> 
+		<input type="hidden" name="address" value="<!-- tmpl_var id -->" />
+		<input type="submit" class="alertive" value="Delete Message" />    
+	 </form>
+</div>
+
+<div class="buttonfloat">
+	<form action="<!-- tmpl_var S_PROGRAM_URL -->" method="get"> 
+		<input type="hidden" name="f" value="edit_archived_msg" /> 
+		<input type="hidden" name="id" value="<!-- tmpl_var id -->" />
+		<input type="submit" class="cautionary" value="Edit Message..." />    
+	 </form> 
+</div>
+
+<!-- tmpl_include show_archive_msg_buttons_widget.tmpl --> 
+
+
+	<!-- tmpl_var nav_table --> 
+
+
+
+<!-- end view_archive_screen.tmpl --> 

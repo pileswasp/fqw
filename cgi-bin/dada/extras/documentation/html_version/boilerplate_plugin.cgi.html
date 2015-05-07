@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Boiler Plate                  </title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Roll-Your-Own-Admin-Screen">Roll Your Own Admin Screen</a>
+    <ul>
+      <li><a href="#Adding-this-Module-to-Dada-Mail">Adding this Module to Dada Mail</a></li>
+    </ul>
+  </li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="Roll-Your-Own-Admin-Screen">Roll Your Own Admin Screen</h1>
+
+<p>This should give you a good idea on how to extend Dada Mail&#39;s admin area to do.... anything</p>
+
+<p>There is an example on how to make the actual admin screen + script, it&#39;s called</p>
+
+<p><b>boilerplate_plugin.cgi</b></p>
+
+<p>and should be located in the <b>dada/extras/scripts/</b> directory It should work right out of the box, upload it, chmod 755 it and follow the next set of directions to make it work</p>
+
+<h2 id="Adding-this-Module-to-Dada-Mail">Adding this Module to Dada Mail</h2>
+
+<p>You&#39;ll need to tweak the $ADMIN_MENU variable in the Config.pm file, $ADMIN_MENU is a reference to an array of hashes of an array of hashes, or somewhere in there.</p>
+
+<p>Follow the pattern :)</p>
+
+<p>Adding this right after the last array ref entry:</p>
+
+<pre><code>         {-Title           =&gt; &#39;Boilder Plate Example&#39;, 
+           -Title_URL      =&gt; &quot;plugins/boilerplate_plugin.cgi&quot;,
+           -Function       =&gt; &#39;boilerplate&#39;,
+           -Activated      =&gt; 1, 
+          },
+          </code></pre>
+
+<p>will do the trick, as long as you uploaded <b>boilerplate_plugin.cgi</b> in the same directory as mail.cgi. It&#39;s better to give the absolute URL for these things, I think. Upload the revised Config.pm file and there should be a link for this very module. Pretty frickin cool, eh?</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

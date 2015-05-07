@@ -1,0 +1,238 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Install/Upgrade FAQ</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Installation-Upgrade-FAQ">Installation/Upgrade FAQ</a>
+    <ul>
+      <li><a href="#Prepping-Dada-Mail-Manually">Prepping Dada Mail Manually</a></li>
+      <li><a href="#Uncompress-the-Distribution">Uncompress the Distribution</a></li>
+      <li><a href="#Upload-the-dada-directory-into-your-cgi-bin">Upload the, &quot;dada&quot; directory into your cgi-bin</a></li>
+      <li><a href="#Change-the-name-of-the-dada-installer-disabled-directory-to-dada-installer">Change the name of the, &quot;dada/installer-disabled&quot; directory to, &quot;dada/installer&quot;</a></li>
+      <li><a href="#Change-permissions-of-the-dada-mail.cgi-and-dada-installer-install.cgi-scripts-to-755">Change permissions of the, &quot;dada/mail.cgi&quot; and &quot;dada/installer/install.cgi&quot; scripts to, &quot;755&quot;</a></li>
+      <li><a href="#Visit-the-dada-installer-install.cgi-script-in-your-web-browser">Visit the, dada/installer/install.cgi script in your web browser</a></li>
+      <li><a href="#Installing-Dada-Mail-in-a-directory-other-than-in-your-cgi-bin">Installing Dada Mail in a directory other than in your, &quot;cgi-bin&quot;</a>
+        <ul>
+          <li><a href="#htaccess-file">.htaccess file</a></li>
+          <li><a href="#Location-Considerations">Location Considerations</a>
+            <ul>
+              <li><a href="#Inside-a-regular-directory">Inside a regular directory</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#dada_files-Directory-Location">.dada_files Directory Location</a></li>
+      <li><a href="#Upgrading-Dada-Mail-From-Different-Installation-Types">Upgrading Dada Mail From Different Installation Types</a></li>
+      <li><a href="#Basic-or-Contemporary-Or-Simple-Scripts">&quot;Basic&quot;, or, &quot;Contemporary&quot;? (Or Simple Scripts?)</a>
+        <ul>
+          <li><a href="#Basic-Installation">Basic Installation</a>
+            <ul>
+              <li><a href="#More-Information">More Information</a></li>
+            </ul>
+          </li>
+          <li><a href="#Contemporary-Installation">Contemporary Installation</a></li>
+          <li><a href="#Simple-Scripts-Installation">Simple Scripts Installation</a>
+            <ul>
+              <li><a href="#Upgrade-Through-Simple-Scripts">Upgrade Through Simple Scripts</a></li>
+              <li><a href="#Turn-a-Simple-Scripts-Install-into-a-Contemporary-Installation">Turn a Simple Scripts Install into a Contemporary Installation</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Installation-Upgrade-FAQ">Installation/Upgrade FAQ</h1>
+
+<p>This FAQ is to help answer questions about installation and upgrading Dada Mail that is not covered in any of the other installation/upgrade docs. To keep those docs clean and simple, some topics are covered here, instead of in the main docs.</p>
+
+<h2 id="Prepping-Dada-Mail-Manually">Prepping Dada Mail Manually</h2>
+
+<p>If the, <code>uncompress_dada.cgi</code> script fails to uncompress the Dada Mail distro, you may have to complete a few steps, yourself. This usually is because the <code>gunzip</code> utility just isn&#39;t available to whatever is running the <code>uncompress_dada.cgi</code> script. Shucks.</p>
+
+<h2 id="Uncompress-the-Distribution">Uncompress the Distribution</h2>
+
+<p>The tar.gz distribution you just downloaded to your Desktop Computer should uncompress to one folder/directory called, <b>dada</b>.</p>
+
+<h2 id="Upload-the-dada-directory-into-your-cgi-bin">Upload the, &quot;dada&quot; directory into your cgi-bin</h2>
+
+<p>There are a lot of files and this may take a few minutes.</p>
+
+<p><i>(If you&#39;re familiar with accessing your hosting account via ssh, feel free to simply upload the distribution to your hosting account and uncompress from there.)</i></p>
+
+<h2 id="Change-the-name-of-the-dada-installer-disabled-directory-to-dada-installer">Change the name of the, &quot;dada/installer-disabled&quot; directory to, &quot;dada/installer&quot;</h2>
+
+<p>By default, the installer is disabled, so not to pose as a security issue. Rename the, <i>dada/<b>installer-disabled</b></i> directory to, <i>dada/<b>installer</b></i>.</p>
+
+<h2 id="Change-permissions-of-the-dada-mail.cgi-and-dada-installer-install.cgi-scripts-to-755">Change permissions of the, &quot;dada/mail.cgi&quot; and &quot;dada/installer/install.cgi&quot; scripts to, &quot;755&quot;</h2>
+
+<p><b>BOTH</b> of these scripts need to have their permissions changed to, <b>755</b></p>
+
+<h2 id="Visit-the-dada-installer-install.cgi-script-in-your-web-browser">Visit the, <i>dada/installer/install.cgi</i> script in your web browser</h2>
+
+<p>The, <code>install.cgi</code> script should take over from there.</p>
+
+
+
+<p>
+You can now jump back to the installation instructions at, <a href="./install_dada_mail.pod.html#configuring_dada_mail_with_the__install_cgi_script">Configuring Dada Mail with the, &quot;install.cgi&quot; Script</a>
+</p>
+
+<h2 id="Installing-Dada-Mail-in-a-directory-other-than-in-your-cgi-bin">Installing Dada Mail in a directory other than in your, &quot;cgi-bin&quot;</h2>
+
+<p>It used to be common practice that CGI scripts could only be installed in a hosting account that had a, <i>cgi-bin</i> directory which itself had the correct server configuration to allow the execution for CGI scripts, like Dada Mail.</p>
+
+<p>This is really not the case anymore and usually one can install CGI scripts wherever one want with little or no additional configuration. Our directions still tell you to install Dada Mail in your <code>cgi-bin</code> to be as universal as possible.</p>
+
+<h3 id="htaccess-file">.htaccess file</h3>
+
+<p>If additional configuration is needed, you may simply need to create an <code>.htaccess</code> file inside the directory you decide to place Dada Mail in. The <code>.htaccess</code> file should have the following, &quot;<i>configuration directives</i>&quot;:</p>
+
+<pre><code>        Options +ExecCGI
+        AddHandler cgi-script cgi pl</code></pre>
+
+<h3 id="Location-Considerations">Location Considerations</h3>
+
+<h4 id="Inside-a-regular-directory">Inside a regular directory</h4>
+
+<p>It may be helpful to still install Dada Mail inside some other directory, instead of right inside your public html directory. This should make upgrades easier. For example, if your public html directory is located at:</p>
+
+<pre><code> /home/youraccount/public_html</code></pre>
+
+<p>You may want to set up an additional directory called, &quot;apps&quot; (or, whatever you&#39;d like it to be called):</p>
+
+<pre><code> /home/youraccount/public_html/apps</code></pre>
+
+<p>and place the, <code>.htaccess</code> file, with the configuration directives listed above in that directory. Then while installing, upload both the, <code>uncompress_dada.cgi</code> script and Dada Mail <code>dada-x_x_x.tar.gz</code> distro in that same directory. The, <code>uncompress_dada.cgi</code> script should be allowed to execute, creating the, <code>dada</code> directory inside your, <code>apps</code> directory.</p>
+
+<p>Upgrades would also be simple and you&#39;ll be able to follow the directions of the Upgrade docs - renaming the, <code>dada</code> directory to get it out of the way, etc.</p>
+
+<p>This would give you a URL similar to:</p>
+
+<p><a href="http://example.com/apps/dada/mail.cgi">http://example.com/apps/dada/mail.cgi</a></p>
+
+<p>Clean and simple.</p>
+
+<p>You may also want to think about creating a subdomain just for Dada Mail, allowing you to easily separate Dada Mail from the rest of your website. A suggest would be to call it:</p>
+
+<p><a href="http://ml.example.com">http://ml.example.com</a></p>
+
+<p><b>ml</b> standing for, <b>mailing list</b>. Your URL would then be:</p>
+
+<p><a href="http://ml.example.com/dada/mail.cgi">http://ml.example.com/dada/mail.cgi</a></p>
+
+<p>The directory your mapping your subdomain onto would then be that, &quot;extra&quot; directory to install Dada Mail in, complete with <code>.htaccess</code> file (if needed). For example, you could map your subdomain to a directory in your home directory:</p>
+
+<pre><code> /home/youraccount/ml.example.com</code></pre>
+
+<p>or a directory in your public html directory:</p>
+
+<pre><code> /home/youraccount/public_html/ml</code></pre>
+
+<h2 id="dada_files-Directory-Location">.dada_files Directory Location</h2>
+
+<p>The <code>.dada_files</code> directory really needs to be created in a secure location, so if at all possible, have it created somewhere outside of your public html directory, so as to not be accessable easily via a web browser.</p>
+
+<p>By default, the Dada Mail Installer tries to find your <b>home directory</b> and sets this directory as the location it will automatically create the <code>.dada_files</code> directory.</p>
+
+<p>It is possible that the Dada Mail Installer will not have permissions to create the <code>.dada_files</code> directory in your home directory, or that it will not be able to correctly find your home directory. In this case, you will want to set another directory location.</p>
+
+<p>See if there&#39;s a directory called, <code>private</code>, or, <code>files</code> or even, <code>etc</code> that already exists in your <b>home directory</b> and give the Dada Mail Installer the full, absolute path to that directory.</p>
+
+<p>If those directories do not exist, see if you cannot create your own new directory, within your home directory.</p>
+
+<p>Change this new directory&#39;s permissions to, <code>777</code>, give the Dada Mail Installer the full, absolute path to this new directory and see if its accepted. We suggest that you reset the permissions to the new directory you created to, <code>755</code>, to be less of a security problem, once the installation is complete.</p>
+
+<h2 id="Upgrading-Dada-Mail-From-Different-Installation-Types">Upgrading Dada Mail From Different Installation Types</h2>
+
+<p>Before upgrading Dada Mail, find out how you installed and configured Dada Mail before. If you don&#39;t know or aren&#39;t sure, don&#39;t upgrade Dada Mail: you will run into major headaches.</p>
+
+<h2 id="Basic-or-Contemporary-Or-Simple-Scripts">&quot;Basic&quot;, or, &quot;Contemporary&quot;? (Or Simple Scripts?)</h2>
+
+<p>We&#39;re going to only differentiate between two types of installations: &quot;Basic&quot; and, &quot;Contemporary&quot; <i>(If you installed Dada Mail using the included installer, you have a <b>Contemporary</b> installation)</i></p>
+
+<h3 id="Basic-Installation">Basic Installation</h3>
+
+<p>A, <b>Basic</b> installation changes the configuration variables right in the, <code>dada/DADA/Config.pm</code> file - usually you want to be very much aware of the following variables:</p>
+
+<ul>
+
+<li><p>$PROGRAM_ROOT_PASSWORD</p>
+
+</li>
+<li><p>$FILES</p>
+
+</li>
+<li><p>$MAILPROG</p>
+
+</li>
+<li><p>$PROGRAM_URL</p>
+
+</li>
+</ul>
+
+<p>You&#39;ll know if you have a <b>Basic</b> installation of Dada Mail if the <code>$FILES</code> variable in the, <code>dada/DADA/Config.pm</code> file is filled out to a directory that <i>actually</i> exists and that directory holds files/directories that have something to do with Dada Mail.</p>
+
+<p>If you are running a <b>Basic</b> Installation of Dada Mail, we really suggest upgrading by taking note of where your <code>$FILES</code> variable is located and importing the old information <i>after</i> a clean installation.</p>
+
+<h4 id="More-Information">More Information</h4>
+
+<p><a href="basic_to_contemporary_installation.pod.html">basic_to_contemporary_installation.pod.html</a></p>
+
+<h3 id="Contemporary-Installation">Contemporary Installation</h3>
+
+<p>A Contemporary Installation uses an outside configuration file to set the configuration variables in.</p>
+
+<p>You&#39;ll know if you have a Contemporary Installation, if those same four variables in the, <code>dada/DADA/Config.pm</code> file:</p>
+
+<ul>
+
+<li><p>$PROGRAM_ROOT_PASSWORD</p>
+
+</li>
+<li><p>$FILES</p>
+
+</li>
+<li><p>$MAILPROG</p>
+
+</li>
+<li><p>$PROGRAM_URL</p>
+
+</li>
+</ul>
+
+<p>Are still in their default values and your Dada Mail seems to be functioning fine. This probably means that your config variables are being read from an outside config file.</p>
+
+<p>For upgrade purposes, note what the, <code>$PROGRAM_CONFIG_FILE_DIR</code> in the, <code>dada/DADA/Config.pm</code> is set to. It&#39;s OK if it&#39;s only set to, <code>auto</code>.</p>
+
+<h3 id="Simple-Scripts-Installation">Simple Scripts Installation</h3>
+
+<p>If you installed Dada Mail through Simple Scripts (<a href="http://simplescripts.com">http://simplescripts.com</a>) you have two good choices when it comes to upgrading.</p>
+
+<h4 id="Upgrade-Through-Simple-Scripts">Upgrade Through Simple Scripts</h4>
+
+<p>Upgrade a Simple Scripts installed Dada Mail through Simple Scripts on interface (look for an &quot;Upgrade&quot; link, or Simple Scripts may alert you of updates).</p>
+
+<h4 id="Turn-a-Simple-Scripts-Install-into-a-Contemporary-Installation">Turn a Simple Scripts Install into a Contemporary Installation</h4>
+
+<p>If you want to use the included Dada Mail installer to upgrade Dada Mail (perhaps, you purchased Pro Dada?), you can turn a Simple Scripts install into a Contemporary Installation with these directions:</p>
+
+<p><a href="http://dadamailproject.com/d/upgrade_from_simple_scripts.pod.html">http://dadamailproject.com/d/upgrade_from_simple_scripts.pod.html</a></p>
+
+
+</body>
+
+</html>
+
+

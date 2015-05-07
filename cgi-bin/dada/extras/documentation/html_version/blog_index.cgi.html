@@ -1,0 +1,294 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>blog_index.cgi - A simple blog-style view of your archived list messages</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#USAGE">USAGE</a>
+    <ul>
+      <li><a href="#Use-it-like-a-CGI-script">Use it like a CGI script.</a></li>
+      <li><a href="#As-a-Javascript-Library">As a Javascript Library</a></li>
+      <li><a href="#As-a-Server-Side-Include">As a Server Side Include</a></li>
+      <li><a href="#By-Itself">By Itself</a></li>
+      <li><a href="#By-Copying-the-HTML-Javascript">By Copying the HTML/Javascript</a></li>
+    </ul>
+  </li>
+  <li><a href="#CONFIGURATION">CONFIGURATION</a>
+    <ul>
+      <li><a href="#Plugin_Config--Default_List">$Plugin_Config-&gt;{Default_List}</a></li>
+    </ul>
+  </li>
+  <li><a href="#DIAGNOSTICS">DIAGNOSTICS</a></li>
+  <li><a href="#CONFIGURATION-AND-ENVIRONMENT">CONFIGURATION AND ENVIRONMENT</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#DEPENDENCIES">DEPENDENCIES</a></li>
+  <li><a href="#INCOMPATIBILITIES">INCOMPATIBILITIES</a></li>
+  <li><a href="#BUGS-AND-LIMITATIONS">BUGS AND LIMITATIONS</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>blog_index.cgi - A simple blog-style view of your list&#39;s archived messages</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This small extension script prints out the last, <b>x</b> archived messages, in a blog-style fashion, with the text of all the archived messages shown on one screen. You can then embed this into a page you may have on your site, either by calling the extension like a Javascript library, or calling it as an old-school Apache Server Side Include.</p>
+
+<p>In a pinch, you can then use Dada Mail in a more blog-like manner, by creating new entries to your Dada Mail-powered blog by creating new archive messages:</p>
+
+<p>In Dada Mail&#39;s, &quot;Send a Message&quot; screen, there&#39;s a fieldset labeled, <b>Archive Options</b>. Expanding this fieldset will reveal options to, <b>Archive, but DO NOT Send</b> the message you&#39;re creating and also an option to <b>Backdate</b> the entry. This will allow you to add new entries to your list&#39;s archives, without having to send the messages out to your subscribers.</p>
+
+<p>One thing I find useful is to have my blog powered by Dada Mail: I can make new entries more frequently, but just archive and not sending - much more frequently than I feel comfortable sending to my entire list, but have all the entries available on my blog. That way, my mailing list gets the more important messages sent and if I want to get a bit chatty, I can, without deluging my list with messages they may not want to have fill up their inbox.</p>
+
+<p>This simple extension does not support some of the more familiar blog-like things, such as commenting on an entry, but does provide other features. Since Dada Mail already supports RSS/Atom feeds for its archived messages, your blog powered by Dada Mail does as well. The core of Dada Mail also supports full text searching of archived messages.</p>
+
+<p>For a simple site where a blog is just one part of the entire site, such simplicity may be all you really need.</p>
+
+<h1 id="USAGE">USAGE</h1>
+
+<h2 id="Use-it-like-a-CGI-script">Use it like a CGI script.</h2>
+
+<p>Put it in your, <b>extensions</b> directory (ala: cgi-bin/dada/extensions), chmod 755, visit it in your web browser.</p>
+
+<h2 id="As-a-Javascript-Library">As a Javascript Library</h2>
+
+<p>To add this form to your HTML page, just add a line that looks like this:</p>
+
+<pre><code>        &lt;script type=&quot;text/javascript&quot; src=&quot;http://example.com/cgi-bin/dada/extensions/blog_index.cgi&quot;&gt;&lt;/script&gt; </code></pre>
+
+<p>Where, <i>http://example.com/cgi-bin/dada/extensions/blog_index.cgi</i> is the URL to this extension.</p>
+
+<h2 id="As-a-Server-Side-Include">As a Server Side Include</h2>
+
+<p>You can also call it as a server side include, like this:</p>
+
+<pre><code>  &lt;!--#include virtual=&quot;/cgi-bin/dada/blog_index?mode=html&quot; --&gt;</code></pre>
+
+<p>Make sure to add the query string, <code>mode=html</code></p>
+
+<h2 id="By-Itself">By Itself</h2>
+
+<p>Not really a method, but you can view the HTML and Javascript produced by visiting the extension in your web browser, with the same query string you use for the Server Side Include:</p>
+
+<p><a href="http://example.com/cgi-bin/dada/blog_index.cgi?mode=html">http://example.com/cgi-bin/dada/blog_index.cgi?mode=html</a></p>
+
+<h2 id="By-Copying-the-HTML-Javascript">By Copying the HTML/Javascript</h2>
+
+<p>You could also try just copying the source that this script produces from the URL above, and paste it into a page/script/etc that you&#39;d like.</p>
+
+<p>Probably not the best idea, but I&#39;ll throw that idea for ya.</p>
+
+<h1 id="CONFIGURATION">CONFIGURATION</h1>
+
+<p>There&#39;s no configuration that you are <b>required</b> to do, but there&#39;s many things that you <b>can</b> do. We&#39;ll try to cover everything:</p>
+
+<h2 id="Plugin_Config--Default_List">$Plugin_Config-&gt;{Default_List}</h2>
+
+<p>This extension currently shows <b>one</b> list&#39;s archives at one time - there&#39;s no collating of archive entries from different lists, or anything.</p>
+
+<p>The, <code>Default_List</code> config variable holds what the default list can be. Set it to a list&#39;s shortname:</p>
+
+<pre><code> $Plugin_Config-&gt;{Default_List}  = &#39;mylistshortname&#39;;</code></pre>
+
+<p>If no list is set, you will need to tack on a query string to the end of the script, when you call it:</p>
+
+<pre><code> http://example.com/cgi-bin/dada/extensions/blog_index.cgi?list=mylistshortname</code></pre>
+
+<p>In this example, <code>mylistshortname</code> is your list&#39;s shortname and:</p>
+
+<pre><code> ?list=mylistshortname</code></pre>
+
+<p>Is the entire query string you&#39;ll have to tack on.</p>
+
+<p>If you&#39;ve configured this variable incorrectly, you&#39;ll most likely receive an error in your web browser, so take care in setting it correctly.</p>
+
+<h1 id="DIAGNOSTICS">DIAGNOSTICS</h1>
+
+<p>None, really.</p>
+
+<h1 id="CONFIGURATION-AND-ENVIRONMENT">CONFIGURATION AND ENVIRONMENT</h1>
+
+<p>There are a few variables at the top of the script that will need to be changed. They are:</p>
+
+<ul>
+
+<li><p>$Plugin_Config{Default_List}</p>
+
+<p><b>Required</b></p>
+
+<p>You&#39;ll need to set <b>$Plugin_Config{Default_List}</b> to a valid list shortname that you would like to use for your blog index.</p>
+
+</li>
+<li><p>$Plugin_Config{Entries}</p>
+
+<p><b>Optional</b></p>
+
+<p><b>$Plugin_Config{Entries}</b> holds the count of how many archived messages you&#39;d like shown at once. If set to <code>undef</code> or a number below, <b>1</b>, this extension will use the default value set in the <b>Manage Archives - Archive Options - Advanced</b> list control panel screen (which itself defaults to, <b>10</b>.</p>
+
+</li>
+<li><p>$Plugin_Config{Style}</p>
+
+<p><b>Optional</b></p>
+
+<p>Currently, there are two styles supported when showing the archived messages, <b>full</b> and, <b>blurb</b></p>
+
+<p>If this variable is set to, <b>full</b>, the entire archived message will be shown.</p>
+
+<p>If this variable is set to, <b>blurb</b>, only the first few words (basically) will be shown and a link to the rest will be provided.</p>
+
+</li>
+<li><p>Allow_QS_Overrides</p>
+
+<p><b>Optional</b></p>
+
+<p>If set to, <code>1</code> you&#39;re allowed to set the <code>style</code> and <code>entries</code> configurations in the query string, like this:</p>
+
+<pre><code> http://example.com/cgi-bin/dada/extensions/blog_index.cgi?list=mylistshortname&amp;entries=10&amp;style=full</code></pre>
+
+<p><code>entries</code> corresponds to, &lt;$Plugin_Config{Entries}&gt;</p>
+
+<p><code>style</code> corresponds to, &lt;$Plugin_Config{Style}&gt;</p>
+
+</li>
+<li><p>$Plugin_Config{Template}</p>
+
+<p><b>Optional</b></p>
+
+<p>This variable holds the embedded template for the actual HTML to display. If you&#39;d like to change the design of the HTML that&#39;s outputting, here&#39;s the place to do it.</p>
+
+<p>The Template is written in the HTML::Template system, just like much of the rest of Dada Mail.</p>
+
+<p>Some of the variables that are available:</p>
+
+<ul>
+
+<li><p>archive_entries</p>
+
+<p>This holds all the archived entries that are to be displayed. You&#39;ll most likely want to call it in a loop:</p>
+
+<pre><code> &lt;!-- tmpl_loop archive_entries --&gt; 
+    ...
+ &lt;!--/tmp_loop&gt; </code></pre>
+
+<p>You can also use it to check the existance of entries available:</p>
+
+<pre><code> &lt;!-- tmpl_unless archive_entries --&gt; 
+    Currently, there are no archived entries! 
+ &lt;!--/tmpl_unless--&gt; </code></pre>
+
+<p>When you&#39;re looping over all the archived messages, other variables will be available to you, inside the loop:</p>
+
+<ul>
+
+<li><p>pretty_subject</p>
+
+<p>&quot;pretty-fied&quot; version of the subject. If you want the raw subject, use the <code>subject</code> variable.</p>
+
+</li>
+<li><p>pretty_date</p>
+
+<p>&quot;pretty-fied&quot; version of the date the message was posted on. Should be following the formatting options you&#39;ve set in: <b>Manage Archive - Archive Options - Advanced</b></p>
+
+</li>
+<li><p>blurb_style</p>
+
+<p>Is set to, <b>1</b> if you&#39;re using the, <b>blurb</b> style in, <code>$Plugin_Config-</code>{Style}&gt;.</p>
+
+</li>
+<li><p>message</p>
+
+<p>Will hold the actual email message body. If you&#39;re using the, <b>full</b> style, the message will already be converted to HTML (if needed) and massaged in a way that it&#39;ll look really well without any help.</p>
+
+<p>If you&#39;re using the <b>blurb</b> style, the message will be a plaintext string, with all HTML encoding stripped.</p>
+
+</li>
+<li><p>PROGRAM_URL</p>
+
+<p>Holds the URL to your Dada Mail Installation</p>
+
+</li>
+<li><p>list</p>
+
+<p>Holds the value that you&#39;ve set in, <b>$List</b></p>
+
+</li>
+<li><p>message_id</p>
+
+<p>Holds the <b>message_id</b> that&#39;s associated with the archived message.</p>
+
+</li>
+</ul>
+
+</li>
+<li><p>list</p>
+
+<p>Holds the value that you&#39;ve set in, <b>$List</b></p>
+
+<p>(This is also available to you, <b>outside</b> of the <code>archive_entries</code> loop.</p>
+
+</li>
+<li><p>PROGRAM_URL</p>
+
+<p>Holds the URL to your Dada Mail Installation</p>
+
+<p>(This is also available to you, <b>outside</b> of the <code>archive_entries</code> loop.</p>
+
+</li>
+</ul>
+
+</li>
+</ul>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Dada Mail also can share its archives using its built-in RSS/Atom feeds. In your list control panel, go to:</p>
+
+<p><b>Manage Archive - Archive Options - Advanced</b></p>
+
+<h1 id="DEPENDENCIES">DEPENDENCIES</h1>
+
+<h1 id="INCOMPATIBILITIES">INCOMPATIBILITIES</h1>
+
+<h1 id="BUGS-AND-LIMITATIONS">BUGS AND LIMITATIONS</h1>
+
+<p>Currently, this extension is simple, and only handles one list at a time.</p>
+
+<p>If this extension becomes popular, I may give it the capability to handle all lists and at the same time, as well as have some of the more interesting archive capabilities support (embedded attachments, etc)</p>
+
+<p>Please, let me know if you find any bugs.</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Justin Simoni</p>
+
+<p>See: http://dadamailproject.com/contact</p>
+
+<h1 id="LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

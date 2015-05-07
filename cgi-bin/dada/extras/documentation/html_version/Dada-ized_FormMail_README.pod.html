@@ -1,0 +1,595 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Dada-ized FormMail</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME-DADA-ized-FormMail">NAME DADA-ized FormMail</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#ORIGINAL-SOURCE">ORIGINAL SOURCE</a></li>
+  <li><a href="#OBTAINING-Dada-ized-FormMail">OBTAINING Dada-ized FormMail</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+  <li><a href="#URL">URL</a></li>
+  <li><a href="#SUMMARY">SUMMARY</a></li>
+  <li><a href="#FILES">FILES</a></li>
+  <li><a href="#CONFIGURATION">CONFIGURATION</a>
+    <ul>
+      <li><a href="#DEBUGGING">$DEBUGGING</a></li>
+      <li><a href="#emulate_matts_code">$emulate_matts_code</a></li>
+      <li><a href="#secure">$secure</a></li>
+      <li><a href="#allow_empty_ref">$allow_empty_ref</a></li>
+      <li><a href="#max_recipients">$max_recipients</a></li>
+      <li><a href="#mailprog">$mailprog</a></li>
+      <li><a href="#postmaster">$postmaster</a></li>
+      <li><a href="#referers">@referers</a></li>
+      <li><a href="#allow_mail_to">@allow_mail_to</a></li>
+      <li><a href="#recipients">@recipients</a></li>
+      <li><a href="#recipient_alias">%recipient_alias</a></li>
+      <li><a href="#valid_ENV">@valid_ENV</a></li>
+      <li><a href="#locale">$locale</a></li>
+      <li><a href="#charset">$charset</a></li>
+      <li><a href="#date_fmt">$date_fmt</a></li>
+      <li><a href="#style">$style</a></li>
+      <li><a href="#no_content">$no_content</a></li>
+      <li><a href="#double_spacing">$double_spacing</a></li>
+      <li><a href="#wrap_text">$wrap_text</a></li>
+      <li><a href="#wrap_style">$wrap_style</a></li>
+      <li><a href="#address_style">$address_style</a></li>
+      <li><a href="#send_confirmation_mail">$send_confirmation_mail</a></li>
+      <li><a href="#confirmation_text">$confirmation_text</a></li>
+    </ul>
+  </li>
+  <li><a href="#INSTALLATION">INSTALLATION</a></li>
+  <li><a href="#FORM-CONFIGURATION">FORM CONFIGURATION</a>
+    <ul>
+      <li><a href="#recipient">recipient</a></li>
+      <li><a href="#subject">subject</a></li>
+      <li><a href="#redirect">redirect</a></li>
+      <li><a href="#bgcolor">bgcolor</a></li>
+      <li><a href="#background">background</a></li>
+      <li><a href="#text_color">text_color</a></li>
+      <li><a href="#link_color">link_color</a></li>
+      <li><a href="#vlink_color">vlink_color</a></li>
+      <li><a href="#alink_color">alink_color</a></li>
+      <li><a href="#title">title</a></li>
+      <li><a href="#return_link_url">return_link_url</a></li>
+      <li><a href="#return_link_title">return_link_title</a></li>
+      <li><a href="#sort">sort</a></li>
+      <li><a href="#print_config">print_config</a></li>
+      <li><a href="#required">required</a></li>
+      <li><a href="#missing_fields_redirect">missing_fields_redirect</a></li>
+      <li><a href="#env_report">env_report</a></li>
+      <li><a href="#print_blank_fields">print_blank_fields</a></li>
+      <li><a href="#email">email</a></li>
+      <li><a href="#realname">realname</a></li>
+    </ul>
+  </li>
+  <li><a href="#Dada-ized-Specific-FORM-CONFIGURATION">Dada-ized Specific FORM CONFIGURATION</a>
+    <ul>
+      <li><a href="#email1">email</a></li>
+      <li><a href="#dada_mail_list">dada_mail_list</a></li>
+      <li><a href="#dada_mail_subscribe_email">dada_mail_subscribe_email</a></li>
+      <li><a href="#dada_mail_confirm_email">dada_mail_confirm_email</a></li>
+    </ul>
+  </li>
+  <li><a href="#COMMON-PROBLEMS">COMMON PROBLEMS</a>
+    <ul>
+      <li><a href="#Confusion-over-the-qw-operator">Confusion over the qw operator</a></li>
+      <li><a href="#Sendmail-switches-removed">Sendmail switches removed</a></li>
+    </ul>
+  </li>
+  <li><a href="#SUPPORT">SUPPORT</a></li>
+</ul>
+
+<h1 id="NAME-DADA-ized-FormMail">NAME DADA-ized FormMail</h1>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>The Dada-ized FormMail is a copy of the FormMail.pl script distributed by the London Perl Mongers which has been tweaked to allow interaction between Dada Mail and FormMail.pl. Basically, this allows this FormMail.pl script to subscribe, or send a confirmation email to the address passed in the form itself.</p>
+
+<p>The below is the original documentation from the FormMail.pl, with additions to allow it to interact with Dada Mail. Dada Mail interaction is optional.</p>
+
+<h1 id="ORIGINAL-SOURCE">ORIGINAL SOURCE</h1>
+
+<p>This copy of the Dada-ized FormMail is based on NMS FormMail Version 3.14c1, which may be downloaded at:</p>
+
+<p>http://nms-cgi.sourceforge.net/formmail_compat-3.14c1.tar.gz</p>
+
+<h1 id="OBTAINING-Dada-ized-FormMail">OBTAINING Dada-ized FormMail</h1>
+
+<p>Dada-ized FormMail is located in the, <i>dada/extensions/FormMail</i> directory of the main Dada Mail distribution, under the name, <b>FormMail.pl</b></p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>FormMail Version 3.14c1 Copyright 2001-2003 London Perl Mongers, All rights reserved</p>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>This script is free software; you are free to redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<h1 id="URL">URL</h1>
+
+<p>The most up to date version of this script is available from the nms script archive at &lt;http://nms-cgi.sourceforge.net/&gt;</p>
+
+<h1 id="SUMMARY">SUMMARY</h1>
+
+<p>formmail is a script which allows you to receive the results of an HTML form submission via an email message.</p>
+
+<h1 id="FILES">FILES</h1>
+
+<p>In this distribution, you will find the following files:</p>
+
+<dl>
+
+<dt id="FormMail.pl">FormMail.pl</dt>
+<dd>
+
+<p>The main Perl script</p>
+
+</dd>
+<dt id="README">README</dt>
+<dd>
+
+<p>The original README file. Instructions on how to install and use the *Original* NMS formmail</p>
+
+</dd>
+<dt id="EXAMPLES">EXAMPLES</dt>
+<dd>
+
+<p>Some worked examples of ways to set up formmail</p>
+
+</dd>
+<dt id="ChangeLog">ChangeLog</dt>
+<dd>
+
+<p>The change history of these files</p>
+
+</dd>
+<dt id="MANIFEST">MANIFEST</dt>
+<dd>
+
+<p>List of files</p>
+
+</dd>
+<dt id="Dada-ized_FormMail_README.pod">Dada-ized_FormMail_README.pod</dt>
+<dd>
+
+<p>The Dada-ized FormMail README. Instructions on how to install the Dada-ized FroMMail.</p>
+
+</dd>
+</dl>
+
+<h1 id="CONFIGURATION">CONFIGURATION</h1>
+
+<p>There are a number of variables that you can change in FormMail.pl which alter the way that the program works.</p>
+
+<h2 id="DEBUGGING">$DEBUGGING</h2>
+
+<p>This should be set to 1 whilst you are installing and testing the script. Once the script is live you should change it to 0. When set to 1, errors will be output to the browser. This is a security risk and should not be used when the script is live.</p>
+
+<h2 id="emulate_matts_code">$emulate_matts_code</h2>
+
+<p>When this variable is set to a true value (e.g. 1) formmail will work in exactly the same way as its counterpart at Matt&#39;s Script Archive. If it is set to a false value (e.g. 0) then more advanced features are switched on. We do not recommend changing this variable to 1, as the resulting drop in security may leave your formmail open to use as a SPAM relay.</p>
+
+<h2 id="secure">$secure</h2>
+
+<p>When this variable is set to a true value (e.g. 1) many additional security features are turned on. We do not recommend changing this variable to 0, as the resulting drop in security may leave your formmail open to use as a SPAM relay.</p>
+
+<h2 id="allow_empty_ref">$allow_empty_ref</h2>
+
+<p>Some web proxies and office firewalls may strip certain headers from the HTTP request that is sent by a browser. Among these is the HTTP_REFERER that the program uses as an additional check of the requests validity - this will cause the program to fail with a &#39;bad referer&#39; message even though the configuration seems fine. In these cases setting this variable to 1 will stop the program from complaining about requests where no referer header was sent while leaving the rest of the security features intact.</p>
+
+<h2 id="max_recipients">$max_recipients</h2>
+
+<p>The maximum number of e-mail addresses that any single form should be allowed to send copies of the e-mail to. If none of your forms send e-mail to more than one recipient, then we recommend that you improve the security of FormMail by reducing this value to 1. Setting this variable to 0 removes all limits on the number of recipients of each e-mail.</p>
+
+<h2 id="mailprog">$mailprog</h2>
+
+<p>The system command that the script should invoke to send an outgoing email. This should be the full path to a program that will read a message from STDIN and determine the list of message recipients from the message headers. Any switches that the program requires should be provided here.</p>
+
+<p>A $mailprog setting that works for many UNIX-like hosts is:</p>
+
+<pre><code> $mailprog = &#39;/usr/lib/sendmail -oi -t&#39;;</code></pre>
+
+<p>Some other UNIX-like hosts need:</p>
+
+<pre><code> $mailprog = &#39;/usr/sbin/sendmail -oi -t&#39;;</code></pre>
+
+<p>If your web server lacks a sendmail binary, you can use an SMTP relay instead, by setting $mailprog like this:</p>
+
+<p>$mailprog = &#39;SMTP:mailhost.your.domain&#39;;</p>
+
+<p>You will need to replace mailhost.your.domain with the name or IP address of an SMTP server configured to relay mail for the web server.</p>
+
+<p>Your system administrator or hosting provider should be able to tell you either the path to sendmail on the web server or the name of a host that will act as an SMTP relay for the web server.</p>
+
+<h2 id="postmaster">$postmaster</h2>
+
+<p>The envelope sender address to use for all emails sent by the script. This address will recieve bounce messages if any of the emails cannot be delivered. If in doubt, put your own email address here.</p>
+
+<h2 id="referers">@referers</h2>
+
+<p>A list of referring hosts. This should be a list of the names or IP addresses of all the systems that will host HTML forms that refer to this formmail script. Only these hosts will be allowed to use the formmail script. This can be used to prevent others from linking to FormMail.pl from their own HTML forms.</p>
+
+<p>If you wish to turn off referer checking so that forms that use this FormMail.pl can reside on any web server then make this array empty, like this:</p>
+
+<pre><code> @referers = ();</code></pre>
+
+<h2 id="allow_mail_to">@allow_mail_to</h2>
+
+<p>A list of the email addresses that formmail can send email to. The elements of this list can be either simple email addresses (like &#39;you@your.domain&#39;) or domain names (like &#39;your.domain&#39;). If it&#39;s a domain name then *any* address at the domain will be allowed.</p>
+
+<p>Example: to allow mail to be sent to &#39;you@your.domain&#39; or any address at the host &#39;mail.your.domain&#39;, you would set:</p>
+
+<pre><code> @allow_mail_to = qw(you@your.domain mail.your.domain);</code></pre>
+
+<h2 id="recipients">@recipients</h2>
+
+<p>A list of Perl regular expression patterns that determine who the script will allow mail to be sent to in addition to those set in @allow_mail_to. This is present only for compatibility with the original formmail script. We strongly advise against having anything in @recipients as it&#39;s easy to make a mistake with the regular expression syntax and turn your formmail into an open SPAM relay.</p>
+
+<p>There is an implicit $ at the end of the regular expression, but you need to include the ^ if you want it anchored at the start. Note also that since &#39;.&#39; is a regular expression metacharacter, you&#39;ll need to escape it before using it in domain names.</p>
+
+<p>If that last paragraph makes no sense to you then please don&#39;t put anything in @recipients, stick to using the less error prone @allow_mail_to.</p>
+
+<h2 id="recipient_alias">%recipient_alias</h2>
+
+<p>A hash for predefining a list of recipients in the script, and then choosing between them using the recipient form field, while keeping all the email addresses out of the HTML so that they don&#39;t get collected by address harvesters and sent junk email.</p>
+
+<p>For example, suppose you have three forms on your site, and you want each to submit to a different email address and you want to keep the addresses hidden. You might set up %recipient_alias like this:</p>
+
+<pre><code> %recipient_alias = (
+ &#39;1&#39; =&gt; &#39;one@your.domain&#39;,
+ &#39;2&#39; =&gt; &#39;two@your.domain&#39;,
+ &#39;3&#39; =&gt; &#39;three@your.domain&#39;,
+ );</code></pre>
+
+<p>In the HTML form that should submit to the recipient &#39;two@your.domain&#39;, you would then set the recipient with:</p>
+
+<pre><code> &lt;input type=&quot;hidden&quot; name=&quot;recipient&quot; value=&quot;2&quot; /&gt;</code></pre>
+
+<p>The recipients in %recipient_alias are automatically added to the allowed recipients list, so there&#39;s no need to list them all in @allow_mail_to as well.</p>
+
+<h2 id="valid_ENV">@valid_ENV</h2>
+
+<p>A list of all the environment variables that you want to be able to include in the email. See &#39;env_report&#39; below.</p>
+
+<h2 id="locale">$locale</h2>
+
+<p>This determines the language that is used in the date - by default this is blank and the language will probably be english. The following a list of some possible values, however it should be stressed that not all of these will be supported on all systems and also this is not a complete list:</p>
+
+<pre><code>    Catalan           ca_ES
+    Croatian          hr_HR
+    Czech             cs_CZ
+    Danish            da_DK
+    Dutc              nl_NL
+    Estonian          et_EE
+    Finnish           fi_FI
+    French            fr_FR
+    Galician          gl_ES
+    German            de_DE
+    Greek             el_GR
+    Hebrew            he_IL
+    Hungarian         hu_HU
+    Icelandic         is_IS
+    Italian           it_IT
+    Japanese          ja_JP
+    Korean            ko_KR
+    Lithuanian        lt_LT
+    Norwegian         no_NO
+    Polish            pl_PL
+    Portuguese        pt_PT
+    Romanian          ro_RO
+    Russian           ru_RU
+    Slovak            sk_SK
+    Slovenian         sl_SI
+    Spanish           es_ES
+    Swedish           sv_SE
+    Thai              th_TH
+    Turkish           tr_TR</code></pre>
+
+<h2 id="charset">$charset</h2>
+
+<p>The character set to use for output documents.</p>
+
+<h2 id="date_fmt">$date_fmt</h2>
+
+<p>The format that the date will be displayed in. This is a string that contains a number of different &#39;tags&#39;. Each tag consists of a % character followed by a letter. Each tag represents one way of displaying a particular part of the date or time. Here are some common tags:</p>
+
+<pre><code>    %Y - four digit year (2002)
+    %y - two digit year (02)
+    %m - month of the year (01 to 12)
+    %b - short month name (Jan to Dec)
+    %B - long month name (January to December)
+    %d - day of the month (01 to 31)
+    %a - short day name (Sun to Sat)
+    %A - long day name (Sunday to Saturday)
+    %H - hour in 24 hour clock (00 to 23)
+    %I - hour in 12 hour clock (01 to 12)
+    %p - AM or PM
+    %M - minutes (00 to 59)
+    %S - seconds (00 to 59)
+    %Z - the name of the local timezone</code></pre>
+
+<h2 id="style">$style</h2>
+
+<p>This is the URL of a CSS stylesheet which will be used for script generated messages. This should probably be the same as the one that you use for all the other pages. This should be a local absolute URI fragment. Set $style to &#39;0&#39; or the emtpy string if you don&#39;t want to use style sheets.</p>
+
+<h2 id="no_content">$no_content</h2>
+
+<p>If this is set to 1 then rather than returning the HTML confirmation page or doing a redirect the script will output a header that indicates that no content will be returned and that the submitted form should not be replaced. This should be used carefully as an unwitting visitor may click the submit button several times thinking that nothing has happened.</p>
+
+<h2 id="double_spacing">$double_spacing</h2>
+
+<p>If this is set to 1 (as it is by default) then a blank line is printed after each form value in the e-mail. Change this value to 0 if you want the e-mail to be more compact.</p>
+
+<h2 id="wrap_text">$wrap_text</h2>
+
+<p>If this is set to 1 then the content of any long text fields will be wrapped at around 72 columns in the e-mail which is sent. The way that this is done is controlled by the variable $wrap_style</p>
+
+<h2 id="wrap_style">$wrap_style</h2>
+
+<p>If $wrap_text is set to 1 then the text will be wrapped in such a way that the left margin of the text is lined up with the beginning of the text after the description of the field - that is to say it is indented by the length of the field name plus 2. If it is set to 2 then the subsequent lines of the text will not be indented at all and will be flush with the start of the lines. The choice of style is really a matter of taste although you might find that style 1 does not work particularly well if your e-mail client uses a proportional font where the spaces of the indent might be smaller than the characters in the field name.</p>
+
+<h2 id="address_style">$address_style</h2>
+
+<p>If this is set to 0 ( or if $emulate_matts_code is set to 1 ) then the address constructed for the person filling in the form will be of the format &quot;$email ($realname)&quot;. If it is set to 1 then the format will be &quot;$realname &lt;$email&gt;&quot;.</p>
+
+<h2 id="send_confirmation_mail">$send_confirmation_mail</h2>
+
+<p>If this flag is set to 1 then an additional email will be sent to the person who submitted the form.</p>
+
+<p>CAUTION: with this feature turned on it&#39;s possible for someone to put someone else&#39;s email address in the form and submit it 5000 times, causing this script to send a flood of email to a third party. This third party is likely to blame you for the email flood attack.</p>
+
+<h2 id="confirmation_text">$confirmation_text</h2>
+
+<p>The header and body of the confirmation email sent to the person who submits the form, if the $send_confirmation_mail flag is set. We use a Perl &#39;here document&#39; to allow us to configure it as a single block of text in the script. In the example below, everything between the lines</p>
+
+<pre><code> $confirmation_text = &lt;&lt;&#39;END_OF_CONFIRMATION&#39;;</code></pre>
+
+<p>and</p>
+
+<pre><code> END_OF_CONFIRMATION</code></pre>
+
+<p>is treated as part of the email. Everything before the first blank line is taken as part of the email header, and everything after the first blank line is the body of the email.</p>
+
+<pre><code> $confirmation_text = &lt;&lt;&#39;END_OF_CONFIRMATION&#39;;
+ From: you@your.com
+ Subject: form submission 
+ 
+ Thankyou for your form submission.
+ 
+ END_OF_CONFIRMATION</code></pre>
+
+<h1 id="INSTALLATION">INSTALLATION</h1>
+
+<p>Formmail is installed by copying the file FormMail.pl into your cgi-bin directory. If you don&#39;t know where your cgi-bin directory is, then please ask your system administrator.</p>
+
+<p><b>Dada-ized FormMail Note:</b></p>
+
+<p>By default, this script is located in the, <i>dada/extensions/FormMail</i> directory</p>
+
+<p>Uploading the <b>FormMail</b> directory into your, <i>cgi-bin/dada/extensions</i> direction on the server will make this script work beautifully.</p>
+
+<p>You may need to rename FormMail.pl to FormMail.cgi. Again, your system administrator will know if this is the case.</p>
+
+<p>You will probably need to turn on execute permissions to the file. You can do this by running the command &quot;chmod +x FormMail.pl&quot; from your command line. If you don&#39;t have command line access to your web server then there will probably be an equivalent function in your file transfer program.</p>
+
+<h1 id="FORM-CONFIGURATION">FORM CONFIGURATION</h1>
+
+<p>To make use of it, you need to write an HTML form that refers to the FormMail script. Here&#39;s an example which will send mail to the address &#39;feedback@your.domain&#39; when someone submits the form:</p>
+
+<pre><code> &lt;form method=&quot;post&quot; action=&quot;http://your.domain/cgi-bin/dada/extensions/FormMail/FormMail.pl&quot;&gt;
+   &lt;input type=&quot;hidden&quot; name=&quot;recipient&quot; value=&quot;feedback@your.domain&quot; /&gt;
+   &lt;input type=&quot;text&quot; name=&quot;feedback&quot; /&gt;&lt;br /&gt;
+   Please enter your comments&lt;br /&gt;
+   &lt;input type=&quot;submit&quot; /&gt;
+ &lt;/form&gt;</code></pre>
+
+<p>See how the hidden &#39;recipient&#39; input in the example above told formmail who to send the mail to ? This is how almost all of formmail&#39;s configuration works. Here&#39;s the full list of things you can set with hidden form inputs:</p>
+
+<h2 id="recipient">recipient</h2>
+
+<p>The email address to which the form submission should be sent. If you would like it copied to more than one recipient then you can separate multiple email addresses with commas, for example:</p>
+
+<pre><code> &lt;input type=&quot;hidden&quot; name=&quot;recipient&quot;
+     value=&quot;you@your.domain,me@your.domain&quot; /&gt;</code></pre>
+
+<p>If you leave the &#39;recipient&#39; field out of the form, formmail will send to the first address listed in the @allow_mail_to configuration variable (see above). This allows you to avoid putting your email address in the form, which might be desirable if you&#39;re concerned about address harvesters collecting it and sending you SPAM. This feature is disabled if the $emulate_matts_code configuration variable is set to 1.</p>
+
+<h2 id="subject">subject</h2>
+
+<p>The subject line for the email. For example:</p>
+
+<pre><code> &lt;input type=&quot;hidden&quot; name=&quot;subject&quot;
+     value=&quot;From the feedback form&quot; /&gt;</code></pre>
+
+<h2 id="redirect">redirect</h2>
+
+<p>If this value is present it should be a URL, and the user will be redirected there after a successful form submission. For example:</p>
+
+<pre><code> &lt;input type=&quot;hidden&quot; name=&quot;redirect&quot;
+    value=&quot;http://www.your.domain/foo.html&quot; /&gt;</code></pre>
+
+<p>If you don&#39;t specify a redirect URL then instead of redirecting formmail will generate a success page telling the user that their submission was successful.</p>
+
+<h2 id="bgcolor">bgcolor</h2>
+
+<p>The background color for the success page.</p>
+
+<h2 id="background">background</h2>
+
+<p>The URL of the background image for the success page.</p>
+
+<h2 id="text_color">text_color</h2>
+
+<p>The text color for the success page.</p>
+
+<h2 id="link_color">link_color</h2>
+
+<p>The link color for the success page.</p>
+
+<h2 id="vlink_color">vlink_color</h2>
+
+<p>The vlink color for the success page.</p>
+
+<h2 id="alink_color">alink_color</h2>
+
+<p>The alink color for the success page.</p>
+
+<h2 id="title">title</h2>
+
+<p>The title for the success page.</p>
+
+<h2 id="return_link_url">return_link_url</h2>
+
+<p>The target URL for a link at the end of the success page. This is normally used to provide a link from the success page back to your main page or back to the page with the form on. For example:</p>
+
+<pre><code> &lt;input type=&quot;hidden&quot; name=&quot;return_link_url&quot;
+    value=&quot;/home.html&quot; /&gt;</code></pre>
+
+<h2 id="return_link_title">return_link_title</h2>
+
+<p>The label for the return link. For example:</p>
+
+<pre><code> &lt;input type=&quot;hidden&quot; name=&quot;return_link_title&quot;
+     value=&quot;Back to my home page&quot; /&gt;</code></pre>
+
+<h2 id="sort">sort</h2>
+
+<p>This sets the order in which the submitted form inputs will appear in the email and on the success page. It can be the string &#39;alphabetic&#39; for alphabetic order, or the string &quot;order:&quot; followed by a comma separated list of the input names, for example:</p>
+
+<pre><code> &lt;input type=&quot;hidden&quot; name=&quot;sort&quot;
+     value=&quot;order:name,email,age,comments&quot; /&gt;</code></pre>
+
+<p>If &quot;order:&quot; is used you must supply the names of all of the fields that you want to be in the body of the mail message.</p>
+
+<h2 id="print_config">print_config</h2>
+
+<p>This is mainly used for debugging, and if set it causes formmail to include a dump of the specified configuration settings in the email. For example:</p>
+
+<pre><code> &lt;input type=&quot;hidden&quot; name=&quot;print_config&quot;
+     value=&quot;title,sort&quot; /&gt;</code></pre>
+
+<p>... will include whatever values you set for &#39;title&#39; and &#39;sort&#39; (if any) in the email.</p>
+
+<h2 id="required">required</h2>
+
+<p>This is a list of fields that the user must fill in before they submit the form. If they leave any of these fields blank then they will be sent back to the form to try again. For example:</p>
+
+<pre><code> &lt;input type=&quot;hidden&quot; name=&quot;required&quot;
+     value=&quot;name,comments&quot; /&gt;</code></pre>
+
+<h2 id="missing_fields_redirect">missing_fields_redirect</h2>
+
+<p>If this is set, it must be a URL, and the user will be redirected there if any of the fields listed in &#39;required&#39; are left blank. Use this if you want finer control over the the error that the user see&#39;s if they miss out a field.</p>
+
+<h2 id="env_report">env_report</h2>
+
+<p>This is a list of the CGI environment variables that should be included in the email. This is useful for recording things like the IP address of the user in the email. Any environment variables that you want to use in &#39;env_report&#39; in any of your forms will need to be in the @valid_ENV configuration variable described above.</p>
+
+<h2 id="print_blank_fields">print_blank_fields</h2>
+
+<p>If this is set then fields that the user left blank will be included in the email. Normally, blank fields are suppressed to save space.</p>
+
+<p>As well as all these hidden inputs, there are a couple of non-hidden inputs which get special treatment:</p>
+
+<h2 id="email">email</h2>
+
+<p>If one of the things you&#39;re asking the user to fill in is their email address and you call that input &#39;email&#39;, formmail will use it as the address part of the sender&#39;s email address in the email.</p>
+
+<h2 id="realname">realname</h2>
+
+<p>If one of the things you&#39;re asking the user to fill in is their full name and you call that input &#39;realname&#39;, formmail will use it as the name part of the sender&#39;s email address in the email.</p>
+
+<h1 id="Dada-ized-Specific-FORM-CONFIGURATION">Dada-ized Specific FORM CONFIGURATION</h1>
+
+<p>Along with the default form configurations, the Dada-ized FormMail allows you to specify if you&#39;d like to subscribe, or send a confirmation for subscription to the email address located in the <b>email</b> form value.</p>
+
+<p>Do note, that some of these form fields have changed in the 2.10.11 version of Dada Mail:</p>
+
+<h2 id="email1">email</h2>
+
+<p>As well as the default behavior that the <b>email</b> field has in FormMail, the Dada-ized FormMail will also use the value of the <b>email</b> field for subscriptions or subscription confirmations.</p>
+
+<h2 id="dada_mail_list">dada_mail_list</h2>
+
+<p>Holds the <b>listshortname</b> of the Dada Mail list you&#39;d like to use</p>
+
+<p>example:</p>
+
+<pre><code>        &lt;input type=&#39;hidden&#39; name=&#39;dada_mail_list&#39; value=&#39;justin&#39;&gt; </code></pre>
+
+<h2 id="dada_mail_subscribe_email">dada_mail_subscribe_email</h2>
+
+<p>Set to either, <b>1</b> or, <b>yes</b> if you&#39;d like the email address submitted in the form to be subscribed to your Dada Mail list.</p>
+
+<p>You may want to have this formfield a checkbox, so that the person filling out the form can make the choice themselves:</p>
+
+<pre><code> &lt;input type=&quot;checkbox&quot; name=&quot;dada_mail_subscribe_email&quot; value=&quot;1&quot; /&gt; Yes! Add my email to your list!</code></pre>
+
+<h2 id="dada_mail_confirm_email">dada_mail_confirm_email</h2>
+
+<p>Set to either, <b>1</b> or, <b>yes</b>. Similar to the, <b>dada_mail_subscribe_email</b> field, but rather than subscribing an email address, the address will be sent a confirmation email for the subscription.</p>
+
+<p><b>This is the prefered behavior</b>.</p>
+
+<p>Don&#39;t use the <b>dada_mail_confirm_email</b> and <b>dada_mail_subscribe_email</b> in the same form, most likely the, <b>dada_mail_subscribe_email</b> field value will be used. Most likely.</p>
+
+<h1 id="COMMON-PROBLEMS">COMMON PROBLEMS</h1>
+
+<h2 id="Confusion-over-the-qw-operator">Confusion over the qw operator</h2>
+
+<p>In the configuration section at the top of FormMail, we set the default list of allowed referers with this line of code:</p>
+
+<pre><code>   @referers = qw(dave.org.uk 209.207.222.64 localhost);</code></pre>
+
+<p>This use of the qw() operator is one way to write lists of strings in Perl. Another way is like this:</p>
+
+<pre><code>   @referers = (&#39;dave.org.uk&#39;,&#39;209.207.222.64&#39;,&#39;localhost&#39;);</code></pre>
+
+<p>We prefer the first version because it allows use to leave out the quote character, but the second version is perfectly valid and works exactly the same as the qw() version. You should use whichever version you feel most comfortable with. Neither is better or worse than the other.</p>
+
+<p>What you must not do is try to mix the two, and end up with something like:</p>
+
+<pre><code>   @referers = qw(&#39;dave.org.uk&#39;,&#39;209.207.222.64&#39;,&#39;localhost&#39;);</code></pre>
+
+<p>This will not work, and you will see unexpected behavior. In the case of @referers, the script will always display a &quot;bad referer&quot; error page.</p>
+
+<h2 id="Sendmail-switches-removed">Sendmail switches removed</h2>
+
+<p>In the configuration section at the top of FormMail, we set the default mail program to sendmail with this code:</p>
+
+<pre><code>   $mailprog          = &#39;/usr/lib/sendmail -oi -t&#39;;</code></pre>
+
+<p>This is actually two different pieces of information; the location of the sendmail binary (/usr/lib/sendmail) and the command line switches that must be passed to it in order for it to read the list of message recipients from the message header (-oi -t).</p>
+
+<p>If your hosting provider or system administrator tells you that sendmail is /usr/sbin/sendmail on your system, then you must change the $mailprog line to:</p>
+
+<pre><code>   $mailprog          = &#39;/usr/sbin/sendmail -oi -t&#39;;</code></pre>
+
+<p>and not:</p>
+
+<pre><code>   $mailprog          = &#39;/usr/sbin/sendmail&#39;;</code></pre>
+
+<h1 id="SUPPORT">SUPPORT</h1>
+
+<p>For support of this script please email:</p>
+
+<pre><code>  &lt;nms-cgi-support@lists.sourceforge.net&gt;</code></pre>
+
+
+</body>
+
+</html>
+
+

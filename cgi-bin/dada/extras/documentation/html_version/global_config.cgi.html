@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Global Configuration Helper</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Plugin:-Global-Config---Reconfigure-Dada-Mails-Global-Configuration">Plugin: Global Config - Reconfigure Dada Mail&#39;s Global Configuration</a></li>
+  <li><a href="#Installation">Installation</a>
+    <ul>
+      <li><a href="#Change-permissions-of-global_config.cgi-to-755">Change permissions of &quot;global_config.cgi&quot; to 755</a></li>
+      <li><a href="#Configure-your-.dada_config-file">Configure your .dada_config file</a></li>
+    </ul>
+  </li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="Plugin:-Global-Config---Reconfigure-Dada-Mails-Global-Configuration">Plugin: Global Config - Reconfigure Dada Mail&#39;s Global Configuration</h1>
+
+<p>This plugin allows you to easily drop back into Dada Mail&#39;s included Installer, allowing you to then change its global configuration, just like you would, during an installation or upgrade.</p>
+
+<p>Dada Mail&#39;s global configuration is saved in its <code>.dada_config</code> file, which the installer writes during an install/upgrade. This file can be edited after an installation or upgrade by hand, but can be much easier done with this plugin.</p>
+
+<p>By default, when installed, this plugin will only be accessable when logged in using the Dada Mail Root Password.</p>
+
+<h1 id="Installation">Installation</h1>
+
+<p>This plugin can be installed during a Dada Mail install/upgrade, using the included installer that comes with Dada Mail. The below installation instructions go through how to install the plugin manually.</p>
+
+<h2 id="Change-permissions-of-global_config.cgi-to-755">Change permissions of &quot;global_config.cgi&quot; to 755</h2>
+
+<p>The, <code>global_config.cgi</code> plugin will be located in your, <i>dada/plugins</i> diretory. Change the script to, <code>755</code></p>
+
+<h2 id="Configure-your-.dada_config-file">Configure your .dada_config file</h2>
+
+<p>Now, edit your <code>.dada_config</code> file, so that it shows the plugin in the left-hand menu, under the, <b>Plugins</b> heading:</p>
+
+<p>First, see if the following lines are present in your <code>.dada_config</code> file:</p>
+
+<pre><code> # start cut for list control panel menu
+ =cut
+
+ =cut
+ # end cut for list control panel menu</code></pre>
+
+<p>If they are, remove them.</p>
+
+<p>Then, find these lines:</p>
+
+<pre><code> #                                      {
+ #                                      -Title      =&gt; &#39;Global Configuration&#39;,
+ #                                      -Title_URL  =&gt; $PLUGIN_URL.&quot;/global_config.cgi&quot;,
+ #                                      -Function   =&gt; &#39;global_config&#39;,
+ #                                      -Activated  =&gt; 0,
+ #                                      },</code></pre>
+
+<p>Uncomment the lines, by taking off the, &quot;#&quot;&#39;s:</p>
+
+<pre><code>                                        {
+                                        -Title      =&gt; &#39;Global Configuration&#39;,
+                                        -Title_URL  =&gt; $PLUGIN_URL.&quot;/global_config.cgi&quot;,
+                                        -Function   =&gt; &#39;global_config&#39;,
+                                        -Activated  =&gt; 0,
+                                        },</code></pre>
+
+<p>Save your <code>.dada_config</code> file.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014</p>
+
+<p>Justin Simoni</p>
+
+<p>http://justinsimoni.com</p>
+
+<p>All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

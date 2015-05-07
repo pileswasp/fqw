@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>List Control Panel Overview</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#List-Control-Panel">List Control Panel</a>
+    <ul>
+      <li><a href="#General-Concepts">General Concepts</a></li>
+      <li><a href="#List-Password-vs.-Dada-Mail-Root-Password">List Password vs. Dada Mail Root Password</a>
+        <ul>
+          <li><a href="#List-Password">List Password</a></li>
+          <li><a href="#Dada-Mail-Root-Password">Dada Mail Root Password</a></li>
+          <li><a href="#Disabling-List-Control-Panel-Screens-for-List-Password-Logins">Disabling List Control Panel Screens for List Password Logins</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="List-Control-Panel">List Control Panel</h1>
+
+<p>Dada Mail&#39;s List Control Panel is the administrative area of a mailing list. This is the place where you can Send out Message to all your Subscribers, View/Add/Update these Subscribers, change how your mailing list works, View/Edit/Add/Remove archived message and quite a few more things.</p>
+
+<p>To access the List Control Panel, visit the Administration screen of your Dada Mail - by default (this can be customized), the address would be:</p>
+
+<p><a href="http://example.com/cgi-bin/dada/mail.cgi/admin">http://example.com/cgi-bin/dada/mail.cgi/admin</a></p>
+
+<p>Where, <code>http://example.com/cgi-bin/dada/mail.cgi</code> is the URL to own Dada Mail.</p>
+
+<p>This screen will have two forms, one form to log into an existing mailing list, and another form to create a new mailing list. You&#39;ll want to use the first form.</p>
+
+<h2 id="General-Concepts">General Concepts</h2>
+
+<p>Generally, you&#39;ll want to think of a Dada Mail install as a collection of related, but separate mailing lists with members that may be on one or more mailing lists, which have profile field information that&#39;s shared between these mailing lists. If you have need for totally separate mailing lists, with totally separate applications, you may want instead to multiple installations of Dada Mail.</p>
+
+<h2 id="List-Password-vs.-Dada-Mail-Root-Password">List Password vs. Dada Mail Root Password</h2>
+
+<p>Two different passwords can be used to access a mailing list&#39;s List Control Panel: The <b>List Password</b> and the, <b>Dada Mail Root Password</b>. You can use these two types of passwords to set simple access controls on what features are available to those that log into mailing lists.</p>
+
+<h3 id="List-Password">List Password</h3>
+
+<p>The List Password can be used to log into only one mailing list. Certain List Control Panel screens will be disabled by default, and certain features will also be disabled. These features usually related to <b>Dada Mail Profiles</b>, which are shared between mailing lists.</p>
+
+<p>The List Password is what you&#39;ll want to give someone to administrate the one specific mailing list, without having their changes affect any other mailing list, that Dada Mail hosts.</p>
+
+<h3 id="Dada-Mail-Root-Password">Dada Mail Root Password</h3>
+
+<p>The Dada Mail Root Password can be used to log into any mailing list hosted by Dada Mail. Make sure that there are no List Passwords that are set to the same value as the Dada Mail Root Password.</p>
+
+<p>Logging into the Dada Mail Root Password will allow you full access to all List Control Panel screens, and features.</p>
+
+<h3 id="Disabling-List-Control-Panel-Screens-for-List-Password-Logins">Disabling List Control Panel Screens for List Password Logins</h3>
+
+<p>Entire screens may be disabled, when someone logs in, using the List Password. But, these screens will always be available, when you log into a mailing list, using the Dada Mail Root Password. By default, links to these disabled screens will appear greyed out in the left hand side menu.</p>
+
+<p>You may change which screens are disabled right in the List Control Panel, under, <b>Your List Control Panel - Customize Feature Set</b> - make sure to first log into the mailing list with the Dada Mail Root Password!</p>
+
+<p>By default, the following List Control Panel screens are disabled, when you log in, with the List Password:</p>
+
+<ul>
+
+<li><p>Membership - Options</p>
+
+<p><b>Membership - Options</b> contains options for editing the Profile Fields throughout the List Control Panel, as well as setting option for the Black List.</p>
+
+</li>
+<li><p>Your Mailing List - Options</p>
+
+<p><b>Your Mailing List - Options</b> contains options on some of the advanced behaviors of the mailing list, including options on how people can be subscribed to your list, and what mode you are going to run your mailing list as (private list, public list).</p>
+
+<p>Of particular note is the option requiring <b>Closed-Loop Opt-In Confirmation</b>. For public mailing lists, you <b>most definitely want this option enabled</b>.</p>
+
+<p>This screen also has an option to allow importing a mailing list, without requiring confirmation (via a list invitation), for both List Password and Dada Root Password logins. By default, you may mass import subscribers, when logged into the List Control Panel with the Dada Root Password, but not with the List Password.</p>
+
+</li>
+<li><p>Your Mailing List - Delete This Mailing List</p>
+
+</li>
+<li><p>Your List Control Panel</p>
+
+</li>
+<li><p>Your List Control Panel - Customize Feature Set</p>
+
+</li>
+<li><p>Your List Control Panel - Options</p>
+
+</li>
+<li><p>Plugins</p>
+
+<p>The following plugins are disabled for List Password logins:</p>
+
+<ul>
+
+<li><p>Change the Program Root Password</p>
+
+</li>
+<li><p>Change Your List Short Name</p>
+
+</li>
+<li><p>Global Configuration</p>
+
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</body>
+
+</html>
+
+

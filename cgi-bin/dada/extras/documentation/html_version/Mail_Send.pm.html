@@ -1,0 +1,371 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::Mail::Send</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#Warning:-Thar-Be-Dragons">Warning: Thar Be Dragons</a></li>
+    </ul>
+  </li>
+  <li><a href="#Public-Methods">Public Methods</a>
+    <ul>
+      <li><a href="#new">new</a></li>
+      <li><a href="#send">send</a></li>
+      <li><a href="#mass_send">mass_send</a></li>
+      <li><a href="#test">test</a></li>
+      <li><a href="#test_send_file">test_send_file</a></li>
+    </ul>
+  </li>
+  <li><a href="#Private-Methods">Private Methods</a>
+    <ul>
+      <li><a href="#make_general_headers">_make_general_headers</a></li>
+      <li><a href="#list_headers">list_headers</a></li>
+      <li><a href="#clean_headers">clean_headers</a></li>
+      <li><a href="#return_headers">return_headers</a></li>
+    </ul>
+  </li>
+  <li><a href="#See-Also">See Also</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::Mail::Send</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code> # Initialize: 
+ my $mh = DADA::Mail::Send-&gt;new(
+                         { 
+                                -list =&gt; &#39;mylist&#39;, 
+                        }
+                ); 
+ 
+ # Send something out: 
+ $mh-&gt;send(
+        From    =&gt; &#39;me@example.com&#39;, 
+        To      =&gt; &#39;you@example.com&#39;, 
+        Subject =&gt; &quot;this is the subject&#39;, 
+        Body    =&gt; &quot;This is the body of the message&#39;, 
+  ); 
+ 
+ # Send a whole lot of things out: 
+ $mh-&gt;mass_send( 
+        { 
+                -msg =&gt; {
+                        Subject =&gt; &quot;this is the subject&#39;, 
+                        Body    =&gt; &quot;This is the body of the message&#39;, 
+                },
+        }
+); </code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p><code>DADA::Mail::Send</code> is in charge of sending messages, via email.</p>
+
+<p>There&#39;s two ways this is done -</p>
+
+<p>The first is using the <code>send</code> method. This is used to send one message to one person.</p>
+
+<p>The second way is using the <code>mass_send</code> method. This sends a mass mailing to an entire list.</p>
+
+<h2 id="Warning:-Thar-Be-Dragons">Warning: Thar Be Dragons</h2>
+
+<p>There&#39;s many coding practices in this module that we would like to change for the better. It&#39;s not the easiest to read code.</p>
+
+<h1 id="Public-Methods">Public Methods</h1>
+
+<h2 id="new">new</h2>
+
+<pre><code> my $mh = DADA::Mail::Send-&gt;new(
+                         { 
+                                -list   =&gt; &#39;mylist&#39;, 
+                                -ls_obj =&gt; $ls,
+                        }
+                );</code></pre>
+
+<p>Creates a new <code>DADA::Mail::Send</code> object.</p>
+
+<p><code>new</code> requires one argument, <code>-list</code>, which should hold a valid <code>listshortname</code>.</p>
+
+<p><code>new</code> has one optional argument, <code>-ls_obj</code>, which should hold a valid <code>DADA::MailingList::Settings</code> object, like so:</p>
+
+<pre><code> use DADA::MailingList::Settings; 
+ use DADA::Mail::Send; 
+
+ my $list = &#39;mylist&#39;; 
+
+ my $ls = DADA::MailingList::Settings-&gt;new({-list =&gt; $list}); 
+ 
+ my $mh = DADA::Mail::Send-&gt;new(
+                        {
+                                -list   =&gt; $list, 
+                                -ls_obj =&gt; $ls,  
+                        }
+                  );</code></pre>
+
+<p>Passing a <code>DADA::MailingList::Settings</code> object is just an optimization step and is not required. With the SQL backend, it does mean one less SQL query, which is nice.</p>
+
+<h2 id="send">send</h2>
+
+<pre><code> # Send something out: 
+ $mh-&gt;send(
+        To      =&gt; &#39;you@example.com&#39;, 
+        Subject =&gt; &#39;this is the subject&#39;, 
+        Body    =&gt; &#39;This is the body of the message&#39;, 
+  ); </code></pre>
+
+<p>Sends a message, via email.</p>
+
+<p>Takes a variety of arguments. The arguments should be various <b>Email Headers</b> and the body of the email message, passed in <code>Body</code></p>
+
+<p>For example, if you have an email message that looks like this:</p>
+
+<pre><code> From: me@example.com
+ To: you@example.com
+ Subject: This is the Subject!
+ Body: This is the Body!</code></pre>
+
+<p>You would pass it to, <code>send</code> like so:</p>
+
+<pre><code> # Send something out: 
+ $mh-&gt;send(
+        From    =&gt; &#39;me@example.com&#39;,
+        To      =&gt; &#39;you@example.com&#39;, 
+        Subject =&gt; &#39;This is the Subject!&#39;, 
+        Body    =&gt; &#39;This is the Body!&#39;, 
+  );</code></pre>
+
+<p>No arguments are <i>really</i> necessary, although your message isn&#39;t going to get very far, or have much content.</p>
+
+<p>At the very minimum, you probably want to pass, <code>To</code>, <code>Subject</code> and, <code>Body</code>. All other headers will be filled out to something that&#39;s pretty sane.</p>
+
+<p>For example, if the <code>From</code> argument isn&#39;t passed, the <b>List Owner</b> of the list is used. This proves to be useful.</p>
+
+<p>This method is somewhat strange, once you get to multipart/alternative messages - passing the arguments is done exactly the same way.</p>
+
+<h2 id="mass_send">mass_send</h2>
+
+<pre><code> # Send to a list - (old API - don&#39;t use, if you can help it)
+ $mh-&gt;mass_send( 
+        Subject =&gt; &quot;this is the subject&#39;, 
+        Body    =&gt; &quot;This is the body of the message&#39;, 
+ );
+ 
+ # Send to a list - new API
+        my $message_id = $mh-&gt;mass_send(
+                {
+                        -msg                      =&gt; {
+                                Subject =&gt; &quot;this is the subject&#39;, 
+                                Body    =&gt; &quot;This is the body of the message&#39;,
+                        },
+                        -partial_sending  =&gt; {...}, 
+                        -multi_list_send  =&gt; {
+                                                                        -lists    =&gt; [@alternative_list], 
+                                                                        -no_dupes =&gt; 1, 
+                                                                 },
+                        -test      =&gt; 0,
+                        -mass_test =&gt; 0, 
+                        -test_recipient =&gt; &#39;someone@example.com&#39;
+                }
+        );</code></pre>
+
+<p>Mails a message to an entire mailing list.</p>
+
+<p>The Old API is similar to the API to <code>send</code>, but will ignore the, <code>To</code> header, if you do pass it. <b>Use the new API.</b></p>
+
+<p><code>-msg</code> is <b>required</b> and should hold a hashref containing the headers of the message you want to pass and a special key called, <b>Body</b>, that should hold the actual email message.</p>
+
+<p><code>-partial_sending</code> is an optional argument and if passed, should hold a hashref with the following format:</p>
+
+<pre><code> { 
+        first_name =&gt; {
+                equal_to =&gt; &quot;John&quot;,
+        },
+        last_name =&gt; { 
+                like =&gt; &quot;Doe&quot;, 
+        },
+ }</code></pre>
+
+<p>keys should be named after profile fields and the values themselves should be a hashref. The hashref keys can either be, &quot;equal_to&quot; or, &quot;like&quot;, depending on if you want to do an exact match, or a partial match on a string.</p>
+
+<p><code>-multi_list_send</code> is optional and should hold a hashref with additional arguments. They are:</p>
+
+<ul>
+
+<li><p>-lists</p>
+
+<p>should hold an array ref of additional lists you would like to send to</p>
+
+</li>
+<li><p>-no_dupes</p>
+
+<p>should be set to either <code>1</code> or, <code>0</code>. Setting to, <code>1</code> will tell DADA::Mail::Send not to send the same message twice, to a subscriber that may be on two lists.</p>
+
+</li>
+</ul>
+
+<p><code>-test</code> is optional and should hold a value of either <code>1</code> or, <code>0</code>. If set to <code>1</code> the mass mailing will NOT be sent out, via email, but rather written to a file. This file can be specified using the, <code>test_send_file</code> method. The &lt;-test&gt; parameter works the same way as the <code>test</code> method.</p>
+
+<p><code>-mass_test</code> is optional and should hold a value of either <code>1</code> or, <code>0</code>. If set to <code>1</code> a mass mailing will be done, but only sent to the recipient set in, <code>-test_recipient</code>, or the list owner, if no valid recipient is set. Works the same as the, <code>mass_test</code> parameter.</p>
+
+<p><code>-test_recipient</code> is option and should hold a valid email address of where test mass mailings should be sent. The, &lt;-mass_test&gt; argument should also be set to, <code>1</code>. Works the same as the <code>test_recipient</code> method.</p>
+
+<h2 id="test">test</h2>
+
+<pre><code> my $test = $mh-&gt;test; 
+ # returns, &quot;0&quot;
+ 
+ # or: 
+ $mh-&gt;test(1); 
+ # returns, &quot;1&quot;
+  
+ $mh-&gt;test; 
+ # now returns, &quot;1&quot;</code></pre>
+
+<p>The <code>test</code> method is used to change part of the behavior of both the, <code>send</code> and, <code>mass_send</code> methods.</p>
+
+<p>Instead of sending a message via email, the messsage being created will simply be written to a file.</p>
+
+<p>The file name and location is saved in the <code>test_send_file</code> method</p>
+
+<p>This method, so rightly named, is handy for testing and debugging, since you can go through the entire process of sending a message, but simply write the message to a file, to be examined by a trained professional. Or, Justin.</p>
+
+<h2 id="test_send_file">test_send_file</h2>
+
+<pre><code> my $test_file = $mh-&gt;test_send_file
+ 
+ # or: 
+ $mh-&gt;test_send_file(&#39;/some/path/to/a/file.txt&#39;);
+ 
+ # Now 
+ $test_file = $mh-&gt;test_send_file; 
+ # Returns: /some/path/to/a/file.txt</code></pre>
+
+<p><code>test_send_file</code> is used to store and set the location of the file that <code>DADA::Mail::Send</code> uses to save email messages to, when <code>test</code> is set to, <b>1</b>.</p>
+
+<p>Defaults to: <code>$DADA::Config::TMP . &#39;/test_send_file.txt&#39;</code></p>
+
+<h1 id="Private-Methods">Private Methods</h1>
+
+<h2 id="make_general_headers">_make_general_headers</h2>
+
+<pre><code> my %headers = $mh-&gt;_make_general_headers; </code></pre>
+
+<p>Takes no arguments.</p>
+
+<p>Return a hash containing the following Email Headers:</p>
+
+<ul>
+
+<li><p>From</p>
+
+</li>
+<li><p>Reply-To</p>
+
+</li>
+<li><p>Errors-To</p>
+
+</li>
+<li><p>Message-ID</p>
+
+</li>
+<li><p>Date</p>
+
+</li>
+</ul>
+
+<p>The idea behind <code>_make_general_headers</code> is to create usable defaults to email headers that should be included in your email messags.</p>
+
+<h2 id="list_headers">list_headers</h2>
+
+<pre><code> my %list_headers = $mh-&gt;list_headers</code></pre>
+
+<p>Similar to <code>_make_general_headers</code>, <code>list_headers</code> creates a set of email headers - in this case headers that deal with Mailing Lists. They are:</p>
+
+<ul>
+
+<li><p>List</p>
+
+</li>
+<li><p>List-URL</p>
+
+</li>
+<li><p>List-Unsubscribe</p>
+
+</li>
+<li><p>List-Subscribe</p>
+
+</li>
+<li><p>List-Owner</p>
+
+</li>
+<li><p>List-Archive</p>
+
+</li>
+<li><p>List-Post</p>
+
+</li>
+<li><p>List-ID</p>
+
+</li>
+</ul>
+
+<h2 id="clean_headers">clean_headers</h2>
+
+<pre><code> %squeaky_clean_headers = $mh-&gt;clean_headers(%these_be_the_heaers);</code></pre>
+
+<p>Not a private method per-se, but seems of little use outside the internals of this module -</p>
+
+<p>This method does a little munging to the mail headers for better absorbtion; basically, it changes the case of some of the mail headers so everyone&#39;s on the same page</p>
+
+<h2 id="return_headers">return_headers</h2>
+
+<pre><code>        my %headers = $mh-&gt;return_headers($string); </code></pre>
+
+<p>Again, not clearnly a private method, but of little use outside of the internals.</p>
+
+<p>This is a funky little subroutine that&#39;ll take a string that holds the header of a mail message, and gives you back a hash of all the headers separated, each key in the hash holds a different header, so if I say</p>
+
+<pre><code>        my $mh = DADA::Mail::Send -&gt; new(); 
+        my %headers = $mh -&gt; return_headers($header_glob); </code></pre>
+
+<p>I can then say:</p>
+
+<pre><code>        my $to = $headers{To}; </code></pre>
+
+<p>This subroutine is used quite a bit to take out put from the MIME::Lite module, which allows you to get the whole header with its header_to_string() subroutine and hack it up into something Dada Mail can use.</p>
+
+<h1 id="See-Also">See Also</h1>
+
+<p>A great bit of the scheduling, auto-pickup&#39;ing and status&#39;ing of the mass mailing, (basically, everything except looping through the list is controlled by <code>DADA::Mail::MailOut</code>.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni me - justinsimoni.com http://justinsimoni.com All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

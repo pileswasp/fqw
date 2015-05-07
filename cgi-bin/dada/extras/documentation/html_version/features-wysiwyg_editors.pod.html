@@ -1,0 +1,305 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>WYSIWYG Editors and File Browsers</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#WYSIWYG-Editors-and-File-Browsers">WYSIWYG Editors and File Browsers</a>
+    <ul>
+      <li><a href="#Supported-Editors">Supported Editors</a></li>
+      <li><a href="#Supported-File-Browsers">Supported File Browsers</a>
+        <ul>
+          <li><a href="#KCFinder">KCFinder</a></li>
+          <li><a href="#Core5-FileManager">Core5 FileManager</a></li>
+        </ul>
+      </li>
+      <li><a href="#Mailing-List-Configuration">Mailing List Configuration</a></li>
+      <li><a href="#Installing-and-Configurating---use-the-Dada-Mail-Installer">Installing and Configurating - use the Dada Mail Installer</a></li>
+      <li><a href="#Manual-Installation-and-Configuration">Manual Installation and Configuration</a></li>
+      <li><a href="#File-Browser-Uploader">File Browser/Uploader</a>
+        <ul>
+          <li><a href="#KCFinder1">KCFinder</a></li>
+          <li><a href="#FileManager">FileManager</a></li>
+        </ul>
+      </li>
+      <li><a href="#Additional-Configuration-Files">Additional Configuration Files</a>
+        <ul>
+          <li><a href="#Tiny-MCE">Tiny MCE</a></li>
+          <li><a href="#CKEditor">CKEditor</a></li>
+        </ul>
+      </li>
+      <li><a href="#KCFinder2">KCFinder</a></li>
+      <li><a href="#Image-Drag-and-Drop-Support">Image Drag and Drop Support</a></li>
+      <li><a href="#See-Also">See Also</a></li>
+      <li><a href="#WYSIWYG-editors-and-Clickthrough-Tracker-URLS">WYSIWYG editors and Clickthrough Tracker URLS</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="WYSIWYG-Editors-and-File-Browsers">WYSIWYG Editors and File Browsers</h1>
+
+<p>Dada Mail supports the use of third party WYSIWYG HTML editors to allow you to compose and edit HTML mailing list messages. This allows you to send rich text messages right in Dada Mail&#39;s list control panel without needing to know any HTML. If you know HTML, all the better! These editors also allow you to view the source of the messasge for fine-tuning.</p>
+
+<p>The HTML produced by these WYSIWYG editors is pretty good for the use of HTML emails, as most of the text formatting is done with <i>inline css styles</i> and these editors also have the ability to make simple <i>HTML tables for basic layouts</i>. Formatting rich text email messages is different than designing a contemporary web page - text formatting and layout is, on the whole, going to have to be much more simplified to work with the incredible spectrum of Things That Read Email (Web-based email services, Desktop-based mail readers, smart phones, toasters...).</p>
+
+<h2 id="Supported-Editors">Supported Editors</h2>
+
+<p>Dada Mail supports the following WYSIWYG HTML editors:</p>
+
+<ul>
+
+<li><p>CKEditor</p>
+
+</li>
+<li><p>Tiny MCE</p>
+
+</li>
+</ul>
+
+<h2 id="Supported-File-Browsers">Supported File Browsers</h2>
+
+<p>As well as the core WYSIWYG functionality, Dada Mail also supports the File Browsers/Uploaders, allowing you to browse a directory on the server itself, as well as upload new files. Images uploaded may then be inserted into your HTML messages. This file browser/uploader is also used to browser and attach file attachments, to your message.</p>
+
+<p>Two file browsers/uploaders are available for Dada Mail. Configurating which one is use happens during install time - you cannot switch between them, after installation/configuration.</p>
+
+<h3 id="KCFinder">KCFinder</h3>
+
+<p>Dada Mail supports <b>KCFinder</b> in all three WYSIWYG editors that it also supports. Dada Mail does <i>not</i> ship with support for the <b>CKFinder</b> file browser, which is developed by the same company that develops CKEditor, because it requires an additional commercial license. KCFinder is free software.</p>
+
+<h3 id="Core5-FileManager">Core5 FileManager</h3>
+
+<p>Dada Mail also comes with, and supports Core5&#39;s creatively named, <b>FileManager</b>, which does a very similar job to KCFinder.</p>
+
+<p>One big difference between KCFinder and FileManager is the backend code used for the server-side duties. In KCFinder, it&#39;s written in php. In FileManager, although many different connectors are available, we&#39;re shipping with only the Perl connector available. We&#39;ve made changes to the connector to add security, which is otherwise completely missing. Because no security is available in any of the shippedd connectors by default, we do not suggest using them.</p>
+
+<p>You may want to use FileManager, rather than KCFinder, if you get problems with KCFinder, related to either php or because you get errors like the following:</p>
+
+<pre><code> You don&#39;t have permissions to browse server.</code></pre>
+
+<p>When attempting to upload a file.</p>
+
+<h2 id="Mailing-List-Configuration">Mailing List Configuration</h2>
+
+<p>You choose which WYSIWYG editor you would like to use (or to use no editor at all) in the list control panel under, <b>Your List Control Panel - Options</b></p>
+
+<h2 id="Installing-and-Configurating---use-the-Dada-Mail-Installer">Installing and Configurating - use the Dada Mail Installer</h2>
+
+<p>By far the easiest way to install and configure any of the WYSIWYG editors/file browser that Dada Mail supports is to use the included Dada Mail Installer and configure the WYSIWYG editors during install/upgrade.</p>
+
+<p>When using the installer, you will simply need to set the absolute server path to a directory that you would like the editors to be installed under, as well as set the corresponding URL. The Dada Mail Installer will do the rest of the configuration. A sane default should already be filled in for you, usually set to your base public HTML directory and the corresponding URL.</p>
+
+<p>Double check that this URL/absolute path is correct!</p>
+
+<p>For example, if you&#39;re site is:</p>
+
+<p><a href="http://example.com">http://example.com</a></p>
+
+<p>and the absolute server path that corresponds to that directory is,</p>
+
+<p><i>/home/youraccount/public_html</i></p>
+
+<p>Dada Mail will install a <i>new</i> directory under this location called, <b>dada_mail_support_files</b>.</p>
+
+<p>Under that directory, it will place the editors, browser/uploader, and upload directory for the browser/uploader - all in their own seperate directory. So, inside the <b>dada_mail_support_files</b> directory, you may have the following:</p>
+
+<ul>
+
+<li><p>ckeditor</p>
+
+<p>for CKEditor</p>
+
+</li>
+<li><p>file_uploads</p>
+
+<p>for saving the files you upload, using KCFinder/FileManager</p>
+
+</li>
+<li><p>kcfinder</p>
+
+<p>for KCFinder</p>
+
+</li>
+<li><p>core5_filemanager</p>
+
+<p>for FileManager</p>
+
+</li>
+</ul>
+
+<p>If you <b>upgrade</b> Dada Mail, and tell Dada Mail to <b>create a new .dada_config file</b> (as opposed to <b>Use the current .dada_config file</b>), the installer will also reconfigure your WYSIWYG installs! If you use the same location to have the <b>dada_mail_support_files</b> directory (which we recommend!), it will move any editors or browser/uploaders it finds and reinstall them. It will not move or remove the <b>file_uploads</b> directory.</p>
+
+<p>If you upgrade Dada Mail, and select, <b>Use the current .dada_config file</b>, nothing in your <b>dada_mail_support_files</b> directory will be touched, nor will your <code>.dada_config</code> file.</p>
+
+<h2 id="Manual-Installation-and-Configuration">Manual Installation and Configuration</h2>
+
+<p>To install any of the editors/file browser, see their individual documentation. If you already have a preferred and working installation of any of these editors, it&#39;s also a simple task of just replacing what&#39;s potentially already set for the editor installation you already have.</p>
+
+<p>Configuration of the editors to work with Dada Mail is done in the configuration variable, <code>$WYSIWYG_EDITOR_OPTIONS</code>, which looks like this:</p>
+
+<pre><code>        $WYSIWYG_EDITOR_OPTIONS = { 
+                ckeditor    =&gt; { 
+                        enabled =&gt; 0, 
+                        url     =&gt; &#39;&#39;, 
+                }, 
+                tiny_mce =&gt; { 
+                        enabled =&gt; 0, 
+                        url     =&gt; &#39;&#39;, 
+                },
+        };</code></pre>
+
+<p>For each editor&#39;s parameters (<code>ckeditor</code>, <code>tiny_mce</code>), there are two more named parameters, <code>enabled</code> and, <code>url</code>.</p>
+
+<p><code>enabled</code> can be set to <code>1</code> to enable the editor, or <code>0</code> to disable. Disabled editors will not be available to be used in your mailing lists, even if they&#39;re installed on your hosting account. If any of your mailing lists have selected a editor that you then disable, they will default in using <b>no</b> editor.</p>
+
+<p><code>url</code> should hold the base URL for the editor itself - make sure to have a full URL, starting with, &quot;<code>http://</code>&quot;</p>
+
+<h2 id="File-Browser-Uploader">File Browser/Uploader</h2>
+
+<p>Configuration for the file browser/upload for Dada Mail is done in the <code>$FILE_BROWSER_OPTIONS</code> variable, which should look like this:</p>
+
+<pre><code>        $FILE_BROWSER_OPTIONS ||= { 
+                kcfinder  =&gt; { 
+                        enabled      =&gt; 0, 
+                        url          =&gt; &#39;&#39;, 
+                        upload_dir   =&gt; &#39;&#39;, 
+                        upload_url   =&gt; &#39;&#39;,
+                        session_name =&gt; &#39;PHPSESSID&#39;, 
+                        session_dir  =&gt; &#39;/tmp&#39;,
+                },
+                core5_filemanager  =&gt; { 
+                        enabled      =&gt; 0, 
+                        url          =&gt; &#39;&#39;, 
+                        upload_dir   =&gt; &#39;&#39;, 
+                        upload_url   =&gt; &#39;&#39;,
+                        connector    =&gt; &#39;&#39;, 
+                },
+        };</code></pre>
+
+<h3 id="KCFinder1">KCFinder</h3>
+
+<p>The, <code>kcfinder</code> parameter has additional parameters to configure:</p>
+
+<p><code>enabled</code> can be set to <code>1</code> to enable KCFinder, or <code>0</code> to disable.</p>
+
+<p><code>url</code> should hold the base URL for KCfinder itself.</p>
+
+<p><code>upload_dir</code> should hold the absolute server path to the directory you would like files that are uploaded using KCFinder to be saved at. You will want this path to be under your <code>public HTML</code> directory, so that you can access the files placed within it via your web browser.</p>
+
+<p><code>upload_url</code> should hold the corresponding URL to the <code>upload_dir</code> variable - the <code>upload_dir</code> and <code>upload_url</code> should map to each other.</p>
+
+<p><code>session_name</code> and <code>session_dir</code> are used to configure and manage the sessioning information between Dada Mail and KCFinder. KCFinder will only work in Dada Mail, if the correct sessioning information is passed from Dada Mail, to KCFinder. For more information, please see KCFinder&#39;s docs on Integration and Sessioning:</p>
+
+<p><a href="http://kcfinder.sunhater.com/docs/integrate">http://kcfinder.sunhater.com/docs/integrate</a></p>
+
+<p>The default value for <code>session_name</code> should work for the majority of users.</p>
+
+<p>Dada Mail (when configured using the Installer) will use a directory called, <code>php_sessions</code> located in the, <i>.dada_files/.tmp</i> direcotory, to save its own, local, app-specific PHP session files.</p>
+
+<p>Additional configuration for all three supported editors will be required to get KCFinder working with Dada Mail and these editors, which is also explained on the above URL.</p>
+
+<p>There&#39;s potential that the values set in <code>session_name</code> and <code>session_dir</code> <i>won&#39;t work for your environment</i>. We&#39;d like to know about it and what does work for you.</p>
+
+<p>This doc does not go over what exactly needs to be configured in Dada Mail, as the best way to configure the WYSIWYG Editor/KCFinder/Dada Mail is still in flux. Best thing to do is to set up these editors and KCFinder with the Dada Mail Installer and study its configuration. We&#39;d love your feedback.</p>
+
+<p>Although Dada Mail ships with these editors and the file upload/browser in the,</p>
+
+<p><i>dada/extras/packages</i></p>
+
+<p>directory. We don&#39;t encourage you to either set the <code>url</code> parameters to use editors/etc <i>directly</i> from where they are, or even copy/move the editors/etc to a better location.</p>
+
+<p>Rather, it&#39;s best to download them directly from the editors/etc. own site. The former probably won&#39;t work at all if you&#39;re installing Dada Mail inside your cgi-bin.</p>
+
+<h3 id="FileManager">FileManager</h3>
+
+<p>The, <code>core5_filemanager</code> parameter has additional parameters to configure:</p>
+
+<p><code>enabled</code> can be set to <code>1</code> to enable FileManager, or <code>0</code> to disable.</p>
+
+<p><code>url</code>, <code>upload_dir</code>, and <code>upload_url</code> work the same as they do in KCFinder.</p>
+
+<p>FileManager does not have, nor has a need for the following paramaters: <code>session_name</code>, <code>session_dir</code>. This is because we only use the Perl connector, an thus use Dada Mail&#39;s own sessioing system, written in Perl - no additional sessioning system is needed.</p>
+
+<p><code>connector</code> is available as a parameter, but at the moment, the only valid value is, <code>pl</code>, for the Perl connector.</p>
+
+<h2 id="Additional-Configuration-Files">Additional Configuration Files</h2>
+
+<p>CKEditor and TinyMCE also expect an additional configuration file called, <code>dada_mail_config.js</code> to be saved in the base URL of the editor. These configuration file should hold any additional configuration you would like for Dada Mail specifically. Again, setting up these editors to work with KCFinder is not covered in the configuration examples below - for now, we suggest using the Dada Mail Installer for that type of integration, or using your own custom configuration.</p>
+
+<p>Copies of the default configuration files are stored in Dada Mail as HTML::Template templates and the configuration files themselves are created during install. These default templates reside at:</p>
+
+<ul>
+
+<li><p>Tiny MCE:</p>
+
+<p><i>dada/installer-disabled/templates/tinymce_config_js.tmpl</i></p>
+
+</li>
+<li><p>CKEditor</p>
+
+<p><i>dada/installer-disabled/templates/ckeditor_config_js.tmpl</i></p>
+
+</li>
+</ul>
+
+<p>Customizing these templates <i>before</i> an installation/upgrade will change the actual configuration file Dada Mail creates.</p>
+
+<p>Below are bare-bone examples of what these configuration files should hold.</p>
+
+<h3 id="Tiny-MCE">Tiny MCE</h3>
+
+<pre><code>        tinyMCE.init({
+                        theme : &quot;advanced&quot;,
+                        theme_advanced_toolbar_location : &quot;top&quot;,
+                        theme_advanced_toolbar_align : &quot;left&quot;,
+                        mode : &quot;specific_textareas&quot;,
+                        editor_selector : &quot;html_message_body&quot;,
+                        verify_html : false             
+        });</code></pre>
+
+<h3 id="CKEditor">CKEditor</h3>
+
+<p>There is nothing specific that the CKEditor needs in its <code>dada_mail_config.js</code>. You can start by copying the <code>config.js</code> file to a file called, <code>dada_mail_config.js</code> (saved in that same directory) and make any additional changes that you would like in this new file.</p>
+
+<h2 id="KCFinder2">KCFinder</h2>
+
+<p>KCFinder does not require this additional JavaScript file, but it&#39;s own default configuration file, <code>kcfinder/config.php</code> will be edited by the Dada Mail Installer.</p>
+
+<p>When looking over this config file, One thing of particular importance is a variable <b>not</b> changed by Dada Mail, which look like this:</p>
+
+<pre><code>        $_CONFIG = array(
+        
+            &#39;disabled&#39; =&gt; true,</code></pre>
+
+<p>Setting the, <code>disabled</code> variable to, <code>false</code> (it&#39;s confusing, we know!) will circumvent the security of the KCFinder that&#39;s afforded by the sessioning system and leave your account open to unauthorized file uploads and potential exploits. So don&#39;t do that!</p>
+
+<h2 id="Image-Drag-and-Drop-Support">Image Drag and Drop Support</h2>
+
+<p>When using a supported browser, Dada Mail supports dragging and dropping images into the HTML WYSIWYG editor.</p>
+
+<p>Image data is embedded in the HTML source of the message you write. Dada Mail will convert this embedded data into a file that will be saved in the KCFinder image/file upload directory. The image will then be available by browsing your upload directory, using the file browser/uploader itself.</p>
+
+<h2 id="See-Also">See Also</h2>
+
+<h2 id="WYSIWYG-editors-and-Clickthrough-Tracker-URLS">WYSIWYG editors and Clickthrough Tracker URLS</h2>
+
+<p>Long Story Short, WYSIWYG editors break any Dada Mail template tags you set in the, &quot;href&quot; of any HTML tag - including sadly, Clickthrough Tracker tags - and may also munge up any template tags. Please! Send a test message out, before comitting to a large mass mailing! We suggest using the, <b>Clickthrough Track All Message Links</b>, option in the Tracker Plugin.</p>
+
+<p><b>See:</b> <a href="http://dadamailproject.com/d/tracker.cgi.html#clickthrough_tags_and_wysiwyg_editors__ckeditor_tiny_mce">http://dadamailproject.com/d/tracker.cgi.html#clickthrough_tags_and_wysiwyg_editors__ckeditor_tiny_mce</a></p>
+
+<p>for more information.</p>
+
+
+</body>
+
+</html>
+
+

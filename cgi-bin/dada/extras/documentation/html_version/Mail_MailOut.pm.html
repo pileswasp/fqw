@@ -1,0 +1,511 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::Mail::MailOut</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#VERSION">VERSION</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li>
+        <ul>
+          <li><a href="#Safeguarding-Duplicate-Mailings">Safeguarding Duplicate Mailings</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#new">new</a></li>
+      <li><a href="#create">create</a></li>
+      <li><a href="#associate">associate</a></li>
+      <li><a href="#batch_lock">batch_lock</a></li>
+      <li><a href="#unlock_batch_lock">unlock_batch_lock</a></li>
+      <li><a href="#is_batch_locked">is_batch_locked</a></li>
+      <li><a href="#create_directory">create_directory</a></li>
+      <li><a href="#mailout_directory_name">mailout_directory_name</a></li>
+      <li><a href="#create_subscriber_list">create_subscriber_list</a></li>
+      <li><a href="#create_total_sending_out_num">create_total_sending_out_num</a></li>
+      <li><a href="#create_counter">create_counter</a></li>
+      <li><a href="#create_first_accessed_file">create_first_accessed_file</a></li>
+      <li><a href="#create_last_accessed_file">create_last_accessed_file</a></li>
+      <li><a href="#create_batch_lock">create_batch_lock</a></li>
+      <li><a href="#countsubscriber">countsubscriber</a></li>
+      <li><a href="#create_raw_message">create_raw_message</a></li>
+      <li><a href="#integrity_check">_integrity_check</a></li>
+      <li><a href="#status">status</a></li>
+      <li><a href="#should_be_restarted">should_be_restarted</a></li>
+      <li><a href="#process_has_stalled">process_has_stalled</a></li>
+      <li><a href="#process_stalled_after">process_stalled_after</a></li>
+      <li><a href="#mail_fields_from_raw_message">mail_fields_from_raw_message</a></li>
+      <li><a href="#poll">_poll</a></li>
+      <li><a href="#reload">reload</a></li>
+      <li><a href="#counter_at">counter_at</a></li>
+      <li><a href="#message_for_mail_send">message_for_mail_send</a></li>
+      <li><a href="#clean_up">clean_up</a></li>
+      <li><a href="#list_name_check">_list_name_check</a></li>
+      <li><a href="#list_exists">_list_exists</a></li>
+      <li><a href="#pause">pause</a></li>
+      <li><a href="#resume">resume</a></li>
+    </ul>
+  </li>
+  <li><a href="#EXPORTED-SUBROUTINES">EXPORTED SUBROUTINES</a>
+    <ul>
+      <li><a href="#current_mailouts">current_mailouts</a></li>
+      <li><a href="#mailout_exists">mailout_exists</a></li>
+      <li><a href="#monitor_mailout">monitor_mailout</a></li>
+    </ul>
+  </li>
+  <li><a href="#DIAGNOSTICS">DIAGNOSTICS</a></li>
+  <li><a href="#BUGS-AND-LIMITATIONS">BUGS AND LIMITATIONS</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::Mail::MailOut - Helps Monitor a Mass Mailings</p>
+
+<h1 id="VERSION">VERSION</h1>
+
+<p>Refer to the version of Dada Mail that this module comes in.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    # A few subroutines, exported by default: 
+    
+    my @mailouts  = DADA::Mail::MailOut::current_mailouts({-list =&gt; $list });  
+ 
+    my $exists    = DADA::Mail::MailOut::mailout_exists($list, $id, $type); 
+    
+    my    $report    = DADA::Mail::MailOut::monitor_mailout({--verbose =&gt; 0, --list =&gt; $list});
+    print $report;
+     
+    # Create a new DADA::Mail::MailOut object: 
+    my $mailout = DADA::Mail::MailOut-&gt;new({-list =&gt; $list}); 
+    
+    # Make a new Mass Mailing: 
+    $mailout-&gt;create(
+                    -fields   =&gt; {%fields},
+                    -list_type =&gt; &#39;list&#39;,
+                    -mh_obj    =&gt; $mh_obj,  
+               ); 
+    
+    # how&#39;s that mailout doin&#39;?
+    my $status = $mailout-&gt;status; 
+    
+    # Let&#39;s pause the mailing! 
+    $mailout-&gt;pause; 
+    
+    # Ok, let&#39;s start it back up again, where it left off: 
+    $mailout-&gt;resume; 
+    
+    # do I need to reload the mailout? 
+    my $yes_restart = $mailout-&gt;should_be_restarted; 
+    
+    # if so, let&#39;s do that: 
+    if($yes_restart){ 
+        $mailout-&gt;reload();  
+    }</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module does a few things, all of which happen to deal with setting up a mass mailing and then monitoring its status.</p>
+
+<p>Mass Mailings do take a while and the CGI environment that Dada Mail is (usually) run in, isn&#39;t the best thing to be in during a long-running process, like mail sending to a few thousand of your closest friends.</p>
+
+<p>Because of that, this module attempts to keep close track of how the mailing is doing and give an option to reload a mailing at the time it stopped. Mailings usually stop because the mailing process itself can be killed by the server itself.</p>
+
+<p>The create() method does most of the magic in getting a mailing setup. When called correctly, it will make a temporary directory (usually in <b>$TMP </b> that holds within it the following files:</p>
+
+<ul>
+
+<li><p>The Temporary Subscriber List</p>
+
+<p>To keep the main subscriber list free for adding/editing/removing/viewing (especially with the Plaintext Backend), a temporary subscriber list is created for each mailing.</p>
+
+<p>This subscriber list does not just hold the email address of a subscriber, but other meta information, like the <b>pin</b> associated with the subscriber, amongst other things.</p>
+
+<p>See the DADA::MailingList::Subscribers::[..]::create_mass_sending_file()</p>
+
+<p>MailingList_Subscribers_PlainText.pm.html</p>
+
+<p>method for exactly how this is made.</p>
+
+</li>
+<li><p>The Total Amount of Recipients Amount</p>
+
+<p>This file simply holds the total amount of recipients of a given mailing. This will be different than the amount of subscribers on a list, as the list owner also will receive a copy of a mailout. There are also some other fringe reasons for discrepencies, which I won&#39;t go into right here.</p>
+
+</li>
+<li><p>The Amount Sent Counter</p>
+
+<p>This file will be +1&#39;d everytime an address has been sent to. Note! That this counter will be added to, regardless of whether the individual email sent was successful.</p>
+
+</li>
+<li><p>The, &quot;First Accessed&quot;, File</p>
+
+<p>This file just basically holds the time() that a mailout started.</p>
+
+</li>
+<li><p>The, &quot;Last Accessed&quot;, File</p>
+
+<p>This file will be updated with what&#39;s returned by the time() perl builtin, every time countsubscriber() is called.</p>
+
+<p>This file is basically used to make sure that a mailing process is still going on. If the time saved in this file becomes too long, a mailing may become ripe for a reload().</p>
+
+</li>
+<li><p>A Copy of the Message Being Sent Out</p>
+
+<p>A copy of the actual email message source is saved. The message headers can later be accessed for reporting purposes and the entire message source can be used if the message has to be reload()ed.</p>
+
+</li>
+<li><p>The, &quot;pause button&quot;</p>
+
+<p>This is basically a file that, if present, means that the mailing should be, &quot;paused&quot; - mailing should be stopped until it is, &quot;resumed&quot;. The file itself will hold the time that the mailing was put on pause.</p>
+
+</li>
+</ul>
+
+<p>and a few others, I haven&#39;t documented yet.</p>
+
+<h3 id="Safeguarding-Duplicate-Mailings">Safeguarding Duplicate Mailings</h3>
+
+<p>This all gets quite complicated, fast, but I&#39;m going to highlight just one part of DADA::Mail::MailOut&#39;s job, and that is to stop a mailing self-duplicating itself, and sending out two (or more!) copies of the message, to the subscriber, which is bad news. There are a few safety measures:</p>
+
+<ul>
+
+<li><p>The Batch Lock File</p>
+
+<p>The Batch Lock File is somewhat of a semaphore file, <i>except</i> that it doesn&#39;t work by having Dada Mail <code>flock</code> the file, it merely works be being <b>present</b></p>
+
+<p>If the Batch Lock File is <b>present</b>, it tells Dada Mail something is happening.</p>
+
+</li>
+<li><p>The Last Accessed File</p>
+
+<p>The problem with this approach is that, the lock can get stale, so there&#39;s another file called the, &quot;Last Access File&quot;, which gets update with the last time something happened (usually, done by DADA::Mail::Send while sending out a mass mailing)</p>
+
+<p>If the Batch Lock file is present, but the Last Access File says that the last time something happened is a while ago, the Batch Lock File gets removed, thus, &quot;unlocking&quot; the mailing, for the mailing to be restarted.</p>
+
+</li>
+<li><p>The PID File</p>
+
+<p>It&#39;s a simple system, but it&#39;s hard to break - you&#39;d have to manually remove the Batch Lock (which, I can see someone attempting to do) and manually rewind the, &quot;Last Accessed File&quot;, to some time in the past.</p>
+
+<p>If this happens, say because of some bizarre bug in Dada Mail, a mailing will be reloaded and ther eis a chance that duplicate messages would be sent,</p>
+
+<p>if not for the PID File.</p>
+
+<p>The PID file holds the process that, &quot;In Control&quot; of the mass mailing. In Dada ::Mail::Send, when we enter the loop that goes through all the subscribers to mail out a mass, the, &quot;Controlling PID&quot; is set and checked, every time a subscriber is mailed to. If the Controlling PID doesn&#39;t match the process that&#39;s sending out, the process stops, as another process has taken over.</p>
+
+<p>That above scenario should NEVER HAPPEN, but, if it does, there are safeguards against it.</p>
+
+</li>
+</ul>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="new">new</h2>
+
+<p>Takes one argument - the list shortname, ala:</p>
+
+<pre><code>    my $mailout = DADA::Mail::MailOut-&gt;new({-list =&gt; &#39;listshortname&#39;}); </code></pre>
+
+<p>All there is to it.</p>
+
+<p><b>Note!</b> that a MailOut object is pretty useless, until you call the, <b>create()</b> method.</p>
+
+<h2 id="create">create</h2>
+
+<p>Used to setup, or, &quot;create&quot; a mailout. Makes all the temporary files and directories need. Needs a few things passed - do pay attention, since what it needs is slightly odd:</p>
+
+<pre><code> $mailout-&gt;create(
+                    -fields   =&gt; {%fields},
+                    -list_type =&gt; &#39;list&#39;,
+                    -mh_obj    =&gt; $mh_obj,  
+               ); </code></pre>
+
+<ul>
+
+<li><p>-fields</p>
+
+<p><b>-fields</b> is your actual mailing list message - the fields themselves are the headers of your message. The Body of the message itself is saved in the, <b>Body</b> key/value.</p>
+
+<p>This is a fairly odd format to have everything in, but it&#39;s sort of native to DADA::Mail::Send and that&#39;s the module most likely to be calling <b>create()</b>.</p>
+
+</li>
+<li><p>-list_type</p>
+
+<p>List Type holds which subscription sublist you&#39;re sending to. Most likely, this is going to be, <b>list</b>. There are times where it may be, <b>black_list</b>, or, <b>invitelist</b>, etc.</p>
+
+</li>
+<li><p>-mh_obj</p>
+
+<p><b>-mh_obj</b> should actually be a DADA::Mail::Send object - again, very strange thing to pass to this module, but again, <b>create</b> is usually called within DADA::Mail::Send, so that module basically gives a copy of itself to use.</p>
+
+</li>
+</ul>
+
+<p>You&#39;ll most likely never call create() yourself, but that&#39;s the jist of it.</p>
+
+<h2 id="associate">associate</h2>
+
+<pre><code> $mailout-&gt;associate($id, $type); </code></pre>
+
+<p><code>associate</code> associates an already existing mailing with the object you have on hand - similar to create, but doesn&#39;t create anything - it just allows you to work with something you already have.</p>
+
+<p>It takes two arguments - both of which are <b>required</b>. Not passing them will cause your program to <code>croak</code>.</p>
+
+<p>Returns <b>1</b> on success.</p>
+
+<h2 id="batch_lock">batch_lock</h2>
+
+<pre><code>    $mailout-&gt;batch_lock;</code></pre>
+
+<p>Locks a mailout. The presence of a lock prohibits a different process from reloading a mailout that looks as if it is stopped.</p>
+
+<p>You shouldn&#39;t really ever remove a batch lock (although I know this is tempting), as doing so won&#39;t explicitly make a mailing restart right away - there are a few things that come in play when it is decided a mailout should be restarted.</p>
+
+<p>The batch lock itself is just a plain text file. Its contents are the unix <code>time</code> of when the batch was locked.</p>
+
+<p>Returns, <b>1</b> on success.</p>
+
+<h2 id="unlock_batch_lock">unlock_batch_lock</h2>
+
+<pre><code>    $mailout-&gt;unlock_batch_lock;</code></pre>
+
+<p><code>unlinks</code> (removes) a batch lock. Will return <b>1</b> on success and <b>0</b> upon failure.</p>
+
+<p>There&#39;s a few reasons why this may fail:</p>
+
+<ul>
+
+<li><p>The batch lock was never there</p>
+
+</li>
+<li><p>Unlinking the batch lock wasn&#39;t successful</p>
+
+</li>
+</ul>
+
+<h2 id="is_batch_locked">is_batch_locked</h2>
+
+<pre><code>    $mailout-&gt;is_batch_locked</code></pre>
+
+<p>Looks and see if the batch lock is present. Returns <b>1</b> if it is, <b>0</b> if it isn&#39;t. This method does not see if the batch is stale.</p>
+
+<h2 id="create_directory">create_directory</h2>
+
+<h2 id="mailout_directory_name">mailout_directory_name</h2>
+
+<h2 id="create_subscriber_list">create_subscriber_list</h2>
+
+<h2 id="create_total_sending_out_num">create_total_sending_out_num</h2>
+
+<h2 id="create_counter">create_counter</h2>
+
+<h2 id="create_first_accessed_file">create_first_accessed_file</h2>
+
+<h2 id="create_last_accessed_file">create_last_accessed_file</h2>
+
+<h2 id="create_batch_lock">create_batch_lock</h2>
+
+<h2 id="countsubscriber">countsubscriber</h2>
+
+<h2 id="create_raw_message">create_raw_message</h2>
+
+<h2 id="integrity_check">_integrity_check</h2>
+
+<h2 id="status">status</h2>
+
+<p>Although you may never call <b>create</b>, calling <b>status</b> may be much more commonplace.</p>
+
+<pre><code> my $status = $mailout-&gt;status; </code></pre>
+
+<p>or even:</p>
+
+<p>for(keys %{$mailout-&gt;status}){ print $_; # or... something... }</p>
+
+<p><b>status</b> returns a hashref of various information about your mailout. Best not to call this too many times at once, as it does query all those temporary files we&#39;ve created. I&#39;ll go over what you&#39;re most likely going to use:</p>
+
+<ul>
+
+<li><p>id</p>
+
+<p>The internal id of your mailout. This will also be, &quot;similar&quot; to the Message-ID of your mailing, the id of your archived message, etc.</p>
+
+</li>
+<li><p>total_sending_out_num</p>
+
+<p>How many messages you&#39;re supposed to be sending out.</p>
+
+</li>
+<li><p>total_sent_out</p>
+
+<p>How many messages you&#39;ve proported to have sent out.</p>
+
+</li>
+<li><p>last_access</p>
+
+<p>The last time basically, &quot;total_sent_out&quot; was last accessed.</p>
+
+</li>
+<li><p>first_access</p>
+
+<p>Basically the time() when we create()d the mailout.</p>
+
+</li>
+<li><p>email_fields</p>
+
+<p>Itself holds a hashref of the actual message you&#39;re sending out. Good for making reports.</p>
+
+</li>
+<li><p>type</p>
+
+<p>The type of message you&#39;re sending (list, black_list, invitelist, etc)</p>
+
+</li>
+<li><p>is_batch_locked</p>
+
+<p>Will tell you if basically, the mailout is active and you shouldn&#39;t clobber the mail sending by calling reload(). If you <b>do</b> call reload() when this is set to, &quot;1&quot;, the module will croak. So... don&#39;t.</p>
+
+</li>
+<li><p>percent_done</p>
+
+<p>Just takes a percentage based on how many message you&#39;ve sent out, with how many message are still left to send out, rounded to the nearest whole number. Again, good for reports, but don&#39;t use to know exactly where you are in your mailing.</p>
+
+</li>
+<li><p>process_has_stalled</p>
+
+<p>Let&#39;s you know if it&#39;s been a while since something has happened - but DO NOT USE to figure out if you should call reload, use <b>should_be_restarted</b> instead.</p>
+
+</li>
+<li><p>should_be_restarted</p>
+
+<p>Will let you know if a mailout should be reloaded. Basically you can do one of these:</p>
+
+<pre><code> my $status = $mailout-&gt;status; 
+ if($status-&gt;{should_be_restarted} == 1){ 
+ 
+    $mailout-&gt;reload(); 
+ }</code></pre>
+
+</li>
+</ul>
+
+<h2 id="should_be_restarted">should_be_restarted</h2>
+
+<h2 id="process_has_stalled">process_has_stalled</h2>
+
+<h2 id="process_stalled_after">process_stalled_after</h2>
+
+<h2 id="mail_fields_from_raw_message">mail_fields_from_raw_message</h2>
+
+<h2 id="poll">_poll</h2>
+
+<h2 id="reload">reload</h2>
+
+<h2 id="counter_at">counter_at</h2>
+
+<h2 id="message_for_mail_send">message_for_mail_send</h2>
+
+<h2 id="clean_up">clean_up</h2>
+
+<h2 id="list_name_check">_list_name_check</h2>
+
+<h2 id="list_exists">_list_exists</h2>
+
+<h2 id="pause">pause</h2>
+
+<pre><code> $mailout-&gt;pause; </code></pre>
+
+<p>Pauses a mailing. Most likely, a mailing will be paused after the current mailing batch is completed, or if the mailing has been dropped, the very next time it&#39;s attempted to be reloaded.</p>
+
+<p>When called, a, &quot;pause button&quot; file will be created.</p>
+
+<p>Returns the time() when it was called for success,</p>
+
+<p>Returns undef if there was some sort of problem pausing a mailing - usually this problem will be because the mailing is already paused.</p>
+
+<h2 id="resume">resume</h2>
+
+<pre><code> $mailout-&gt;resume; </code></pre>
+
+<p>The opposite of pause. Removes the, &quot;pause button&quot; file, which will allow the mailout, next time it&#39;s checked, to resume mailing.</p>
+
+<p>Take no arguments.</p>
+
+<p>Returns 1 on success.</p>
+
+<p>Return undef if there is some sort of error.</p>
+
+<h1 id="EXPORTED-SUBROUTINES">EXPORTED SUBROUTINES</h1>
+
+<p>A few subroutines are exported by default:</p>
+
+<h2 id="current_mailouts">current_mailouts</h2>
+
+<pre><code> my @mailouts  = DADA::Mail::MailOut::current_mailouts({-list =&gt; $list});  </code></pre>
+
+<p>Returns an array of hashrefs that reflect the current mailouts. It can take one parameter, a listshortname. If passed, it will only return mailouts pertaining to that particular list.</p>
+
+<h2 id="mailout_exists">mailout_exists</h2>
+
+<pre><code> my $exists    = DADA::Mail::MailOut::mailout_exists($list, $id, $type); </code></pre>
+
+<p>Returns <b>1</b> if a mailout exists, <b>0</b> if it doesn&#39;t. The three parameters are <b>required</b>.</p>
+
+<h2 id="monitor_mailout">monitor_mailout</h2>
+
+<p>When called, monitor_mailout() will check up on all your mailouts and, if needed, will restart any mailouts that need to be reloaded.</p>
+
+<p>Returns a string that contains a report of the activity of all the mailouts.</p>
+
+<p>This subroutine can take a few options, like so:</p>
+
+<pre><code> my $report = monitor_mailout({ -list =&gt; $list, -verbose =&gt; 0}); </code></pre>
+
+<p>If you pass a listshortname in the, <b>-list</b> parameter, only that specific list&#39;s mailouts will be checked.</p>
+
+<p>If you set the, <b>-verbose</b> parameter to a true value, the subroutine will print the report, as well as pass the report as its return value.</p>
+
+<h1 id="DIAGNOSTICS">DIAGNOSTICS</h1>
+
+<h1 id="BUGS-AND-LIMITATIONS">BUGS AND LIMITATIONS</h1>
+
+<p>Please report problems to the author of this module</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Justin Simoni</p>
+
+<p>See: http://dadamailproject.com/contact</p>
+
+<h1 id="LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</h1>
+
+<p>Copyright (c) 2006 - 2011 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

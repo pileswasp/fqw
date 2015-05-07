@@ -1,0 +1,154 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::App::Subscriptions</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#Public-Methods">Public Methods</a>
+    <ul>
+      <li><a href="#Initializing">Initializing</a></li>
+      <li><a href="#new">new</a></li>
+      <li><a href="#test">test</a></li>
+      <li><a href="#subscribe">subscribe</a>
+        <ul>
+          <li><a href="#Notes-on-awkwardness-of-the-API">Notes on awkwardness of the API</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::App::Subscriptions</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code> # Import
+ use DADA::App::Subscriptions; 
+  
+ # Create a new object - no arguments needed
+ my $das = DADA::App::Subscriptions-&gt;new; 
+ 
+ # Awkwardly use CGI.pm&#39;s param() method to stuff parameters for 
+ # DADA::App::Subscriptions-&gt;subscribe() to use
+ 
+ use CGI; 
+ my $q = CGI-&gt;new; 
+ $q-&gt;param(&#39;list&#39;, &#39;yourlist&#39;);
+ $q-&gt;param(&#39;email&#39;, &#39;user@example.com&#39;);
+ 
+ # subscribe
+ my $das = DADA::App::Subscriptions-&gt;new;
+    $das-&gt;subscribe(
+    {
+          -cgi_obj     =&gt; $q,
+    }
+  );</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module holds reusable code for a user to subscribe or unsubscribe from a Dada Mail mailing list.</p>
+
+<h1 id="Public-Methods">Public Methods</h1>
+
+<h2 id="Initializing">Initializing</h2>
+
+<h2 id="new">new</h2>
+
+<pre><code> my $das = DADA::App::Subscriptions-&gt;new; </code></pre>
+
+<p><code>new</code> takes no arguments.</p>
+
+<h2 id="test">test</h2>
+
+<pre><code> $das-&gt;test(1);</code></pre>
+
+<p>Passing, <code>test</code> a value of, <code>1</code> will turn this module into testing mode. Usually (and also, awkwardly) this module will perform the needed job of printing any HTML needed to complete the request you&#39;ve given it.</p>
+
+<p>If testing mode is on, the HTML will merely be returned to you.</p>
+
+<p>Email messages will also be printed to a text file, instead of being sent out.</p>
+
+<p>You probably only want to use, <code>test</code> if you&#39;re actually <i>testing</i>, via the unit tests that ship with Dada Mail.</p>
+
+<h2 id="subscribe">subscribe</h2>
+
+<pre><code> # Awkwardly use CGI.pm&#39;s param() method to stuff parameters for 
+ # DADA::App::Subscriptions-&gt;subscribe() to use
+ 
+ use CGI; 
+ my $q = CGI-&gt;new; 
+ $q-&gt;param(&#39;list&#39;, &#39;yourlist&#39;);
+ $q-&gt;param(&#39;email&#39;, &#39;user@example.com&#39;);
+ 
+ # subscribe
+ my $das = DADA::App::Subscriptions-&gt;new;
+    $das-&gt;subscribe(
+    {
+          -cgi_obj     =&gt; $q,
+    }
+ );</code></pre>
+
+<p><code>subscribe</code> requires one parameter, <code>-cgi-obj</code>, which needs to be a CGI.pm object (a CGI.pm param-compatible module won&#39;t work, but we may work on that) THAT IN ITSELF has two parameters:</p>
+
+<ul>
+
+<li><p>list</p>
+
+<p>holding the list shortname you want to work with</p>
+
+</li>
+<li><p>email</p>
+
+<p>holding the email address you want to work with</p>
+
+</li>
+</ul>
+
+<p><code>-html_output</code> is an optional parameter, if set to, <code>0</code>, this method will not print out the HTML user message telling the user if everything went well (or not).</p>
+
+<p>On success, this method will return, <code>undef</code></p>
+
+<h3 id="Notes-on-awkwardness-of-the-API">Notes on awkwardness of the API</h3>
+
+<p>It&#39;s quite apparrent that the API of this method is not very well thought-out. The history of this method started as a subroutine in the main, <code>mail.cgi</code> script itself that overgrown its bounds considerably, but didn&#39;t receive a re-design of its API. Also, returning, <code>undef</code> on success is also not very helpful.</p>
+
+<p>Rather, you may want to look into Dada Mail&#39;s JSON API:</p>
+
+<p><a href="http://dadamailproject.com/d/COOKBOOK-subscriptions.pod.html">http://dadamailproject.com/d/COOKBOOK-subscriptions.pod.html</a></p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Justin Simoni http://dadamailproject.com</p>
+
+<h1 id="LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

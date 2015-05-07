@@ -1,0 +1,260 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::MailingList::Settings</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#Mailing-List-Settings-Model">Mailing List Settings Model</a></li>
+      <li><a href="#Default-Values-of-List-Settings">Default Values of List Settings</a></li>
+    </ul>
+  </li>
+  <li><a href="#Public-Methods">Public Methods</a>
+    <ul>
+      <li><a href="#Initializing">Initializing</a></li>
+      <li><a href="#new">new</a></li>
+      <li><a href="#Getting-Setting-Mailing-List-Paramaters">Getting/Setting Mailing List Paramaters</a></li>
+      <li><a href="#get">get</a>
+        <ul>
+          <li><a href="#Diagnostics">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#save">save</a></li>
+      <li><a href="#save_w_params">save_w_params</a>
+        <ul>
+          <li><a href="#Diagnostics1">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#param">param</a>
+        <ul>
+          <li><a href="#Diagnostics2">Diagnostics</a></li>
+        </ul>
+      </li>
+      <li><a href="#params">params</a></li>
+      <li><a href="#A-note-about-param-and-params">A note about param and params</a></li>
+    </ul>
+  </li>
+  <li><a href="#BUGS-AND-LIMITATIONS">BUGS AND LIMITATIONS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::MailingList::Subscribers - API for the Dada Mailing List Settings</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code> # Import
+ use DADA::MailingList::Settings; 
+ 
+ # Create a new object
+  my $ls = DADA::MailingList::Settings-&gt;new(
+                        { 
+                                        -list =&gt; $list, 
+                                }
+                        );
+ 
+        # A hashref of all settings
+        my $li = $ls-&gt;get; 
+        print $li-&gt;{list_name}; 
+        
+ 
+ 
+        # Save a setting
+        $ls-&gt;save(
+                {
+                        list_name =&gt; &quot;my list&quot;, 
+                }
+        );
+ 
+ # save a setting, from a CGI parameter, with a fallback variable: 
+ $ls-&gt;save_w_params(
+        -associate =&gt; $q, # our CGI object
+        -settings  =&gt; { 
+                list_name =&gt; &#39;My List&#39;, 
+        }
+ ); 
+ 
+ 
+  # get one setting
+  print $ls-&gt;param(&#39;list_name&#39;); 
+ 
+ 
+ 
+ #save one setting: 
+ $ls-&gt;param(&#39;list_name&#39;, &quot;My List&quot;); 
+  
+ 
+ # Another way to get all settings
+ my $li = $ls-&gt;params; </code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module represents the API for Dada Mail&#39;s List Settings. Each DADA::MailingList::Settings object represents ONE list.</p>
+
+<p>Dada Mail&#39;s list settings are basically the saved values and preferences that make up the, &quot;what&quot; of your Dada Mail list. The settings hold things like the name of your list, the description, as well as things like email sending options.</p>
+
+<h2 id="Mailing-List-Settings-Model">Mailing List Settings Model</h2>
+
+<p>Settings are saved in a key/value pair, as originally, the backend for all this was a dn file - and still is, for the default backend. This module basically manipulates that key/value hash. Very simple.</p>
+
+<h2 id="Default-Values-of-List-Settings">Default Values of List Settings</h2>
+
+<p>The default value of <b>ALL</b> list settings are saved currently in the <i>Config.pm</i> file, in the variable, <code>%LIST_SETUP_DEFAULTS</code></p>
+
+<p>This module will make sure you will not attempt to save an unknown list setting in the <code>save</code> method, as well when calling <code>param</code> with either one or two arguments.</p>
+
+<p>The error will be fatal. This may seem rash, but many bugs surface just because of trying to use a list setting that does not actually exist.</p>
+
+<p>The <code>get</code> method is NOT guaranteed to give back valid list settings! This is a known issue and may be fixed later, after backwards-compatibility problems are assessed.</p>
+
+<h1 id="Public-Methods">Public Methods</h1>
+
+<p>Below are the list of <i>Public</i> methods that we recommend using when manipulating the Dada Mail List Settings:</p>
+
+<h2 id="Initializing">Initializing</h2>
+
+<h2 id="new">new</h2>
+
+<pre><code> my $ls = DADA::MailingList::Settings-&gt;new({-list =&gt; &#39;mylist&#39;}); </code></pre>
+
+<p><code>new</code> requires you to pass a <b>listshortname</b> in, <code>-list</code>. If you don&#39;t, your script will die.</p>
+
+<p>A <code>DADA::MailingList::Settings</code> object will be returned.</p>
+
+<h2 id="Getting-Setting-Mailing-List-Paramaters">Getting/Setting Mailing List Paramaters</h2>
+
+<h2 id="get">get</h2>
+
+<pre><code> my $li = $ls-&gt;get; </code></pre>
+
+<p>There are no public parameters that we suggest passing to this method.</p>
+
+<p>This method returns a hashref that contains each and every key/value pair of settings associated with the mailing list you&#39;re working with.</p>
+
+<p>This method will grab a fresh copy of the list settings from whatever backend is being used. Because of this, we suggest that instead of using this method, you use the, <code>param</code> or <code>params</code> method, which has caching of this information.</p>
+
+<h3 id="Diagnostics">Diagnostics</h3>
+
+<p>None, really.</p>
+
+<h2 id="save">save</h2>
+
+<pre><code> $ls-&gt;save({list_name =&gt; &#39;my new list name&#39;}); </code></pre>
+
+<p><code>save</code> accepts a hashref as a parameter. The hashref should contain key/value pairs of list settings you&#39;d like to change. All key/values passed will re-write any options saved. There is no validation of the information you passed.</p>
+
+<p>DO NOT pass, <i>list</i> as one of the key/value pairs. The method will return an error.</p>
+
+<p>This method is most convenient when you have many list settings you&#39;d like saved at one time. See the, <code>param</code> method if all you want to do is save one list setting parameter.</p>
+
+<p>Returns <b>1</b> on success.</p>
+
+<h2 id="save_w_params">save_w_params</h2>
+
+<pre><code> $ls-&gt;save_w_params(
+        -associate =&gt; $q, # our CGI object
+        -settings  =&gt; { 
+                list_name =&gt; &#39;My List&#39;, 
+        }
+ ); </code></pre>
+
+<p><code>save_w_params</code> allows you to save list settings that are passed in a compatible Perl object (one that has a <code>param</code> method, similar to CGI.pm&#39;s)</p>
+
+<p><code>save_w_params</code> also allows you to pass a fallback value of the list settings you want to save.</p>
+
+<p><code>-associate</code> should hold a Perl Object with the compatable, <code>param</code> method (like CGI.pm&#39;s <code>param</code> method. <b>required</b></p>
+
+<p><code>-settings</code> should hold a hashref of the fallback values for each list setting you want to save.</p>
+
+<p>Returns, <code>1</code> on success.</p>
+
+<h3 id="Diagnostics1">Diagnostics</h3>
+
+<ul>
+
+<li><p>Attempt to save a unregistered setting -</p>
+
+<p>The actual settings you attempt to save have to actually exist. Make sure the names (keys) of your the list settings you&#39;re attempting to pass are valid.</p>
+
+</li>
+</ul>
+
+<h2 id="param">param</h2>
+
+<pre><code> # Get a Value
+ $ls-&gt;param(&#39;list_name&#39;); 
+ 
+ # Save a Value
+ $ls-&gt;param(&#39;list_name&#39;, &#39;my new list name&#39;); </code></pre>
+
+<p><code>param</code> can be used to get and save a list setting parameter.</p>
+
+<p>Call <code>param</code> with one argument to receive the value of the name of the setting you&#39;re passing.</p>
+
+<p>Call <code>param</code> with two arguments - the first being the name of the setting, the second being the value you&#39;d like to save.</p>
+
+<p><code>param</code> is something of a wrapper around the <code>get</code> method, but we suggest using <code>param</code> over, <code>get</code> as, <code>param</code> checks the validity of the list setting <b>name</b> that you pass, as well as caching information you&#39;ve already fetched from the backend.</p>
+
+<h3 id="Diagnostics2">Diagnostics</h3>
+
+<ul>
+
+<li><p>You MUST pass a name as the first argument!</p>
+
+<p>You cannot call, <code>param</code> without an argument. That first argument needs to be the name of the list setting you want to get/set.</p>
+
+</li>
+<li><p>Cannot call param() on unknown setting.</p>
+
+<p>If you do call <code>param</code> with 2 arguments, the first argument has to be the name of a setting tha actual exists.</p>
+
+</li>
+</ul>
+
+<p>For the two argument version of calling this method, also see the, <i>Diagnostics</i> section of the, <code>save</code> method.</p>
+
+<h2 id="params">params</h2>
+
+<pre><code>        my $li = $ls-&gt;params;</code></pre>
+
+<p>Takes no arguments.</p>
+
+<p>Returns the exact same thing as the, <code>get</code> method, except does caching of any information fetched from the backend. Because of this, it&#39;s suggested that you use <code>params</code>, instead of, <code>get</code> whenever you can.</p>
+
+<h2 id="A-note-about-param-and-params">A note about param and params</h2>
+
+<p>The name, <code>param</code> and, <code>params</code> is taken from the CGI.pm module:</p>
+
+<p>Many different modules support passing parameter values to their own methods, as a sort of shortcut. We had this in mind, but we haven&#39;t used or tested how compatible this idea is. When and if we do, we&#39;ll update the documentation to reflect this.</p>
+
+<h1 id="BUGS-AND-LIMITATIONS">BUGS AND LIMITATIONS</h1>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

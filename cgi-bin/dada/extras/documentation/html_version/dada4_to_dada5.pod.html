@@ -1,0 +1,176 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Dada Mail 4.x to Dada Mail 5.x Guide</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Dada-Mail-4-to-Dada-Mail-5-Upgrade-Guide">Dada Mail 4 to Dada Mail 5 Upgrade Guide</a>
+    <ul>
+      <li><a href="#Database-Schema">Database Schema</a></li>
+      <li><a href="#Template-Changes">Template Changes</a></li>
+      <li><a href="#Default-List-Template-and-Admin-Template-Name-Changes">Default List Template and Admin Template Name Changes</a></li>
+      <li><a href="#css-Files-Moved-to-templates-css">css Files Moved to, templates/css</a></li>
+      <li><a href="#Javascript-Files-Moved-to-templates-js">Javascript Files Moved to, templates/js</a></li>
+      <li><a href="#image-files-have-been-moved-to-template-img">image files have been moved to, template/img</a></li>
+      <li><a href="#List-Control-Panel-Changes">List Control Panel Changes</a></li>
+      <li><a href="#Admin-Menu-Changes">Admin Menu Changes</a>
+        <ul>
+          <li><a href="#Your-Subscribers">Your Subscribers</a></li>
+          <li><a href="#Your-Mailing-List">Your Mailing List</a></li>
+          <li><a href="#Black-List-and-White-List-Options">Black List and White List Options</a></li>
+          <li><a href="#Your-List-Control-Panel">Your List Control Panel</a></li>
+          <li><a href="#App-Information">App Information</a></li>
+          <li><a href="#List-Page-link-Logout-and-Switch-Widget">List Page link, Logout and Switch Widget</a></li>
+        </ul>
+      </li>
+      <li><a href="#REMOVED-plugins-extensions">REMOVED plugins/extensions</a></li>
+      <li><a href="#DEPRECATED-plugins-extensions">DEPRECATED plugins/extensions</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Dada-Mail-4-to-Dada-Mail-5-Upgrade-Guide">Dada Mail 4 to Dada Mail 5 Upgrade Guide</h1>
+
+<h2 id="Database-Schema">Database Schema</h2>
+
+<p>There are <b>no</b> changes in any of the database schemas between Dada Mail 4 and Dada Mail 5.</p>
+
+<p>Upgrading is fairly straightforward, with no need for any Dada Mail 4 to Dada Mail 5 upgrade scripts.</p>
+
+<p>Users upgrading from Dada Mail v2 or v3 will still need to use the, <code>dada3_to_dada4_sql.pl</code> upgrade script, but <i>won&#39;t</i> have to first upgrade to Dada Mail v4 and then, v5.</p>
+
+<h2 id="Template-Changes">Template Changes</h2>
+
+<p>There has been considerable changes in the Dada Mail Templates (files that live in, <i>dada/DADA/Template/templates</i>)</p>
+
+<h2 id="Default-List-Template-and-Admin-Template-Name-Changes">Default List Template and Admin Template Name Changes</h2>
+
+<p>The default list template has been renamed: <code>list_template.tmpl</code> (from, <code>default_list_template.tmpl</code>)</p>
+
+<p>The default admin template has been renamed: <code>admin_template.tmpl</code> (from, <code>default_admin_template.tmpl</code>)</p>
+
+<p>Both of these templates have been redesigned.</p>
+
+<h2 id="css-Files-Moved-to-templates-css">css Files Moved to, templates/css</h2>
+
+<p>css files Dada Mail uses are now in, <i>dada/DADA/Template/templates/css</i></p>
+
+<p><code>default_css.css</code> has been renamed to, <code>default.css</code></p>
+
+<h2 id="Javascript-Files-Moved-to-templates-js">Javascript Files Moved to, templates/js</h2>
+
+<p>Javascript files Dada Mail uses are now in, <i>dada/DADA/Template/templates/js</i></p>
+
+<h2 id="image-files-have-been-moved-to-template-img">image files have been moved to, template/img</h2>
+
+<p>image files Dada Mail uses are now in, <i>dada/DADA/Template/templates/img</i></p>
+
+<h2 id="List-Control-Panel-Changes">List Control Panel Changes</h2>
+
+<p>The List Control Panel has been redesigned, but most things are where they were in v4.</p>
+
+<h2 id="Admin-Menu-Changes">Admin Menu Changes</h2>
+
+<p>The List Admin Menu has changed in the List Control Panel. If you are upgrading, tell the installer to keep the directory structure, but produce a new <code>.dada_config</code> file. You <b>will</b> need to reconfigure Dada Mail again, but use the same values for configuration as before. (if you forget what they are, view your old <code>.dada_config</code> file and just copy the old values and paste them in the installer)</p>
+
+<h3 id="Your-Subscribers">Your Subscribers</h3>
+
+<p>The <b>Your Subscribers</b> heading has been renamed, <b>Membership</b></p>
+
+<p>The <b>Invite/Add</b> heading has been renamed, <b>Invite/Add/Subscribe</b>. If you do not have Mass Subscribing via the List Control Panel enabled (it&#39;s disabled by default), it should read, <b>Invite/Add</b>.</p>
+
+<p>The, <b>Edit Subscriber</b> screen, accessed by clicking an email address in the <b>Membership (or Your Subscribers) - View</b> screen is now called, <b>Membership</b> and has additional features</p>
+
+<p><b>Membership - List Activity</b> is a new screen.</p>
+
+<p>The <b>View</b> screen has been given a hefty design. We hope it&#39;s not as <i>Guuuuuugh!</i> as previous, &quot;designs&quot;.</p>
+
+<h3 id="Your-Mailing-List">Your Mailing List</h3>
+
+<p><b>Change List Information</b> has been renamed to, <b>List Information</b></p>
+
+<p><b>Change List Password</b> has been renamed to, <b>List Password</b></p>
+
+<h3 id="Black-List-and-White-List-Options">Black List and White List Options</h3>
+
+<p>Black/White List Options are now located in the, <b>Membership - Options</b> screen</p>
+
+<h3 id="Your-List-Control-Panel">Your List Control Panel</h3>
+
+<p>Has been moved to be after <b>Plugins</b> and <b>Extensions</b></p>
+
+<h3 id="App-Information">App Information</h3>
+
+<p>A new header titled, <b>App Information</b> has been created.</p>
+
+<p>It contains <b>Configuration</b>, renamed from <b>Dada Mail Setup Info</b>, and, <b>About Dada Mail</b></p>
+
+<h3 id="List-Page-link-Logout-and-Switch-Widget">List Page link, Logout and Switch Widget</h3>
+
+<p>The link to your Mailing List&#39;s List Page, the Logout Link and the Mailing List Switch form have moved to the header of the Admin Template.</p>
+
+<h2 id="REMOVED-plugins-extensions">REMOVED plugins/extensions</h2>
+
+<p>The following plugins/extensions have been removed from the main Dada Mail distribution. The have been marked as, <b>deprecated</b> in previous versions of Dada Mail, or removed to provide a cleaner distribution:</p>
+
+<ul>
+
+<li><p>clickthrough_tracking.cgi</p>
+
+<p>Replaced by the, <code>tracker.cgi</code> plugin</p>
+
+</li>
+<li><p>email_list_owners.cgi</p>
+
+</li>
+<li><p>mx_lookup.cgi</p>
+
+</li>
+<li><p>dada_backup.pl</p>
+
+<p>Best to use the SQL backend and backup your database.</p>
+
+</li>
+<li><p>dada_tester.cgi</p>
+
+<p>Best to simply run, <code>prove -r</code> from the, <code>dada</code> directory.</p>
+
+</li>
+<li><p>auto_pickup.pl</p>
+
+<p>Replaced by the, &lt;mailing_monitor.cgi&gt; plugin</p>
+
+</li>
+</ul>
+
+<h2 id="DEPRECATED-plugins-extensions">DEPRECATED plugins/extensions</h2>
+
+<ul>
+
+<li><p>multi_admin_subscribers.cgi</p>
+
+<p>Has been removed as of v5.1.0 of Dada Mail</p>
+
+</li>
+<li><p>dada_digest.pl</p>
+
+<p>Will be removed in a future version of Dada Mail. This script does not kindly reflect the code or documentation quality we&#39;d like to strive for in the Dada Mail project.</p>
+
+</li>
+</ul>
+
+
+</body>
+
+</html>
+
+

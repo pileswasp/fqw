@@ -1,0 +1,117 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Screen Cache</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#Obtaining-The-Plugin">Obtaining The Plugin</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#Installation">Installation</a>
+    <ul>
+      <li><a href="#Change-permissions-of-screen_cache.cgi-to-755">Change permissions of &quot;screen_cache.cgi&quot; to 755</a></li>
+      <li><a href="#Configure-your-.dada_config-file">Configure your .dada_config file</a></li>
+    </ul>
+  </li>
+  <li><a href="#Using-screen_cache.cgi-as-a-cronjob">Using screen_cache.cgi as a cronjob</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>screen_cache.cgi - View/Removed Dada Mail cached sceens</p>
+
+<h1 id="Obtaining-The-Plugin">Obtaining The Plugin</h1>
+
+<p>screen_cache.cgi is located in the, <i>dada/plugins</i> directory of the Dada Mail distribution, under the name: <code>screen_cache.cgi</code></p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>See the feature overview on Dada Mail&#39;s Screen Cache:</p>
+
+<p><a href="features-screen_cache.pod.html">features-screen_cache.pod.html</a></p>
+
+<p>This plugins allows you to view and remove any currently cached screens.</p>
+
+<h1 id="Installation">Installation</h1>
+
+<p>This plugin can be installed during a Dada Mail install/upgrade, using the included installer that comes with Dada Mail. The below installation instructions go through how to install the plugin manually.</p>
+
+<h2 id="Change-permissions-of-screen_cache.cgi-to-755">Change permissions of &quot;screen_cache.cgi&quot; to 755</h2>
+
+<p>The, <code>screen_cache.cgi</code> plugin will be located in your, <i>dada/plugins</i> diretory. Change the script to, <code>755</code></p>
+
+<h2 id="Configure-your-.dada_config-file">Configure your .dada_config file</h2>
+
+<p>Now, edit your <code>.dada_config</code> file, so that it shows the plugin in the left-hand menu, under the, <b>Plugins</b> heading:</p>
+
+<p>First, see if the following lines are present in your <code>.dada_config</code> file:</p>
+
+<pre><code> # start cut for list control panel menu
+ =cut
+
+ =cut
+ # end cut for list control panel menu</code></pre>
+
+<p>If they are, remove them.</p>
+
+<p>Then, find these lines:</p>
+
+<pre><code> #                                      {
+ #                                      -Title      =&gt; &#39;Screen Cache&#39;,
+ #                                      -Title_URL  =&gt; $PLUGIN_URL.&quot;/screen_cache.cgi&quot;,
+ #                                      -Function   =&gt; &#39;screen_cache&#39;,
+ #                                      -Activated  =&gt; 0,
+ #                                      },</code></pre>
+
+<p>Uncomment the lines, by taking off the, &quot;#&quot;&#39;s:</p>
+
+<pre><code>                                        {
+                                        -Title      =&gt; &#39;Screen Cache&#39;,
+                                        -Title_URL  =&gt; $PLUGIN_URL.&quot;/screen_cache.cgi&quot;,
+                                        -Function   =&gt; &#39;screen_cache&#39;,
+                                        -Activated  =&gt; 0,
+                                        },</code></pre>
+
+<p>Save your <code>.dada_config</code> file.</p>
+
+<h1 id="Using-screen_cache.cgi-as-a-cronjob">Using screen_cache.cgi as a cronjob</h1>
+
+<p>This plugin can also be used as a simple cronjob, to periodically flush all the cached screens.</p>
+
+<p>All that needs to be done is to visit the screen periodically using the URL labeled, <b>Manual Run URL:</b> in the list control panel of this plugin.</p>
+
+<p>A sample curl command, useful for a cronjob is listed in the textbox labeled, <b>curl command example (for a cronjob):</b></p>
+
+<p>Running this cronjob every hour, or day, or week, should be plenty.</p>
+
+<p>You may also just use the, <code>rm</code> command directly, but this has the possibility of removing the wrong directory!</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

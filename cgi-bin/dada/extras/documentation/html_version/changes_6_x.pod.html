@@ -1,0 +1,1642 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>v6.x Changelog</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#pod6.8.1">6.8.1</a>
+    <ul>
+      <li><a href="#Summary-6.8.1">Summary 6.8.1</a></li>
+      <li><a href="#Changes-6.8.1">Changes 6.8.1</a>
+        <ul>
+          <li><a href="#Dada-Mail-distro-now-hosted-on-Sourceforge">Dada Mail distro now hosted on Sourceforge</a></li>
+          <li><a href="#json-and-jsonp-clarifications">json and jsonp clarifications</a></li>
+          <li><a href="#Amazon-SES-New-Endpoint-Region-Support">Amazon SES New Endpoint/Region Support</a></li>
+          <li><a href="#List-Unsubscribe-Header">List-Unsubscribe Header</a></li>
+          <li><a href="#Log-Viewer:-Timestamps-Labels-Fixed-for-Mass-Mailing-Logs">Log Viewer: Timestamps/Labels Fixed for Mass Mailing Logs</a></li>
+          <li><a href="#htaccess-in-file-uploads-directory">.htaccess in file uploads directory</a></li>
+          <li><a href="#Confirmation-Dialog-box-when-only-archiving-a-message">Confirmation Dialog box when only archiving a message</a></li>
+        </ul>
+      </li>
+      <li><a href="#Bugfixes-6.8.1">Bugfixes 6.8.1</a>
+        <ul>
+          <li><a href="#Archive-Index-Previous-Next-links-not-shown">Archive Index Previous/Next links not shown</a></li>
+          <li><a href="#Authorised-senders-get-an-error-from-bridge.cgi">Authorised senders get an error from bridge.cgi</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.8.0">6.8.0</a></li>
+      <li><a href="#Features-6.8.0">Features 6.8.0</a>
+        <ul>
+          <li><a href="#Rich-Text-Editors-and-Web-Based-File-Browsers">Rich Text Editors and Web-Based File Browsers</a>
+            <ul>
+              <li><a href="#CKEditor-Upgraded-to-v4.3-TinyMCE-Upgraded-to-v4.0.11-FCKeditor-retired">CKEditor Upgraded to v4.3, TinyMCE Upgraded to v4.0.11, FCKeditor retired</a></li>
+              <li><a href="#CKEditor:-Template-Tag-Dropdown-Menu">CKEditor: Template Tag Dropdown Menu</a></li>
+              <li><a href="#Core5-Labs-FileManager-Support">Core5 Labs FileManager Support</a></li>
+            </ul>
+          </li>
+          <li><a href="#Bridge-6.8.0">Bridge 6.8.0</a>
+            <ul>
+              <li><a href="#Moderators-and-Authorized-Senders">Moderators and Authorized Senders</a></li>
+              <li><a href="#On-Behalf-Of-p.p.-Mode">On Behalf Of (p.p. Mode)</a></li>
+              <li><a href="#Message-Received-Notification-Message">Message Received Notification Message</a></li>
+            </ul>
+          </li>
+          <li><a href="#Amazon-SES-Auto-Adjust-Batch-Sending-Rates">Amazon SES Auto-Adjust Batch Sending Rates</a></li>
+          <li><a href="#Mass-Mailing-Logs:-save-able-and-viewable-in-the-Log-Viewer-plugin">Mass Mailing Logs: save-able and viewable in the Log Viewer plugin</a></li>
+          <li><a href="#Highlighting-in-the-list-control-panels-menu">Highlighting in the list control panel&#39;s menu</a></li>
+        </ul>
+      </li>
+      <li><a href="#Change-6.8.0">Change 6.8.0</a>
+        <ul>
+          <li><a href="#Clickthrough-Tracking:-URLs-in-image-maps-tracked">Clickthrough Tracking: URLs in image maps tracked</a></li>
+        </ul>
+      </li>
+      <li><a href="#Bugfixes-6.8.0">Bugfixes 6.8.0</a>
+        <ul>
+          <li><a href="#Profile-Fields-Name-validation-not-validated-for-case-ness">Profile Fields, &quot;Name&quot; validation not validated for case-ness</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.7.2">6.7.2</a></li>
+      <li><a href="#Summary-6.7.2">Summary 6.7.2</a></li>
+      <li><a href="#Bugfixes-6.7.2">Bugfixes 6.7.2</a>
+        <ul>
+          <li><a href="#Send-a-Message-screen-shows-errors-when-trying-to-save-drafts-with-default-backend">&quot;Send a Message&quot; screen shows errors when trying to save drafts, with default backend</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.7.1">6.7.1</a></li>
+      <li><a href="#Summary-6.7.1">Summary 6.7.1</a></li>
+      <li><a href="#Bugfixes-6.7.1">Bugfixes 6.7.1</a>
+        <ul>
+          <li><a href="#Unsubscriptions-option-If-an-unsubscription-is-successful-redirect-to-this-URL:-does-not-work">&quot;Unsubscriptions&quot; option&quot; &quot; If an unsubscription is successful, redirect to this URL: &quot; does not work</a></li>
+          <li><a href="#Dada-permits-illegal-email-addresses-to-be-added-like-user-myname.-com">Dada permits illegal email addresses to be added like &quot;user@myname. com&quot;</a></li>
+          <li><a href="#characters-in-the-button-label:-Subscribe-Checked-Subscribers-cause-mod_security-to-trigger-on-form-submission">&quot;&gt;&gt;&quot; characters in the button label: &quot;Subscribe Checked Subscribers &gt;&gt;&quot; cause mod_security to trigger on form submission</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.7.0">6.7.0</a></li>
+      <li><a href="#Features-6.7.0">Features 6.7.0</a>
+        <ul>
+          <li><a href="#Mass-Mailing:-Save-as-Draft">Mass Mailing: Save as Draft</a></li>
+          <li><a href="#Mass-Mailing:-File-Attachments">Mass Mailing: File Attachments</a></li>
+          <li><a href="#Installer">Installer</a>
+            <ul>
+              <li><a href="#CAPTCHA-Options">CAPTCHA Options</a></li>
+            </ul>
+          </li>
+          <li><a href="#jQuery-Dada-Mail-Subscription-plugin">jQuery Dada Mail Subscription plugin</a></li>
+        </ul>
+      </li>
+      <li><a href="#Changes-6.7.0">Changes 6.7.0</a>
+        <ul>
+          <li><a href="#Send-Mass-Mailing-Buttons:-Always-on-Top">Send Mass Mailing Buttons: Always on Top</a></li>
+          <li><a href="#Subscription-Requests-Approving-Denying-Options">Subscription Requests Approving/Denying Options</a></li>
+          <li><a href="#Expanded-RESTful-API">Expanded RESTful API</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.6.1">6.6.1</a></li>
+      <li><a href="#Summary-6.6.1">Summary 6.6.1</a></li>
+      <li><a href="#Changes-6.6.1">Changes 6.6.1</a>
+        <ul>
+          <li><a href="#Subscription-Process:-60-more-unit-tests">Subscription Process: 60+ more unit tests</a></li>
+          <li><a href="#Included-CPAN-Module-Upgrades">Included CPAN Module Upgrades</a>
+            <ul>
+              <li><a href="#CGI::Session-to-v4.48">CGI::Session to v4.48</a></li>
+              <li><a href="#GI::Session::ExpiredSessions-to-v1.13">GI::Session::ExpiredSessions to v1.13</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#Bugfixes-6.6.1">Bugfixes 6.6.1</a>
+        <ul>
+          <li><a href="#Verify-Subscribers-Screen-shows-double-header">Verify Subscribers Screen shows double header</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.6.0">6.6.0</a></li>
+      <li><a href="#Summary-6.6.0">Summary 6.6.0</a></li>
+      <li><a href="#Features-6.6.0">Features 6.6.0</a>
+        <ul>
+          <li><a href="#Mass-Mailing-Enhancements:-Sending-Error-Detection-and-Reporting">Mass Mailing Enhancements: Sending Error Detection and Reporting</a>
+            <ul>
+              <li><a href="#Problems-Try-again">Problems?! Try again.</a></li>
+              <li><a href="#Still-having-problems-Give-it-a-rest-and-try-again-one-more-time">Still having problems? Give it a rest and try again, one more time</a></li>
+              <li><a href="#Sending-Error-Log-and-Report">Sending Error? Log and Report.</a></li>
+              <li><a href="#Track-it">Track it.</a></li>
+              <li><a href="#Feedback-Welcome">Feedback Welcome!</a></li>
+            </ul>
+          </li>
+          <li><a href="#Tracker-plugin-enhancements:-Sending-Errors">Tracker plugin enhancements: Sending Errors</a>
+            <ul>
+              <li><a href="#The-Basics-Pie-Chart">&quot;The Basics&quot; Pie Chart</a></li>
+              <li><a href="#Sending-Errors-tab">&quot;Sending Errors&quot; tab</a></li>
+              <li><a href="#Other-Tracker-changes:-more-accurate-report-percentages">Other Tracker changes: more accurate report percentages</a></li>
+            </ul>
+          </li>
+          <li><a href="#Working-with-Subscribers:-More-Powerful-Tools">Working with Subscribers: More Powerful Tools</a>
+            <ul>
+              <li><a href="#Membership">Membership</a></li>
+              <li><a href="#Subscriber-History">Subscriber History</a></li>
+              <li><a href="#Mailing-List-Activity">Mailing List Activity</a></li>
+              <li><a href="#Profile">Profile</a></li>
+            </ul>
+          </li>
+          <li><a href="#RESTful-Subscription-Interface-EXPERIMENTAL">RESTful Subscription Interface EXPERIMENTAL</a></li>
+          <li><a href="#Administration-Screen-changes">Administration Screen changes</a></li>
+          <li><a href="#Black-White-List-Definition-Changes">Black/White List Definition Changes</a></li>
+          <li><a href="#Installer1">Installer</a>
+            <ul>
+              <li><a href="#Enable-Debugging-Options">Enable Debugging Options</a></li>
+              <li><a href="#JSON-module-installed-if-needed">JSON module installed if needed</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#Changes-6.6.0">Changes 6.6.0</a>
+        <ul>
+          <li><a href="#The-Dada-Mail-Manual">The Dada Mail Manual</a></li>
+          <li><a href="#Profile-Fields">Profile Fields</a></li>
+          <li><a href="#uncompress_dada.cgi-script">uncompress_dada.cgi script</a></li>
+        </ul>
+      </li>
+      <li><a href="#Bugfixes-6.6.0">Bugfixes 6.6.0</a>
+        <ul>
+          <li><a href="#Your-Request-For-Subscription-is-Complete-HTML-screen-completely-missing">&quot;Your Request For Subscription is Complete&quot; HTML screen completely missing</a></li>
+          <li><a href="#Welcome-Message-to-Addresses-Subscribed-in-the-List-Control-Panel-does-not-provide-unsub-link-warning-in-the-list-control-panel">&quot;&quot;Welcome&quot; Message to Addresses Subscribed in the List Control Panel&quot; does not provide unsub link, warning in the list control panel</a></li>
+          <li><a href="#Mass-Mailings-sometime-Reload-without-end---browser-says-Reloading-Mailing">Mass Mailings sometime Reload, without end - browser says, &quot;Reloading Mailing...&quot;</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.5.2">6.5.2</a></li>
+      <li><a href="#Summary-6.5.2">Summary 6.5.2</a></li>
+      <li><a href="#Bugfixes-6.5.2">Bugfixes 6.5.2</a>
+        <ul>
+          <li><a href="#Mass-Mailing-takes-a-very-long-time-to-setup-UI-fails-to-refresh-to-Mailing-Monitor-screen">Mass Mailing takes a very long time to setup, UI fails to refresh to Mailing Monitor screen.</a></li>
+          <li><a href="#Bridge-does-not-run-manually-on-schedule-after-v6.5.1-upgrade">Bridge does not run manually/on schedule after v6.5.1 upgrade</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.5.1">6.5.1</a></li>
+      <li><a href="#Summary-6.5.1">Summary 6.5.1</a></li>
+      <li><a href="#Bugfixes-6.5.1">Bugfixes 6.5.1</a>
+        <ul>
+          <li><a href="#Javascript-in-dada_mail.js-has-Internet-Explorer-Specific-Bugs">Javascript in dada_mail.js has Internet Explorer-Specific Bugs</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.5.0">6.5.0</a></li>
+      <li><a href="#Summary-6.5.0">Summary 6.5.0</a></li>
+      <li><a href="#Features-6.5.0">Features 6.5.0</a>
+        <ul>
+          <li><a href="#Enhanced-Installer:-More-Configuration-Options">Enhanced Installer: More Configuration Options</a></li>
+          <li><a href="#New-Plugin:-Global-Config">New Plugin: Global Config</a></li>
+          <li><a href="#Client-Side-Form-Validation">Client-Side Form Validation</a></li>
+          <li><a href="#Mailing-List-Switcher-Form-Enhanced">Mailing List Switcher Form Enhanced</a></li>
+          <li><a href="#Plugin:-Bounce-Handler">Plugin: Bounce Handler</a>
+            <ul>
+              <li><a href="#Admin-Menu:-Bounce-Scorecard-Count-Shown">Admin Menu: Bounce Scorecard Count Shown</a></li>
+              <li><a href="#More-Rules">More Rules!</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#Changes-6.5.0">Changes 6.5.0</a>
+        <ul>
+          <li><a href="#JavaScript-Changes">JavaScript Changes</a>
+            <ul>
+              <li><a href="#Installer-specific-JavaScript:-Removed-from-main-dada_mail.js-File">Installer-specific JavaScript: Removed from main, &quot;dada_mail.js&quot; File</a></li>
+              <li><a href="#new-dada_mail.user.js-file">new, &quot;dada_mail.user.js&quot; file</a></li>
+            </ul>
+          </li>
+          <li><a href="#Plugin:-change_root_password.cgi-DEPRECATED">Plugin: change_root_password.cgi DEPRECATED</a></li>
+        </ul>
+      </li>
+      <li><a href="#Bugfixes-6.5.0">Bugfixes 6.5.0</a>
+        <ul>
+          <li><a href="#Email-addresses-will-be-subscribed-x-times-depending-on-how-many-times-theyre-listed-in-the-sub_confirm_list-sublist">Email addresses will be subscribed x times, depending on how many times they&#39;re listed in the, &quot;sub_confirm_list&quot; sublist</a></li>
+          <li><a href="#multi-byte-characters-in-template-files-in-dada-templates-etc-are-wrongly-encoded-decoded-when-viewed">multi-byte characters in template files in dada/templates, etc are wrongly encoded/decoded when viewed</a></li>
+          <li><a href="#CAPTCHA-will-fail-on-subscription-step-2-if-step-1-is-skipped-closed-list-opt-in">CAPTCHA will fail, on subscription step #2, if step #1 is skipped (closed list opt in)</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.4.3">6.4.3</a></li>
+      <li><a href="#Summary-6.4.3">Summary 6.4.3</a></li>
+      <li><a href="#Bugfixes-6.4.3">Bugfixes 6.4.3</a>
+        <ul>
+          <li><a href="#Subscription-Quotas-dont-really...-work">Subscription Quotas don&#39;t really... work</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.4.2">6.4.2</a></li>
+      <li><a href="#Summary-6.4.2">Summary 6.4.2</a></li>
+      <li><a href="#Bugfixes-6.4.2">Bugfixes 6.4.2</a>
+        <ul>
+          <li><a href="#Tracker:-Links-with-amp-in-query-string-do-not-get-tracked">Tracker: Links with &quot;&amp;amp;&quot; in query string do not get tracked</a></li>
+          <li><a href="#Bridge:-Moderation-Links-Broken">Bridge: Moderation Links Broken</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.4.1">6.4.1</a></li>
+      <li><a href="#Summary-6.4.1">Summary 6.4.1</a></li>
+      <li><a href="#Bugfixes-6.4.1">Bugfixes 6.4.1</a>
+        <ul>
+          <li><a href="#Mass-Mailings-Sometimes-Paused-After-Creation">Mass Mailings Sometimes Paused After Creation</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.4.0">6.4.0</a></li>
+      <li><a href="#Summary-6.4.0">Summary 6.4.0</a></li>
+      <li><a href="#Features-6.4.0">Features 6.4.0</a>
+        <ul>
+          <li><a href="#Unsubscription-Process:-Vastly-Simplified">Unsubscription Process: Vastly Simplified</a></li>
+          <li><a href="#Tracker-Plugin">Tracker Plugin</a>
+            <ul>
+              <li><a href="#Tracker-Preferences:-Simplified">Tracker Preferences: Simplified</a></li>
+              <li><a href="#Faster">Faster!</a></li>
+              <li><a href="#Opens:-Total-Unique-Reported">Opens: Total + Unique Reported</a></li>
+              <li><a href="#Subscriber-Activity">Subscriber Activity</a></li>
+              <li><a href="#Unsubscribes">Unsubscribes</a></li>
+              <li><a href="#Total-Recipients-Logged">Total Recipients Logged</a></li>
+              <li><a href="#csv-Export-Email-Lists:-Soft-Hard-Bounces-Unsubscribes-Email-Activity">csv Export Email Lists: Soft/Hard Bounces, Unsubscribes, Email Activity</a></li>
+            </ul>
+          </li>
+          <li><a href="#Partial-Sending-Options-Expanded">Partial Sending Options Expanded</a></li>
+        </ul>
+      </li>
+      <li><a href="#Bugfixes-6.4.0">Bugfixes 6.4.0</a>
+        <ul>
+          <li><a href="#Non-ASCII-header-fields-of-sent-message-are-not-MIME-encoded">Non-ASCII header fields of sent message are not MIME-encoded</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.3.1">6.3.1</a></li>
+      <li><a href="#Summary-6.3.1">Summary 6.3.1</a>
+        <ul>
+          <li><a href="#SQL-Table-schema-checker-looks-for-wrong-of-needed-tables-off-by-one-problem">SQL Table schema checker looks for wrong # of needed tables (off by one, problem)</a></li>
+          <li><a href="#Password-Protect-Directories:-AuthName-in-.htaccess-file-left-unquoted">Password Protect Directories: &quot;AuthName&quot; in .htaccess file left unquoted</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.3.0">6.3.0</a></li>
+      <li><a href="#Summary-6.3.0">Summary 6.3.0</a></li>
+      <li><a href="#Features-6.3.0">Features 6.3.0</a>
+        <ul>
+          <li><a href="#Amazon-SES-setup:-Vastly-Simplified">Amazon SES setup: Vastly Simplified</a></li>
+          <li><a href="#Email-Tracking-for-Opens-Clickthroughs">Email Tracking for Opens/Clickthroughs</a></li>
+          <li><a href="#Mass-Mailings:-Convert-CSS-style-blocks-to-inline-styles-in-HTML-messages">Mass Mailings: Convert CSS &lt;style&gt; blocks to inline styles in HTML messages</a></li>
+          <li><a href="#Admin-Menu:-Archive-Count-now-shown">Admin Menu: Archive Count now shown</a></li>
+          <li><a href="#Extended-Gravatar-Support">Extended Gravatar Support</a></li>
+          <li><a href="#Password-Protect-Directories-Plugin:-Works-with-already-exisiting-.htaccess">Password Protect Directories Plugin: Works with already-exisiting .htaccess</a></li>
+          <li><a href="#Geo-IP-databases-Updated">Geo IP databases Updated</a></li>
+          <li><a href="#blog_index.cgi-extension:-cached-screens">blog_index.cgi extension: cached screens</a></li>
+          <li><a href="#Support-in-Detecting-Outside-CPAN-Perl-Libraries">Support in Detecting Outside CPAN Perl Libraries</a></li>
+        </ul>
+      </li>
+      <li><a href="#Bugfixes-6.3.0">Bugfixes 6.3.0</a>
+        <ul>
+          <li><a href="#Bridge:-Check-to-make-sure-List-Owner-List-Admin-isnt-the-same-as-List-Email-doesnt-account-for-email-casing">Bridge: Check to make sure List Owner/List Admin isn&#39;t the same as List Email doesn&#39;t account for email casing</a></li>
+          <li><a href="#Invalid-List-error-on-List-Invitation-Confirmations">Invalid List error on List Invitation Confirmations</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.2.2">6.2.2</a></li>
+      <li><a href="#Summary-6.2.2">Summary 6.2.2</a></li>
+      <li><a href="#Changes-6.2.2">Changes 6.2.2</a>
+        <ul>
+          <li><a href="#Bounce-Handler---new-rules">Bounce Handler - new rules</a></li>
+          <li><a href="#Redirect-URLs-in-Sub-Unsub-process-detect-query-strings">Redirect URLs in Sub/Unsub process detect query strings</a></li>
+        </ul>
+      </li>
+      <li><a href="#Bugfixes-6.2.2">Bugfixes 6.2.2</a>
+        <ul>
+          <li><a href="#Bug-with-multiple-subscribe">Bug with multiple subscribe</a></li>
+          <li><a href="#Unsubscription-Confirmations-puts-an-extra-to-the-url">Unsubscription Confirmations, puts an extra &quot;?&quot; to the url</a></li>
+          <li><a href="#convert_to_ascii-in-DADA::App::Guts-strips-out-characters-like-etc">convert_to_ascii in DADA::App::Guts strips out characters like, &Uuml;, &szlig;, etc</a></li>
+        </ul>
+      </li>
+      <li><a href="#Summary-6.2.1">Summary 6.2.1</a></li>
+      <li><a href="#pod6.2.0">6.2.0</a></li>
+      <li><a href="#Summary-6.2.0">Summary 6.2.0</a></li>
+      <li><a href="#Bugfixes-6.2.0">Bugfixes 6.2.0</a>
+        <ul>
+          <li><a href="#Subscriber-profile-fields-disappeared">Subscriber profile fields disappeared.</a></li>
+          <li><a href="#Unknown-code-ref-type-given-.-in-Advanced-Archive-Options-screen">&quot;Unknown code ref type given &#39;&#39;. &quot; in &quot;Advanced Archive Options&quot; screen</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.1.1">6.1.1</a></li>
+      <li><a href="#Summary-6.1.1">Summary 6.1.1</a></li>
+      <li><a href="#Changes-6.1.1">Changes 6.1.1</a></li>
+      <li><a href="#Bugfixes-6.1.1">Bugfixes 6.1.1</a>
+        <ul>
+          <li><a href="#Hidden-Fields-are-shown-in-the-Subscription-Form">Hidden Fields are shown in the Subscription Form</a></li>
+          <li><a href="#Save-Then-Test-in-Mail-Sending-Options-changes-preferences">&quot;Save, Then Test&quot; in Mail Sending &gt;&gt; Options changes preferences</a></li>
+          <li><a href="#Bug-in-DADA::App::BounceHandler::Rules-prevents-Bounce-Handler-from-properly-parsing-bounces">Bug in DADA::App::BounceHandler::Rules prevents Bounce Handler from properly parsing bounces</a></li>
+          <li><a href="#Default-CAPTCHA-will-fail-even-if-it-says-it-wont">Default CAPTCHA will fail, even if it says it won&#39;t</a></li>
+        </ul>
+      </li>
+      <li><a href="#Summary-6.1.0">Summary 6.1.0</a></li>
+      <li><a href="#Bugfixes-6.1.0">Bugfixes 6.1.0-</a>
+        <ul>
+          <li><a href="#Profile-Unsubscribe-links-for-plus-addresses-dont-work">Profile Unsubscribe links for plus-addresses don&#39;t work</a></li>
+          <li><a href="#PlainText-to-HTML-Mass-Mailing-Messages-break-ending-tmpl_if-tmpl_unless-tmpl_loop-blocks">PlainText to HTML Mass Mailing Messages break ending tmpl_if, tmpl_unless, tmpl_loop blocks</a></li>
+          <li><a href="#Bridge-stops-list-processing-if-one-list-has-a-problem">Bridge stops list processing if one list has a problem</a></li>
+          <li><a href="#No-entity-found-dieing-at-bridge.cgi-line-467">No entity found! die&#39;ing! at bridge.cgi line 467</a></li>
+        </ul>
+      </li>
+      <li><a href="#Summary-6.0.2">Summary 6.0.2</a></li>
+      <li><a href="#Bugfixes-6.0.2">Bugfixes 6.0.2</a>
+        <ul>
+          <li><a href="#tmpl_strftime-...----template-tags-dont-work">&lt;!-- tmpl_strftime [...] --&gt; template tags don&#39;t work</a></li>
+          <li><a href="#Bridge:-Setup-as-Email-Forward-POP3-Account-option-used-when-cloning-a-list">Bridge: &quot;Setup as&quot; Email Forward/POP3 Account option used when cloning a list</a></li>
+          <li><a href="#Not-Allowed-to-Post-Message-grammatical-error">&quot;Not Allowed to Post&quot; Message, grammatical error</a></li>
+          <li><a href="#Bridge:-Transactional-email-messages-specific-to-Bridge-Moderation-do-not-have-correct-encoding">Bridge: Transactional email messages, specific to Bridge/Moderation do not have correct encoding</a></li>
+          <li><a href="#Messages-converted-from-PlainText-to-HTML-will-have-broken-template-tags">Messages converted from PlainText to HTML will have broken template tags</a></li>
+          <li><a href="#Transactional-Emails-are-bring-coverted-from-PlainText-to-HTML">Transactional Emails are bring coverted from PlainText to HTML</a></li>
+          <li><a href="#Domain-Stats-broken-for-PlainText-Backend">Domain Stats broken for PlainText Backend</a></li>
+          <li><a href="#Scheduled-Mailings-HTML-window-missing-v6">Scheduled Mailings HTML window missing v6</a></li>
+          <li><a href="#jQuery-UI-images-with-wrong-paths-in-jQuery-stylesheet">jQuery UI images with wrong paths in jQuery stylesheet</a></li>
+          <li><a href="#Your-List-Control-Panel-Customize-Feature-Set-Broken">&quot;Your List Control Panel &raquo; Customize Feature Set&quot; Broken</a></li>
+          <li><a href="#Removing-Stale-POP3-Locks-doesnt-work">Removing Stale POP3 Locks doesn&#39;t work</a></li>
+          <li><a href="#Multiple-Subscribe-doesnt-seem-to-be-working">Multiple Subscribe doesn&#39;t seem to be working</a></li>
+          <li><a href="#Error-when-creating-a-new-profile-account">Error when creating a new profile account.</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.0.1">6.0.1</a></li>
+      <li><a href="#Summary-6.0.1">Summary 6.0.1</a></li>
+      <li><a href="#Bugfixes-6.0.1">Bugfixes 6.0.1</a>
+        <ul>
+          <li><a href="#Bridge:-Label-not-found-for-next-QUEUE-at-bridge.cgi-line-1196">Bridge: Label not found for &#39;next QUEUE&#39; at bridge.cgi line 1196</a></li>
+        </ul>
+      </li>
+      <li><a href="#pod6.0.0">6.0.0</a></li>
+      <li><a href="#Summary-6.0.0">Summary 6.0.0</a></li>
+      <li><a href="#Release-Candiate-2">6.0.0 Release Candiate 2</a></li>
+      <li><a href="#Summary-6.0.0-Release-Candidate-2">Summary 6.0.0 Release Candidate 2</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="pod6.8.1">6.8.1</h1>
+
+<h2 id="Summary-6.8.1">Summary 6.8.1</h2>
+
+<p>This is a bug-release focused release.</p>
+
+<h2 id="Changes-6.8.1">Changes 6.8.1</h2>
+
+<h3 id="Dada-Mail-distro-now-hosted-on-Sourceforge">Dada Mail distro now hosted on Sourceforge</h3>
+
+<p>We&#39;ve moved the Dada Mail distro download from Google Code to Sourcefore, as Google Code does not allow new downloads to be created.</p>
+
+<h3 id="json-and-jsonp-clarifications">json and jsonp clarifications</h3>
+
+<p>Dada Mail&#39;s jQuery plugin for subscribing to a mailing list had a fairly big problem, if you wanted to use it in a cross domain setup. Since it was calling the RESTful API using jsonp and sending data via POST, the POST payload would not actually work, as jsonp only supports sending information via GET.</p>
+
+<p>We&#39;ve adjusted the plugin and the RESTful API to work correctly when accessing it either with the json and jsonp method. See the docs on the jQuery plugin for more details on any modifications you may have to do to your own code:</p>
+
+<p><a href="http://dadamailproject.com/d/COOKBOOK-subscriptions.pod.html#jQuery-Plugin">http://dadamailproject.com/d/COOKBOOK-subscriptions.pod.html#jQuery-Plugin</a></p>
+
+<h3 id="Amazon-SES-New-Endpoint-Region-Support">Amazon SES New Endpoint/Region Support</h3>
+
+<p>Amazon SES recently gave support to use the service with new regions, Dada Mail now supports the three new regions that now also support SES.</p>
+
+<h3 id="List-Unsubscribe-Header">List-Unsubscribe Header</h3>
+
+<p>We&#39;ve changed the <code>List-Unsubscribe</code> header to include both a mailto: link set to the List Owner&#39;s email address, as well as the full List-Unsubscribe URL.</p>
+
+<p>Past versions only included the List-Unsubscribe URL.</p>
+
+<h3 id="Log-Viewer:-Timestamps-Labels-Fixed-for-Mass-Mailing-Logs">Log Viewer: Timestamps/Labels Fixed for Mass Mailing Logs</h3>
+
+<p>v6.8.0 introduced support to save the mass mailing logs Dada Mail creates, when sending out a mass mailing. Earlier versions just deleted this log, when the mass mailing was finished/canceled. Because this log could provide an interesting insight on how the mass mailing went, we made it an option to save the log to look at later, using the Log Viewer plugin that comes with Dada Mail.</p>
+
+<p>Unfortunetly, we goofed on actually displaying the date the mass mailing was sent on, in the Log Viewer&#39;s pulldown menu - the date shown would probably be something completely random, making the job of figuring out which log went to what mass mailing difficult.</p>
+
+<p>This should now be fixed.</p>
+
+<h3 id="htaccess-in-file-uploads-directory">.htaccess in file uploads directory</h3>
+
+<p>We&#39;ve changed the directives in the .htaccess file used to keep the file uploads directory secure. The old directives looked a little like this:</p>
+
+<pre><code>    &lt;IfModule mod_php4.c&gt;
+    php_value engine off
+    &lt;/IfModule&gt;
+    &lt;IfModule mod_php5.c&gt;
+    php_value engine off
+    &lt;/IfModule&gt;</code></pre>
+
+<p>Which potentially won&#39;t do <i>anything</i>.</p>
+
+<p>It now looks more like this:</p>
+
+<pre><code>    +Options -ExecCGI
+    +AddType text/plain .php .phtml .php3 .pl .cgi</code></pre>
+
+<h3 id="Confirmation-Dialog-box-when-only-archiving-a-message">Confirmation Dialog box when only archiving a message</h3>
+
+<p>Past versions of Dada Mail would show a confirmation dialog box, asking if you want to, &quot;Send Mass Mailing?&quot; when you wanted to simply archive a message, and not send it out. Clicking, &quot;OK&quot; would still only archive the message, but the label on the dialog box was still incorrect. It now simply states, &quot;Archive Message?&quot; if all you are doing is archiving a message.</p>
+
+<h2 id="Bugfixes-6.8.1">Bugfixes 6.8.1</h2>
+
+<h3 id="Archive-Index-Previous-Next-links-not-shown">Archive Index Previous/Next links not shown</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/419">https://github.com/justingit/dada-mail/issues/419</a></p>
+
+<h3 id="Authorised-senders-get-an-error-from-bridge.cgi">Authorised senders get an error from bridge.cgi</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/420">https://github.com/justingit/dada-mail/issues/420</a></p>
+
+<h2 id="pod6.8.0">6.8.0</h2>
+
+<h2 id="Features-6.8.0">Features 6.8.0</h2>
+
+<h3 id="Rich-Text-Editors-and-Web-Based-File-Browsers">Rich Text Editors and Web-Based File Browsers</h3>
+
+<p>Dada Mail supports multiple rich text editors, allowing you to easily author email messages with formatted text, images and simple layouts. Dada Mail also supports uploading images from your own computer, to your web server and placing those images into your mailing list messages, using one of the included web-based file browsers.</p>
+
+<h4 id="CKEditor-Upgraded-to-v4.3-TinyMCE-Upgraded-to-v4.0.11-FCKeditor-retired">CKEditor Upgraded to v4.3, TinyMCE Upgraded to v4.0.11, FCKeditor retired</h4>
+
+<p>This release of Dada Mail upgrades two of the included rich text editors: CKEditor has been upgraded to v4.3 (from v3.x), and TinyMCE has been upgraded to v4.0.11 (from v3.x). This release also retires FCKeditor, which has been superseded by CKEditor.</p>
+
+<p>These new rich text editors visually look much better than their predecessors and should provide additional functionality to help you author beautiful messages.</p>
+
+<p>One of the features we really enjoy is allowing you to toggle between seeing visible blocks showing the underlying structure of your message, without having to delve into the source code of the message itself.</p>
+
+<p>Another feature that can prove useful and time-saving is the ability to simply drag an image into the rich text editor window to place the image into your message. Both CKEditor and TinyMCE support this. We&#39;ve tested this with Firefox on the Mac, but other browser may also be supported.</p>
+
+<p>We&#39;ve also set up these rich text editors to have full page support, meaning you can now edit both the body of the message, as well as the head. This is important, if you want to use more advanced HTML email authoring techniques, like responsive designs and images.</p>
+
+<h4 id="CKEditor:-Template-Tag-Dropdown-Menu">CKEditor: Template Tag Dropdown Menu</h4>
+
+<p>Also look for the new Tags drop down menu in CKeditor (not currently available in TinyMCE). This drop down menu allows you to easily select and place one of Dada Mail&#39;s template tags. Template Tags are an advanced feature of Dada Mail, allowing to create dynamic messages based on subscriber profile information (First Name, Last Name, etc).</p>
+
+<h4 id="Core5-Labs-FileManager-Support">Core5 Labs FileManager Support</h4>
+
+<p>We&#39;re also shipping an additional web-based file browser called, FileManager. These file browsers are what allows you to view files on your server to either select an image to add to your message, or to select an attachment to go along with your message.</p>
+
+<p>Dada Mail has shipped with the KCFinder file browser (and still will), but some users have had problems with it working correctly. With the addition of FileManager, we should now have a great alternative to utilize.</p>
+
+<p>More information on <b>FileManager:</b></p>
+
+<p><a href="http://labs.corefive.com/projects/filemanager/">http://labs.corefive.com/projects/filemanager/</a></p>
+
+<p>Learn more about the rich text editors and web-based file browser support in Dada Mail:</p>
+
+<p><a href="http://dadamailproject.com/d/features-wysiwyg_editors.pod.html">http://dadamailproject.com/d/features-wysiwyg_editors.pod.html</a></p>
+
+<h3 id="Bridge-6.8.0">Bridge 6.8.0</h3>
+
+<p>The Bridge plugin transforms a Dada Mail mailing list from an announce-only mailing list, where you send message through Dada Mail&#39;s own List Control panel, to a full-blown discussion list, where members can send a message from their own mail reader (whichever one they&#39;d like!) and have it sent to the entire mailing list, creating group discussions. Bridge can also be used for an announce-only mailing list, allowing the List Owner, and/or a seperate list of addresses, called Authorized Senders, to send messages to your mailing list, without allowing your Subscribers to do the same.</p>
+
+<p>Read about the Bridge plugin: <a href="http://dadamailproject.com/d/bridge.cgi.html">http://dadamailproject.com/d/bridge.cgi.html</a></p>
+
+<p>This version of Dada Mail supports many difference enhancements:</p>
+
+<h4 id="Moderators-and-Authorized-Senders">Moderators and Authorized Senders</h4>
+
+<p>Moderators, a separate list of addresses from your Subscribers, can now be created. They&#39;re only job is to view incoming messages, and moderate them: choosing what gets allowed to be posted, and what doesn&#39;t.</p>
+
+<p>This job used to be the job of the Authorized Senders sublist, but to make things easier and more flexible, we&#39;ve made split these tasks into two separate sublists.</p>
+
+<p>Authorized Senders are still around: a separate list of addresses who&#39; members are allowed to send messages to a mailing list, without having to be a member of the Subscribers, themselves. Say you have an announce-only mailing list, where you&#39;d like to give permission of just a few people in an organization to send messages to the mailing list. All you need to do is add them to your Authorized Senders and give them the List Address to send to. No need to give them login access to the List Control Panel.</p>
+
+<p>In discussion lists, you now also have the option to moderate incoming messages, except for those messages from an address that&#39;s a member of your Authorized Senders.</p>
+
+<h4 id="On-Behalf-Of-p.p.-Mode">On Behalf Of (p.p. Mode)</h4>
+
+<p>Bridge also has a new discussion list option called, <b>On Behalf Of (p.p. Mode)</b>. We&#39;re big fans of the Amazon SES email sending service, but the service is set up to allow accept messages from addresses you&#39;ve verified using their own system. This is fine for a few addresses, but can be unrealistic for an entire discussion list, whose members may number in the hundreds, or even thousands. When p.p. Mode is enabled, messages will be sent out on behalf of the List Owner, allowing you to set up a discussion list with Amazon SES.</p>
+
+<h4 id="Message-Received-Notification-Message">Message Received Notification Message</h4>
+
+<p>Bridge also now allows you the option to send out a, &quot;Message Received&quot; message, telling the original poster that their message was delivered correctly, and will be sent out as soon as it can.</p>
+
+<p>Sometimes, large or busy mailing lists will have the scenario, where messages take longer than possibly expected to be delivered. This may lead to the original poster assuming the message was never actually delivered - so they&#39;ll send the message again - perhaps more than twice! This leads to multiple postings of the same message, not something you&#39;d want. The, &quot;message received&quot; notification message helps to confirm the original poster that their message has been received without a problem.</p>
+
+<h3 id="Amazon-SES-Auto-Adjust-Batch-Sending-Rates">Amazon SES Auto-Adjust Batch Sending Rates</h3>
+
+<p>Dada Mail supports sending email using a variety of methods: one of these methods is using the Amazon Simple Email Service. Amazon SES allows you to a large amount of messages, fast, with great deliverability for a low cost.</p>
+
+<p>Read more about Dada Mail and Amazon SES, see: <a href="http://dadamailproject.com/d/features-amazon_ses_support.pod.html">http://dadamailproject.com/d/features-amazon_ses_support.pod.html</a></p>
+
+<p>Dada Mail already self-adjusts its batch sending rates, to work with Amazon SES&#39;s set limits. As SES&#39;s limits grows, so will your sending speed.</p>
+
+<p>In this release, we&#39;ve optimized the auto batch sending rates, so that mass sending speeds in Dada Mail start out faster, and then ease back slowly, so that you never go over the limit imposed by SES.</p>
+
+<p>For mailing lists whose membership is smaller than the daily limit you have with SES, this gives you a much fast sending rate. For example: say you have a list of only 500 members. The default sending rate for SES is up to 5 messages/second, and 10,000 messages a day.</p>
+
+<p>Prior versions of Dada Mail would send at a rate of around 375 messages/hour - fast enough that you won&#39;t go over your daily limit, and giving a little wiggly room to allow you to send other messages (subscription confirmation, other transactional messages, etc) Your mass mailing would still take around an hour and a half to complete, even though your SES limits would allow you to send well above this limit: remember, you can send up to 5 messages/second!</p>
+
+<p>In this version of Dada Mail, that same mailing list of 500 members would send in minutes, rather than hours, as Dada Mail will start sending messages at 5 messages/second, rather than 1 message every ~10 seconds. Big improvement!</p>
+
+<p>This faster sending rate will also help signal Amazon SES&#39;s system that you&#39;re using your resources to their maximum allowed usage. This in turn will signal SES to actually give you more resources to use, raising your limit, and allowing your to send more messages/day with a higher per-second limit. All this will happen, automatically, as you send out your messages.</p>
+
+<h3 id="Mass-Mailing-Logs:-save-able-and-viewable-in-the-Log-Viewer-plugin">Mass Mailing Logs: save-able and viewable in the Log Viewer plugin</h3>
+
+<p>When sending out a mass mailing, Dada Mail creates a log of the activity of the mass mailing. This is a separate log for the usage log, and the error log, since it only pertains to one specific mass mailing, and also this log could be very, very large!</p>
+
+<p>In past versions of Dada Mail, this log was simply deleted, when a mass mailing was finished. To help with understanding more complex issues with your mass mailing, this log can now be optionally saved, after the mass mailing is completed, and easily viewed using Dada Mail&#39;s included Log Viewer.</p>
+
+<h3 id="Highlighting-in-the-list-control-panels-menu">Highlighting in the list control panel&#39;s menu</h3>
+
+<p>Dada Mail&#39;s List Control Panel let&#39;s you do a LOT of things, and there&#39;s many different screens to work with. To help you remember where you are, and what you&#39;ve clicked on, we now highlight the screen&#39;s title of where you&#39;re currently at, on the left-hand menu.</p>
+
+<h2 id="Change-6.8.0">Change 6.8.0</h2>
+
+<h3 id="Clickthrough-Tracking:-URLs-in-image-maps-tracked">Clickthrough Tracking: URLs in image maps tracked</h3>
+
+<p>URLs for links in image maps weren&#39;t tracked by Dada Mail. These URLs should now be properly tracked.</p>
+
+<h2 id="Bugfixes-6.8.0">Bugfixes 6.8.0</h2>
+
+<h3 id="Profile-Fields-Name-validation-not-validated-for-case-ness">Profile Fields, &quot;Name&quot; validation not validated for case-ness</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/416">https://github.com/justingit/dada-mail/issues/416</a></p>
+
+<h2 id="pod6.7.2">6.7.2</h2>
+
+<h2 id="Summary-6.7.2">Summary 6.7.2</h2>
+
+<p>This release is primarily a bugfix release.</p>
+
+<p>This release also brings back the option to enable/disable tracking clickthroughs for email address links (<code>mailt:someone@example.com</code>), which was added in v6.3.0, and then mysteriously disappeared. The default is to <b>disable</b> clickthrough tracking for these types of links.</p>
+
+<h2 id="Bugfixes-6.7.2">Bugfixes 6.7.2</h2>
+
+<h3 id="Send-a-Message-screen-shows-errors-when-trying-to-save-drafts-with-default-backend">&quot;Send a Message&quot; screen shows errors when trying to save drafts, with default backend</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/410">https://github.com/justingit/dada-mail/issues/410</a></p>
+
+<h2 id="pod6.7.1">6.7.1</h2>
+
+<h2 id="Summary-6.7.1">Summary 6.7.1</h2>
+
+<p>This release is primarily a bugfix release.</p>
+
+<h2 id="Bugfixes-6.7.1">Bugfixes 6.7.1</h2>
+
+<h3 id="Unsubscriptions-option-If-an-unsubscription-is-successful-redirect-to-this-URL:-does-not-work">&quot;Unsubscriptions&quot; option&quot; &quot; If an unsubscription is successful, redirect to this URL: &quot; does not work</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/405">https://github.com/justingit/dada-mail/issues/405</a></p>
+
+<h3 id="Dada-permits-illegal-email-addresses-to-be-added-like-user-myname.-com">Dada permits illegal email addresses to be added like &quot;user@myname. com&quot;</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/407">https://github.com/justingit/dada-mail/issues/407</a></p>
+
+<h3 id="characters-in-the-button-label:-Subscribe-Checked-Subscribers-cause-mod_security-to-trigger-on-form-submission">&quot;&gt;&gt;&quot; characters in the button label: &quot;Subscribe Checked Subscribers &gt;&gt;&quot; cause mod_security to trigger on form submission</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/408">https://github.com/justingit/dada-mail/issues/408</a></p>
+
+<h2 id="pod6.7.0">6.7.0</h2>
+
+<h2 id="Features-6.7.0">Features 6.7.0</h2>
+
+<h3 id="Mass-Mailing:-Save-as-Draft">Mass Mailing: Save as Draft</h3>
+
+<p>In past versions of Dada Mail, it was always awkward to keep an unfinished copy of your message: You would either have to keep a browser window always open with this message, save your message in a different place (in a text file on your computer), or use another, hand-rolled solution.</p>
+
+<p>Now, Dada Mail supports saving unfinished messages, called Drafts. Rejoice!</p>
+
+<p>Dada Mail can now save a Draft message right in the &quot;Send a Message&quot; or &quot;Send a Wepage&quot; control panel screens. Messages are also auto-saved every minute, in case your browser window is inadvertently closed by accident. Draft messages will also be saved whenever you send out a test mass mailing, and waiting for you, whenever you come back to send out the message to your subscribers.</p>
+
+<p>An unlimited number of draft messages may also be saved, viewed and edited.If you want to start over, you also may cancel the message and delete the draft.</p>
+
+<p>All form fields and widgets available to you in the &quot;Send a Message&quot; and &quot;Send a Webpage&quot; screen are saved when a draft is saved, including: message headers, your message bodies (both PlainText and HTML), and all the other Options available: Archive Options Partial Mailing List Sending Options, File Attachments, and Testing Options.</p>
+
+<h3 id="Mass-Mailing:-File-Attachments">Mass Mailing: File Attachments</h3>
+
+<p>File Attachment uploading is now handled by the included KCFinder web file manager. This allows you to easily upload attachments before sending a message out, as well as attach files already uploaded.</p>
+
+<p>Attachments can now also be removed from your messages easily.</p>
+
+<p>This is a marked improvement over the previous system of just providing a file upload widget, which allowed you to only select a file on your desktop to upload. A new system for file attachments was sorely needed, if we ever wanted to get the Save as Draft feature in Dada Mail.</p>
+
+<h3 id="Installer">Installer</h3>
+
+<p>Dada Mail&#39;s included installer allows you to install, reconfigure, and upgrade Dada Mail, without having to touch a single (often confusing to users) config file.</p>
+
+<p>This installer features support for a large subset of the global configuration variables supported by Dada Mail itself, and we&#39;re constantly working on supporting more and more of the global variables an features.</p>
+
+<h4 id="CAPTCHA-Options">CAPTCHA Options</h4>
+
+<p>Dada Mail has shipped with support for its own CAPTCHA system, as well as support for the reCAPTCHA service (<a href="http://www.google.com/recaptcha">http://www.google.com/recaptcha</a>). Dada Mail also has support for the related reCAPTCHA Mailhide system (<a href="http://www.google.com/recaptcha/mailhide/">http://www.google.com/recaptcha/mailhide/</a>), to protect email addresses in its public message archives.</p>
+
+<p>The included Dada Mail Installer now allows you to configure the CAPTCHA system that comes with Dada Mail. These options are located under the, <b>Advanced Configuration (Optional)</b> heading, and is available in our Pro Dada distribution.</p>
+
+<p>We&#39;re shipping Basic Dada Mail <b>with only Amazon SES</b> configuration available in, <b>Advanced Configuration</b>. We&#39;re really hoping you love Dada Mail enough to go and get a copy of Pro Dada:</p>
+
+<p><a href="http://dadamailproject.com/purchase/pro.html">http://dadamailproject.com/purchase/pro.html</a></p>
+
+<h3 id="jQuery-Dada-Mail-Subscription-plugin">jQuery Dada Mail Subscription plugin</h3>
+
+<p>Dada Mail now ships with its own jQuery plugin, to easily create subscription forms, as well as handling the requests inside a modal window, rather than being redirected away from your main website to Dada Mail.</p>
+
+<p>Dada Mail uses the jQuery plugin itself - you&#39;ll notice it in action on subscription forms handled by Dada Mail, in the app itself.</p>
+
+<p>The jQuery plugin has 100% support for graceful degredation: if a user uses Dada Mail without having JavaScript enabled, the subscription process will work very similary to how it worked before the jQuery plugin enhancements were put in place.</p>
+
+<p>See the Subscription Cookbook docs for more information about this plugin:</p>
+
+<p><a href="http://dadamailproject.com/d/COOKBOOK-subscriptions.pod.html">http://dadamailproject.com/d/COOKBOOK-subscriptions.pod.html</a></p>
+
+<h2 id="Changes-6.7.0">Changes 6.7.0</h2>
+
+<h3 id="Send-Mass-Mailing-Buttons:-Always-on-Top">Send Mass Mailing Buttons: Always on Top</h3>
+
+<p>In previous versions of Dada Mail, buttons used to Test, or Send out Mass Mailing were located at the <i>bottom</i> of the screen, after what could be a very long form, forcing you to scroll down, to submit your message.</p>
+
+<p>Now, the group of buttons in the, Send a Message and Send a Webpage screens always float on top of the form itself, making it easier to always have Draft Saving/Canceling and Mass Mailing Testing/Sending available to you.</p>
+
+<h3 id="Subscription-Requests-Approving-Denying-Options">Subscription Requests Approving/Denying Options</h3>
+
+<p>Dada Mail&#39;s Subscriptoion Request system allows you to approve subscriptions to your mailing list.</p>
+
+<p>Options for Subscription Requests Approving/Denying have now been expanded:</p>
+
+<p>You may now set a custom Rediect (with, or without a query string) for Subscription request approvals, or denials.</p>
+
+<p>You may now also set custom HTML to be shown to let your users know their request must be approved by the List Owner.</p>
+
+<h3 id="Expanded-RESTful-API">Expanded RESTful API</h3>
+
+<p>The RESTful API for mailing list subscriptions has been expanded to include support for custom URL redirects, as well as working with situations where additional information is required from a user, to successfully complete a request.</p>
+
+<p>A Javascript/jQuery example is also provided, that supports all these new fancy bells and whistles.</p>
+
+<h2 id="pod6.6.1">6.6.1</h2>
+
+<h2 id="Summary-6.6.1">Summary 6.6.1</h2>
+
+<p>This is a bugfix-only release, that focuses on bugs found in the subscription process, most notably problems with custom URL redirects.</p>
+
+<h2 id="Changes-6.6.1">Changes 6.6.1</h2>
+
+<h3 id="Subscription-Process:-60-more-unit-tests">Subscription Process: 60+ more unit tests</h3>
+
+<p>We ran into a few problems with the subscription process, which recently had a larger overhaul. While fixing the problems, we added around 60+ new unit tests to the 40+ that were already there for this part of the app, to help make sure additional problems won&#39;t crop up.</p>
+
+<h3 id="Included-CPAN-Module-Upgrades">Included CPAN Module Upgrades</h3>
+
+<h4 id="CGI::Session-to-v4.48">CGI::Session to v4.48</h4>
+
+<h4 id="GI::Session::ExpiredSessions-to-v1.13">GI::Session::ExpiredSessions to v1.13</h4>
+
+<h2 id="Bugfixes-6.6.1">Bugfixes 6.6.1</h2>
+
+<h3 id="Verify-Subscribers-Screen-shows-double-header">Verify Subscribers Screen shows double header</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/402">https://github.com/justingit/dada-mail/issues/402</a></p>
+
+<h2 id="pod6.6.0">6.6.0</h2>
+
+<h2 id="Summary-6.6.0">Summary 6.6.0</h2>
+
+<p>This release of Dada Mail focuses on three main features:</p>
+
+<ul>
+
+<li><p>Sending Error Detection and Reporting</p>
+
+</li>
+<li><p>Redesigned Membership Admin Screen</p>
+
+</li>
+<li><p>New RESTful API for Subscriptions</p>
+
+</li>
+</ul>
+
+<h2 id="Features-6.6.0">Features 6.6.0</h2>
+
+<h3 id="Mass-Mailing-Enhancements:-Sending-Error-Detection-and-Reporting">Mass Mailing Enhancements: Sending Error Detection and Reporting</h3>
+
+<p>Dada Mail has enhanced its sending error detection during mass mailings. Due to how many messages go out during a mass mailing and how fast you may be sending out these messages, problems with mail sending could potentially happen. Historically, Dada Mail has been less than bright than it could be when handling and reporting these problems.</p>
+
+<p>Dada Mail is now tuned to catch addresses causing problems and perform some intelligent tasks:</p>
+
+<h4 id="Problems-Try-again">Problems?! Try again.</h4>
+
+<p>If a message to an address is not sending out correctly, Dada Mail will now wait a small period of time (a few seconds), and try sending twice more. This should help with any <i>very</i> temporary problems dealing with your mail system itself (your own MTA, an outside SMTP server, or service like Amazon SES). Hey, things happen, every once in awhile. The idea is that brief hiccups on your end, shouldn&#39;t mean a subscriber misses receiving an important message from you.</p>
+
+<h4 id="Still-having-problems-Give-it-a-rest-and-try-again-one-more-time">Still having problems? Give it a rest and try again, one more time</h4>
+
+<p>If, after three tries sending the message, the message still doesn&#39;t get sent, Dada Mail will now temporarily stop it&#39;s entire mass mailing process and start again, after a slightly longer amount of time (a few minutes). This is to make sure there isn&#39;t a problem with Dada Mail itself - the resources its taking on the server, or any other very strange, very fringe problems.</p>
+
+<p>After this wait, Dada Mail will start its mass mailing process at the address that was having the delivery problems and try for another round of three more times - just to make sure. If this is successful, great! Business as usual. If the address fails in sending, the address is logged, and skipped over and the next address is then sent to.</p>
+
+<h4 id="Sending-Error-Log-and-Report">Sending Error? Log and Report.</h4>
+
+<p>This is a marked improvement over what Dada Mail has done in the past: basically do nothing very intelligent when an address fails during sending. Addresses that fail are now reported, using the Tracker plugin, which allows you to see exactly which addresses are causing problems (this data can be exported as a .csv file, as well!) and what percentage of your total mailing list is having problems with sending errors.</p>
+
+<p>Now that you know this information, you can then take some action to fix it. The majority of problems on cheap, shared hosting platforms are related to mass mailing <i>speed</i>: you&#39;re sending too fast.</p>
+
+<p>This is also the eaisest types of problem sto fix, as Dada Mail supports changing how fast a mass mailing goes out, through it&#39;s batch sending system. For more complicated problems, you can then look in Dada Mail&#39;s error logs for more details - Dada Mail&#39;s Log Viewer plugin also makes this easy.</p>
+
+<h4 id="Track-it">Track it.</h4>
+
+<p>Since sending errors are now reported, the reports created by the Tracker plugin can now be more accurate. Message opens, bounce rates, etc. percentages now do not count addresses that failed to even be sent out by Dada Mail, giving you a better idea on how many messages were interacted with, compared to how many were sent out, correctly (rather than the full total).</p>
+
+<h4 id="Feedback-Welcome">Feedback Welcome!</h4>
+
+<p>We&#39;re sure we&#39;ll be getting a lot of feedback from users that are just noticing that they may be having problems on their end with sending. We&#39;re hoping that armed with this new data, that deliverability will increase.</p>
+
+<h3 id="Tracker-plugin-enhancements:-Sending-Errors">Tracker plugin enhancements: Sending Errors</h3>
+
+<p>Along with logged Sending Errors, the Tracker plugin has been updated to report those errors in a easy-to-digest way:</p>
+
+<h4 id="The-Basics-Pie-Chart">&quot;The Basics&quot; Pie Chart</h4>
+
+<p>Sending Errors are first shown reported, per message, in the first Pie Chart at the top of the screen. The pie chart is composed of Delivered Messages, Hand/Soft Bounces, as well as addresses that had Sending Errors.</p>
+
+<p>Sending Errors are also reported in the right-hand table, under, <b>Sending Errors</b> as both the total number of Sending Errors, and the percentage compared to how many addresses were sent to.</p>
+
+<h4 id="Sending-Errors-tab">&quot;Sending Errors&quot; tab</h4>
+
+<p><b>Sending Errors</b> also has its own tab, underneith, <b>The Basics</b>. This tab will both list the addresses where Sending Errors happened, as well as a pie chart, broken down by domain. There&#39;s also an option to export these addresses as a .csv file.</p>
+
+<h4 id="Other-Tracker-changes:-more-accurate-report-percentages">Other Tracker changes: more accurate report percentages</h4>
+
+<p>The Tracker plugin now shows percentages to the nearest tenth of a percent, rather than rounding up numbers to the nearest whole number. This helps in getting a better picture of what&#39;s happening with your mailing list: things like Sender Errors, Bounces and Unsubscribes could be a very small amount of activity, when compared to how large your mailing list is.</p>
+
+<h3 id="Working-with-Subscribers:-More-Powerful-Tools">Working with Subscribers: More Powerful Tools</h3>
+
+<p>List Owners now have much more powerful tools to work with individual subscribers of their mailing lists, as well as the ability to work across different mailing lists. The completely rewritten Membership screen now has four separate tabs to work with your mailing list member: <b>Membership</b>, <b>Subscriber History</b>, <b>Mailing List Activity</b>, <b>Profile</b>.</p>
+
+<h4 id="Membership">Membership</h4>
+
+<p>The Membership tab allows you to work with the email address of one of your mailing list members. Here, you may <b>Add</b>, <b>Update</b> or <b>Remove</b> the address for your mailing list. A Dada Mail mailing list is actually composed of many different <b>sublist</b> types. So, for example, when you send a mass mailing out, you&#39;re sending a message out to your <b>Subscribers</b> sublist.</p>
+
+<p>But, Dada Mail has other sublists that provide different roles. For example, Dada Mail&#39;s <b>Black List</b> allows you to have a list of addresses that aren&#39;t allowed to join your list. This is also known as a, <b>Suppression List</b></p>
+
+<p>The, <b>Authorized Senders</b> sublist is a list of addresses that are allowed to send out a message from their own mail reader, without having to log into Dada Mail, that then gets delivered to your Subscribers (this is done with the Bridge plugin, which is bundled with Dada Mail)</p>
+
+<p>The Membership tab allows you to Add/Update/Remove addresses across these sublists. If you&#39;re logged into a mailing list with the Dada Mail Root Password, you&#39;ll also be able to do all things things, across all your mailing lists.</p>
+
+<p>Dada Mail is smart when allowing you to work with the addresses that make up your mailing list, as these addresses are the most valuable asset of the whole system. Checks are done to make sure you&#39;re not going to mess up subscriptions, and all these functions only happen after Dada Mail validates your request and <i>you</i> confirm the changes.</p>
+
+<p>Listed in the <b>Membership</b> tab will be all the <b>sublists</b> an individual email address is a member of, for the Mailing List you&#39;re currently logged into. Be aware that one address may be a member of <i>multiple</i> sublists.</p>
+
+<p>For example, an address may be both a <b>Subscriber</b> (Subscribers receive mass mailings sent to the mailing list), an <b>Authorized Sender</b> (Authorized Senders are able to send messages via Bridge, as well as moderate messages sent via Bridge to a mailing list set up as a discussion list), as well as being on the <b>White List</b> (Only White Listed members are allowed to subscribe to a mailing list).</p>
+
+<p>An address could also be simply on the <b>Black List</b>, with no permission to be a member of your <b>Subscribers</b>, until they&#39;re first removed from the Black List and added to the <b>Subscribers</b> sublist.</p>
+
+<p>If an address is currently on the <b>Subscription Requests</b> sublist, they will be awaiting approval from the List Owner to join the Subscribers sublist. You may <b>Approve</b> or <b>Deny</b> this request on this screen as well.</p>
+
+<h4 id="Subscriber-History">Subscriber History</h4>
+
+<p>Dada Mail logs the subscriber history of an address: when the address was added/updated/removed from one of your mailing lists and their underlying sublists. This, &quot;paper trail&quot; helps out when painting a picture of how this address has become a part of your mailing list. Information recorded includes the time of the add/update/removal, IP address of the request, and what exactly was done with the address.</p>
+
+<p>This information can also be exported in a .csv format, to be opened and worked with, in any application that understand this format - things like Excel or other spreadsheet applications.</p>
+
+<p>If you have logged into your mailing list with the Dada Mail Root Password, you may view the history for the mailing list you&#39;re currently logged into, as well as all mailing lists - the latter can also be exported to .csv format.</p>
+
+<h4 id="Mailing-List-Activity">Mailing List Activity</h4>
+
+<p>The, <b>Mailing List Activity</b> tab shows you how the subscriber has interacted with the mass mailings you&#39;ve sent. Things like, Opens, Clickthroughs, Unsubscriptions, Sending errors, Hard/Soft Bounces are tracked for each message you send out. This information is shown for each recent mass mailing that&#39;s sent.</p>
+
+<p>Like the <b>Subscriber History</b>, this data can also be exported in .csv format, to be opened up in an outside application. Data that&#39;s exported includes the data and time of the activity, what type of activity this was, if it was a clickthrough, what URL was clicked through, the message id of the message, as well as the IP address the subscriber was coming from.</p>
+
+<h4 id="Profile">Profile</h4>
+
+<p>The Profile tab allows you to work with the Subscriber&#39;s Profile. Dada Mail&#39;s Profile system allows you to save additional information, other than an email address, that&#39;s association with your subscriber. These fields are pretty free-form, so you can add whatever you&#39;d like: First Name, Last Name, City, State, Favorite Color, etc.</p>
+
+<p>These fields can be edited by the user themselves, as well as in this tab. You may also change the password used by your user to access their own information.</p>
+
+<h3 id="RESTful-Subscription-Interface-EXPERIMENTAL">RESTful Subscription Interface EXPERIMENTAL</h3>
+
+<p>Dada Mail has a new <b>EXPERIMENTAL</b> RESTful interface to its mailing list subscription system, which should allow you to use it as a service in another app of yours. For more information, see the Subscription Cookbook docs:</p>
+
+<p><a href="http://dadamailproject.com/d/COOKBOOK-subscriptions.pod.html">http://dadamailproject.com/d/COOKBOOK-subscriptions.pod.html</a></p>
+
+<p>Examples of how to use this API are included, written in JavaScript and Perl. A fully-functioning demo, complete with all the trimmings is also included in this release, that you may use to explore the service.</p>
+
+<p>Earlier REST and SOAP experimental client/server scripts, located in the <i>dada/extras/scripts/subscribe</i> have now been removed. For this new RESTful interface, no additional scripts are needed to be installed.</p>
+
+<h3 id="Administration-Screen-changes">Administration Screen changes</h3>
+
+<p>Changes have been made to the, <b>Administration</b> screen - if you are already logged into a mailing list, you&#39;ll be redirected to the default list control panel screen (usually, <b>Send a Message</b>), rather than to the Administration screen, that simply <i>tells</i> you you&#39;re logged in and provides a link to go this same screen.</p>
+
+<h3 id="Black-White-List-Definition-Changes">Black/White List Definition Changes</h3>
+
+<p>The Black List can currently hold email addresses,</p>
+
+<pre><code>        user@example.com</code></pre>
+
+<p>or parts of email addresses, like this:</p>
+
+<pre><code>        user@
+
+        @example.com</code></pre>
+
+<p>It wasn&#39;t entirely clear what was meant by, &quot;part&quot; of an address, so this has been clarified:</p>
+
+<p>The part of an email address <b>must</b> include the, <b>@</b> symbol, to remove the ambiguity of if you want to Black List the user or domain part of the address and something like this doesn&#39;t happen:</p>
+
+<pre><code>        example.com@someotherdomain.com</code></pre>
+
+<p>So the following are now <i>not</i> valid Black List (or White List) entries:</p>
+
+<pre><code>        user
+
+        example.com</code></pre>
+
+<p>If you do have entries like this in your current Black List/White List, they simply won&#39;t do much of anything.</p>
+
+<h3 id="Installer1">Installer</h3>
+
+<h4 id="Enable-Debugging-Options">Enable Debugging Options</h4>
+
+<p>The included Dada Mail Installer now allows you to enabled Debugging Options for Dada Mail. These debugging options add extra log information in Dada Mail&#39;s own error log, and includes both modules that make up Dada Mail, as well as bundled CPAN Perl modules. This option is located under the, <b>Advanced Configuration (Optional)</b> heading, and is available in our Pro Dada distribution.</p>
+
+<h4 id="JSON-module-installed-if-needed">JSON module installed if needed</h4>
+
+<p>The JSON CPAN modules are used heavily in Dada Mail, but is not installed by default on many hosting platforms. To make things easier, the Dada Mail Installer will look to see if they&#39;re already installed system-wide and if they&#39;re not, it will move a bundled Pure-Perl version of the modules into its own perllib, thus making it available to be used. This saves some time from having to manually doing this same thing yourself, every time an upgrade is done.</p>
+
+<p>It&#39;s still suggested to install the JSON Perl module yourself to get the XS-version for speed, either manually, or using cpan/cpanmin</p>
+
+<h2 id="Changes-6.6.0">Changes 6.6.0</h2>
+
+<h3 id="The-Dada-Mail-Manual">The Dada Mail Manual</h3>
+
+<p>The Dada Mail Manual has been updated to reflect the major overhaul fo the <b>Membership</b> list control panel screen.</p>
+
+<p>The, <b>Using Tracker</b> chapter has also been updated to reflect the new features in this released (logging and reporting Sending Errors)</p>
+
+<p>The, <b>Mailing Sending - Options</b> screen has also been updated to reflect the current options available.</p>
+
+<h3 id="Profile-Fields">Profile Fields</h3>
+
+<p>In previous versions of Dada Mail, the app had a curious, if not downright broken behavior when it come to Profile Fields:</p>
+
+<p>If a subscriber was a member of one mailing list, and was then subscribed to another mailing list, any saved Profile Fields tied to that address would be <b>lost</b> - even if that new subscription didn&#39;t have any new Profile Fields passed to Dada Mail.</p>
+
+<p>This behavior has now changed:</p>
+
+<p>If an address, that has saved Profile Field information, and is subscribed to a mailing list, that original information will now be <b>preserved</b>. If an address is subscribed, but had no profile field information saved, any new information would then be <b>saved</b>.</p>
+
+<p>It&#39;s unclear yet what to do with a subscriber, that has saved Profile Field information that&#39;s subscribed to another mailing list, along with <i>new</i> Profile Field information - should the new information be used instead? Should the old information be kept? Shoudl some sort of sophisticated folding of data happen? Should it be a pref. somewhere? (per mass import, in the list control panel?)</p>
+
+<p>We&#39;re not sure yet, but we encourage feedback.</p>
+
+<h3 id="uncompress_dada.cgi-script">uncompress_dada.cgi script</h3>
+
+<p>The helper script named, <code>uncompress_dada.cgi</code> is kept intentionally simple, so as to be super-quick to download, and easy to read along, if little niggling changes need to be made for your environment. We&#39;ve changed a few things to make things more flexible:</p>
+
+<p>Some people moving from Basic Dada Mail, to Pro Dada mail noticed that if BOTH the <code>dada-6_x_y.tar.gz</code> distro and <code>pro_dada-6_x_y</code> distro are present in your installing directory, the <code>dada-6_x_y.tar.gz</code> will be used, causing confusion. <code>uncompress_dada.cgi</code> will now explicitly look for the <code>pro_dada-6_x_y</code> first.</p>
+
+<h2 id="Bugfixes-6.6.0">Bugfixes 6.6.0</h2>
+
+<h3 id="Your-Request-For-Subscription-is-Complete-HTML-screen-completely-missing">&quot;Your Request For Subscription is Complete&quot; HTML screen completely missing</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/398">https://github.com/justingit/dada-mail/issues/398</a></p>
+
+<h3 id="Welcome-Message-to-Addresses-Subscribed-in-the-List-Control-Panel-does-not-provide-unsub-link-warning-in-the-list-control-panel">&quot;&quot;Welcome&quot; Message to Addresses Subscribed in the List Control Panel&quot; does not provide unsub link, warning in the list control panel</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/395</p>
+
+<h3 id="Mass-Mailings-sometime-Reload-without-end---browser-says-Reloading-Mailing">Mass Mailings sometime Reload, without end - browser says, &quot;Reloading Mailing...&quot;</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/399">https://github.com/justingit/dada-mail/issues/399</a></p>
+
+<h2 id="pod6.5.2">6.5.2</h2>
+
+<h2 id="Summary-6.5.2">Summary 6.5.2</h2>
+
+<p>This release aims to fix a definite problem when sending mass mailings: there seems to be a large pause between submitting a mass mailing (say, from the &quot;Send a Message&quot;screen), and when the mass mailing actually starts up fully, to get sent.</p>
+
+<p>This pause stems from Dada Mail&#39;s new confirmation token system, which it seems we&#39;re still breaking in and tuning up to be perfect. All confirmation tokens used for the unsubscription link are specific to the mailing list, subscriber, and mass mailing they&#39;re sent out in - that way, you can track unsubscribes, per mass mailing, which is a great tool to have.</p>
+
+<p>The token creation takes a bit of time - maybe 30 seconds (on my rig) per 10,000 addresses. Not a big deal, with a list of 10,000 addresses total, but the lag gets really obvious on larger lists. Lag is one thing, but what&#39;s also happening is that Dada Mail doesn&#39;t refresh to the mailing monitor screen anymore (it seems) - rather, it&#39;ll just hang out on the, &quot;Send a Message&quot; screen, seemingly indefinetly, while you&#39;re waiting for something to happen. Even worse, it sometimes refreshes to a blank screen. Definetly not acceptable.</p>
+
+<p>So, this release is out to answer that problem: instead of all the confirmation tokens being created at one time (when the temp. copy of your mailing list addresses is also made), which is what causes this slowdown, the tokens are now made right when they&#39;re needed - right before the individual message is sent out. The time to make all these tokens is most likely the <i>same</i>, but a few minutes spread out over a few hours of sending time isn&#39;t going to be very noticeable - Dada Mail will most likely adjust its sending speeds to conpensate for any slowdown, automatically, anyways.</p>
+
+<p>One worry is that since saving these tokens takes place in the SQL backend you&#39;re running, attempting to keep an SQL server connection alive for so long won&#39;t work. Thankfully, the MySQL backend has an, &quot;auto reconnect&quot; setting enabled in Dada Mail, and most people are running Dada Mail w/the MySQL backend. If the connection does still fail, Dada Mail should stop sending in a somewhat clean way, and the mass mailing will pick itself up, after a slight delay, and try again, with the address it left off on.</p>
+
+<p>We do look forward to the feedback towards this change - so send that in!</p>
+
+<p>This release also fixes an issue with the Bridge plugin - a bug was introduced in the v6.5.1 release, with trying to workaround another issue with Bridge:</p>
+
+<p>When Bridge is run on it&#39;s cronjob schedule, it&#39;ll check for awaiting messages and send anything that&#39;s been sent to the List Email&#39;s inbox. There is a limit on how many messages Bridge will look at, in one run - and by default, it&#39;s very conservatively set to only <b>1</b> message. If you have &gt; 1 mailing lists using Bridge, that are both somewhat active, whatever mailing list is checked first will hog up Bridge&#39;s quota of looking at messages and your second list will never be checked. Bad news.</p>
+
+<p>So, to counter that, instead of always looking at the mailing lists in the same order (alphabetically, basically), Bridge now will look at mailing lists in a more random order, giving all your mailing lists a fair shot at being checked.</p>
+
+<p>We bobbled on implementing the, &quot;randomness&quot; of this all and Bridge wouldn&#39;t work at all. Egg on our face.</p>
+
+<p>If you&#39;re running Bridge, do look into using a Mail Forward, rather than a POP3 account for your List Email: messages are received instantaneously by Brige (rather than Bridge checking things on a schedule), and you won&#39;t fall victim to any queue problems, like this fix hopes to mitigate:</p>
+
+<p><a href="http://dadamailproject.com/d/bridge.cgi.html#setup_as__mail_forward">http://dadamailproject.com/d/bridge.cgi.html#setup_as__mail_forward</a></p>
+
+<h2 id="Bugfixes-6.5.2">Bugfixes 6.5.2</h2>
+
+<h3 id="Mass-Mailing-takes-a-very-long-time-to-setup-UI-fails-to-refresh-to-Mailing-Monitor-screen">Mass Mailing takes a very long time to setup, UI fails to refresh to Mailing Monitor screen.</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/394">https://github.com/justingit/dada-mail/issues/394</a></p>
+
+<h3 id="Bridge-does-not-run-manually-on-schedule-after-v6.5.1-upgrade">Bridge does not run manually/on schedule after v6.5.1 upgrade</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/393">https://github.com/justingit/dada-mail/issues/393</a></p>
+
+<h2 id="pod6.5.1">6.5.1</h2>
+
+<h2 id="Summary-6.5.1">Summary 6.5.1</h2>
+
+<p>This release features severeal fixes for JavaScript incompatibilities when running Dada Mail within Internet Explorer.</p>
+
+<p>Users of Dada Mail have reported that many of the screens in Dada Mail&#39;s list control panel are completely unusable, when using Internet Explorer. This release hopes to fix those historical problems.</p>
+
+<h2 id="Bugfixes-6.5.1">Bugfixes 6.5.1</h2>
+
+<h3 id="Javascript-in-dada_mail.js-has-Internet-Explorer-Specific-Bugs">Javascript in dada_mail.js has Internet Explorer-Specific Bugs</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/391">https://github.com/justingit/dada-mail/issues/391</a></p>
+
+<h2 id="pod6.5.0">6.5.0</h2>
+
+<h2 id="Summary-6.5.0">Summary 6.5.0</h2>
+
+<h2 id="Features-6.5.0">Features 6.5.0</h2>
+
+<h3 id="Enhanced-Installer:-More-Configuration-Options">Enhanced Installer: More Configuration Options</h3>
+
+<p>This version of Dada Mail features many additional configuration options available when using the included Installer:</p>
+
+<ul>
+
+<li><p>Profiles</p>
+
+<p>Enable/Disable the following Profile Features:</p>
+
+<ul>
+
+<li><p>Profiles in General</p>
+
+</li>
+<li><p>Set the Profile Administratiin Email</p>
+
+</li>
+<li><p>CAPTCHA</p>
+
+</li>
+<li><p>Magic Subscription Forms</p>
+
+</li>
+<li><p>Help Screen</p>
+
+</li>
+<li><p>Profile Login</p>
+
+</li>
+<li><p>Profile Registration</p>
+
+</li>
+<li><p>Password Reset</p>
+
+</li>
+<li><p>Profile Fields</p>
+
+</li>
+<li><p>Mailing List Subscriptions</p>
+
+</li>
+<li><p>Password Protected Directory Information</p>
+
+</li>
+<li><p>Update Email Address</p>
+
+</li>
+<li><p>Change Password</p>
+
+</li>
+<li><p>Profile Deletion</p>
+
+</li>
+</ul>
+
+</li>
+<li><p>Screen and Data Cache Control</p>
+
+</li>
+<li><p>Global Template Options</p>
+
+<ul>
+
+<li><p>Set a Global, User-Facing Template</p>
+
+<p>(Absolute File Path, or URL)</p>
+
+</li>
+</ul>
+
+</li>
+<li><p>Security Options</p>
+
+<ul>
+
+<li><p>Hide Administration Link</p>
+
+</li>
+<li><p>Disable Outside Logins</p>
+
+</li>
+<li><p>Admin Flavor Name</p>
+
+</li>
+<li><p>Sign In Flavor Name</p>
+
+</li>
+</ul>
+
+</li>
+<li><p>Global Mass Mailing Options</p>
+
+<ul>
+
+<li><p>Mass Mailings at Once Limit</p>
+
+</li>
+<li><p>Multiple Mailing List Sending</p>
+
+</li>
+<li><p>Mass Mailings Stale After Limit</p>
+
+</li>
+</ul>
+
+<p>These global parameters can be read from previous configurations, and can be editing using the installer or directly in the <code>.dada_config</code> file.</p>
+
+<p>A new doc helps explain the plethora of options available:</p>
+
+<p><a href="install_dada_mail-advanced_configuration.pod.html">install_dada_mail-advanced_configuration.pod.html</a></p>
+
+<p>We&#39;re shipping the Installer that comes with Pro Dada with <b>all these options</b> available to be configured.</p>
+
+<p>We&#39;re shipping Basic Dada Mail, <b>with only Amazon SES</b> configuration available. We&#39;re really hoping you love Dada Mail enough to go and get a copy of Pro Dada:</p>
+
+<p><a href="http://dadamailproject.com/purchase/pro.html">http://dadamailproject.com/purchase/pro.html</a></p>
+
+<p>And honestly, we&#39;re hoping this helps to entice you to support the Dada Mail Project!</p>
+
+</li>
+</ul>
+
+<h3 id="New-Plugin:-Global-Config">New Plugin: Global Config</h3>
+
+<p><b>Global Config</b> is a new plugin for Dada Mail. It allows you to easily drop back into Dada Mail&#39;s included Installer, letting you reconfigure Dada Mail&#39;s global configuration.</p>
+
+<p>This plugin itself can be installed via the Dada Mail Installer. Spooky.</p>
+
+<h3 id="Client-Side-Form-Validation">Client-Side Form Validation</h3>
+
+<p>Dada Mail now includes the <b>jQuery Validation Plugin</b>, and uses this plugin for client-side form validation in the Dada Mail Installer, Subscription Form, Create a New List form, and the various Dada Mail Profile forms. <i>(Server-side validation is still there)</i></p>
+
+<h3 id="Mailing-List-Switcher-Form-Enhanced">Mailing List Switcher Form Enhanced</h3>
+
+<p>Dada Mail now includes the <b>Select2 jQuery Plugin</b>, and utilizes it in the Mailing List Switch Form you&#39;ll see in the upper right hand corner of the List Control Panel. With this plugin, it&#39;s now easier to find the mailing list you&#39;d like to work with, especially if you have many dozens of mailing lists running on your Dada Mail. The enhancement allows you to search through the available mailing lists, rather than just simply scrolling through them.</p>
+
+<h3 id="Plugin:-Bounce-Handler">Plugin: Bounce Handler</h3>
+
+<h4 id="Admin-Menu:-Bounce-Scorecard-Count-Shown">Admin Menu: Bounce Scorecard Count Shown</h4>
+
+<p>The number of addresses on the Bounce Scorecard is now shown beside the admin menu for the Bounce Handler</p>
+
+<h4 id="More-Rules">More Rules!</h4>
+
+<p>Around 15 new rules have been added to the Bounce Handler. Bounce Handler rules are used to correctly sort out and understand the bounces the Bounce Handler receives.</p>
+
+<h2 id="Changes-6.5.0">Changes 6.5.0</h2>
+
+<h3 id="JavaScript-Changes">JavaScript Changes</h3>
+
+<h4 id="Installer-specific-JavaScript:-Removed-from-main-dada_mail.js-File">Installer-specific JavaScript: Removed from main, &quot;dada_mail.js&quot; File</h4>
+
+<p>Installer-specific JavaScript has been removed from the main, &quot;dada_mail.js&quot; file, creating a smaller &quot;dada_mail.js&quot; file.</p>
+
+<h4 id="new-dada_mail.user.js-file">new, &quot;dada_mail.user.js&quot; file</h4>
+
+<p>The, &quot;dada_mail.user.js&quot; file holds JavaScript for user-facing Dada Mail screens. At the moment, this is most client-side form validation for various user forms, including the Subscription Form.</p>
+
+<p>The following new HTML can now be seen in the head of the <code>list_template.tmpl</code></p>
+
+<pre><code>        &lt;script src=&quot;&lt;!-- tmpl_var SUPPORT_FILES_URL --&gt;/static/javascripts/jquery-1.8.2.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;&lt;!-- tmpl_var SUPPORT_FILES_URL --&gt;/static/javascripts/jquery.validate.js&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;&lt;!-- tmpl_var SUPPORT_FILES_URL --&gt;/static/javascripts/dada_mail.user.js&quot;&gt;&lt;/script&gt;</code></pre>
+
+<p>You may optionally add these lines to your own List Template to gain the same client-side valiation, but this is entirely optional.</p>
+
+<p>Documentation on these lines will be made available, once the stable release of v6.5.0 is made.</p>
+
+<h3 id="Plugin:-change_root_password.cgi-DEPRECATED">Plugin: change_root_password.cgi DEPRECATED</h3>
+
+<p>The plugin, <b>change_root_password.cgi</b> has now landed itself on the DEPRECATED list of plugins that comes with Dada Mail. Since the new, <b>Global Config</b> plugin allows you to easily change the Dada Mail Root Password, amongst many other things, this plugin can now be retired.</p>
+
+<h2 id="Bugfixes-6.5.0">Bugfixes 6.5.0</h2>
+
+<h3 id="Email-addresses-will-be-subscribed-x-times-depending-on-how-many-times-theyre-listed-in-the-sub_confirm_list-sublist">Email addresses will be subscribed x times, depending on how many times they&#39;re listed in the, &quot;sub_confirm_list&quot; sublist</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/386">https://github.com/justingit/dada-mail/issues/386</a></p>
+
+<h3 id="multi-byte-characters-in-template-files-in-dada-templates-etc-are-wrongly-encoded-decoded-when-viewed">multi-byte characters in template files in dada/templates, etc are wrongly encoded/decoded when viewed</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/387">https://github.com/justingit/dada-mail/issues/387</a></p>
+
+<h3 id="CAPTCHA-will-fail-on-subscription-step-2-if-step-1-is-skipped-closed-list-opt-in">CAPTCHA will fail, on subscription step #2, if step #1 is skipped (closed list opt in)</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/385">https://github.com/justingit/dada-mail/issues/385</a></p>
+
+<h2 id="pod6.4.3">6.4.3</h2>
+
+<h2 id="Summary-6.4.3">Summary 6.4.3</h2>
+
+<p>This version is primarilly a bug-fix release.</p>
+
+<h2 id="Bugfixes-6.4.3">Bugfixes 6.4.3</h2>
+
+<h3 id="Subscription-Quotas-dont-really...-work">Subscription Quotas don&#39;t really... work</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/382">https://github.com/justingit/dada-mail/issues/382</a></p>
+
+<h2 id="pod6.4.2">6.4.2</h2>
+
+<h2 id="Summary-6.4.2">Summary 6.4.2</h2>
+
+<p>This version is primarilly a bug-fix release.</p>
+
+<h2 id="Bugfixes-6.4.2">Bugfixes 6.4.2</h2>
+
+<h3 id="Tracker:-Links-with-amp-in-query-string-do-not-get-tracked">Tracker: Links with &quot;&amp;amp;&quot; in query string do not get tracked</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/380">https://github.com/justingit/dada-mail/issues/380</a></p>
+
+<h3 id="Bridge:-Moderation-Links-Broken">Bridge: Moderation Links Broken</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/381">https://github.com/justingit/dada-mail/issues/381</a></p>
+
+<h2 id="pod6.4.1">6.4.1</h2>
+
+<h2 id="Summary-6.4.1">Summary 6.4.1</h2>
+
+<p>This version is primarily a bug-fix release, dealing with mass mailings that will be paused as soon as they&#39;re created.</p>
+
+<p>It&#39;s a problem that probably started in the v6.4.0 release of Dada Mail (although it could have bitten those before this ver.).</p>
+
+<p>The fix was made basically in one file, so if you are currently running <b>v6.4.0</b> of Dada Mail (and ONLY this version), you may do the following, instead of having to completely re-install Dada Mail:</p>
+
+<p>The file that needs to be changed out is at: <i>dada/DADA/Mail/MailOut.pm</i></p>
+
+<p>Rename the current, <i>MailOut.pm</i> file you have within your Dada Mail installation.</p>
+
+<p>Grab the version of the MailOut.pm file w/the bugfix, here:</p>
+
+<p><a href="https://raw.github.com/justingit/dada-mail/v6_4_1-stable_2013_06_09/dada/DADA/Mail/MailOut.pm">https://raw.github.com/justingit/dada-mail/v6_4_1-stable_2013_06_09/dada/DADA/Mail/MailOut.pm</a></p>
+
+<p>And put this version up, where the original file was, in: <i>dada/DADA/Mail</i></p>
+
+<p>Good to go! Again, these directions are only for users who are currently running <b>v6.4.0</b> of Dada Mail. Everyone else is suggested to upgrade Dada Mail using the usual upgrade directions.</p>
+
+<p>This bugfix may also help the problem with Mass Mailings that <i>finish</i> correctly, but also leave a notice in the Mailing Monitor, that it&#39;s still around and corrupted. We&#39;d love to hear your feedback.</p>
+
+<h2 id="Bugfixes-6.4.1">Bugfixes 6.4.1</h2>
+
+<h3 id="Mass-Mailings-Sometimes-Paused-After-Creation">Mass Mailings Sometimes Paused After Creation</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/379">https://github.com/justingit/dada-mail/issues/379</a></p>
+
+<h2 id="pod6.4.0">6.4.0</h2>
+
+<h2 id="Summary-6.4.0">Summary 6.4.0</h2>
+
+<h2 id="Features-6.4.0">Features 6.4.0</h2>
+
+<h3 id="Unsubscription-Process:-Vastly-Simplified">Unsubscription Process: Vastly Simplified</h3>
+
+<p>The unsubscription process for Dada Mail has been redesigned, and is now much more simplified than it has been in past versions of Dada Mail. Here&#39;s how it works:</p>
+
+<p>All mass mailings require an unsubscription link to be present in the message itself. This unsubscription link is now unique to the mailing list, mass mailing and subscriber it&#39;s sent to.</p>
+
+<p>Clicking an unsubscription link will bring the subscriber to a screen with a simple form which only requires that they fill out their email address. An optional email address hint can be shown, to help your subscriber know which email address they&#39;re subscribed with. Once a subscriber has filled out their email address and submitted the form, they will be unsubscribed immediately. There is no longer an option to send an unsubscription confirmation email message to the user.</p>
+
+<p>The unsubscription link will be removed in discussion lists when messages are replied to, to stop potentially re-sending the unique unsubscription link of a subscriber, to the entire mailing list. Unsubscription links will also be removed from archive messages.</p>
+
+<p>To make the unsubscription process as simple and fool-proof as possible, many of the advanced options that were available in the mailing list&#39;s control panel have been removed. This was done to make 100% sure that users of Dada Mail were following email best practices, as well as following the newest CAN SPAM 2008 revision.</p>
+
+<p>Unsubscriptions are now tracked, and data can be viewed/exported in the Tracker plugin. The date of the unsubscription, IP address, subscriber email address, mass mailing the unsubscription was made from, as well as the mailing list the unsubscription was for, will be logged.</p>
+
+<p>More information about Dada Mail&#39;s Unsubscription System can be found in the new feature overview for unsubscriptions:</p>
+
+<p><a href="http://dadamailproject.com/d/features-unsubscription_system.pod.html">http://dadamailproject.com/d/features-unsubscription_system.pod.html</a></p>
+
+<h3 id="Tracker-Plugin">Tracker Plugin</h3>
+
+<h4 id="Tracker-Preferences:-Simplified">Tracker Preferences: Simplified</h4>
+
+<p>Tracker preferences have been simplified, to make sure as much data is collected by default, and the Tracker&#39;s powerful features are as easy to use, as possible. You may now track clickthroughs automatically, or manually; track message opens directly or indirectly, and track with or without subscriber&#39;s email address. Tracking, Archive Views, &quot;Forward to a Friend&quot; and Bounces will always be enabled for you.</p>
+
+<h4 id="Faster">Faster!</h4>
+
+<p>Work has been done to make the index of mass mailings data and graph render faster. Expect speedups of 2x-5x.</p>
+
+<h4 id="Opens:-Total-Unique-Reported">Opens: Total + Unique Reported</h4>
+
+<p>Message Opens are now reported as both the total amount of opens recorded per message, as well as unique opens per message/subscriber. The percentage of unique opens/total subscribers is also shown.</p>
+
+<h4 id="Subscriber-Activity">Subscriber Activity</h4>
+
+<p>Message data is now reported by subscriber, as well as by IP/location/Over Time. Activities such as Message Opens, Clickthroughs, Unsubscribes and Bounces are shown per-subscriber in chronological order. Subscribers are sorted from most active to least active, allowing you to easily see who your busiest members are, and what they&#39;re doing.</p>
+
+<h4 id="Unsubscribes">Unsubscribes</h4>
+
+<p>Subscriber Unsubscribes are now logged in Dada Mail and reported by the Tracker plugin. a seperate tab in the message Tracker shows a list of all unsubscriptions; data is also broken down by domain name, and graphed over time.</p>
+
+<h4 id="Total-Recipients-Logged">Total Recipients Logged</h4>
+
+<p>Dada Mail has the ability to send a mass mailing to only part of a mailing list, but up until now, only logged the total subscriber count. Now, Dada Mail will log both the total subscriber count, plus the total count of recipients that are sent the message. This will help Tracker message reports to be more precise.</p>
+
+<h4 id="csv-Export-Email-Lists:-Soft-Hard-Bounces-Unsubscribes-Email-Activity">csv Export Email Lists: Soft/Hard Bounces, Unsubscribes, Email Activity</h4>
+
+<p>Tracker supports csv exporting email addresses for soft/hard bounces, unsubscribers, and email activity, for each message.</p>
+
+<h3 id="Partial-Sending-Options-Expanded">Partial Sending Options Expanded</h3>
+
+<p>Partial List Sending has now been expanded to allow you to search both with what could be in your list (equal, like), as well as what may not be in your list (not equal to, unlike).</p>
+
+<p>You may now search for more than one term, per field, at one time - example: a First Name of either <i>Justin</i>, OR <i>John</i>. This is done by simply listing the various search terms you&#39;d like, separated by a comma. For example, First Name is Like <b>Justin,John</b></p>
+
+<h2 id="Bugfixes-6.4.0">Bugfixes 6.4.0</h2>
+
+<h3 id="Non-ASCII-header-fields-of-sent-message-are-not-MIME-encoded">Non-ASCII header fields of sent message are not MIME-encoded</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/322">https://github.com/justingit/dada-mail/issues/322</a></p>
+
+<h2 id="pod6.3.1">6.3.1</h2>
+
+<h2 id="Summary-6.3.1">Summary 6.3.1</h2>
+
+<p>This release fixes bugs found in the v6.3.0 version of Dada Mail. It&#39;s a suggested upgrade for anyone running v6.3.0 or lower.</p>
+
+<h3 id="SQL-Table-schema-checker-looks-for-wrong-of-needed-tables-off-by-one-problem">SQL Table schema checker looks for wrong # of needed tables (off by one, problem)</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/369">https://github.com/justingit/dada-mail/issues/369</a></p>
+
+<h3 id="Password-Protect-Directories:-AuthName-in-.htaccess-file-left-unquoted">Password Protect Directories: &quot;AuthName&quot; in .htaccess file left unquoted</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/368">https://github.com/justingit/dada-mail/issues/368</a></p>
+
+<h2 id="pod6.3.0">6.3.0</h2>
+
+<h2 id="Summary-6.3.0">Summary 6.3.0</h2>
+
+<p>v6.3.0 of Dada Mail comes with enhancements to Dada Mail&#39;s Amazon SES sending support, Gravatar support, block css to inline css conversion for HTML messages (experimental), and support for tracking email addresses on message opens/clickthroughs.</p>
+
+<h2 id="Features-6.3.0">Features 6.3.0</h2>
+
+<h3 id="Amazon-SES-setup:-Vastly-Simplified">Amazon SES setup: Vastly Simplified</h3>
+
+<p>Dada Mail&#39;s included installer now supports setting up Amazon SES for you - all you&#39;ll need to do is give it your <b>AWS Access Key ID</b> and <b>AWS Secret Access Key</b>.</p>
+
+<p>You no longer need to set up a seperate <code>aws-credentials</code> file, or download, configure and install any outside Amazon SES scripts.</p>
+
+<p>The installer will check to make sure all required CPAN modules are installed, and also has a small tester utility to make sure Amazon SES is working. Be warned that Amazon SES sending does have a long list of prerequisites, some of which may need to be seperately installed via CPAN.</p>
+
+<p>The installer will also be able to detect your previous Amazon SES settings, when you decide to upgrade.</p>
+
+<p>More information on Dada Mail and Amazon SES:</p>
+
+<p><a href="http://dadamailproject.com/d/features-amazon_ses_support.pod.html">http://dadamailproject.com/d/features-amazon_ses_support.pod.html</a></p>
+
+<h3 id="Email-Tracking-for-Opens-Clickthroughs">Email Tracking for Opens/Clickthroughs</h3>
+
+<p>Dada Mail can now be set to optionally track email addresses, when tracking Clickthroughs and Message Opens. These address can currently be exported per mass mailing. This feature is somewhat experimental, as features that can stem from this new ability will be vastly expanded on in the future. We&#39;d like to get the feature out there, in it&#39;s current state, to start gathering information to be used for analytic support and gain feedback on this new feature.</p>
+
+<p>This feature also requires changes to Dada Mail&#39;s SQL schema, which should happen automatically during the first run of Dada Mail, right after an upgrade. One can perform these changes manually, by issuing the following SQL:</p>
+
+<pre><code>        ALTER TABLE dada_clickthrough_url_log ADD email VARCHAR(80);
+        ALTER TABLE dada_mass_mailing_event_log ADD email VARCHAR(80);</code></pre>
+
+<p>The option to track email addresses is located in the Tracker&#39;s list control panel screen, under, <b>Preferences</b> - <b>Track with Email Addresses</b>.</p>
+
+<h3 id="Mass-Mailings:-Convert-CSS-style-blocks-to-inline-styles-in-HTML-messages">Mass Mailings: Convert CSS &lt;style&gt; blocks to inline styles in HTML messages</h3>
+
+<p>Support has been added to Dada Mail to allow you to author HTML messages with your CSS stylings in the head of your document (easy to author), but have the CSS converted to inline styles (more universally supported in mail readers).</p>
+
+<p>This option can be found in the list control panel under, <b>Mass Mailing - Options</b>: <i>Convert CSS style blocks to inline styles in HTML messages (Experimental)</i></p>
+
+<p>This is an experimental feature, and you will have to seperately install the <code>CSS::Inliner</code> Perl CPAN module.</p>
+
+<p>Installer CPAN modules is covered here:</p>
+
+<p><a href="http://dadamailproject.com/d/FAQ-general.pod.html#how_do_you_install__cpan_perl_modules">http://dadamailproject.com/d/FAQ-general.pod.html#how_do_you_install__cpan_perl_modules</a></p>
+
+<h3 id="Admin-Menu:-Archive-Count-now-shown">Admin Menu: Archive Count now shown</h3>
+
+<p>The list control panel&#39;s admin menu will now list how many archives you have, under, <b>Message Archives - View (# of messages)</b></p>
+
+<h3 id="Extended-Gravatar-Support">Extended Gravatar Support</h3>
+
+<p>Gravatars ( https://en.gravatar.com/ ) now show up in the List screen, the List&#39;s Archive indexes, and in the <b>blog_index.cgi</b> plugin.</p>
+
+<h3 id="Password-Protect-Directories-Plugin:-Works-with-already-exisiting-.htaccess">Password Protect Directories Plugin: Works with already-exisiting .htaccess</h3>
+
+<p>In past versions, the Password Protect Directories Plugin would write (and if there was an already existing .htaccess file, Write <i>Over</i>) its own <code>.htaccess</code> file. This does not play nicely with anything else that may need to use an .htaccess file.</p>
+
+<p>Now, this plugin will first look and see if an <code>.htaccess</code> file exists, and if so, if specific directives for the plugin itself exist. If so, the plugin will only update the file and change the directives it needs in order for the plugin to work.</p>
+
+<p>It&#39;s advised, that if you upgrade to first disable the plugin&#39;s cronjob, remove the directives in the <code>.htaccess</code> file specific for the plugin (or the entire <code>.htaccess</code> file, if nothing else requires this file, upgrade, and then re-set the cronjob for this plugin.</p>
+
+<h3 id="Geo-IP-databases-Updated">Geo IP databases Updated</h3>
+
+<p>Dada Mail has updated it&#39;s Geo IP databases to the newest, April 2013 release.</p>
+
+<p><i>This product includes GeoLite data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>.</i></p>
+
+<h3 id="blog_index.cgi-extension:-cached-screens">blog_index.cgi extension: cached screens</h3>
+
+<p>The HTML/Javascript data that the <code>blog_index.cgi</code> extension makes are now cached, helping relieve unneeded load on your backend.</p>
+
+<h3 id="Support-in-Detecting-Outside-CPAN-Perl-Libraries">Support in Detecting Outside CPAN Perl Libraries</h3>
+
+<p>To help make using the more advanced features of Dada Mail - ones that require you to install additional Perl CPAN modules that aren&#39;t included with Dada Mail (Amazon SES, Gravatars, JSON, etc), Dada Mail itself will attempt to detect common places where private, account-specific Perl libraries are placed. By default, Dada Mail will look for Perl Libraries in the home directory of an account.</p>
+
+<p>If you are running a Cpanel-powered account, Dada Mail will play well with how Cpanel&#39;s <b>Perl Module Installer</b> work.</p>
+
+<h2 id="Bugfixes-6.3.0">Bugfixes 6.3.0</h2>
+
+<h3 id="Bridge:-Check-to-make-sure-List-Owner-List-Admin-isnt-the-same-as-List-Email-doesnt-account-for-email-casing">Bridge: Check to make sure List Owner/List Admin isn&#39;t the same as List Email doesn&#39;t account for email casing</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/367">https://github.com/justingit/dada-mail/issues/367</a></p>
+
+<h3 id="Invalid-List-error-on-List-Invitation-Confirmations">Invalid List error on List Invitation Confirmations</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/366">https://github.com/justingit/dada-mail/issues/366</a></p>
+
+<h2 id="pod6.2.2">6.2.2</h2>
+
+<h2 id="Summary-6.2.2">Summary 6.2.2</h2>
+
+<p>This release fixes bugs found in the v6.2.1 version of Dada Mail. It&#39;s a suggested upgrade for anyone running v6.2.1 or lower.</p>
+
+<h2 id="Changes-6.2.2">Changes 6.2.2</h2>
+
+<h3 id="Bounce-Handler---new-rules">Bounce Handler - new rules</h3>
+
+<p>More rules were added to the Bounce Handler, to better parse bounces</p>
+
+<h3 id="Redirect-URLs-in-Sub-Unsub-process-detect-query-strings">Redirect URLs in Sub/Unsub process detect query strings</h3>
+
+<p>These URLs also can add their own query strings, to pass information, but if you set a URL that already has a query string, things will break. This issue is now fixed.</p>
+
+<h2 id="Bugfixes-6.2.2">Bugfixes 6.2.2</h2>
+
+<h3 id="Bug-with-multiple-subscribe">Bug with multiple subscribe</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/365">https://github.com/justingit/dada-mail/issues/365</a></p>
+
+<h3 id="Unsubscription-Confirmations-puts-an-extra-to-the-url">Unsubscription Confirmations, puts an extra &quot;?&quot; to the url</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/364">https://github.com/justingit/dada-mail/issues/364</a></p>
+
+<h3 id="convert_to_ascii-in-DADA::App::Guts-strips-out-characters-like-etc">convert_to_ascii in DADA::App::Guts strips out characters like, &Uuml;, &szlig;, etc</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/361">https://github.com/justingit/dada-mail/issues/361</a></p>
+
+<h2 id="Summary-6.2.1">Summary 6.2.1</h2>
+
+<p>There was a mis-labeling of v6.2.0 as v6.1.2, which never had a release. v6.2.1 is released simply to fix this bobble.</p>
+
+<h2 id="pod6.2.0">6.2.0</h2>
+
+<h2 id="Summary-6.2.0">Summary 6.2.0</h2>
+
+<p>This release follows up on the discovery that a lot of the weirdness with the sub/unsub confirmation process happens when the sub/unsub request, and the sub/unsub confirmations come from different IP Addresses.</p>
+
+<p>To counter that in a simple way, there&#39;s now a check for IP address same-ness, and if that test fails, a simple screen is shown, presenting the user to manually click on the button to finish the confirmation process. This screen isn&#39;t meant to actually be shown to the user, other than in somewhat strange circumstances.</p>
+
+<p>We&#39;ve written an extended description about this here:</p>
+
+<p><a href="http://dadamailproject.com/cgi-bin/dada/mail.cgi/archive/homepage_blog/20130310231707/">http://dadamailproject.com/cgi-bin/dada/mail.cgi/archive/homepage_blog/20130310231707/</a></p>
+
+<h2 id="Bugfixes-6.2.0">Bugfixes 6.2.0</h2>
+
+<h3 id="Subscriber-profile-fields-disappeared">Subscriber profile fields disappeared.</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/358">https://github.com/justingit/dada-mail/issues/358</a></p>
+
+<h3 id="Unknown-code-ref-type-given-.-in-Advanced-Archive-Options-screen">&quot;Unknown code ref type given &#39;&#39;. &quot; in &quot;Advanced Archive Options&quot; screen</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/357">https://github.com/justingit/dada-mail/issues/357</a></p>
+
+<h2 id="pod6.1.1">6.1.1</h2>
+
+<h2 id="Summary-6.1.1">Summary 6.1.1</h2>
+
+<p>This release fixes bugs found in the v6.1.0 version of Dada Mail.</p>
+
+<h2 id="Changes-6.1.1">Changes 6.1.1</h2>
+
+<p>Working with the new confirmation link token system, we&#39;ve noticed that strange things seem to happen, when the IP address used to initiate, say, a subscription, or unsubscription is different from the IP address used to confirm that same sub/unsub. This may point to an automated process following these links, instead of an actual human. For now, these types of events will be logged in the error log, but may be more actively handled in future versions of Dada Mail.</p>
+
+<h2 id="Bugfixes-6.1.1">Bugfixes 6.1.1</h2>
+
+<h3 id="Hidden-Fields-are-shown-in-the-Subscription-Form">Hidden Fields are shown in the Subscription Form</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/354">https://github.com/justingit/dada-mail/issues/354</a></p>
+
+<h3 id="Save-Then-Test-in-Mail-Sending-Options-changes-preferences">&quot;Save, Then Test&quot; in Mail Sending &gt;&gt; Options changes preferences</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/353">https://github.com/justingit/dada-mail/issues/353</a></p>
+
+<h3 id="Bug-in-DADA::App::BounceHandler::Rules-prevents-Bounce-Handler-from-properly-parsing-bounces">Bug in DADA::App::BounceHandler::Rules prevents Bounce Handler from properly parsing bounces</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/355</p>
+
+<h3 id="Default-CAPTCHA-will-fail-even-if-it-says-it-wont">Default CAPTCHA will fail, even if it says it won&#39;t</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/356">https://github.com/justingit/dada-mail/issues/356</a></p>
+
+<h2 id="Summary-6.1.0">Summary 6.1.0</h2>
+
+<p>This release of Dada Mail features a new URL confirmation system that is hoped to be more secure and less easy to spoof than previous iterations of Dada Mail. Since the previous system has been used in one form, or anothr, in Dada Mail since the original release of the app in 1999, we highly suggest literally <i>anyone</i> running Dada Mail to upgrade.</p>
+
+<p>An extended reasoning and explaination for the changes made in this version can be found at:</p>
+
+<p><a href="http://dadamailproject.com/cgi-bin/dada/mail.cgi/archive/homepage_blog/20130218232934/">http://dadamailproject.com/cgi-bin/dada/mail.cgi/archive/homepage_blog/20130218232934/</a></p>
+
+<p>As always, we look forward to your feedback about the changes and enhancements we make in Dada Mail.</p>
+
+<h2 id="Bugfixes-6.1.0">Bugfixes 6.1.0-</h2>
+
+<h3 id="Profile-Unsubscribe-links-for-plus-addresses-dont-work">Profile Unsubscribe links for plus-addresses don&#39;t work</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/351</p>
+
+<h3 id="PlainText-to-HTML-Mass-Mailing-Messages-break-ending-tmpl_if-tmpl_unless-tmpl_loop-blocks">PlainText to HTML Mass Mailing Messages break ending tmpl_if, tmpl_unless, tmpl_loop blocks</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/350</p>
+
+<h3 id="Bridge-stops-list-processing-if-one-list-has-a-problem">Bridge stops list processing if one list has a problem</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/348</p>
+
+<h3 id="No-entity-found-dieing-at-bridge.cgi-line-467">No entity found! die&#39;ing! at bridge.cgi line 467</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/346</p>
+
+<h2 id="Summary-6.0.2">Summary 6.0.2</h2>
+
+<p>This release fixes bugs found in the v6.0.1 version of Dada Mail. It&#39;s a suggested upgrade for anyone running v6.0.0 or v6.0.1</p>
+
+<h2 id="Bugfixes-6.0.2">Bugfixes 6.0.2</h2>
+
+<h3 id="tmpl_strftime-...----template-tags-dont-work">&lt;!-- tmpl_strftime [...] --&gt; template tags don&#39;t work</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/345</p>
+
+<h3 id="Bridge:-Setup-as-Email-Forward-POP3-Account-option-used-when-cloning-a-list">Bridge: &quot;Setup as&quot; Email Forward/POP3 Account option used when cloning a list</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/344</p>
+
+<h3 id="Not-Allowed-to-Post-Message-grammatical-error">&quot;Not Allowed to Post&quot; Message, grammatical error</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/343</p>
+
+<h3 id="Bridge:-Transactional-email-messages-specific-to-Bridge-Moderation-do-not-have-correct-encoding">Bridge: Transactional email messages, specific to Bridge/Moderation do not have correct encoding</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/342</p>
+
+<h3 id="Messages-converted-from-PlainText-to-HTML-will-have-broken-template-tags">Messages converted from PlainText to HTML will have broken template tags</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/341</p>
+
+<h3 id="Transactional-Emails-are-bring-coverted-from-PlainText-to-HTML">Transactional Emails are bring coverted from PlainText to HTML</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/340</p>
+
+<h3 id="Domain-Stats-broken-for-PlainText-Backend">Domain Stats broken for PlainText Backend</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/339</p>
+
+<h3 id="Scheduled-Mailings-HTML-window-missing-v6">Scheduled Mailings HTML window missing v6</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/338</p>
+
+<h3 id="jQuery-UI-images-with-wrong-paths-in-jQuery-stylesheet">jQuery UI images with wrong paths in jQuery stylesheet</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/337</p>
+
+<h3 id="Your-List-Control-Panel-Customize-Feature-Set-Broken">&quot;Your List Control Panel &raquo; Customize Feature Set&quot; Broken</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/336</p>
+
+<h3 id="Removing-Stale-POP3-Locks-doesnt-work">Removing Stale POP3 Locks doesn&#39;t work</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/335</p>
+
+<h3 id="Multiple-Subscribe-doesnt-seem-to-be-working">Multiple Subscribe doesn&#39;t seem to be working</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/334</p>
+
+<h3 id="Error-when-creating-a-new-profile-account">Error when creating a new profile account.</h3>
+
+<p>https://github.com/justingit/dada-mail/issues/333</p>
+
+<h2 id="pod6.0.1">6.0.1</h2>
+
+<h2 id="Summary-6.0.1">Summary 6.0.1</h2>
+
+<p>This release features one minor bug fix to the Bridge plugin, no other code changes are present. If you are using the v6.0.0 <b>Stable</b> release, but are not using the Bridge plugin, this upgrade is entirely optional.</p>
+
+<p>If you&#39;re already running v6.0.0 Stable of Dada Mail, and would like to simply replace the <i>dada/plugins/bridge.cgi</i> script, with the fixed version, you may do so:</p>
+
+<p><a href="https://github.com/justingit/dada-mail/blob/8547605c588d6ed5ee59d08698863e6986b8d3f4/dada/plugins/bridge.cgi">https://github.com/justingit/dada-mail/blob/8547605c588d6ed5ee59d08698863e6986b8d3f4/dada/plugins/bridge.cgi</a></p>
+
+<h2 id="Bugfixes-6.0.1">Bugfixes 6.0.1</h2>
+
+<h3 id="Bridge:-Label-not-found-for-next-QUEUE-at-bridge.cgi-line-1196">Bridge: Label not found for &#39;next QUEUE&#39; at bridge.cgi line 1196</h3>
+
+<p><a href="https://github.com/justingit/dada-mail/issues/332">https://github.com/justingit/dada-mail/issues/332</a></p>
+
+<h2 id="pod6.0.0">6.0.0</h2>
+
+<h2 id="Summary-6.0.0">Summary 6.0.0</h2>
+
+<p>This major release of Dada Mail includes major changes to the Dada Mail codebase. A detailed explanation of these changes, compared to v5 of Dada Mail can be found at,</p>
+
+<p><a href="http://dadamailproject.com/d/dada5_to_dada6.pod.html">http://dadamailproject.com/d/dada5_to_dada6.pod.html</a></p>
+
+<p>When upgrading from <i>any</i> previous version of Dada Mail, make sure to create a new <code>.dada_config</code> file, as old <code>.dada_config</code> files will not work with v6 of Dada Mail.</p>
+
+<h2 id="Release-Candiate-2">6.0.0 Release Candiate 2</h2>
+
+<h2 id="Summary-6.0.0-Release-Candidate-2">Summary 6.0.0 Release Candidate 2</h2>
+
+<p>The changes below summarize the differences between RC1 and RC2 of the v6.0.0 Release</p>
+
+<ul>
+
+<li><p>Membership &gt;&gt; Invite/Subscribe/Add was not functional, for anything except for the Subscribers sublist</p>
+
+<p>This was a problem of a missing class in the, <b>Add Checked Addresses to [sublist]</b> button.</p>
+
+</li>
+<li><p>Mass Mailing Started/Finished log messages were truncated</p>
+
+<p>These log messages were missing some of the information that should have been present.</p>
+
+</li>
+<li><p>&quot;Mass Mailing Finished&quot; Message had the incorrect &quot;finishing time&quot; and, &quot;Duration Time&quot;</p>
+
+</li>
+<li><p>Plugin URLs and Installer URL better guessed</p>
+
+<p>The installer and plugin URLs attempt to guess their own URL, so you do not need to configure these things, yourself.</p>
+
+<p>Unfortunetly, it does not always get them right, depending on your hosting environment. Code has been added to make this guess better.</p>
+
+</li>
+<li><p>Screen Cache plugin&#39;s HTML has now been templated out</p>
+
+</li>
+<li><p>Beatitude: Some options could not be saved, due to sloppy HTML</p>
+
+</li>
+<li><p>CKEditor and the, &quot;{C}&quot; string:</p>
+
+<p>CKeditor seems to place the, &quot;{C}&quot; string in the source of HTML messages, when there&#39;a a comment tag in an, &quot;href&quot; tag attribute (like, for example, in a link). Since Dada Mail&#39;s template tags are also valid HTML comments, they are found in, &quot;href&quot; attributes often.</p>
+
+<p>This string is never <i>removed</i> by CKeditor, and thus, will break the link. It seems that this character is some sort of placeholder for comment tags, but seems not to be handled correctly by CKeditor.</p>
+
+<p>This string is now looked for, and removed, before messages are sent.</p>
+
+</li>
+<li><p>&quot;Automatically set batching speeds based on your Amazon SES limits&quot; was not functioning correctly</p>
+
+</li>
+<li><p>The Default CAPTCHA type was not working correctly, always returning an error</p>
+
+</li>
+<li><p>Better support for server environments that don&#39;t support data sent via Path Infos</p>
+
+<p>There&#39;s a trick in Dada Mail, where you can set the Program&#39;s URL to have a, &quot;?&quot; at the end of the URL, like this:</p>
+
+<pre><code>        $PROGRAM_URL = &#39;http://example.com/cgi-bin/dada/mail.cgi?&#39;; </code></pre>
+
+<p>Which will then turn any Path Info, into a query string</p>
+
+<p>Dada Mail will now correctly look for this, and use any information that <i>looks</i> like a Path Info, passed as a query string as Path Info information and also correctly read double-question mark query strings correctly as well.</p>
+
+<p>It&#39;s still a hack-y workaround, but hopefully, could help someone get their work done. Is this a problem with &quot;Zeus&quot; webservers?</p>
+
+</li>
+<li><p>Installer: now correctly removes the old screen cache, during an install/upgrade</p>
+
+</li>
+<li><p>Installer: now correctly set the, $PROGRAM_ERROR_LOG variable, even if the .dada_files location is set to, &quot;auto&quot;</p>
+
+</li>
+<li><p>Bounce Handler: web-based interface to parse bounces broken</p>
+
+<p>The web-based interface to check any awaiting messages and parse them would look as if you&#39;re testing messages, but the messages would actually be parsed, scored and logged, except the messages would not be removed. This has been fixed.</p>
+
+</li>
+</ul>
+
+
+</body>
+
+</html>
+
+

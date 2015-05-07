@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Default Backend to SQL Backend Guide</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Default-Backend-to-an-SQL-Backend-Mailing-List-Conversion">Default Backend to an SQL Backend Mailing List Conversion</a>
+    <ul>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#A-Contempory-Installation">A Contempory Installation</a></li>
+      <li><a href="#Upgrade-via-the-Dada-Mail-Installer">Upgrade via the Dada Mail Installer</a></li>
+      <li><a href="#Reenable-the-Dada-Mail-Installer">Reenable the Dada Mail Installer</a></li>
+      <li><a href="#Running-the-Migration-Scripts">Running the Migration Scripts</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Default-Backend-to-an-SQL-Backend-Mailing-List-Conversion">Default Backend to an SQL Backend Mailing List Conversion</h1>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>By default, Dada Mail does not use an SQL backend, but rather uses a simpler method of using a PlainText file for your mailing list subscribers (the format is one email per line) and using what&#39;s called, <b>dbm</b> files for everything else: list settings, archives, schedules, etc. Most likely, you&#39;re using the <b>Berekeley DB File</b> format.</p>
+
+<p>Although easier to set up, the Default backend for Dada Mail does not have as many features as the <b>SQL</b> backend alternative. These include Profile Fields, Partial Mailing List Sending, Multiple Mailing List Sending and some other neat things. For this reason, we highly suggest to set up Dada Mail using the SQL backend, using either <b>MySQL</b> or <b>PostgreSQL</b></p>
+
+<h2 id="A-Contempory-Installation">A Contempory Installation</h2>
+
+<p>We highly suggest that you use the SQL Backend with a Contemporary Installation setup and NOT the Basic Installation setup. If you&#39;re not currently using a Contemporary Installation Method, switch beforehand:</p>
+
+<p><a href="basic_to_contemporary_installation.pod.html">basic_to_contemporary_installation.pod.html</a></p>
+
+<p>If you&#39;ve installed Dada Mail using the included Dada Mail installer, you are already running a Contemporary Installation of Dada Mail.</p>
+
+<h2 id="Upgrade-via-the-Dada-Mail-Installer">Upgrade via the Dada Mail Installer</h2>
+
+<p>You can reconfigure your Dada Mail to use the SQL backend by using the Dada Mail installer.</p>
+
+<h2 id="Reenable-the-Dada-Mail-Installer">Reenable the Dada Mail Installer</h2>
+
+<p>Renable the Dada Mail installer by moving the <i>dada/installer</i> directory back into place - it may have been renamed to, <code>installer-disabled</code>(followed by a random string of letters/numbers) and changing the permissions of the, <i>dada/installer/install.cgi</i> script to, <code>755</code>. Visit the, <code>install.cgi</code> script again in your web browser and follow the directions to install Dada Mail with one of the SQL backends:</p>
+
+<p><a href="http://dadamailproject.com/d/install_dada_mail.pod">http://dadamailproject.com/d/install_dada_mail.pod</a></p>
+
+<p>The installer should:</p>
+
+<ul>
+
+<li><p>Create the needed SQL tables</p>
+
+</li>
+<li><p>Edit your .dada_config file to use the SQL backend</p>
+
+</li>
+</ul>
+
+<p>Once completed, your previous mailing lists will not be available, until after you run the Migration Scripts</p>
+
+<h2 id="Running-the-Migration-Scripts">Running the Migration Scripts</h2>
+
+<p>There are separate migration scripts to migrate your Default Backend files to the SQL backend.</p>
+
+<p>They may be found in the,</p>
+
+<p><code>dada/extras/scripts</code></p>
+
+<p>directory of your Dada Mail distribution.</p>
+
+<p>None of the require any configuration themselves and installation is as simple as changing their permissions to, <code>755</code>.</p>
+
+<p>You will want to make sure to run them in this order:</p>
+
+<ul>
+
+<li><p>dada_settings_db_to_sql.pl</p>
+
+<p>Docs:</p>
+
+<p>dada_settings_db_to_sql.pl.html</p>
+
+</li>
+<li><p>dada_archives_db_to_sql.pl</p>
+
+<p>Docs:</p>
+
+<p>dada_archives_db_to_sql.pl.html</p>
+
+</li>
+<li><p>dada_subscribers_plaintext_to_sql.pl</p>
+
+<p>Docs:</p>
+
+<p>dada_subscribers_plaintext2sql.pl.html</p>
+
+</li>
+<li><p>dada_clickthrough_plaintext_to_sql.pl</p>
+
+<p><i>You&#39;ll only need to run this, if you were using the Clickthrough Tracking extension or Tracker plugin</i></p>
+
+<p>Docs:</p>
+
+<p>dada_clickthrough_plaintext_to_sql.pl.html</p>
+
+</li>
+</ul>
+
+<p><b>Do Not</b> run these scripts twice, or data will be doubled-up.</p>
+
+<p>Once you&#39;ve run these migration scripts, your Dada Mail installation should be moved from the Default backend, to one of the SQL backends.</p>
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,284 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::App::FormatMessages</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#new">new</a></li>
+      <li><a href="#format_headers_and_body">format_headers_and_body</a></li>
+    </ul>
+  </li>
+  <li><a href="#ACCESSORS">ACCESSORS</a>
+    <ul>
+      <li><a href="#Subject">Subject</a></li>
+      <li><a href="#use_email_templates">use_email_templates</a></li>
+      <li><a href="#use_header_info">use_header_info</a></li>
+    </ul>
+  </li>
+  <li><a href="#PRIVATE-METHODS">PRIVATE METHODS</a>
+    <ul>
+      <li><a href="#make_multipart_alternative">_make_multipart_alternative</a></li>
+      <li><a href="#format_text">_format_text</a></li>
+      <li><a href="#create_multipart">_create_multipart</a></li>
+      <li><a href="#make_multipart">_make_multipart</a></li>
+      <li><a href="#format_headers">_format_headers</a></li>
+      <li><a href="#list_name_subject">_list_name_subject</a></li>
+      <li><a href="#expand_macro_tags">_expand_macro_tags</a></li>
+      <li><a href="#macro_tags">_macro_tags</a></li>
+      <li><a href="#apply_template">_apply_template</a></li>
+      <li><a href="#apply_list_template">_apply_list_template</a></li>
+    </ul>
+  </li>
+  <li><a href="#get_entity">get_entity</a></li>
+  <li><a href="#email_template">email_template</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::App::FormatMessages</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code> my $fm = DADA::App::FormatMessages-&gt;new(-List =&gt; $list); 
+ 
+ # The subject of the message is...  
+   $fm-&gt;Subject(&#39;This is the subject!&#39;); 
+   
+ # Use information you find in the headers 
+  $fm-&gt;use_header_info(1);
+
+ # Use the email template.
+   $fm-&gt;use_email_templates(1);  
+ 
+ my ($header_str, $body_str) = $fm-&gt;format_headers_and_body(-msg =&gt; $msg);
+ 
+ # (... later on... 
+ 
+ use DADA::MAilingList::Settings; 
+ use DADA::Mail::Send; 
+ 
+ my $ls = DADA::MailingList::Settings-&gt;new({-list =&gt; $list}); 
+ my $mh = DADA::Mail::Send-&gt;new({-list =&gt; $list}); 
+ 
+ $mh-&gt;send(
+           $mh-&gt;return_headers($header_str), 
+                   Body =&gt; $body_str,
+                  ); </code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>DADA::App::FormatMessages is used to get a email message ready for sending to your mailing list. Most of its magic is behind the scenes, and isn&#39;t something you have to worry about, but we&#39;ll go through some detail.</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="new">new</h2>
+
+<pre><code> my $fm = DADA::App::FormatMessages-&gt;new(-List =&gt; $list); </code></pre>
+
+<h2 id="format_headers_and_body">format_headers_and_body</h2>
+
+<pre><code> my ($header_str, $body_str) = $fm-&gt;format_headers_and_body(-msg =&gt; $msg);</code></pre>
+
+<p>Given a string, $msg, returns two variables; $header_str, which will have all the headers and $body_str, that holds the body of your message.</p>
+
+<h1 id="ACCESSORS">ACCESSORS</h1>
+
+<h2 id="Subject">Subject</h2>
+
+<p>Set the subject of a message</p>
+
+<h2 id="use_email_templates">use_email_templates</h2>
+
+<p>If set to a true value, will apply your email templates to the HTML/PlainText parts of your message.</p>
+
+<h2 id="use_header_info">use_header_info</h2>
+
+<p>If set to a true value, will inspect the headers of a message (for example, the From: line) to work with</p>
+
+<h1 id="PRIVATE-METHODS">PRIVATE METHODS</h1>
+
+<h2 id="make_multipart_alternative">_make_multipart_alternative</h2>
+
+<pre><code> $entity = $self-&gt;_make_multipart_alternative($entity); </code></pre>
+
+<p>Changes the single part, HTML entity into a multipart/alternative message, with an auto plaintext version.</p>
+
+<h2 id="format_text">_format_text</h2>
+
+<pre><code> $entity = $self-&gt;_format_text($entity);        </code></pre>
+
+<p>Given an MIME::Entity (may be multipart) will attempt to:</p>
+
+<ul>
+
+<li><p>Apply the List Template</p>
+
+</li>
+<li><p>Apply the Email Template</p>
+
+</li>
+<li><p>interpolate the message to change Dada Mail&#39;s template tags to their real value</p>
+
+</li>
+</ul>
+
+<h2 id="create_multipart">_create_multipart</h2>
+
+<pre><code> $entity = $self-&gt;_create_multipart($entity); </code></pre>
+
+<p>Recursively goes through a multipart entity, changing any non-attachment singlepart HTML message into a multipart/alternative message with an auto-generated PlainText version.</p>
+
+<h2 id="make_multipart">_make_multipart</h2>
+
+<pre><code> $entity = $self-&gt;_make_multipart($entity);     
+ </code></pre>
+
+<p>Takes a single part entity and changes it to a multipart/alternative message, with an autogenerated PlainText or HTML version.</p>
+
+<h2 id="format_headers">_format_headers</h2>
+
+<pre><code> $entity = $self-&gt;_format_headers($entity)</code></pre>
+
+<p>Given an entity, will do some transformations on the headers. It will:</p>
+
+<ul>
+
+<li><p>Tack on the list name/list shortname on the Subject header for discussion lists</p>
+
+</li>
+<li><p>Add the correct Reply-To header</p>
+
+</li>
+<li><p>Remove any Message-ID headers</p>
+
+</li>
+<li><p>Makes sure the To: header has a real name associated with it</p>
+
+</li>
+</ul>
+
+<h2 id="list_name_subject">_list_name_subject</h2>
+
+<pre><code> my $subject = $self-&gt;_list_name_subject($list_name, $subject));</code></pre>
+
+<p>Appends, <b>$list_name</b> onto subject.</p>
+
+<h2 id="expand_macro_tags">_expand_macro_tags</h2>
+
+<pre><code> $data = $self-&gt;_expand_macro_tags(-data =&gt; $data, 
+                                    -type =&gt; (PlainText/HTML), 
+                                   );
+                                                                        </code></pre>
+
+<p>Given a string, changes Dada Mail&#39;s template tag into what they represent.</p>
+
+<p><b>-type</b> can be either PlainText or HTML</p>
+
+<h2 id="macro_tags">_macro_tags</h2>
+
+<pre><code> my $s_link   = $self-&gt;_macro_tags(-type =&gt; &#39;subscribe&#39;  ); 
+ my $us_link  = $self-&gt;_macro_tags(-type =&gt; &#39;unsubscribe&#39;);</code></pre>
+
+<p>Explode the various <b>link</b> pseudo tags into a form that will later be interpolated.</p>
+
+<p><b>-type</b> can be:</p>
+
+<ul>
+
+<li><p>subscribe</p>
+
+</li>
+<li><p>unsubscribe</p>
+
+</li>
+<li><p>confirm_subscribe</p>
+
+</li>
+<li><p>confirm_unsubscribe</p>
+
+</li>
+</ul>
+
+<h2 id="apply_template">_apply_template</h2>
+
+<p>$content = $self-&gt;_apply_template(-data =&gt; $content, -type =&gt; $entity-&gt;head-&gt;mime_type, );</p>
+
+<p>Given a string in <b>-data</b>, applies the correct email mailing list template, depending on what <b>-type</b> is passed, this will be either the PlainText or HTML version.</p>
+
+<h2 id="apply_list_template">_apply_list_template</h2>
+
+<pre><code> $new_data = $self-&gt;_apply_list_template($new_data);</code></pre>
+
+<p>Given a string, will apply the List Template. The List Template is usually used for HTML screens that appear in your web browser.</p>
+
+<h1 id="get_entity">get_entity</h1>
+
+<p><code>get_entity</code> is a simple subroutine that takes a string, passed in, <code>-data</code> and turns it into a <b>HTML::Entities</b> entity:</p>
+
+<pre><code> my $entity = get_entity(
+                  {
+                      -data =&gt; $str, 
+                  }
+              ); </code></pre>
+
+<p>Optionally, you may also pass the <code>-parser_params</code> parameter, which will direct the parser on how specifically to parse the message. Currently, there is only one param to play around with: <code>-input_mechanism</code> - you can set this to either, <b>parse</b> (which is the default), or <b>parse_open</b>.</p>
+
+<p>If you pass, <b>parse_open</b>, also pass a filename in <b>-data</b> instead of a string. Right.</p>
+
+<p>my $entity = get_entity( { -data =&gt; $filename, } );</p>
+
+<p>Make sure to delete the file when you&#39;re finished.</p>
+
+<h1 id="email_template">email_template</h1>
+
+<p>This subroutine is extremely similar to <b>DADA::Template::Widgets</b> <code>screen</code> subroutine and in fact is basically a wrapper around it, although it also &quot;knows&quot; about Email Message headers and attempts not to muck them up when you place variables in the template.</p>
+
+<p>It basically looks at the various parts of your email message and passes these parts to <b>DADA::Template::Widgets</b> <code>screen</code> subroutine to be templated out.</p>
+
+<p>The parts of the email message that will be templated out are any and all <b>text/plain</b>, <b>text/html</b> bodies - both of which have an <b>inline</b> content disposition (ie: it&#39;s not an attachment) and the <b>To</b>, <b>From</b> and <b>Subject</b> headers of a message.</p>
+
+<p>For the <b>To</b> and <b>From</b> headers, this subroutine will only attempt to template out the <b>phrase</b> part of the header and will make sure that the phrase is properly escaped out.</p>
+
+<p>One main difference between this subroutine and <code>screen</code> is that this subroutine does not take the template to work with in the <code>-data</code>, or, <code>-screen</code> parameter, but instead takes it in the, <code>-entity</code> parameter. The <code>-entity</code> parameter should be populated like so:</p>
+
+<pre><code> use MIME::Parser;
+ my $parser = new MIME::Parser; 
+ my $entity = $parser-&gt;parse_data($msg);
+ 
+ DADA::App::FormatMessages::email_template({-entity =&gt; $entity});</code></pre>
+
+<p>( Probably should elaborate...)</p>
+
+<p>The subroutine also passes the <code>-dada_pseudo_tag_filter</code> (set to 1) automatically to <code>screen</code>.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

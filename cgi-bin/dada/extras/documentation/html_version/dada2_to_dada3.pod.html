@@ -1,0 +1,373 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Dada Mail 2.x to Dada Mail 3.x Guide</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Dada-Mail-2-to-Dada-Mail-3-Guide">Dada Mail 2 to Dada Mail 3 Guide</a>
+    <ul>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#Differences">Differences</a></li>
+      <li><a href="#SQL-Schema">SQL Schema</a></li>
+      <li><a href="#Send-a-Message-screen">Send a Message screen</a></li>
+      <li><a href="#Send-a-List-Invitation-screen">Send a List Invitation screen</a></li>
+      <li><a href="#Email-Message-Templates">Email Message Templates</a>
+        <ul>
+          <li><a href="#Defaults">Defaults</a></li>
+          <li><a href="#Email-Template-Syntax">Email Template Syntax</a></li>
+          <li><a href="#Email-Template-Tags">Email Template Tags</a></li>
+        </ul>
+      </li>
+      <li><a href="#Sendmail-Settings---defaults-for-mass-mailings-have-changed">Sendmail Settings - defaults for mass mailings have changed!</a></li>
+      <li><a href="#Global-List-Sending">Global List Sending</a></li>
+      <li><a href="#FCKeditor-Support">FCKeditor Support</a></li>
+      <li><a href="#Plugin-Extension-Configuration-Variables">Plugin/Extension Configuration Variables</a></li>
+      <li><a href="#Plugin-Extension-Cron-Settings">Plugin/Extension Cron Settings</a></li>
+      <li><a href="#Mystery-Girl-Bounce-Handler">Mystery Girl (Bounce Handler)</a>
+        <ul>
+          <li><a href="#Scorecards">Scorecards</a></li>
+        </ul>
+      </li>
+      <li><a href="#Clickthrough-Tracker-Plugin">Clickthrough Tracker Plugin</a></li>
+      <li><a href="#Deprecated-Plugin-Extensions">Deprecated Plugin/Extensions</a>
+        <ul>
+          <li><a href="#Plugin:-email_list_owners.cgi">Plugin: email_list_owners.cgi</a></li>
+          <li><a href="#Plugin:-multi_admin_subscribers.cgi">Plugin: multi_admin_subscribers.cgi</a></li>
+          <li><a href="#Plugin:-mx_lookup.cgi">Plugin: mx_lookup.cgi</a></li>
+          <li><a href="#Extension:-dada_backup.pl">Extension: dada_backup.pl</a></li>
+          <li><a href="#Extension:-dada_digest.pl">Extension: dada_digest.pl</a></li>
+          <li><a href="#Extension:-dada_stats.pl">Extension: dada_stats.pl</a></li>
+          <li><a href="#Extension:-update_subscription.cgi">Extension: update_subscription.cgi</a></li>
+        </ul>
+      </li>
+      <li><a href="#See-Also">See Also</a></li>
+      <li><a href="#The-UPGRADE-FAQ">The UPGRADE FAQ</a></li>
+      <li><a href="#Technical-Documentation">Technical Documentation</a>
+        <ul>
+          <li><a href="#Subscriber-Backend">Subscriber Backend</a></li>
+          <li><a href="#Templating-System">Templating System</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Dada-Mail-2-to-Dada-Mail-3-Guide">Dada Mail 2 to Dada Mail 3 Guide</h1>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>This guide is to help you transition between Dada Mail 2.x to Dada Mail 3.x. It&#39;s not a list of new features, but rather a list of old features that have been removed and replaced and new ways of doing the same old thing.</p>
+
+<p>The hope for transitioning between Dada Mail 2.x and Dada Mail 3.x is to be quite problem-free. Most all changes (at least to us) seem to be for the better and outright incompatibilities have been kept to an absolute minumum.</p>
+
+<p>We still would like to hear your accounts on upgrading and any feedback you&#39;d like to give us, using the usual channels.</p>
+
+<h2 id="Differences">Differences</h2>
+
+<h2 id="SQL-Schema">SQL Schema</h2>
+
+<p>The SQL Schema for most modern versions of Dada Mail 2.x (say, Dada Mail 2.10 and above) should work well with Dada Mail 3.x. Notable differences are that some of the tables now include a table Index. You may want to look at the schema directly and make any changes you would deem needed. There is no SQL table translater for Dada Mail 2.x to Dada Mail 3.x.</p>
+
+<p>The SQL schemas themselves are now saved in the following files:</p>
+
+<ul>
+
+<li><p>dada/extas/SQL/mysql_schema.sql</p>
+
+</li>
+<li><p>dada/extas/SQL/postgres_schema.sql</p>
+
+</li>
+<li><p>dada/extas/SQL/sqlite_schema.sql</p>
+
+</li>
+</ul>
+
+<p>You may also want to review the SQL configuration information in the Config.pm documentation.</p>
+
+<h2 id="Send-a-Message-screen">Send a Message screen</h2>
+
+<p>There&#39;s only one version of this screen, there&#39;s no longer a, &quot;Basic&quot; and, &quot;Advanced&quot; version.</p>
+
+<p>The option to create an HTML version of a message from a PlainText message has been removed.</p>
+
+<p>There are now three hard-coded areas to add attachments. There&#39;s no longer a way to add more attachments. A workaround would simply to take advantage of support for the FCKeditor for HTML messages that can be written easily.</p>
+
+<h2 id="Send-a-List-Invitation-screen">Send a List Invitation screen</h2>
+
+<p>The, &quot;Send a List Invitation&quot; screen has been removed from the left hand menu.</p>
+
+<p>Instead, list invitations are an option at the end of the, &quot;Add Email&quot; progression of screens. This should give you a better idea on who exactly will receive your list invitation.</p>
+
+<p>There&#39;s also two checkboxes, that allow you the option to choose if you actually use the PlainText or HTML version of the invitation message.</p>
+
+<h2 id="Email-Message-Templates">Email Message Templates</h2>
+
+<h3 id="Defaults">Defaults</h3>
+
+<p>Almost every single email message template default is store in the Config.pm file. A few notable exceptions are a few email message templates used for Dada Bridge and Mystery Girl (Bounce Handler)</p>
+
+<h3 id="Email-Template-Syntax">Email Template Syntax</h3>
+
+<p>In its core, all email message templates use HTML::Template (<a href="http://search.cpan.org/~samtregar/HTML-Template/Template.pm">http://search.cpan.org/~samtregar/HTML-Template/Template.pm</a>) as the template engine and any of its template syntax should work with Dada Mail&#39;s email message templates.</p>
+
+<h3 id="Email-Template-Tags">Email Template Tags</h3>
+
+<p>The following tags are currently not valid for email message templates:</p>
+
+<ul>
+
+<li><p>[email]</p>
+
+<p>Use:</p>
+
+<pre><code> [subscriber.email]</code></pre>
+
+</li>
+<li><p>[list_name]</p>
+
+<p>Use:</p>
+
+<pre><code> [list_settings.list_name]</code></pre>
+
+</li>
+<li><p>[list_info]</p>
+
+<p>Use:</p>
+
+<pre><code> [list_settings.info]</code></pre>
+
+</li>
+<li><p>[plain_list_subscribe_link]</p>
+
+<p>Use:</p>
+
+<pre><code> [list_subscribe_link] </code></pre>
+
+</li>
+<li><p>[plain_list_unsubscribe_link]</p>
+
+<p>Use:</p>
+
+<pre><code> [list_unsubscribe_link] </code></pre>
+
+</li>
+<li><p>[list_confirm_subscribe_link]</p>
+
+<p>This tag hasn&#39;t been dropped, but will ONLY work in certain messages, including the list subscription confirmation message and the list invitation message.</p>
+
+</li>
+<li><p>[plain_list_confirm_subscribe_link]</p>
+
+<p>Use:</p>
+
+<pre><code> [list_confirm_subscribe_link]</code></pre>
+
+</li>
+<li><p>[list_confirm_unsubscribe_link]</p>
+
+<p>This tag hasn&#39;t been dropped, but will ONLY work in the list unsubscription confirmation message.</p>
+
+</li>
+<li><p>[plain_list_confirm_unsubscribe_link]</p>
+
+<p>Use:</p>
+
+<pre><code> [list_confirm_unsubscribe_link]</code></pre>
+
+</li>
+<li><p>[list_privacy_policy]</p>
+
+<p>Use:</p>
+
+<pre><code> [list_settings.privacy_policy]</code></pre>
+
+</li>
+<li><p>[list_owner_email]</p>
+
+<p>Use:</p>
+
+<pre><code> [list_settings.list_owner_email]</code></pre>
+
+</li>
+<li><p>[admin_email]</p>
+
+<p>Use:</p>
+
+<pre><code> [list_settings.admin_email]</code></pre>
+
+</li>
+<li><p>[program_url]</p>
+
+<p>Use:</p>
+
+<pre><code> [PROGRAM_URL]</code></pre>
+
+</li>
+</ul>
+
+<p>The above tags will be automatically converted when moving from Dada Mail 2.x to Dada Mail 3.x, but do remember that their support will be completely dropped in future versions</p>
+
+<h2 id="Sendmail-Settings---defaults-for-mass-mailings-have-changed">Sendmail Settings - defaults for mass mailings have changed!</h2>
+
+<p>In Dada Mail 3.x, the default mail settings have changed. There are now two separate mail settings, one for mass mailings - when you&#39;re sending to a lot of people at once and one for everything else.</p>
+
+<p>The mail settings for mass sending are saved in the Config variable:</p>
+
+<pre><code> $MASS_MAIL_SETTINGS</code></pre>
+
+<p>The mail settings for everything else is saved in the variable:</p>
+
+<pre><code> $MAIL_SETTINGS</code></pre>
+
+<p>By default, the $MASS_MAIL_SETTINGS sets the, <code>-o</code>, <code>-d</code> and <code>-q</code> flags, which should help Dada Mail be a nicer server citizen.</p>
+
+<p>Mass mailing will seem slower. If mass mailing does NOT work at all, or you cannot tolerate this slowdown, feel free to change the $MASS_MAIL_SETTINGS to reflect what&#39;s in the $MAIL_SETTINGS variable.</p>
+
+<h2 id="Global-List-Sending">Global List Sending</h2>
+
+<p>The Global List Sending feature has been removed. Do look at the <i>Partial</i> List Sending feature, that will allow you to send to <i>part</i> of your list, given a query of yoru Subscriber Profile Fields, which basically gives you sublist support. Which is probably a lot handier.</p>
+
+<h2 id="FCKeditor-Support">FCKeditor Support</h2>
+
+<p>Make sure to use the latest version of FCKEditor. FCKeditor support should be available in the following screens:</p>
+
+<ul>
+
+<li><p>Send a Message</p>
+
+</li>
+<li><p>Send a Webpage</p>
+
+</li>
+<li><p>Send a List Invitation</p>
+
+</li>
+<li><p>Beatitude</p>
+
+</li>
+</ul>
+
+<h2 id="Plugin-Extension-Configuration-Variables">Plugin/Extension Configuration Variables</h2>
+
+<p>The config variables for the following plugins/extensions:</p>
+
+<ul>
+
+<li><p>Mystery Girl (dada_bounce_handler.pl)</p>
+
+</li>
+<li><p>Beatitude (scheduled_mailings.pl)</p>
+
+</li>
+<li><p>Dada Bridge (dada_bridge.pl)</p>
+
+</li>
+<li><p>blog_index.cgi</p>
+
+</li>
+</ul>
+
+<p>Are now in the, <code>$Plugin_Config</code> hashref, in the plugin/extension itself.</p>
+
+<p>You may also set these variables in the Config.pm and/or the outside config file, via the <code>$PLUGIN_CONFIGS</code> Config.pm variable.</p>
+
+<h2 id="Plugin-Extension-Cron-Settings">Plugin/Extension Cron Settings</h2>
+
+<p>Plugins/Extensions that need to have a cronjob created all have a similar format for how they have to be called.</p>
+
+<p>You also now have the option to call all these plugins via a URL (and incidentally, using something like <code>curl</code> or <code>wget</code>). This should help solve many of the environment issues with these plugins, such as setting the correct absolute path in the cronjob, setting the perl lib paths in the script itself, permissions issues with the script running as a different user when invoked by the cron daemon, etc. Coupled with the ability to set any configurations needed outside of the plugin itself, this should make upgrading a plugin as easy as replacing the script itself.</p>
+
+<h2 id="Mystery-Girl-Bounce-Handler">Mystery Girl (Bounce Handler)</h2>
+
+<h3 id="Scorecards">Scorecards</h3>
+
+<p>Bounce Scorecards are now list-centric. The score on one list for a particular email address will not impact the score on a separate list.</p>
+
+<h2 id="Clickthrough-Tracker-Plugin">Clickthrough Tracker Plugin</h2>
+
+<p>The Clickthrough Tracker is fully functional in Dada Mail 3, although the Redirect URL format is different and the older URL format probably won&#39;t work anymore.</p>
+
+<h2 id="Deprecated-Plugin-Extensions">Deprecated Plugin/Extensions</h2>
+
+<h3 id="Plugin:-email_list_owners.cgi">Plugin: email_list_owners.cgi</h3>
+
+<p>This plugin hasn&#39;t been updated in quite a while and doesn&#39;t seem to be very popular. It may be removed in a future release.</p>
+
+<h3 id="Plugin:-multi_admin_subscribers.cgi">Plugin: multi_admin_subscribers.cgi</h3>
+
+<p>This plugin currently doesn&#39;t know about Subscriber Profile Fields, so it&#39;s suggested that you NOT use this plugin, if you use Subscriber Profile Fields. Those fields will most likely be lost when you make any new subscriptions/unsubscriptions using this plugin.</p>
+
+<p>The above issue may need to be resolved, or, we may drop support for the plugin. What do you think we should do? (Let us know)</p>
+
+<h3 id="Plugin:-mx_lookup.cgi">Plugin: mx_lookup.cgi</h3>
+
+<p>This plugin currently doesn&#39;t know about Subscriber Profile Fields, so it&#39;s suggested that you NOT use this plugin, if you use Subscriber Profile Fields. It may be dropped in a future release of Dada Mail.</p>
+
+<h3 id="Extension:-dada_backup.pl">Extension: dada_backup.pl</h3>
+
+<p>This extension currently doesn&#39;t know about Subscriber Profile Fields, so it&#39;s suggested that you NOT use this extension, if you use Subscriber Profile Fields.</p>
+
+<p>The codestyle of this extension is also atrocious.</p>
+
+<p>This extension will probably be dropped in a future release.</p>
+
+<p>It&#39;s suggested that if you need similar functionality, just make an either manual or automatic backup of the directory you&#39;re storing your Dada Files in. It&#39;s also suggested to use the SQL backend, which is going to offer a myriad of choice for fault tolerance.</p>
+
+<h3 id="Extension:-dada_digest.pl">Extension: dada_digest.pl</h3>
+
+<p>This extension will be deprecated, in favor of folding it&#39;s functionality into the core of Dada Mail, or into Dada Bridge. The extension has several shortcomings, including little flexibility on how digest messages are formatted, having to use two lists to make a digest, not having the ability for members of the digest list to post to the non-digest list, etc.</p>
+
+<h3 id="Extension:-dada_stats.pl">Extension: dada_stats.pl</h3>
+
+<p>This extension is just weak. It is deprecated and will be removed in a future release.</p>
+
+<h3 id="Extension:-update_subscription.cgi">Extension: update_subscription.cgi</h3>
+
+<p>This extension currently doesn&#39;t know about Subscriber Profile Fields, so it&#39;s suggested that you NOT use this extension, if you use Subscriber Profile Fields.</p>
+
+<p>This extension will be removed from future versions of Dada Mail, if favor of folding similar functionality into the core of Dada Mail, or into a plugin for Dada Mail. Editing of subscription information by the subscriber should be a larger view to take when replacing this plugin and currently isn&#39;t something that can be done in Dada Mail.</p>
+
+<h2 id="See-Also">See Also</h2>
+
+<h2 id="The-UPGRADE-FAQ">The UPGRADE FAQ</h2>
+
+<p><a href="upgrade_dada_mail.pod.html">upgrade_dada_mail.pod.html</a></p>
+
+<h2 id="Technical-Documentation">Technical Documentation</h2>
+
+<p>The nerdy Perl API has changed drastically (and probably, for the better) in 3.0. Most likely, if you had a custom Perl program for Dada Mail 2.x that was using the API, it has now been broken.</p>
+
+<h3 id="Subscriber-Backend">Subscriber Backend</h3>
+
+<p>For the Mailing List Subscriber API do consult:</p>
+
+<p><a href="MailingList_Subscribers.pm.html">MailingList_Subscribers.pm.html</a></p>
+
+<p>Which should be fairly complete.</p>
+
+<h3 id="Templating-System">Templating System</h3>
+
+<p>The HTML Screen and Email Template parts of Dada Mail all use the same system. See:</p>
+
+<p><a href="Template_Widgets.pm.html#screen">Template_Widgets.pm.html#screen</a></p>
+
+<p>And also:</p>
+
+<p><a href="App_FormatMessages.pm.html#email_template">App_FormatMessages.pm.html#email_template</a></p>
+
+
+</body>
+
+</html>
+
+

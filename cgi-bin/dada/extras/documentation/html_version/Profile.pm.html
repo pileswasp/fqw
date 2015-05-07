@@ -1,0 +1,385 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::Profile</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#Public-Methods">Public Methods</a>
+    <ul>
+      <li><a href="#new">new</a></li>
+      <li><a href="#exists">exists</a></li>
+      <li><a href="#subscribed_to_list">subscribed_to_list</a></li>
+      <li><a href="#insert">insert</a></li>
+      <li><a href="#subscribed_to">subscribed_to</a></li>
+      <li><a href="#is_activated">is_activated</a></li>
+      <li><a href="#activate">activate</a></li>
+      <li><a href="#allowed_to_view_archives">allowed_to_view_archives</a></li>
+      <li><a href="#is_valid_password">is_valid_password</a></li>
+      <li><a href="#is_valid_registration">is_valid_registration</a></li>
+      <li><a href="#update">update</a></li>
+      <li><a href="#setup_profile">setup_profile</a></li>
+      <li><a href="#send_profile_activation_email">send_profile_activation_email</a></li>
+      <li><a href="#send_profile_reset_password_email">send_profile_reset_password_email</a></li>
+      <li><a href="#send_profile_reset_password_email1">send_profile_reset_password_email</a></li>
+      <li><a href="#is_valid_activation">is_valid_activation</a></li>
+      <li><a href="#set_auth_code">set_auth_code</a></li>
+      <li><a href="#"></a></li>
+    </ul>
+  </li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::Profile</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<h1 id="Public-Methods">Public Methods</h1>
+
+<h2 id="new">new</h2>
+
+<pre><code>         my $p = DADA::Profile-&gt;new(
+                { 
+                        -email =&gt; &#39;user@example.com&#39;, 
+                }
+        ); </code></pre>
+
+<p><code>new</code> returns a DADA::Profile object.</p>
+
+<p><code>new</code> requires you to either pass the <code>-email</code> parameter, with a valid email address, or the, <code>-from_session</code> parameter, set to, <code>1</code>:</p>
+
+<pre><code> my $p = DADA::Profile-&gt;new(
+        { 
+                -from_session =&gt; 1, 
+        }
+ );</code></pre>
+
+<p>If invoked this way, the email address needed will be searched for within the saved session information for the particular environment.</p>
+
+<p>If no email address is passed, or found within the session, this method will croak.</p>
+
+<p>The email address passed needs not to have a valid profile, but some sort of email address needs to be passed.</p>
+
+<h2 id="exists">exists</h2>
+
+<pre><code> my $prof = DADA::Profile-&gt;new({-email =&gt; &#39;user@example.com&#39;}); 
+ if($prof-&gt;exists){ 
+        print &quot;you exist!&quot;; 
+ }
+ else { 
+        print &quot;you do not exist!&quot;; 
+ }</code></pre>
+
+<p>or even,</p>
+
+<pre><code> if(DADA::Profile-&gt;new({-email =&gt; &#39;user@example.com&#39;})-&gt;exists){ 
+        print &quot;it&#39;s alive!&quot;; 
+ }</code></pre>
+
+<p><code>exists</code> let&#39;s you know if a profile with the email address, <code>-email</code> actually exists. Return <code>1</code> if it does, <code>0</code> if it doesn&#39;t.</p>
+
+<h2 id="subscribed_to_list">subscribed_to_list</h2>
+
+<pre><code> $p-&gt;subscribed_to_list(
+        {
+                -list =&gt; &#39;my list&#39;,
+        }
+ ); </code></pre>
+
+<p><code>subscribed_to_list</code> returns <code>1</code> if the profile has a subscription to the list passed in, <code>-list</code> and will return <code>0</code> if they are not subscribed.</p>
+
+<h2 id="insert">insert</h2>
+
+<p>(blinky blinky under construction!)</p>
+
+<pre><code> $p-&gt;insert(
+        {
+                -password  =&gt; &#39;mypass&#39;,
+                -activated =&gt; 1, 
+                -auth_code =&gt; 1234, 
+        }
+ );</code></pre>
+
+<p><code>insert</code>, <i>inserts</i> a profile. It&#39;s not specifically used to <i>create</i> new profiles and perhaps a shortcoming of this module (currently). What&#39;s strange is that if you attempt to insert two profiles dealing with the same address, you&#39;ll probably error out, just with the UNIQUE column of the table design... Gah.</p>
+
+<p>Because of this somewhat sour design of this method, it&#39;s recommended you tread lightly and assume that the API will change, if not in the stable release, in a release sooner, rather than later. Outside of this module&#39;s code, it&#39;s used only once - making it somewhat of a private method, anyways. I&#39;m going to forgo testing this method until I figure all that out... &lt;/notestomyself&gt;</p>
+
+<p>(see create())</p>
+
+<h2 id="subscribed_to">subscribed_to</h2>
+
+<pre><code> my $subs = $p-&gt;subscribed_to; </code></pre>
+
+<p><code>subscribed_to</code> returns an array ref of all the lists the profile is subscribed to.</p>
+
+<p>You can pass a <code>-type</code> param to change which sublists are looked at. The default is, <code>list</code>.</p>
+
+<p>You can also pass the, <code>-html_tmpl_params</code> parameter (set to, &quot;1&quot;) to return back a complex data structure that works well with HTML::Template:</p>
+
+<p>If our profile was subscribed to the list, <i>mylist</i> this:</p>
+
+<pre><code>        my $p = DADA::Profile-&gt;new(
+                {
+                        -email =&gt; &#39;user@example.com&#39;
+                }
+        ); 
+        $p-&gt;subscribed_to(
+                {
+                        -list             =&gt; &#39;my list&#39;, 
+                        -html_tmpl_params =&gt; 1, 
+                }
+        );</code></pre>
+
+<p>would return,</p>
+
+<pre><code> [
+  {
+        &#39;profile.email&#39; =&gt; &#39;user@example.com&#39;,
+    list            =&gt; &#39;mylist&#39;,
+    subscribed      =&gt; 1
+  }
+ ]</code></pre>
+
+<h2 id="is_activated">is_activated</h2>
+
+<pre><code> if($p-&gt;is_activated){ 
+        print &quot;We are activated!&quot;; 
+ }
+ else { 
+        print &quot;Nope. Not activated.&quot;;
+ }</code></pre>
+
+<p><code>-activated</code> returns either <code>1</code> if the profile is actived, or, <code>0</code>, if the profile is not <code>activated</code></p>
+
+<p>You can activate a profile using the, <code>activate()</code> method:</p>
+
+<pre><code> $p-&gt;activate; </code></pre>
+
+<h2 id="activate">activate</h2>
+
+<pre><code> $p-&gt;activate; </code></pre>
+
+<p>Or,</p>
+
+<pre><code> $p-&gt;activate(
+        {
+                -activate =&gt; 1, 
+        }
+ ); </code></pre>
+
+<p>Or, to deactivate:</p>
+
+<pre><code> $p-&gt;activate(
+        {
+                -activate =&gt; 0, 
+        }
+ ); </code></pre>
+
+<p><code>activate</code> is used primarily to activate a profile. If no parameters are passed, the method will activate a profile.</p>
+
+<p>You may pass the, <code>-activate</code> parameter, set to either <code>1</code> or, <code>0</code> to activate or deactivate the profile.</p>
+
+<h2 id="allowed_to_view_archives">allowed_to_view_archives</h2>
+
+<pre><code>  my $p = DADA::Profile-&gt;new({-email =&gt; &#39;user@example.com&#39;}); 
+ if($p-&gt;allowed_to_view_archives({-list =&gt; &#39;mylist&#39;})){ 
+        # Show &#39;em the archives!
+ }
+ else { 
+        # No archives for you!
+ }</code></pre>
+
+<p><code>allowed_to_view_archives</code> returns either <code>1</code>, if the profile is allowed to view archives for a particular list, or, <code>0</code> if they aren&#39;t.</p>
+
+<p>The, <code>-list</code> parameter is required and needs to be filled out to a specific Dada Mail List (shortname). If no <code>-list</code> parameter is passed, this method will croak.</p>
+
+<p>Several things will change the return value of this method:</p>
+
+<p>If Profiles are not enabled (via the, <code>$PROFILE_OPTIONS-&gt;{enabled}</code> Config.pm variable), this method will always return, <code>1</code>.</p>
+
+<p>If Profiles are enabled, but the email address you&#39;re trying to look up profile information, doesn&#39;t actually have a profile, <i>and</i> profiles are enabled, this method will always return <code>0</code></p>
+
+<p>Other than that, this method should return whatever is usually expected.</p>
+
+<h2 id="is_valid_password">is_valid_password</h2>
+
+<pre><code> if($p-&gt;is_valid_password({-password =&gt; &#39;secret&#39;})){ 
+        print &quot;let &#39;em in!&quot;; 
+ }
+ else { 
+        print &quot;Show them the door!&quot;; 
+ } </code></pre>
+
+<p><code>is_valid_password</code> is used to check a passed password (passed in the, <code>-password</code> param), with the stored password. The stored password will be stored in an encrypted form, so don&#39;t try to match directly.</p>
+
+<p>Will return <code>1</code> if the passwords do match and will return <code>0</code> if they do not match, or you forget to pass a password in the, <code>-password</code> param.</p>
+
+<h2 id="is_valid_registration">is_valid_registration</h2>
+
+<pre><code> my ($status, $errors) = $p-&gt;is_valid_registration(
+                {
+                        -email                         =&gt; &#39;user@example.com&#39;, 
+                        -email_again               =&gt; &#39;user@example.com&#39;, 
+                        -password                  =&gt; &#39;secret&#39;, 
+                -recaptcha_challenge_field =&gt; &#39;1234&#39;, 
+                -recaptcha_response_field  =&gt; &#39;abcd&#39;, 
+                }
+ ); </code></pre>
+
+<p><code>is_valid_registration</code> is used to validate a new registration. This usually means taking information from an HTML form and passing it through this method, to make sure that the information passed is valid, so we can start the registration process. It requires a few parameters:</p>
+
+<ul>
+
+<li><p>-email</p>
+
+<p>Should hold the email address, associated with the new profile</p>
+
+</li>
+<li><p>-email_again</p>
+
+<p>Should match exactly what&#39;s passed in the, <code>-email</code> parameter.</p>
+
+</li>
+<li><p>-password</p>
+
+<p>Should hold a valid password. Currently, this just means that <i>something</i> has to be passed in this parameter.</p>
+
+</li>
+</ul>
+
+<p>If CAPTCHA is enabled for Profiles, (via the Config.pm <code>$PROFILE_OPTIONS-&gt;{gravatar_options}-&gt;{enable_gravators}</code> parameter) the following two parameters also have to be passed:</p>
+
+<ul>
+
+<li><p>-recaptcha_challenge_field</p>
+
+</li>
+<li><p>-recaptcha_response_field</p>
+
+</li>
+</ul>
+
+<p><code>-recaptcha_challenge_field</code> and <code>-recaptcha_response_field</code> map to the 3rd and 4th arguments you have to pass in <code>DADA::Security::AuthenCAPTCHA</code>&#39;s method, <code>check_answer</code>, which is sadly currently under documented, but follows the same API as Captcha::reCAPTCHA:</p>
+
+<p><a href="http://search.cpan.org/~andya/Captcha-reCAPTCHA/lib/Captcha/reCAPTCHA.pm">http://search.cpan.org/~andya/Captcha-reCAPTCHA/lib/Captcha/reCAPTCHA.pm</a></p>
+
+<p>(the <code>check_answer</code> method does, at the very least)</p>
+
+<p>This method will return an array or two elements.</p>
+
+<p>The first element, is the status. If it&#39;s set to, <code>1</code>, then the information passed will work to create a brand new profile. If it&#39;s set to, <code>0</code>, there&#39;s something wrong with the information.</p>
+
+<p>The exact problems will be described in the second element passed, which will be a hashref. The key will describe the problem, and the value will be set to, <code>1</code> if a problem was found. Here&#39;s the keys that may be passed:</p>
+
+<ul>
+
+<li><p>email_no_match</p>
+
+<p><code>-email</code> and, <code>-email_again</code> are not the same.</p>
+
+</li>
+<li><p>invalid_email</p>
+
+<p>The email isn&#39;t a valid email address.</p>
+
+</li>
+<li><p>profile_exists</p>
+
+<p>There&#39;s already a profile for the email address you&#39;re passwing!</p>
+
+</li>
+<li><p>captcha_failed</p>
+
+<p>The captcha test didn&#39;t pass.</p>
+
+</li>
+</ul>
+
+<p>If $status returns <code>0</code>, in no way should a new profile be registered.</p>
+
+<h2 id="update">update</h2>
+
+<pre><code> $p-&gt;update(
+        {
+                -password =&gt; &#39;my_new_password&#39;, 
+        }
+ ); </code></pre>
+
+<p><code>update</code> simply updates the information for the profile. In its current state, it looks like it should only be used to update the password of a profile, although any information about the profile, except the email address, can be updated.</p>
+
+<p>Scarily, there&#39;s no checks on the validity of the information passed. This should be fixed in the future.</p>
+
+<h2 id="setup_profile">setup_profile</h2>
+
+<h2 id="send_profile_activation_email">send_profile_activation_email</h2>
+
+<h2 id="send_profile_reset_password_email">send_profile_reset_password_email</h2>
+
+<h2 id="send_profile_reset_password_email1">send_profile_reset_password_email</h2>
+
+<h2 id="is_valid_activation">is_valid_activation</h2>
+
+<pre><code> $p-&gt;is_valid_activation(
+        {
+                -auth_code =&gt; $auth_code,
+        }
+ );</code></pre>
+
+<p>This method is similar to, <code>is_valid_registration</code>, as it returns a two-element array, the first element set to either <code>1</code>, for validity and <code>0</code> for not, with the second element being a hashref of key/values describing what went wrong.</p>
+
+<p>In this case, the only thing it&#39;s looking for the is the authorization code, which you should pass in the, <code>-auth_code</code> parameter.</p>
+
+<p>This is the authorization code that used in the email sent out to confirm a new profile. If the authorization code is not current, $status will be set to, <code>0</code> and the second element hashref will have the current key/value pair:</p>
+
+<pre><code>        invalid_auth_code =&gt; 1</code></pre>
+
+<p>Other errors may join, <code>invalid_auth_code</code> in the future.</p>
+
+<h2 id="set_auth_code">set_auth_code</h2>
+
+<pre><code>        $p-&gt;set_auth_code; </code></pre>
+
+<p><code>set_auth_code</code> sets a new authorization code for the profile you&#39;re working on. It takes no arguments.</p>
+
+<p>But, it will return the authorization code it creates.</p>
+
+<p>This method will croak if the profile you&#39;re trying to set an authorization code doesn&#39;t actually exist.</p>
+
+<h2 id=""></h2>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Justin Simoni http://dadamailproject.com</p>
+
+<h1 id="LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

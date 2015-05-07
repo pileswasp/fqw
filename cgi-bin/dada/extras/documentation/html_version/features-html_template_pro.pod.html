@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>HTML::Template::Pro Template Engine Support</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#HTML::Template::Pro-support-in-Dada-Mail">HTML::Template::Pro support in Dada Mail</a>
+    <ul>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#Installing-HTML::Template::Pro">Installing HTML::Template::Pro</a></li>
+      <li><a href="#Configuring-Dada-Mail-to-use-HTML::Template::Pro">Configuring Dada Mail to use HTML::Template::Pro</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="HTML::Template::Pro-support-in-Dada-Mail">HTML::Template::Pro support in Dada Mail</h1>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>Dada Mail has been using the <code>HTML::Template</code> CPAN module for rendering its HTML screens, as well as providing the templating engine for its email messages. It works really great.</p>
+
+<p><code>HTML::Template::Pro</code> is a compatible module, that can now be used as a drop-in replacement for <code>HTML::Template</code> in Dada Mail. It features faster rendering speeds (up to 10x faster) and less memory usage.</p>
+
+<p>Since it is used for the email templates in Dada Mail, using <code>HTML::Template::Pro</code> instead of the included <code>HTML::Template</code> can significantly speed up mail sending.</p>
+
+<h2 id="Installing-HTML::Template::Pro">Installing HTML::Template::Pro</h2>
+
+<p>If you do not already have the <code>HTML::Template::Pro</code> module installed, you may grab it via CPAN. See our FAQ on how to install CPAN Perl Modules:</p>
+
+<p><a href="http://dadamailproject.com/d/FAQ-general.pod.html#how_do_you_install__cpan_perl_modules">http://dadamailproject.com/d/FAQ-general.pod.html#how_do_you_install__cpan_perl_modules</a></p>
+
+<h2 id="Configuring-Dada-Mail-to-use-HTML::Template::Pro">Configuring Dada Mail to use HTML::Template::Pro</h2>
+
+<p>Once <code>HTML::Template::Pro</code> is installed, there&#39;s nothing else you need to do, to start using <code>HTML::Template::Pro</code> with Dada Mail.</p>
+
+<p>You can disable using <code>HTML::Template::Pro</code>, if you so desire. See the docs for the <code>$TEMPLATE_SETTINGS</code> config variable:</p>
+
+<p><a href="http://dadamailproject.com/d/global_variables.pod.html#_template_settings">http://dadamailproject.com/d/global_variables.pod.html#_template_settings</a>, specifically, the, <code>engine</code> parameter.</p>
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,421 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Integrating Dada Mail into other Programs</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Integrating-Dada-Mail-with-other-programs">Integrating Dada Mail with other programs</a>
+    <ul>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#Automatic-Logging-into-the-list-control-panel">Automatic Logging into the list control panel</a></li>
+      <li><a href="#A-pre-filled-out-form">A pre-filled out form</a></li>
+      <li><a href="#Call-the-screen-by-mimicking-a-web-browser">Call the screen by mimicking a web browser</a></li>
+      <li><a href="#Keeping-the-List-Password-Syncd-with-the-hosting-account-password">Keeping the List Password Sync&#39;d with the hosting account password</a></li>
+      <li><a href="#Subscription-Unsubscription">Subscription/Unsubscription</a></li>
+      <li><a href="#Sending-Mailing-List-Messages">Sending Mailing List Messages</a></li>
+      <li><a href="#send_dada_mail.pl">send_dada_mail.pl</a></li>
+      <li><a href="#Accessing-the-Send-a-Message-API">Accessing the, &quot;Send a Message&quot; API</a></li>
+      <li><a href="#Joomla-Integration">Joomla Integration</a></li>
+      <li><a href="#Other-Examples">Other Examples</a>
+        <ul>
+          <li><a href="#FormMail">FormMail</a></li>
+          <li><a href="#TFmail">TFmail</a></li>
+        </ul>
+      </li>
+      <li><a href="#See-Also">See Also</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Integrating-Dada-Mail-with-other-programs">Integrating Dada Mail with other programs</h1>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>These below ideas are all over the board, so don&#39;t expect one, simplified, normalized way of accessing the stuff that Dada Mail does.</p>
+
+<p>This, hopefully, will be something created in the future, but! Until then, here are a few ideas to get you started to solve some of the most common ways you may want to hook Dada Mail into another program.</p>
+
+<h2 id="Automatic-Logging-into-the-list-control-panel">Automatic Logging into the list control panel</h2>
+
+<p>The login/session system of Dada Mail is based on some sort of session information that&#39;s saved on the server side and a cookie that resides on the client&#39;s web browser.</p>
+
+<p>It&#39;s slightly awkward to re-implement such a system from another program, yet it honestly *could* be done.</p>
+
+<h2 id="A-pre-filled-out-form">A pre-filled out form</h2>
+
+<p>An easier way, if all you want to do is to, say, have a button in another program&#39;s control panel that let&#39;s you go right to the Dada Mail list control panel is to pre-fill in the form fields required. A simple, already filled in form would look like so:</p>
+
+<p>&lt;form action=&quot;http://example.com/cgi-bin/dada/mail.cgi&quot; method=&quot;post&quot;&gt;</p>
+
+<pre><code>  &lt;input type=&quot;hidden&quot; name=&quot;f&quot;              value=&quot;login&quot; /&gt;
+ 
+  &lt;input type=&quot;hidden&quot; name=&quot;process&quot;        value=&quot;true&quot; /&gt;
+ 
+  &lt;input type=&quot;hidden&quot; name=&quot;admin_list&quot;     value=&quot;yourlist&quot; /&gt; 
+ 
+  &lt;input type=&quot;hidden&quot; name=&quot;admin_password&quot; value=&quot;yourpassword&quot; /&gt; 
+ 
+  &lt;input type=&quot;submit&quot;                       value=&quot;Log Into Your Dada Mail!&quot; /&gt; 
+ 
+ &lt;/form&gt; </code></pre>
+
+<p>And that&#39;s all there really is to it. Breaking that down:</p>
+
+<ul>
+
+<li><p>http://example.com/cgi-bin/dada/mail.cgi</p>
+
+<p>The URL to your own Dada Mail</p>
+
+</li>
+<li><p>f</p>
+
+<p>Throughout Dada Mail, <b>f</b> is used as a shorthand for, <b>function</b>. In this case, the function is to <b>login</b></p>
+
+</li>
+<li><p>process</p>
+
+<p>Set this to, &quot;true&quot;</p>
+
+</li>
+<li><p>admin_list</p>
+
+<p>This should be set to the <b>listshortname</b> of the list you want to log in to.</p>
+
+</li>
+<li><p>admin_password</p>
+
+<p>This is either the <b>list password</b>, or, the <b>Dada Mail Root Password</b>.</p>
+
+</li>
+</ul>
+
+<p>If all this information is correct, you should be able to log into the Dada Mail list.</p>
+
+<p>There&#39;s one more field you can pass in this form and that is <b>referer</b>. If set, it&#39;ll redirect you to a specific screen in Dada Mail. For example, if you want to log in directly to the, <b>add</b> list control panel, add this into the form:</p>
+
+<pre><code> &lt;input type=&quot;hidden&quot; name=&quot;referer&quot; value=&quot;http://example.com/cgi-bin/dada/mail.cgi?f=add&quot; /&gt; </code></pre>
+
+<p>Where &quot;http://example.com/cgi-bin/dada/mail.cgi&quot; is the URL to your Dada Mail.</p>
+
+<p>A shortcoming to this technique is that the password required to log in will be visible in the source of the HTML you have embedded this button. Not so good.</p>
+
+<h2 id="Call-the-screen-by-mimicking-a-web-browser">Call the screen by mimicking a web browser</h2>
+
+<p>Another idea is to write a simple WWW client that&#39;ll then post the CGI parameters to Dada Mail and then print back the results. In this case, the results will return the cookie information needed to keep the session alive (or really, start the session), The refresh to the list control panel and the HTML that says, &quot;Hey! We&#39;re logging in!&quot;:</p>
+
+<pre><code> #!/usr/bin/perl 
+ use strict; 
+ 
+ my $Dada_Mail_URL = &#39;http://example.com/cgi-bin/dada/mail.cgi&#39;; 
+ my $List          = &#39;yourlist&#39;; 
+ my $Password      = &#39;yourpassword&#39;;
+ my $Referer       = &#39;&#39;; 
+ my $F             = &#39;login&#39;; 
+ my $Process       = &#39;true&#39;;
+ 
+ 
+ 
+ 
+ 
+ 
+ use CGI; 
+ my $q = new CGI(
+ 
+     {
+     
+     admin_list     =&gt; $List, 
+     admin_password =&gt; $Password,
+     f              =&gt; $F, 
+     referer        =&gt; $Referer, 
+     process        =&gt; &#39;process&#39;, 
+     
+     }
+ 
+ ); 
+  
+ 
+ use HTTP::Request; 
+ 
+ use LWP::UserAgent;
+ 
+ my $ua = LWP::UserAgent-&gt;new;
+    $ua-&gt;agent(&quot;MyApp/0.1 &quot;);
+ 
+ my $req = HTTP::Request-&gt;new(POST =&gt; $Dada_Mail_URL);
+    $req-&gt;content_type(&#39;application/x-www-form-urlencoded&#39;);
+    $req-&gt;content($q-&gt;query_string());
+ 
+ my $res = $ua-&gt;request($req);
+ 
+ if ($res-&gt;is_success) {
+ 
+     my $doc = $res-&gt;as_string;
+     
+     my ($headers, $body) = split(&quot;\n\n&quot;, $doc, 2); 
+     my @header_lines = split( /\n(?!\s)/, $headers);
+     
+     for my $header(@header_lines){ 
+     
+         my ($label, $value) = split(/:\s*/, $header, 2);
+         
+         if($label =~m/(Refresh|Set\-Cookie)/){ 
+             print $header . &quot;\n&quot;;     
+         }
+     }
+   
+     print $q-&gt;header(); 
+     print $body; 
+     
+ }
+ else {
+     print $q-&gt;header();
+     print $res-&gt;status_line, &quot;\n&quot;;
+ }</code></pre>
+
+<p>In the above script, you&#39;ll have to fill in the first <b>6</b> variables with the correct information.</p>
+
+<p>This still leaves the problem of having the password embedded in the sourcecode of the script.</p>
+
+<h2 id="Keeping-the-List-Password-Syncd-with-the-hosting-account-password">Keeping the List Password Sync&#39;d with the hosting account password</h2>
+
+<p>One way to get around this, is either save the password in a safer place, or keep the password sync&#39;d with your account password.</p>
+
+<p>Regardless of how you&#39;ve saved the account password, you&#39;re going to need a way to fetch a clear-text (unencrypted) version of it.</p>
+
+<p>Add something like this to your script that keeps all this info sync&#39;d up:</p>
+
+<pre><code>    use DADA::MailingList::Settings; 
+    use DADA::Security::Password; 
+    my $ls = DADA::MailingList:Settings-&gt;new(-List =&gt; &#39;my_list&#39;); 
+       $ls-&gt;save(
+                        {
+                        password =&gt; DADA::Security::Password::encrypt_passwd(&#39;your_password&#39;),
+                }
+                ); </code></pre>
+
+<h2 id="Subscription-Unsubscription">Subscription/Unsubscription</h2>
+
+<p>There&#39;s already a few ways to access Dada Mail&#39;s subscription/unsubscription API outside of the program. See:</p>
+
+<ul>
+
+<li><p>Subscription Cookbook</p>
+
+<p>COOKBOOK-subscriptions.pod.html</p>
+
+</li>
+<li><p>email_subscription_form.pod.html</p>
+
+<p>Creating a subscription form in Flash - this uses the main mail.cgi to receive a very simple XML (ish...) document that your program can then parse.</p>
+
+</li>
+</ul>
+
+<h2 id="Sending-Mailing-List-Messages">Sending Mailing List Messages</h2>
+
+<h2 id="send_dada_mail.pl">send_dada_mail.pl</h2>
+
+<p>There is an extension called, <b>send_dada_mail.pl</b> that allows you to Send a Message through a command line interface - it&#39;s designed to be easy to use from another program, regardless of what that program is written in and is based slightly (ever so slightly) on how you also use the <code>sendmail</code> utility.</p>
+
+<p><a href="send_dada_mail.pl.html">send_dada_mail.pl.html</a></p>
+
+<h2 id="Accessing-the-Send-a-Message-API">Accessing the, &quot;Send a Message&quot; API</h2>
+
+<p>If the <code>send_dada_mail.pl</code> script isn&#39;t up your alley, you can make a very small utility script that&#39;ll bridge between your app - whatever language it&#39;s written in and Dada Mail. Here&#39;s what such an app may look like:</p>
+
+<pre><code>        #!/usr/bin/perl 
+        # Change! The perllibs below to point to Dada Mail&#39;s perl libraries: 
+        use lib qw(
+                ./DADA
+                ./DADA/perllib
+                /home/myaccount/cgi-bin/dada
+                /home/myaccount/cgi-bin/dada/DADA/perllib
+        ); 
+ 
+        use CGI; 
+        my $q = new CGI; 
+ 
+        my $list = $q-&gt;param(&#39;list&#39;); 
+        $q-&gt;delete(&#39;list&#39;); 
+        
+        if($q-&gt;param(&#39;process&#39;)) { 
+ 
+        use DADA::App::MassSend; 
+    my $ms = DADA::App::MassSend-&gt;new({-list =&gt; $list});
+           $ms-&gt;send_email(
+                        {
+                                -cgi_obj     =&gt; $q, 
+                                -html_output =&gt; 0, 
+                        }
+                );      
+ 
+        print $q-&gt;header(); 
+        print &quot;sending is on its way!&quot;; 
+        
+        }
+        else { 
+                print $q-&gt;header() ;
+                print &quot;I don&#39;t know what you want me to do!&quot;; 
+        }</code></pre>
+
+<p>The above example is an incredibly bare-bones idea on how to Send a Message using the DADA::App::MassSend API. Unfortunetly, the API isn&#39;t super flexible, but it can do a whole lot, if you need it to.</p>
+
+<p>Save the above script as something like, <code>send_list_message.cgi</code> (or whatever you&#39;d personally like). Put it into your cgi-bin/dada directory (to start) and change it&#39;s permission to, <code>755</code></p>
+
+<p>The next thing you&#39;ll want to do is create an HTML page with a form that, when submitted will have the correct information to Send a Message. Here&#39;s a very small example:</p>
+
+<pre><code>        &lt;form action=&quot;http://example.com/cgi-bin/dada/send_list_message.cgi&quot; method=&quot;post&quot;&gt;
+ 
+        &lt;input type=&quot;hidden&quot; name=&quot;process&quot; value=&quot;1&quot; /&gt; 
+ 
+        &lt;input type=&quot;hidden&quot; name=&quot;list&quot; value=&quot;mylist&quot; /&gt; 
+ 
+        &lt;p&gt;Subject: &lt;input type=&quot;text&quot; name=&quot;Subject&quot; value=&quot;&quot; /&gt; &lt;/p&gt;
+ 
+        &lt;p&gt;PlainText Version: &lt;br /&gt; 
+        &lt;textarea name=&quot;text_message_body&quot;&gt;&lt;/textarea&gt;
+        &lt;/p&gt;
+ 
+        &lt;p&gt;HTML Version: &lt;br /&gt; 
+        &lt;textarea name=&quot;html_message_body&quot;&gt;&lt;/textarea&gt;
+        &lt;/p&gt;
+ 
+ 
+        &lt;p&gt;
+        &lt;input type=&quot;submit&quot; /&gt;
+        &lt;/p&gt;
+ 
+ 
+        &lt;/form&gt;</code></pre>
+
+<p>Breaking this down:</p>
+
+<ul>
+
+<li><p>the form field itself</p>
+
+<p>You&#39;ll have to tweak the, <code>action</code> parameter to point to the script we just made.</p>
+
+</li>
+<li><p>process</p>
+
+<p>Set this form field value to, <b>1</b></p>
+
+</li>
+<li><p>list</p>
+
+<p>Set this to a valid list shortname</p>
+
+</li>
+<li><p>Subject</p>
+
+<p>The Subject of your message.</p>
+
+</li>
+<li><p>text_message_body</p>
+
+<p>The PlainText version of your message (if any)</p>
+
+</li>
+<li><p>html_message_body</p>
+
+<p>The HTML version of your message (if any)</p>
+
+</li>
+</ul>
+
+<p>Make sure to customize the form&#39;s, <code>action</code> to correspond to where you&#39;re currently keeping this script and also the form field, &quot;list&quot; to be a valid listshortname of yours.</p>
+
+<p>The form fields, <b>Subject</b>, <b>text_message_body</b> and <b>html_message_body</b> are named the same as the form fields located on the, <b>Send a Message</b> screen. Most every form field that&#39;s located in that form can be added to our example, including file attachments, partial sending options, archiving options, etc.</p>
+
+<p>Our little example above only shows how to create a form that basically cicrumvents Dada Mail&#39;s own security. If you do use this form, make sure you some semblance of security is put <b>back</b> into your script.</p>
+
+<p>Hopefully, if you&#39;re a seasoned Perl programmer, you can edit the above idea to work more closely within your own Perl program. You don&#39;t need to explicitly post to the script - all you have to do is fill out the CGI objects params, like so:</p>
+
+<pre><code>        $q-&gt;param(&#39;list&#39;, &#39;mylist&#39;); 
+        $q-&gt;param(&#39;process&#39;, 1); 
+        $q-&gt;param(&#39;Subject&#39;, &#39;My Subject&#39;); 
+        $q-&gt;param(&#39;text_message_body&#39;, &quot;This is my PlainText version!&quot;); 
+        # etc....
+        use DADA::App::MassSend; 
+    my $ms = DADA::App::MassSend-&gt;new({-list =&gt; $q-&gt;param(&#39;list&#39;)});
+           $ms-&gt;send_email(
+                        {
+                                -cgi_obj     =&gt; $q, 
+                                -list        =&gt; $q-&gt;param(&#39;list&#39;), 
+                                -html_output =&gt; 0, 
+                        }
+                );      
+         </code></pre>
+
+<p>What if you&#39;re using another language, like php?</p>
+
+<p>My advice, currently, is to call the outside script using something like php&#39;s curl support:</p>
+
+<p>http://us.php.net/curl</p>
+
+<p>The idea is the same, but instead of creating an HTML form you manually submit, you pass the variables needed to the curl session and post them to the outside script.</p>
+
+<h2 id="Joomla-Integration">Joomla Integration</h2>
+
+<p>See Bruce Scherzinger&#39;s Dada Mail Subscriptions Community Builder Plug:</p>
+
+<p><a href="http://joomlander.net/index.php?option=com_remository&amp;Itemid=0&amp;func=fileinfo&amp;id=16">http://joomlander.net/index.php?option=com_remository&amp;Itemid=0&amp;func=fileinfo&amp;id=16</a></p>
+
+<p><a href="http://extensions.joomla.org/component/option,com_mtree/task,viewlink/link_id,2206/Itemid,35/">http://extensions.joomla.org/component/option,com_mtree/task,viewlink/link_id,2206/Itemid,35/</a></p>
+
+<p>Bruce says:</p>
+
+<p><i>his Community Builder plug-in implements a bridge between Dada Mail and Joomla that allows site members to manage their subscriptions to email lists from their CB profiles. Dada Mail is a powerful open-source email list system written by Justin Simoni. Finally, real (free) email lists in Joomla!</i></p>
+
+<p><i>I will eventually release a Dada Mail archive browser component for Joomla. This will allow Dada Mail to be used to implement email lists for which the only access is from within a Joomla website.</i></p>
+
+<p>Looks Promising!</p>
+
+<h2 id="Other-Examples">Other Examples</h2>
+
+<p>Dada Mail comes with a few classic Form-to-Email scripts in the, <b>extensions</b> directory of the distribution that are slightly tweaked to allow integration of Dada Mail. They are:</p>
+
+<h3 id="FormMail">FormMail</h3>
+
+<p><a href="Dada-ized_FormMail_README.pod.html">Dada-ized_FormMail_README.pod.html</a></p>
+
+<h3 id="TFmail">TFmail</h3>
+
+<p><a href="Dada-ized_TFMail_README.pod.html">Dada-ized_TFMail_README.pod.html</a></p>
+
+<h2 id="See-Also">See Also</h2>
+
+<ul>
+
+<li><p>Dada Mail File Formats</p>
+
+<p>FAQ-file_formats.pod.html</p>
+
+</li>
+</ul>
+
+<p>We&#39;d also like to hear from you about future integration projects of your own. If you&#39;re working on something and need help or would simply like to announce the project, please do so on the boards:</p>
+
+<p><a href="http://dadamailproject.com/support/boards/index.php?c=8">http://dadamailproject.com/support/boards/index.php?c=8</a></p>
+
+<p>And/or the <b>dadadev</b> mailing list</p>
+
+<p><a href="http://dadamailproject.com/cgi-bin/dada/mail.cgi/list/dadadev/">http://dadamailproject.com/cgi-bin/dada/mail.cgi/list/dadadev/</a></p>
+
+
+</body>
+
+</html>
+
+

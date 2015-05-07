@@ -1,0 +1,696 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Subscription Cookbook</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Subscription-Cookbook">Subscription Cookbook</a>
+    <ul>
+      <li><a href="#How-to-Subscribe-an-Email-Address-to-a-Mailing-List">How to Subscribe an Email Address to a Mailing List</a></li>
+      <li><a href="#RESTful-API">RESTful API</a>
+        <ul>
+          <li><a href="#Situations-That-Require-Additional-User-Input">Situations That Require Additional User Input</a></li>
+        </ul>
+      </li>
+      <li><a href="#JSONP">JSONP</a></li>
+      <li><a href="#Example-Implementations">Example Implementations</a>
+        <ul>
+          <li><a href="#JavaScript-jQuery">JavaScript/jQuery</a></li>
+          <li><a href="#Perl">Perl</a></li>
+          <li><a href="#PHP">PHP</a></li>
+          <li><a href="#Python">Python</a></li>
+          <li><a href="#Ruby">Ruby</a></li>
+        </ul>
+      </li>
+      <li><a href="#jQuery-Plugin">jQuery Plugin</a></li>
+      <li><a href="#CreateSubscribeForm">CreateSubscribeForm</a>
+        <ul>
+          <li><a href="#Initialization-Paramaters">Initialization Paramaters</a></li>
+        </ul>
+      </li>
+      <li><a href="#Modal">Modal</a>
+        <ul>
+          <li><a href="#Shared-Optional-Paramaters">Shared Optional Paramaters</a></li>
+        </ul>
+      </li>
+      <li><a href="#Perl-API">Perl API</a></li>
+      <li><a href="#Command-Line-Utility---subscribe_email.pl">Command Line Utility - subscribe_email.pl</a>
+        <ul>
+          <li><a href="#Arguments">Arguments</a></li>
+          <li><a href="#PHP-Example">PHP Example</a></li>
+          <li><a href="#Other-examples">Other examples</a>
+            <ul>
+              <li><a href="#FormMail-Integration">FormMail Integration</a></li>
+              <li><a href="#TFmail-Integration">TFmail Integration</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Subscription-Cookbook">Subscription Cookbook</h1>
+
+<h2 id="How-to-Subscribe-an-Email-Address-to-a-Mailing-List">How to Subscribe an Email Address to a Mailing List</h2>
+
+<p>A challenge people face is trying to tie Dada Mail&#39;s subscription system with another system, like a checkout part of a shopping cart, boards/forum, blog or CMS software.</p>
+
+<h2 id="RESTful-API">RESTful API</h2>
+
+<p>Dada Mail has an, <b>EXPERIMENTAL</b> RESTful API.</p>
+
+<p><b>POST</b> a request to your Dada Mail URL, with the following path:</p>
+
+<p><a href="http://example.com/cgi-bin/dada/mail.cgi/json/subscribe">http://example.com/cgi-bin/dada/mail.cgi/json/subscribe</a></p>
+
+<p>(<code>/json/subscribe</code> is the PATH INFO you need)</p>
+
+<p>Your POST Data will need to be in JSON, and have the following two fields, and an optional third:</p>
+
+<ul>
+
+<li><p>list</p>
+
+<p><b>list</b> holds the list shortname you would like to make the subscription to</p>
+
+</li>
+<li><p>email</p>
+
+<p><b>email</b> holds the email address you would like the subscription for</p>
+
+</li>
+<li><p>fields</p>
+
+<p><b>Optional</b>: <b>fields</b> holds the Profile Fields you would like to pass.</p>
+
+</li>
+</ul>
+
+<p>Here&#39;s an example of data in JSON to subscribe, <b>user@example.com</b> to a list, <b>mylist</b>:</p>
+
+<pre><code>        {
+           &quot;email&quot; : &quot;user@example.com&quot;,
+           &quot;list&quot; : &quot;mylist&quot;
+        }</code></pre>
+
+<p>Here&#39;s an example, with two Profile Fields, <code>first_name</code> and <code>last_name</code>:</p>
+
+<pre><code>        {
+           &quot;email&quot; : &quot;user@example.com&quot;,
+           &quot;fields&quot; : {
+              &quot;last_name&quot; : &quot;Example&quot;,
+              &quot;first_name&quot; : &quot;Jason&quot;
+           },
+           &quot;list&quot; : &quot;mylist&quot;
+        }</code></pre>
+
+<p><b>Results</b> will also come back as JSON. For example, a successful request will return the following JSON document:</p>
+
+<pre><code>        {
+           &quot;email&quot; : &quot;user@example.com&quot;,
+           &quot;redirect&quot; : {
+              &quot;query&quot; : &quot;list=mylist&amp;email=user%40example.com&amp;status=1&amp;rm=sub_confirm&quot;,
+              &quot;using_with_query&quot; : 1,
+              &quot;url&quot; : &quot;http://example.com/alt_url_sub_confirm_success.html&quot;,
+              &quot;using&quot; : 1
+           },
+           &quot;status&quot; : 1,
+           &quot;success_message&quot; : &quot;&lt;h1&gt;Request Successful, Check Your Email!&lt;/h1&gt; [...]&quot;,
+           &quot;list&quot; : &quot;mylist&quot;
+        }</code></pre>
+
+<ul>
+
+<li><p>email</p>
+
+<p><b>email</b> holds the email address you passed.</p>
+
+</li>
+<li><p>list</p>
+
+<p><b>list</b> holds the list short name you passed.</p>
+
+</li>
+<li><p>status</p>
+
+<p><b>status</b> tells you if the request worked, or not.</p>
+
+<p>A value of <code>1</code> means success, a value of, <code>0</code> means failure.</p>
+
+<p>If a request is successful, the following will also be returned:</p>
+
+<ul>
+
+<li><p>success_message</p>
+
+<p><b>success_message</b> holds the success message, for this particular request in HTML.</p>
+
+</li>
+</ul>
+
+<p>If a request comes back as failing, the following will also be returned:</p>
+
+<ul>
+
+<li><p>errors</p>
+
+<p>Problems with a request be listed in the, <b>errors</b> array. The following errors may be returned:</p>
+
+<ul>
+
+<li><p>invalid_list</p>
+
+</li>
+<li><p>invalid_email</p>
+
+</li>
+<li><p>subscribed</p>
+
+</li>
+<li><p>invite_only_list</p>
+
+</li>
+<li><p>closed_list</p>
+
+</li>
+<li><p>mx_lookup_failed</p>
+
+</li>
+<li><p>black_listed</p>
+
+</li>
+<li><p>not_white_listed</p>
+
+</li>
+<li><p>over_subscription_quota</p>
+
+</li>
+<li><p>already_sent_sub_confirmation</p>
+
+</li>
+<li><p>settings_possibly_corrupted</p>
+
+</li>
+</ul>
+
+<p>For example, sending a request with an invalid email address,</p>
+
+<pre><code>        {
+           &quot;email&quot; : &quot;invalid email&quot;,
+           &quot;list&quot; : &quot;mylist&quot;
+        }</code></pre>
+
+<p>Will return a JSON document, like this:</p>
+
+<pre><code>        {
+           &quot;email&quot; : &quot;&quot;,
+           &quot;redirect&quot; : {
+              &quot;query&quot; : &quot;list=mylist&amp;email=&amp;status=0&amp;rm=sub_confirm&amp;errors[]=invalid_email&quot;,
+              &quot;using_with_query&quot; : 1,
+              &quot;url&quot; : &quot;http://example.com/alt_url_sub_confirm_failed.html&quot;,
+              &quot;using&quot; : 1
+           },
+           &quot;errors&quot; : {
+              &quot;invalid_email&quot; : 1
+           },
+           &quot;status&quot; : 0,
+           &quot;error_descriptions&quot; : {
+              &quot;invalid_email&quot; : &quot;&lt;h1&gt;Double Check Your Email Address&lt;/h1&gt; [...]&quot;
+           },
+           &quot;list&quot; : &quot;mylist&quot;
+        }</code></pre>
+
+<p><b>email</b> and, <b>list</b> will be returned as you sent them, <b>status</b> will have a value of, <code>0</code> (meaning there was a problem), and the <b>error</b> array will have one entry in it, with a <b>key</b> of, <b>invalid_email</b> (the error), and a value of, <code>1</code>.</p>
+
+</li>
+<li><p>error_descriptions</p>
+
+<p>Also on failure, another array named, <b>error_descriptions</b> will also be returned. This holds a description of any errors produced. Keys will be named the same as the errors, but the values will be a description of what the error means, in HTML.</p>
+
+</li>
+</ul>
+
+<p>Make sure your requests are made with the <b>list</b> and <b>email</b> params set in your POST DATA, and set the <code>Content-Type</code> to <code>application/json</code>. The returned JSON will be sent with a <code>Content-Type</code> of, <code>application/json</code></p>
+
+<p>Dada Mail supports custom URL redirects, for many of its subscription request functions, and these custom redirect settings are also passed to you in the return JSON document.</p>
+
+</li>
+<li><p>redirect</p>
+
+<p>Both successful and failed requests may also pass a <b>redirect</b> array, with the following:</p>
+
+<ul>
+
+<li><p>url</p>
+
+<p><b>url</b> holds the URL used to redirect, for the particular request made.</p>
+
+</li>
+<li><p>query</p>
+
+<p><b>query</b> holds a query string you may append to the URL, if you would like to pass information to the redirect URL.</p>
+
+</li>
+<li><p>using</p>
+
+<p><b>using</b> is set to, <code>1</code> if the mailing list settings say that this redirect is enabled.</p>
+
+</li>
+<li><p>using_w_qa</p>
+
+<p><b>using_w_qa</b> is set to, <code>1</code> if the mailing list settings say that this redirect is enabled, and using the query string.</p>
+
+</li>
+</ul>
+
+<p>All these parameters are passed to you, but it is your choice on whether you want to use or ignore them.</p>
+
+</li>
+</ul>
+
+<h3 id="Situations-That-Require-Additional-User-Input">Situations That Require Additional User Input</h3>
+
+<p>There are some cases where a redirect back to Dada Mail will be required, to handle the request correctly.</p>
+
+<p>For example, Dada Mail can be set up to limit the amount of subscription requests made, per a particular email address, to a particular mailing list.</p>
+
+<p>So if &gt; 1 request is made, rather than try to handle it twice, Dada Mail will instead return with a failure. When handled by Dada Mail itself, the user would then be presented with the option to resend a subscription request, after a CAPTCHA is filled out.</p>
+
+<p>This isn&#39;t something you can do, purely with the RESTful API, but you can see if you need to point the user to Dada Mail.</p>
+
+<p>For example, say this is the second request to subscribe:</p>
+
+<pre><code>        {
+           &quot;email&quot; : &quot;user@example.com&quot;,
+           &quot;list&quot; : &quot;mylist&quot;
+        }</code></pre>
+
+<p>Rather than a succesful request, the following JSON will be returned:</p>
+
+<pre><code>        {
+           &quot;email&quot; : &quot;user@example.com&quot;,
+           &quot;redirect&quot; : {
+              &quot;query&quot; : &quot;list=dadatest&amp;email=user%40example.com&amp;status=0&amp;rm=sub_confirm&amp;errors[]=already_sent_sub_confirmation&quot;,
+              &quot;using_with_query&quot; : 1,
+              &quot;url&quot; : &quot;http://example.com/cgi-bin/dada/mail.cgi?f=show_error&amp;email=user%40example.com&amp;list=dadatest&amp;error=already_sent_sub_confirmation&quot;,
+              &quot;using&quot; : 1
+           },
+           &quot;errors&quot; : {
+              &quot;already_sent_sub_confirmation&quot; : 1
+           },
+           &quot;status&quot; : 0,
+           &quot;redirect_required&quot; : &quot;subscription_requires_captcha&quot;,
+           &quot;error_descriptions&quot; : {
+              &quot;already_sent_sub_confirmation&quot; : &quot;use redirect&quot;
+           },
+           &quot;list&quot; : &quot;mylist&quot;
+        }</code></pre>
+
+<p>The errror, <b>already_sent_sub_confirmation</b> will have an associated <code>error_description</code> with a value of, <code>use redirect</code>. The <code>redirect</code> array will have a key, <code>url</code>, whose value will be the URL you&#39;ll need to redirect your user to, to complete the request.</p>
+
+<h2 id="JSONP">JSONP</h2>
+
+<p>This API also supports sending a request using JSONP.</p>
+
+<p>If using JSONP, make sure to append the PATH INFO, with the query string, setting the name of your callback, like this:</p>
+
+<p>http://example.com/cgi-bin/dada/mail.cgi/json/subscribe?callback=mycustomcallback</p>
+
+<p>Sending data over via <b>POST</b> is not supported in JSONP, in general, so you&#39;ll want to send over the fields you usually would send as a JSON payload, in the query string, as well.</p>
+
+<p>Along with the usual fields, <code>list</code>, <code>email</code>, etc, you&#39;ll want to send another field called, <code>_method</code> with a value of, <code>GET</code>. This is to tell Dada Mail you&#39;re sending a, <b>JSONP</b> request.</p>
+
+<p>The entire query string could look like this:</p>
+
+<p>http://example.com/cgi-bin/dada/mail.cgi/json/subscribe?callback=mycustomcallback&amp;_method=GET&amp;list=mylist&amp;email=user@example.com&amp;first_name=Jason&amp;last_name=Example</p>
+
+<p>The JSONP document will be returned, encapsulated by the callback function name:</p>
+
+<pre><code>        mycustomcallback({
+           &quot;email&quot; : &quot;test@example.com&quot;,
+           &quot;status&quot; : 1,                
+           &quot;list&quot; : &quot;mylist&quot;         
+           [ ... ]
+        });</code></pre>
+
+<p>When calling via JSONP, the <code>Content-Type</code> will be send back as, <code>application/javascript</code>, rather than, <code>application/json</code></p>
+
+<h2 id="Example-Implementations">Example Implementations</h2>
+
+<h3 id="JavaScript-jQuery">JavaScript/jQuery</h3>
+
+<p>The following is a bare-bones example on how to use the JSONP API to send a subscription request using jQuery - but it still supports custom redirects, as well as any needed redirects for additional user input:</p>
+
+<pre><code>        $.ajax({
+                url: &#39;http://example.com/cgi-bin/dada/mail.cgi/json/subscribe&#39;,
+                type: &quot;GET&quot;,
+                dataType: &quot;jsonp&quot;,
+                cache: false,
+                data: {
+                _method: &#39;GET&#39;, 
+                        list:  &#39;mylist&#39;,
+                        email: &#39;test@example.com&#39;,
+                        first_name: &#39;Jason&#39;, 
+                        last_name: &#39;Example&#39;
+                },
+            contentType: &quot;application/json; charset=UTF-8&quot;,
+                success: function(data) {
+                        console.log(&#39;data:&#39; + JSON.stringify(data)); 
+                        var html = &#39;&#39;; 
+                        if(data.status === 0){                                                                                          
+                                $.each(data.errors, function(index, value) {
+                                        console.log(index + &#39;: &#39; + value);
+                                });
+                                $.each(data.error_descriptions, function(index, value) {
+                                        html += value;
+                                });
+                        }
+                        else { 
+                                html += data.success_message;
+                        }
+                        if(typeof data.redirect_required === &#39;undefined&#39;) {
+                                if(data.redirect.using === 1) {
+                                        if(data.redirect.using_with_query === 1){ 
+                                                window.location.href = data.redirect.url + &#39;?&#39; + data.redirect.query; 
+                                        }
+                                        else { 
+                                                window.location.href = data.redirect.url;
+                                        }
+                                }
+                                else { 
+                                                /* Display &quot;html&quot; */
+                                        }); 
+                                }
+                        }
+                        else { 
+                                /* Success, or Error: it may not be something we can work with: */
+                                //alert(data.redirect_required); 
+                                window.location.href = data.redirect.url;
+                        }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                        console.log(&#39;status: &#39; + xhr.status);
+                        console.log(&#39;thrownError:&#39; + thrownError);
+                        /* Uh oh... */
+                }
+        }); </code></pre>
+
+<h3 id="Perl">Perl</h3>
+
+<p>The following is a bare-bones example on how to use the JSON API to send a subscription request, using Perl:</p>
+
+<pre><code>        #!/usr/bin/perl 
+        
+        use JSON;
+        use HTTP::Request;
+        use HTTP::Request::Common;
+        use LWP::UserAgent;
+        use Data::Dumper;
+        
+        my $ua = LWP::UserAgent-&gt;new;
+        
+        my $json = JSON-&gt;new-&gt;allow_nonref;
+        my $data = $json-&gt;utf8-&gt;encode(
+            {
+                list  =&gt; &#39;mylist&#39;,
+                email =&gt; &#39;test@example.com&#39;,
+            }
+        );
+        
+        my $response = $ua-&gt;request(
+            POST &#39;http://example.com/cgi-bin/dada/mail.cgi/json/subscribe&#39;,
+            &#39;Content-Type&#39; =&gt; &#39;application/json&#39;,
+            Content        =&gt; $data
+        );
+        
+        if ( $response-&gt;is_success ) {
+        
+            my $r = $json-&gt;utf8-&gt;decode( $response-&gt;decoded_content );
+                
+            print Dumper($r);
+                
+            if ( $r-&gt;{status} == 1 ) {
+                print &quot;Success!\n&quot;;
+            }
+            else {
+                print &quot;Problems!\n&quot;;
+            }
+        }
+        else {
+            die $response-&gt;decoded_content;
+        }</code></pre>
+
+<h3 id="PHP">PHP</h3>
+
+<p>If you can, please contribute an example!</p>
+
+<h3 id="Python">Python</h3>
+
+<p>If you can, please contribute an example!</p>
+
+<h3 id="Ruby">Ruby</h3>
+
+<p>If you can, please contribute an example!</p>
+
+<h2 id="jQuery-Plugin">jQuery Plugin</h2>
+
+<p>Dada Mail comes with a jQuery Plugin, that can be used to create a subscription form on a webpage, handle the request and show the results in a modal window, only redirecting the user if additional steps are required. The plugin uses the RESTful API, described above.</p>
+
+<p>To use the jQuery plugin, you&#39;ll first need to load the plugin&#39;s .js file, along with other .js files it requires, in the head of your document:</p>
+
+<pre><code>        &lt;script src=&quot;http://example.com/dada_mail_support_files/static/javascripts/jquery-1.8.2.min.js&quot;&gt;&lt;/script&gt;
+        
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;http://example.com/dada_mail_support_files/static/css/colorbox/colorbox.css&quot;&gt;
+        &lt;script src=&quot;http://example.com/dada_mail_support_files/static/javascripts/colorbox/jquery.colorbox-min.js&quot;&gt;&lt;/script&gt;
+        
+        &lt;script src=&quot;http://example.com/dada_mail_support_files/static/javascripts/jquery.dadamail.js&quot;&gt;&lt;/script&gt;</code></pre>
+
+<p><b>jquery.dadamail.js</b> is the jQuery plugin itself, but it does require <b>jQuery</b> to be loaded (in our case, it&#39;s called, <b>jquery-1.8.2.min.js</b>), as well the Colorbox jQuery plugin (<a href="http://www.jacklmoore.com/colorbox/">http://www.jacklmoore.com/colorbox/</a>).</p>
+
+<p>All these are bundled with Dada Mail, but you may use your own copies, if you&#39;d like. To change the design of the modal window that pops up, you&#39;ll want to work with Colorbox&#39;s own .css file.</p>
+
+<p>The jQuery plugin has two &quot;methods&quot; you may use.</p>
+
+<h2 id="CreateSubscribeForm">CreateSubscribeForm</h2>
+
+<pre><code>        $(document).ready(function() {
+        
+                var targetDiv = &#39;#mydiv&#39;;
+        
+                /* Initialize: */
+                $(targetDiv).DadaMail(
+                        {
+                                DadaMailURL: &#39;http://example.com/cgi-bin/dada/mail.cgi&#39;, 
+                                list: &#39;yourlist&#39;, 
+                                modal: 1
+                        }
+                )
+        
+                /* Create the form: */
+                $(targetDiv).DadaMail(&#39;CreateSubscribeForm&#39;);
+                
+        }); </code></pre>
+
+<p><b>CreateSubscribeForm</b> will place a subscription form in a div with the id of, <b>mydiv</b></p>
+
+<h3 id="Initialization-Paramaters">Initialization Paramaters</h3>
+
+<p>To work correctly you&#39;ll need to pass the following paramaters:</p>
+
+<ul>
+
+<li><p>DadaMailURL</p>
+
+<p><b>DadaMailURL</b> should hold the URL to your Dada Mail</p>
+
+</li>
+</ul>
+
+<p>Optionally, the following paramaters may also be passed:</p>
+
+<ul>
+
+<li><p>list</p>
+
+<p><b>list</b> should hold a list short name of the list you want your subscription form to be for. If no <b>list</b> parameter is passed, the subscripton form made will have a dropdown widget to allow your user to select which mailing list they would like to subscribe to.</p>
+
+</li>
+<li><p>modal</p>
+
+<p><b>modal</b> (default: <code>1</code>) allows you to set if the results of requests submitted from the form are shown in a modal window, or if results are shown in the entire browser window, by redirecting directly to Dada Mail.</p>
+
+<p>To show in the modal window, <b>modal</b> should be set to, <code>1</code>, to redirect, <b>modal</b> should be set to, <code>0</code></p>
+
+</li>
+</ul>
+
+<h2 id="Modal">Modal</h2>
+
+<p>The <b>Modal</b> method will allow you to have a Dada Mail subscription form <i>already present on your webpage</i> controlled by this plugin:</p>
+
+<p><b>JavaScript:</b></p>
+
+<pre><code>        $(document).ready(function() {
+        
+                var targetDiv = &#39;#mydiv&#39;;
+                
+                /* Initialize: */
+                $(targetDiv).DadaMail(
+                        {
+                                targetForm: &#39;myForm&#39;
+                        }       
+                );
+                
+                /* Control the form: */
+                $(targetDiv).DadaMail(&#39;Modal&#39;);
+                
+        });</code></pre>
+
+<p><b>Your Subscription Form:</b></p>
+
+<pre><code>        &lt;div id=&quot;mydiv&quot;&gt;
+                &lt;form action=&quot;http://example.com/cgi-bin/dada/mail.cgi&quot;  id=&quot;myForm&quot;&gt;
+                        &lt;input type=&quot;hidden&quot; name=&quot;flavor&quot; value=&quot;subscribe&quot; /&gt;
+                        &lt;input type=&quot;hidden&quot; name=&quot;list&quot; value=&quot;mylist&quot; /&gt;
+                        &lt;input type=&quot;text&quot; name=&quot;email&quot; value=&quot;&quot; /&gt;
+                        &lt;input type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+                &lt;/form&gt;
+        &lt;/div&gt;</code></pre>
+
+<p>The subscription form with the id of, &quot;myForm&quot; will now show its results in a modal window. This method only has one, required paramater:</p>
+
+<ul>
+
+<li><p>targetForm</p>
+
+<p>This should hold the id of the form you would like this plugin to control.</p>
+
+</li>
+</ul>
+
+<p>The subscription form itself needs to have the following form fields, which are the same form fields used for any Dada Mail mailing list subscription form:</p>
+
+<ul>
+
+<li><p>flavor</p>
+
+<p>Set to, <code>subscribe</code></p>
+
+</li>
+<li><p>list</p>
+
+<p><b>list</b> holds the <b>list short name</b> of the mailing list you want to subscribe to</p>
+
+</li>
+<li><p>email</p>
+
+<p><b>email</b> is the form field used by your user, to type in their email address in.</p>
+
+</li>
+</ul>
+
+<p>The <b>action</b> of the form also should be the URL to your Dada Mail (<code>http://example.com/cgi-bin/dada/mail.cgi</code>). If done correctly, the form alone should make a successful request to your Dada Mail install, thus working even if JavaScript has been disabled.</p>
+
+<h3 id="Shared-Optional-Paramaters">Shared Optional Paramaters</h3>
+
+<p>Both these two methods may pass these optional paramaters during initialization:</p>
+
+<ul>
+
+<li><p>mode</p>
+
+<p><b>mode</b> may be set to either, <code>json</code> to send a json request, or <code>jsonp</code> to send a jsonp request. By default, this paramater is set to, <code>jsonp</code>.</p>
+
+<p>jsonp will need to be used when you want to use a subscription for across different domains.</p>
+
+</li>
+<li><p>LoadingMessage</p>
+
+<p><b>LoadingMessage</b> holds HTML text, that&#39;s then shown as a, &quot;loading...&quot; message, while the request is sent to Dada Mail.</p>
+
+</li>
+<li><p>LoadingError</p>
+
+<p><b>LoadingError</b> holds HTML text, that&#39;s then shown if there&#39;s a communication problem with Dada Mail.</p>
+
+</li>
+</ul>
+
+<h2 id="Perl-API">Perl API</h2>
+
+<p>You may use Dada Mail&#39;s own modules in your own app, see:</p>
+
+<p><a href="http://dadamailproject.com/d/App_Subscriptions.pm.html">http://dadamailproject.com/d/App_Subscriptions.pm.html</a></p>
+
+<h2 id="Command-Line-Utility---subscribe_email.pl">Command Line Utility - subscribe_email.pl</h2>
+
+<p>Find a copy of <code>subscribe_email.pl</code> in the Dada Mail distro at:</p>
+
+<p><code>dada/extras/scripts/subscribe/subscribe_email.pl</code></p>
+
+<h3 id="Arguments">Arguments</h3>
+
+<p>Run <code>subscribe_email.pl</code> as a shell script, like this:</p>
+
+<pre><code> prompt&gt;perl ./subscribe_email.pl --list mylist --email user@example.com </code></pre>
+
+<p><code>--list</code> should hold the listshortname of the list you want to subscribe to.</p>
+
+<p><code>--email</code> should hold the email address you want to subscribe.</p>
+
+<p><code>--verbose</code> is optional. If set to, <code>1</code>, you will get a small report on the request.</p>
+
+<p>You can also pass Profile Fields for the subscriber, just use the, <code>-fields</code> parameter:</p>
+
+<pre><code> prompt&gt;perl ./subscribe_email.pl --list mylist --email user@example.com ---fields first_name=John --fields last_name=Doe</code></pre>
+
+<p><code>subscribe_email.pl</code> can also be called from within another script using something like Perl&#39;s, <code>exec</code> function.</p>
+
+<h3 id="PHP-Example">PHP Example</h3>
+
+<p>Here&#39;s an example for a php script, that uses php&#39;s <code>shell_exec</code> function (make sure to change the permissions of <code>subscribe_email.pl</code> to, <code>755</code>):</p>
+
+<pre><code>        &lt;?php
+                var $email = &#39;user@example.com&#39;; 
+                var $list  = &#39;mylist&#39;; 
+                shell_exec(&quot;/home1/zazarazz/public_html/dadamail/extras/scripts/subscribe/subscribe_email.pl --list $list --email $email&quot;);
+        ?&gt;</code></pre>
+
+<p>To make things easier <i>while testing</i>, you may wish to disable Dada Mail&#39;s feature of limiting Subscription Confirmations. This feature disallows someone to continually attempt to subscribe the same email address. In testing, this may be exactly what you&#39;d like to do.</p>
+
+<p>In, <i>Your Mailing List - Options</i></p>
+
+<p>Uncheck the option, <i>Limit Subscription Confirmation Sending</i>. Once done testing, you may want to re-enable this option.</p>
+
+<pre><code> Limit Subscription Confirmation Sending </code></pre>
+
+<h3 id="Other-examples">Other examples</h3>
+
+<h4 id="FormMail-Integration">FormMail Integration</h4>
+
+<p>See the sourcecode to FormMail to see how we integrated Dada Mail subscription capabilities in this simple form handler:</p>
+
+<p>http://dadamailproject.com/d/Dada-ized_FormMail_README.pod.html</p>
+
+<h4 id="TFmail-Integration">TFmail Integration</h4>
+
+<p>See the sourcecode to TFmail to see how we integrated Dada Mail subscription capabilities in this simple form handler:</p>
+
+<p>http://dadamailproject.com/d/Dada-ized_TFMail_README.pod.html</p>
+
+
+</body>
+
+</html>
+
+

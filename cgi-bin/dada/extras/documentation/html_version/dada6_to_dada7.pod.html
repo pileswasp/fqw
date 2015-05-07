@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Dada Mail 6.x to Dada Mail 7.x Guide</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Dada-Mail-5-to-Dada-Mail-6-Upgrade-Guide">Dada Mail 5 to Dada Mail 6 Upgrade Guide</a>
+    <ul>
+      <li><a href="#PlainText-Backend---DEPRECATED">PlainText Backend - DEPRECATED</a></li>
+      <li><a href="#Database-Schema">Database Schema</a></li>
+      <li><a href="#Template-Changes">Template Changes</a></li>
+      <li><a href="#Oldstyle-Template-Tag-Support:-Dropped">Oldstyle Template Tag Support: Dropped</a></li>
+      <li><a href="#Config.pm-default-variables-of-email-messages-have-been-removed-templated-out">Config.pm default variables of email messages have been removed, templated out</a></li>
+      <li><a href="#New-Deprecated-Plugins-Extensions">New Deprecated Plugins/Extensions</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Dada-Mail-5-to-Dada-Mail-6-Upgrade-Guide">Dada Mail 5 to Dada Mail 6 Upgrade Guide</h1>
+
+<h2 id="PlainText-Backend---DEPRECATED">PlainText Backend - DEPRECATED</h2>
+
+<p>The stable release of v7.0.0 has the PlainText backend marked as DEPRECATED and will be fully removed at a later date.</p>
+
+<p>This will help make the app more streamlined by removing a good chunk of the codebase that&#39;s rarely used. Most new features of Dada Mail cannot be utilized when using the PlainText backend anyways, which leads to confusion with users, as well as complicating the codebase, as checks have to make on what exactly the backend supports.</p>
+
+<h2 id="Database-Schema">Database Schema</h2>
+
+<p>Small changes have been made to the database schema, from v6 to v7, all of which should be changed by Dada Mail, on the first run, after an installation. The following should describe these changes, if you would like to apply them maually (always make a backup)</p>
+
+<p>The <code>dada_subscribers</code> table has a new <code>timestamp</code> column.</p>
+
+<p>MySQL/PostgreSQL:</p>
+
+<pre><code>    ALTER TABLE dada_subscribers ADD timestamp TIMESTAMP DEFAULT NOW();</code></pre>
+
+<p>SQLIte:</p>
+
+<pre><code>    ALTER TABLE dada_subscribers ADD timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP&#39;;</code></pre>
+
+<p>The <code>dada_profile_fields_attributes</code> table has a new, <code>required</code> column:</p>
+
+<pre><code>    ALTER TABLE dada_profile_fields_attributes ADD required char(1) DEFAULT 0 NOT NULL</code></pre>
+
+<h2 id="Template-Changes">Template Changes</h2>
+
+<h2 id="Oldstyle-Template-Tag-Support:-Dropped">Oldstyle Template Tag Support: Dropped</h2>
+
+<p>Oldstyle template tags looked like this:</p>
+
+<pre><code>    [tag]
+    </code></pre>
+
+<p>Support for this style has been dropped. Please use any style that&#39;s supported by <code>HTML::Template</code> (the underlying template engine used by Dada Mail), like htis:</p>
+
+<pre><code>    &lt;!-- tmpl_var tag --&gt;
+    
+    HTML that can be edited in the B&lt;Appearance and Templates &gt;&gt; HTML Screen Templates&gt; list control panel had their default values stored in the Config.pm file. 
+
+    This hinders customization and internationalization, testing, as well as adding extra bulk to the already-too large Config.pm file. The values of these variables have now been templated out into their own files                        located in the, I&lt;dada/templates/list&gt; directory</code></pre>
+
+<h2 id="Config.pm-default-variables-of-email-messages-have-been-removed-templated-out">Config.pm default variables of email messages have been removed, templated out</h2>
+
+<p>Email messages, that can be edited in the, <b>Appearance and Templates </b>&gt; Email Message Templates&gt; screen (as well as other email messages, that can be customized in various other places) had their default values stored in the Config.pm file.</p>
+
+<p>This hinders customization and internationalization, testing, as well as adding extra bulk to the already-too large Config.pm file. The values of these variables have now been templated out into their own files located in the, <i>dada/templates/email</i> directory.</p>
+
+<p>The removal of these variables (as well as HTML screens) has removed over 1,100 lines from the Config.pm file.</p>
+
+<h2 id="New-Deprecated-Plugins-Extensions">New Deprecated Plugins/Extensions</h2>
+
+<p>None!</p>
+
+<p>Even Beatitude (Scheduled Mailer) will still be around for v7.0.0, and should be able to support the new partial mailing list features (timestamp date range!) Beatitude is still listed as <b>deprecated</b>, but will not be removed (or rewritten), until its features (or similar) are available in another form.</p>
+
+
+</body>
+
+</html>
+
+

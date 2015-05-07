@@ -1,0 +1,331 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Profiles</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Dada-Mail-Profiles">Dada Mail Profiles</a>
+    <ul>
+      <li><a href="#Logging-into-a-Dada-Mail-Profile">Logging into a Dada Mail Profile</a></li>
+      <li><a href="#List-Administration-and-New-Options-with-Dada-Mail-Profiles">List Administration and New Options with Dada Mail Profiles</a></li>
+      <li><a href="#Subscriber-only-Archiving-Access">Subscriber-only Archiving Access</a></li>
+      <li><a href="#Skip-List-Subscription-Confirmation">Skip List Subscription Confirmation</a></li>
+      <li><a href="#Configurating-and-Customizing-Profiles">Configurating and Customizing Profiles</a></li>
+      <li><a href="#PROFILE_OPTIONS">$PROFILE_OPTIONS</a>
+        <ul>
+          <li><a href="#enabled">enabled</a></li>
+          <li><a href="#profile_email">profile_email</a></li>
+          <li><a href="#enable_captcha">enable_captcha</a></li>
+          <li><a href="#enable_magic_subscription_forms">enable_magic_subscription_forms</a></li>
+          <li><a href="#update_email_options">update_email_options</a>
+            <ul>
+              <li><a href="#send_notification_to_profile_email">send_notification_to_profile_email</a></li>
+              <li><a href="#subscription_check_skip">subscription_check_skip</a></li>
+            </ul>
+          </li>
+          <li><a href="#features">features</a></li>
+          <li><a href="#gravatar_options">gravatar_options</a></li>
+          <li><a href="#cookie_params">cookie_params</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Dada-Mail-Profiles">Dada Mail Profiles</h1>
+
+<p>Dada Mail Profiles allows your Dada Mail users to see an overview and work with all their various mailing list subscriptions.</p>
+
+<p>Profiles allow your users to:</p>
+
+<ul>
+
+<li><p>Keep their Profile Fields fresh</p>
+
+</li>
+<li><p>Update their Profile, as well as all their Mailing List Subscriptions</p>
+
+</li>
+<li><p>Access Subscriber-Only Mailing List Archives</p>
+
+</li>
+<li><p>Bypass Mailing List subscription confirmations</p>
+
+</li>
+<li><p>Access Password Protect Directories</p>
+
+<p>Password Protect Directories can be set up using the following plugin:</p>
+
+<p><a href="http://dadamailproject.com/d/password_protect_directories.cgi.html">http://dadamailproject.com/d/password_protect_directories.cgi.html</a></p>
+
+</li>
+</ul>
+
+<h2 id="Logging-into-a-Dada-Mail-Profile">Logging into a Dada Mail Profile</h2>
+
+<p>Your users can log into their Profile, by clicking the, <b>[Profile Register/Log In] </b> link, on the top right of most screens of Dada Mail.</p>
+
+<p>From the Profile login screen, your users may log into their existing Profile, register a new Profile, or have their Profile password reset.</p>
+
+<p>Profiles are created automatically, when a user subscribes themselves to any Dada Mail mailing list and their new Profile login information will be sent to them in the, &quot;Subscribed&quot; email message that&#39;s sent to them, after a successful subscription.</p>
+
+<p>Once logged in, your users can:</p>
+
+<ul>
+
+<li><p>Update their Profile Fields</p>
+
+</li>
+<li><p>View their Your Mailing List Subscriptions</p>
+
+<p>This section also always your users to interact with the mailing list: view archives, unsubscribe from the list, post to the list (if it is a discussion list). Any Password Protect Directories (set up with the Password Protect plugin) will also be available here.</p>
+
+</li>
+<li><p>Update their Profile email address</p>
+
+<p>Updating this address will also update all the subscriptions they currently have, for each mailing list they&#39;re subscribed to.</p>
+
+</li>
+<li><p>Change their Profile password</p>
+
+</li>
+<li><p>Delete their Profile</p>
+
+<p>Deleting a Profile will not terminate the user from any of their current mailing list subscriptions.</p>
+
+</li>
+</ul>
+
+<p>Once logged in, your users can also navigate through Dada Mail and view their logged in status at the upper right hand side of the screen.</p>
+
+<p>All subscription forms in Dada Mail will be pre-filled out with the user&#39;s email address and the Subscriber Profile form fields will be hidden (so as not to have the user have to re-type the same information twice)</p>
+
+<h2 id="List-Administration-and-New-Options-with-Dada-Mail-Profiles">List Administration and New Options with Dada Mail Profiles</h2>
+
+<p>Since users can now log into Dada Mail, several options are now available for the List Owner.</p>
+
+<h2 id="Subscriber-only-Archiving-Access">Subscriber-only Archiving Access</h2>
+
+<p>List Owners can opt to have access to archived messages only available to logged in subscribers to their mailing list.</p>
+
+<h2 id="Skip-List-Subscription-Confirmation">Skip List Subscription Confirmation</h2>
+
+<p>List owners can also opt to have the first step of the closed-loop opt-in system skipped for logged in users, as their email address has already been verified.</p>
+
+<h2 id="Configurating-and-Customizing-Profiles">Configurating and Customizing Profiles</h2>
+
+<p>Dada Mail Profile options can be globally configured in your <code>.dada_config</code> file. If you used the Dada Mail Installer to install Dada Mail, the necessary lines in your <code>.dada_config</code> should already be present. They should look similar to this:</p>
+
+<p>$PROFILE_OPTIONS = {</p>
+
+<pre><code>        enabled                         =&gt; 1, 
+        profile_email                   =&gt; &#39;&#39;, 
+        enable_captcha                  =&gt; 1, 
+        enable_magic_subscription_forms =&gt; 1, 
+        
+        update_email_options            =&gt; 
+        { 
+                send_notification_to_profile_email =&gt; 0, 
+                subscription_check_skip            =&gt; &#39;auto&#39;, 
+                
+        },
+                
+        gravatar_options =&gt; 
+        {
+                enable_gravators     =&gt; 1, 
+                default_gravatar_url =&gt; undef,
+        },
+        
+        features =&gt; 
+        { 
+                help                        =&gt; 1,
+                login                       =&gt; 1, 
+                register                    =&gt; 1, 
+                password_reset              =&gt; 1, 
+                profile_fields              =&gt; 1, 
+                mailing_list_subscriptions  =&gt; 1, 
+                protected_directories       =&gt; 1, 
+                update_email_address        =&gt; 1, 
+                change_password             =&gt; 1, 
+                delete_profile              =&gt; 1, 
+        },                                 
+        cookie_params =&gt;
+        { 
+                -name    =&gt; &#39;dada_profile&#39;,  
+            -path    =&gt; &#39;/&#39;,
+            -expires =&gt; &#39;+1y&#39;,          
+        },</code></pre>
+
+<p>};</p>
+
+<p><i>(if these lines are not present, you may paste them into your .dada_config file)</i></p>
+
+<h2 id="PROFILE_OPTIONS">$PROFILE_OPTIONS</h2>
+
+<p>The following describes the various parameters and options available to you, for configurating Profiles. Nothing needs to be done for Profiles to work - they&#39;re enabled by default - just make sure that you are running Dada Mail with one of the <b>SQL Backends</b>.</p>
+
+<h3 id="enabled">enabled</h3>
+
+<p>Sets whether profiles are enabled, or not. Set to, <code>1</code> to enable, set to <code>0</code> to disable.</p>
+
+<h3 id="profile_email">profile_email</h3>
+
+<p>When a registration email or reset password email goes out, it&#39;ll go out on behalf of this email address. We highly encourage you to fill out this variable, or these email messages may not be sent out correctly. Example:</p>
+
+<pre><code> profile_email =&gt; &#39;me@mydomain.com&#39;, </code></pre>
+
+<p>a little more fancy:</p>
+
+<pre><code> profile_email =&gt; &#39;&quot;My First and Last Name!&quot; &lt;me@mydomain.com&gt;&#39;, </code></pre>
+
+<p>You may set two email addresses:</p>
+
+<pre><code> profile_email =&gt; &#39;&quot;My First and Last Name!&quot; &lt;me@mydomain.com&gt;, &quot;Another User&quot; &lt;someone.else@example.com&gt;&#39;, </code></pre>
+
+<p>Although the <code>From:</code> header that goes out will only hold <b>one</b> email address.</p>
+
+<p>If Profiles are enabled and this variable is left blank, the list owner email address of one of your mailing lists will be used, instead.</p>
+
+<h3 id="enable_captcha">enable_captcha</h3>
+
+<p>Registration for Dada Mail Profiles can be verified along with a CAPTCHA. We recommend this feature, if it&#39;s available. Set this variable to, <code>1</code> to enable CAPTCHA in the registration form.</p>
+
+<h3 id="enable_magic_subscription_forms">enable_magic_subscription_forms</h3>
+
+<p><b>Magic</b> subscription forms are pre-filled out with the subscriber&#39;s email address, if they&#39;re logged into Dada Mail. To enable this feature, set this variable to, <code>1</code></p>
+
+<h3 id="update_email_options">update_email_options</h3>
+
+<p>These options come into play if users use the option to update their Dada Mail Profile email address. This will also update the email address used for their mailing list subscriptions.</p>
+
+<h4 id="send_notification_to_profile_email">send_notification_to_profile_email</h4>
+
+<p>If set to, <code>1</code>, a notification email address about the Profile email address change will be set to whomever is set in the, <code>profile_email</code> variable. If more than one address is set in this variable, it will be addressed to all the email addresses.</p>
+
+<h4 id="subscription_check_skip">subscription_check_skip</h4>
+
+<p>This variable requires a little explanation:</p>
+
+<p>When a user attempts to change their Dada Mail Profile email address, this new email address will first be validated by Dada Mail to make sure that it&#39;s not already on your mailing list, isn&#39;t black listed, things like that. To make customization easier, you may skip certain checks. By default, the following checks are skipped:</p>
+
+<ul>
+
+<li><p>closed_list</p>
+
+<p>The mailing list is closed to new subscribers</p>
+
+</li>
+<li><p>over_subscription_quota</p>
+
+<p>The mailing list is over any subscription quota sent</p>
+
+</li>
+<li><p>already_sent_sub_confirmation</p>
+
+<p>The mailing list had already sent a subscription confirmation email to the new address.</p>
+
+</li>
+<li><p>no_list</p>
+
+<p>The list doesn&#39;t actually exist!</p>
+
+</li>
+</ul>
+
+<p>A complete listing of what checks are done (and what may be skipped) may be found at:</p>
+
+<p><a href="http://dadamailproject.com/d/MailingList_Subscribers.pm.html#subscription_check">http://dadamailproject.com/d/MailingList_Subscribers.pm.html#subscription_check</a></p>
+
+<p>To set your own list of checks to skip, you may change the, <code>subscription_check_skip</code> setting to an array ref holding the checks to skip. For example:</p>
+
+<pre><code>                        subscription_check_skip            =&gt; [qw(
+                                closed_list
+                                over_subscription_quota
+                                already_sent_sub_confirmation
+                                no_list
+                                invite_only_list
+                                
+                        )],</code></pre>
+
+<p>In this example, we added the, <code>invite_only_list</code> test to the default tests to also be skipped. We do that so that if we have a <b>Invitation Only</b> list, we can still allow our subscription to change their email address.</p>
+
+<p>By default, this setting is set simply to, <code>auto</code>, which will tell Dada Mail to use the default set of tests to skip. <code>auto</code> is a special setting and no other string setting will work - you&#39;ll need to use the arrayref style as shown above.</p>
+
+<h3 id="features">features</h3>
+
+<p><code>feature</code> holds parameters representing most of the major user-facing features of Profiles. Setting the parameter to, <code>1</code> will enable the features, <code>0</code> to disable the feature.</p>
+
+<ul>
+
+<li><p>help</p>
+
+<p><code>help</code> allows you to show/hide the, <b>What are Dada Mail Profiles?</b> link and screen. <code>1</code> to enable, <code>0</code> to disable.</p>
+
+</li>
+<li><p>login</p>
+
+<p><code>login</code> allows your users to log into their Profile. Disabling this feature will basically disable much of Profiles, so be careful when disabling.</p>
+
+</li>
+<li><p>register</p>
+
+<p><code>register</code> controls whether a new user may register to a new Dada Mail Profile. If disabled, a user may still register by subscribing to a new mailing list, or by a List Owner editing their Profile, or change their Profile password in the List Control Panel, if logged in with the Dada Mail Root Password.</p>
+
+</li>
+<li><p>password_reset</p>
+
+<p><code>password_reset</code> controls whether the, <b>Forgot Your Profile Password?</b> form is shown, or not. If it&#39;s not shown, a user&#39;s Profile password may still be reset by a List Owner, if logged in with the Dada Mail Root Password.</p>
+
+</li>
+<li><p>profile_fields</p>
+
+<p><code>profile_fields</code> controls whether the user may edit their own Profile Fields in their own Profile (once logged in). If disabled, a user&#39;s Profile Fields can still be edited by a List Owner, if logged in with the Dada Mail Root Password.</p>
+
+</li>
+<li><p>mailing_list_subscriptions</p>
+
+<p><code>mailing_list_subscriptions</code> controls whether the, <b>Your Mailing List Subscriptions</b> section is visible to your user in their Profile (once logged in).</p>
+
+</li>
+<li><p>protected_directories</p>
+
+<p><code>protected_directories</code> controls whether The, <b>Password Protect Directories</b> section is visible to your user in their Profile (once logged in). If disabled, Protected Directories will <b>still be available</b> if any are set up, just not listed in the user&#39;s Profile.</p>
+
+</li>
+<li><p>update_email_address</p>
+
+<p><code>update_email_address</code> controls whether the, <b>Update Your Profile Email Address </b> section is visible to your user in their Profile (once logged in). If disabled, a user&#39;s Profile password can still be edited by a List Owner, if logged in with the Dada Mail Root Password.</p>
+
+</li>
+<li><p>delete_profile</p>
+
+<p><code>delete_profile</code> control whether the, <b>Delete This Profile</b> section is visible to your user in their Profile (once logged in).</p>
+
+</li>
+</ul>
+
+<h3 id="gravatar_options">gravatar_options</h3>
+
+<p>Gravatars can also be enabled for Dada Mail Profiles. More information:</p>
+
+<p><a href="http://gravatar.com/">http://gravatar.com/</a></p>
+
+<h3 id="cookie_params">cookie_params</h3>
+
+<p>This variable holds a few options to change the behavior of the session management cookie for Dada Mail Profiles.</p>
+
+
+</body>
+
+</html>
+
+

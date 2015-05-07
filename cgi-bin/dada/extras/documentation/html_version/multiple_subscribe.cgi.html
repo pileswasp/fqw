@@ -1,0 +1,138 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Multiple Subscribe Script</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME-Multiple-Subscribe">NAME Multiple Subscribe</a></li>
+  <li><a href="#Description">Description</a></li>
+  <li><a href="#Obtaining-The-Extension">Obtaining The Extension</a></li>
+  <li><a href="#Installation">Installation</a></li>
+  <li><a href="#Manual-Installation">Manual Installation</a>
+    <ul>
+      <li><a href="#Change-the-permissions-of-the-multiple_subscribe.cgi-script-to-755">#1 Change the permissions of the, multiple_subscribe.cgi script to, &quot;755&quot;</a></li>
+      <li><a href="#Configure-your-outside-config-file-.dada_config">#2 Configure your outside config file (.dada_config)</a></li>
+    </ul>
+  </li>
+  <li><a href="#Making-an-HTML-form">Making an HTML form</a></li>
+  <li><a href="#DEBUGGING">DEBUGGING</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME-Multiple-Subscribe">NAME Multiple Subscribe</h1>
+
+<h1 id="Description">Description</h1>
+
+<p>Multiple Subscribe allows a user to subscribe to multiple mailing lists, at once.</p>
+
+<h1 id="Obtaining-The-Extension">Obtaining The Extension</h1>
+
+<p>Multiple Subscribe is located in the, <i>dada/extensions</i> directory of the Dada Mail distribution, under the name: <code>multiple_subscribe.cgi</code></p>
+
+<h1 id="Installation">Installation</h1>
+
+<p>This extension can be installed during a Dada Mail install/upgrade, using the included installer that comes with Dada Mail. Under, <b>Plugins/Extensions</b>, check, <b>Multiple Subscribe</b>.</p>
+
+<h1 id="Manual-Installation">Manual Installation</h1>
+
+<h2 id="Change-the-permissions-of-the-multiple_subscribe.cgi-script-to-755">#1 Change the permissions of the, multiple_subscribe.cgi script to, &quot;755&quot;</h2>
+
+<p>Find the <code>multiple_subscribe.cgi</code> script in your <i>dada/extensions</i> directory. Change its permissions to, <code>755</code></p>
+
+<h2 id="Configure-your-outside-config-file-.dada_config">#2 Configure your outside config file (.dada_config)</h2>
+
+<p>You&#39;ll most likely want to edit your outside config file (<code>.dada_config</code>) so that it shows Multiple Subscribe in the left-hand menu, under the, <b>Extensions</b> heading.</p>
+
+<p>First, see if the following lines are present in your <code>.dada_config</code> file:</p>
+
+<pre><code> # start cut for list control panel menu
+ =cut
+
+ =cut
+ # end cut for list control panel menu</code></pre>
+
+<p>If they are, remove them.</p>
+
+<p>Then, find these lines:</p>
+
+<pre><code>        #                                       {
+        #                                       -Title      =&gt; &#39;Multiple Subscribe&#39;,
+        #                                       -Title_URL  =&gt; $EXT_URL.&quot;/multiple_subscribe.cgi&quot;,
+        #                                       -Function   =&gt; &#39;multiple_subscribe&#39;,
+        #                                       -Activated  =&gt; 1,
+        #                                       },</code></pre>
+
+<p>Uncomment the lines, by taking off the, &quot;#&quot;&#39;s:</p>
+
+<pre><code>                                                {
+                                                -Title      =&gt; &#39;Multiple Subscribe&#39;,
+                                                -Title_URL  =&gt; $EXT_URL.&quot;/multiple_subscribe.cgi&quot;,
+                                                -Function   =&gt; &#39;multiple_subscribe&#39;,
+                                                -Activated  =&gt; 1,
+                                                },</code></pre>
+
+<p>Save your <code>.dada_config</code> file.</p>
+
+<p>You can now log into your List Control Panel and under the, <b>Extensions</b> heading you should now see a link entitled, &quot;Multiple Subscribe&quot;. Clicking that link will take you to this extension.</p>
+
+<h1 id="Making-an-HTML-form">Making an HTML form</h1>
+
+<p>This script takes three different arguments; <b>list</b>, <b>s</b> and <b>email</b>. You will have to make an HTML form that will supply this script with these three arguments:</p>
+
+<pre><code>        &lt;form action=&quot;http://example.com/cgi-bin/dada/extensions/multiple_subscribe.cgi&quot; method=&quot;post&quot;&gt; 
+         &lt;p&gt;Lists:&lt;/p&gt; 
+          &lt;input type=&quot;checkbox&quot; name=&quot;list&quot; value=&quot;first_list&quot; /&gt; My first list&lt;br/&gt;
+          &lt;input type=&quot;checkbox&quot; name=&quot;list&quot; value=&quot;second_list&quot; /&gt; My second list&lt;br/&gt;
+          &lt;input type=&quot;checkbox&quot; name=&quot;list&quot; value=&quot;third_list&quot; /&gt; My third list&lt;br/&gt;
+         &lt;p&gt;Your email:&lt;br /&gt; 
+          &lt;input type=&quot;text&quot; name=&quot;email&quot; /&gt;
+         &lt;/p&gt;
+         &lt;p&gt;
+         &lt;input type=&quot;checkbox&quot; name=&quot;f&quot; value=&quot;s&quot;&gt; Subscribe!&lt;br /&gt; 
+         &lt;/p&gt;
+         &lt;p&gt;
+         &lt;input type=&quot;submit&quot; value=&quot;Subscribe Me&quot; /&gt; 
+         &lt;/p&gt;
+        &lt;/form&gt; </code></pre>
+
+<p>You can also view the source of the initial screen of <code>multiple_subscribe.cgi</code> and copy and paste the form it creates, then make any changes you would like to the HTML source.</p>
+
+<p>This script also takes an optional argument, <b>redirect_url</b> that you may set to any URL where you&#39;d like this script to redirect, once it&#39;s done:</p>
+
+<pre><code>        &lt;input type=&#39;hidden&#39; name=&#39;redirect_url&#39; value=&#39;http://mysite.com/thanks.html&#39;&gt;</code></pre>
+
+<h1 id="DEBUGGING">DEBUGGING</h1>
+
+<p>This script has one variable on top of the script, called <b>$Debug</b>. You may set this variable to &#39;1&#39; to gain a better insight on what exactly is happening behind the curtains.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>To contact info, please see:</p>
+
+<p><a href="http://dadamailproject.com/contact/">http://dadamailproject.com/contact/</a></p>
+
+<p>All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

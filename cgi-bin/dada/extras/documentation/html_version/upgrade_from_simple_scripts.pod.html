@@ -1,0 +1,249 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Upgrade Dada Mail from a Simple Scripts Installation</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Upgrade-Dada-Mail-from-a-Mojo-Marketplace-Simple-Scripts-Installation">Upgrade Dada Mail from a Mojo Marketplace/Simple Scripts Installation</a>
+    <ul>
+      <li><a href="#Before-Going-Forward">Before Going Forward:</a></li>
+      <li><a href="#Installing-Dada-Mail-on-the-Mojo-Marketplace">Installing Dada Mail on the Mojo Marketplace.</a></li>
+      <li><a href="#Upgrading-your-Mojo-Marketplace-to-a-Self-Installed-Dada-Mail-Pro-Dada">Upgrading your Mojo Marketplace to a Self-Installed Dada Mail-Pro Dada</a></li>
+      <li><a href="#Decouple-your-Dada-Mail-install-from-Mojo-Marketplace">Decouple your Dada Mail install from Mojo Marketplace</a></li>
+      <li><a href="#Self-Install-Dada-Mail-Pro-Dada">Self-Install Dada Mail/Pro Dada</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Upgrade-Dada-Mail-from-a-Mojo-Marketplace-Simple-Scripts-Installation">Upgrade Dada Mail from a Mojo Marketplace/Simple Scripts Installation</h1>
+
+<h2 id="Before-Going-Forward">Before Going Forward:</h2>
+
+<p>Simple Scripts/Mojo Marketplace (henceforth, only reffered to as, &quot;<b>Mojo Marketplace</b>&quot;) is a great way to get started with Dada Mail, as their easy installer makes it painless to begin using Dada Mail.</p>
+
+<p>Many people who start with a Mojo Marketplace installation of Dada Mail will then want to upgrade to Pro Dada, which allows them to manage more than three lists, and 1,000 subscribers, per mailing list. Below is the instructions on how to do so. Pro Dada can be purchased here:</p>
+
+<p><a href="http://dadamailproject.com/purchase/pro.html">http://dadamailproject.com/purchase/pro.html</a></p>
+
+<p>Mojo Marketplace has, in its history of offering Dada Mail, sometimes changed the method that they install Dada Mail. Since starting to offer Dada Mail, their installs are less and less different from the install directions we give, and thus, it&#39;s much easier to upgrade.</p>
+
+<p>These docs were written on 7/12/13, and go over installing v6.4.1 of Dada Mail, and upgrading to v6.5.0 of Pro Dada.</p>
+
+<h2 id="Installing-Dada-Mail-on-the-Mojo-Marketplace">Installing Dada Mail on the Mojo Marketplace.</h2>
+
+<p>Before we upgrade, we&#39;re going to quickly go over how we&#39;ve installed Dada Mail, using Mojo Marketplace. This demo is on a cPanel-based hosting account on Bluehost.</p>
+
+<p>Please feel free to skip this section, if you&#39;re familiar with how Mojo Marketplace installs Dada Mail.</p>
+
+<p>First, find the <b>Simple Scripts</b> button in your cPanel,</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/search_for_simple_scripts.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>Click the, <b>Simple Scripts/Mojo Marketplace</b> button to enter the Mojo Marketplace. This should open a new window/tab in your browser.</p>
+
+<p>On the menu at the top, click on the link entitled, <b>Scripts &amp; Platforms</b>,</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/find_scripts_and_platforms.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>When the page has refreshed, click on, <b>Dada Mail</b> (it&#39;s under Mailing Lists).</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/find_dada_mail.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>That&#39;ll popup the modal menu to configure Dada Mail for your account.</p>
+
+<p>Click the button labeled, <b>Start</b>,</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/start_install.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>and when the modal window refreshes, pick a directory to install Dada Mail under. <b>Thankfully</b> this installer will install the full, <b>dada</b> directory under whatever you pick, which makes upgrading to your own install <b>way easy</b>.</p>
+
+<p>I&#39;m going to use the directory, <b>mojomarketplace</b> as my own directory, just to make things obvious. Once you&#39;ve enter in the directory to use, click the button labeled, <b>Check Domain</b>.</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/check_domain.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>If everything checks out, <b>Accept the Terms and Conditions</b>, and click the button labeled, <b>Install Now</b>,</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/install_now.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>The installer takes a few seconds to do its job, but should come back with a screen saying everything&#39;s all set, and allow you to start working with your fancy, new Dada Mail.</p>
+
+<p>All set! And that&#39;s how you install Dada Mail using Mojo Marketplace.</p>
+
+<h2 id="Upgrading-your-Mojo-Marketplace-to-a-Self-Installed-Dada-Mail-Pro-Dada">Upgrading your Mojo Marketplace to a Self-Installed Dada Mail-Pro Dada</h2>
+
+<h2 id="Decouple-your-Dada-Mail-install-from-Mojo-Marketplace">Decouple your Dada Mail install from Mojo Marketplace</h2>
+
+<p>The first step you want to take <b>before</b> upgrading your Mojo Marketplace installation of Dada Mail is to <b>decouple</b> your Dada Mail, from Mojo Marketplace. This is done within the Mojo Marketplace.</p>
+
+<p>Once again, enter into Mojo Marketplace, and click on <b>Scripts and Platforms</b>. Click on the button labeld, <b>View My Installs</b>.</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/view_my_installs.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>The screen should refresh and show all your current Mojo Marketplace installations, including your Dada Mail.</p>
+
+<p>Under Dada Mail, click on the link labeled, <b>Uninstall</b> (as scary as that sounds, this somewhat mislabled link will not uninstall your Dada Mail, when clicked!)</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/click_uninstall_link.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>A modal window will appear, giving you a few, again - slightly confusing options.</p>
+
+<p><b>One</b> of these options is to, <b>remove Dada Mail, from your list of installation applications</b>. This is what we want to do:</p>
+
+<p>Click the button labeled, <b>Remove From List</b> (Option #2), and then confirm this removal.</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/click_remove_from_list_button.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>This option will leave your installation of Dada Mail completely alone, yet stop Mojo Marketplace from administrating it.</p>
+
+<p>Once that&#39;s completed, you can start administrating the intallation of your Dada Mail, yourself.</p>
+
+<h2 id="Self-Install-Dada-Mail-Pro-Dada">Self-Install Dada Mail/Pro Dada</h2>
+
+<p>You&#39;ll want to now find the installation directory used by Simple Script/Mojo Marketplace. In our example, we installed Dada Mail via the Mojo Marketplace at this URL:</p>
+
+<p><a href="http://dadademo.com/mojomarketplace">http://dadademo.com/mojomarketplace</a></p>
+
+<p><b>mojomarketplace</b> is our installation directory. If we peak inside this directory, using an FTP program (Transmit, in this case), or using the File Manager, provided with cPanel, we&#39;ll see that within this diretory is another directory named, <b>dada</b> - and THAT&#39;s Dada Mail, installed on your account.</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/find_dada_directory.jpg" width="719" height="607" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>From here, all we need to do is follow the regular, <b>Upgrade Dada Mail</b> directions,</p>
+
+<p><a href="http://dadamailproject.com/d/upgrade_dada_mail.pod.html">http://dadamailproject.com/d/upgrade_dada_mail.pod.html</a></p>
+
+<p>Here&#39;s the basic steps: <i>(See the full docs if you have more questions)</i></p>
+
+<p><b>Rename the, &quot;dada&quot; Directory:</b> I&#39;m going to rename this directory, <b>dada-6_4_1</b> to reflect what version of Dada Mail was installed by Mojo Marketplace,</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/rename_dada_directory.jpg" width="719" height="607" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p><b>Upload the Dada Mail distro, as well as the, <b>uncompress_dada.cgi</b> helper script,</b></p>
+
+<p>in this example, we&#39;re upgrading to <b>v6.5.0</b> of Pro Dada, so the distro is named, <b>pro_dada-6_5_0.tar.gz</b>. It&#39;s possible there&#39;s already a copy of the <b>uncompress_dada.cgi</b> script in this directory, you&#39;ll still need to put up a specific copy, for this exact version of Pro Dada. Pro Dada copies of the distro and this helper script can be found at the Pro Dada subscribers-only part of the Dada Mail support site:</p>
+
+<p><a href="http://dadamailproject.com/pro_dada">http://dadamailproject.com/pro_dada</a></p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/put_pro_dada_distro.jpg" width="719" height="607" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p><b>Change the permission of the, uncompress_dada.cgi script to, &quot;755&quot;</b>: this allows this script to be executed, and the script itself handles a whole bunch of things for us, so we don&#39;t have to.</p>
+
+<p><b>Visit the, &quot;uncompress_dada.cgi&quot; script in your web browser</b></p>
+
+<p>Since our original install was at:</p>
+
+<p><a href="http://dadademo.com/mojomarketplace">http://dadademo.com/mojomarketplace</a></p>
+
+<p>The address of the fresh copy of the <b>uncompress_dada.cgi</b> would be at:</p>
+
+<p><a href="http://dadademo.com/mojomarketplace/uncompress_dada.cgi">http://dadademo.com/mojomarketplace/uncompress_dada.cgi</a></p>
+
+<p>Simply visit this URL in your web browser to have this script unroll this distro, and set things up. Click on the large link on the bottom to start up the included Dada Mail Installer!</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/click_install_and_configure_dada_mail.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>Once in the installer, you will want to choose, <b>Upgrade</b>, and hopefully, the path to your current <b>.dada_files</b> directory will be filled out. Click on the button labeled, <b>Continue</b> to configure your new copy of Dada Mail/Pro Dada,</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/click_continue.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>What&#39;s fantastic about moving from a Mojo Marketplace installation of Dada Mail and your own self-installed copy of Dada Mail/Pro Dada, is that there&#39;s nothing you will now need to reconfigure - all the values presented to you are just fine! If you&#39;re happy with how everything looks, simple click on the button labeled, <b>Configure Dada Mail/Pro Dada!</b> at the bottom of the screen.</p>
+
+
+
+<p style="text-align:center">
+<img src="http://dadamailproject.com/images/v6_5_0-mojo_marketplace_upgrade/click_configure_pro_dada.jpg" width="800" height="589" style="border:1px solid black" /><br /> 
+<em></em> 
+</p>
+
+<p>Pro Dada has many advanced configuration options above this button that Dada Mail does not have, and which you may want to play around with. A complete walk-through of the many additional, advanced options is covered here:</p>
+
+<p><a href="http://dadamailproject.com/d/install_dada_mail-advanced_configuration.pod.html">http://dadamailproject.com/d/install_dada_mail-advanced_configuration.pod.html</a></p>
+
+<p>Click on the button labeled, <b>Move the, &#39;dada/installer&#39; Directory, Disable the, &#39;install.cgi&#39; script</b>, and then the button labeled, <b>Start working Dada Mail/Pro Dada!</b>.</p>
+
+<p>Once the screen is refreshed, you&#39;ve successfully self-installed your own copy of Dada Mail/Pro Dada, starting with a Mojo Marketplace installation of Pro Dada. Good work!</p>
+
+
+</body>
+
+</html>
+
+

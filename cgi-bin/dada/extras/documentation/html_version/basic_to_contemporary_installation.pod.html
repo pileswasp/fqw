@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Basic Installation to Contemporary Installation Guide</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Basic-Installation-to-a-Contemporary-Installation">Basic Installation to a Contemporary Installation</a>
+    <ul>
+      <li><a href="#Terminology-Changes">Terminology Changes</a></li>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#Find-the-FILES-directory">Find the $FILES directory</a></li>
+      <li><a href="#Install-Dada-Mail">Install Dada Mail</a></li>
+      <li><a href="#Move-Old-Files-over-to-the-New-Directory-Structure">Move Old Files over to the New Directory Structure</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Basic-Installation-to-a-Contemporary-Installation">Basic Installation to a Contemporary Installation</h1>
+
+<h2 id="Terminology-Changes">Terminology Changes</h2>
+
+<p>Since v4.2.0 of Dada Mail, we no longer suggest - or support doing a <b>Basic</b> Installation of Dada Mail.</p>
+
+<p>The, <b>Advanced</b> Installation of Dada Mail is now just known as a, <b>Manual Installation</b> of Dada Mail.</p>
+
+<p>Dada Mail v4.2.0 and above ships with the Dada Mail Installer to help automate the installation and configuration of Dada Mail.</p>
+
+<p>The method that the Dada Mail Installer sets things up will be the same as how our Manual Installation instructions work - it just automates it all.</p>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>If you initially installed Dada Mail using our Basic Installation instructions, you&#39;ll need to change configuration to use the more contemporary configuration. The Basic Installation instructions are not currently supported.</p>
+
+<p>A <b>Basic Installation</b> means simply changing the first four variables in the <code>dada/DADA/Config.pm</code> file itself. One of these variables is the <code>$FILES</code> variable, which is set to a directory where <b>all</b> the files/directories Dada Mail creates that represent a Mailing List in Dada Mail are stored.</p>
+
+<p>Contemporary Installations of Dada Mail need only one variable in the <code>Config.pm</code> file changed. This variable is called. <code>$PROGRAM_CONFIG_FILE_DIR</code>. All other configuration changes are put in an outside configuration file called, <code>.dada_config</code>.</p>
+
+<p>The instructions below will try to guide you from changing between and Basic and Contemporary Installation.</p>
+
+<p>It&#39;s suggested that you perform this change after upgrading. First, install Dada Mail using the Dada Mail Installer, then move over the files from the old installation into the directory structure of the new installation.</p>
+
+<h2 id="Find-the-FILES-directory">Find the $FILES directory</h2>
+
+<p>Before performing a installation for your new Dada Mail, find the directory used for the, <code>$FILES</code> variable in your <i>old</i> installation. This variable is located in the, <code>dada/DADA/Config.pm</code> file.</p>
+
+<p>This directory should hold most all the files/directories that represent your Mailing Lists.</p>
+
+<h2 id="Install-Dada-Mail">Install Dada Mail</h2>
+
+<p>You may either use the Dada Mail Installer (preferred):</p>
+
+<p><a href="install_dada_mail.pod.html">install_dada_mail.pod.html</a></p>
+
+<p>Or Manually install Dada Mail (more difficult)</p>
+
+<p><a href="http://dadamailproject.com/installation/installation_advanced.html">http://dadamailproject.com/installation/installation_advanced.html</a></p>
+
+<p>Once you&#39;ve done the install/upgrade, your previous mailing lists will not be available, until after you manually move over the previous installation&#39;s Dada Mail files.</p>
+
+<h2 id="Move-Old-Files-over-to-the-New-Directory-Structure">Move Old Files over to the New Directory Structure</h2>
+
+<p>The new installation should leave you with a directory struture within your <code>.dada_files</code> directory that looks like this:</p>
+
+<pre><code>        .archives
+        .backups
+        .configs
+        .lists
+        .logs
+        .templates
+        .tmp</code></pre>
+
+<p>All that&#39;s needed now to do is to move your old files in the old directory (saved in the old <code>$FILES</code> location into this new directory structure:</p>
+
+<ul>
+
+<li><p>Any <b>directories</b> named after the <b>list short name</b> are probably backups. Move those into, <code>.backups</code></p>
+
+</li>
+<li><p>Any <b>files</b> that start with, <code>mj-</code> and end in, <code>archives</code> are archives. Move those files into, <code>.archives</code></p>
+
+</li>
+<li><p>Any <b>other files</b> that start with <code>mj-</code> are your list settings. Move those files into, <code>.lists</code></p>
+
+</li>
+<li><p>Any files that end in, <code>.list</code>, or <code>.black_list</code>, or something similar, basically: a dot (<code>.</code>), (something else) and then, <code>list</code> are your subscribers. Move those files into, <code>.lists</code></p>
+
+</li>
+<li><p>Any <b>file</b> with the ending of, <code>.txt</code> or, <code>.log</code> are probably logs, Move those files into, <code>.logs</code></p>
+
+</li>
+<li><p>Any <b>file</b> that ends in, <code>.template</code> goes in, <code>.templates</code></p>
+
+</li>
+<li><p>Most anything else is probably a temporary file, you may put them into, <code>.tmp</code> and when you&#39;re sure they&#39;re not useful, you may remove them.</p>
+
+</li>
+</ul>
+
+<p>You&#39;ve now moved your Basic Installation of Dada Mail to a Contemporary Installation of Dada Mail.</p>
+
+<p>If you upgraded Dada Mail to use the <b>Default</b> Backend, visiting Dada Mail should show your original mailing lists. If so, you are done.</p>
+
+<p>If you upgraded Dada Mail using the SQL backend (and had previously used the Default Backend&gt; you will need to migrate your old Mailing List Information to the SQL backend. Moving from the Default Backend to one of the SQL backends is covered here:</p>
+
+<p><a href="http://dadamailproject.com/d/FAQ-default_to_SQL_backend.pod.html">http://dadamailproject.com/d/FAQ-default_to_SQL_backend.pod.html</a></p>
+
+
+</body>
+
+</html>
+
+

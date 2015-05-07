@@ -1,0 +1,321 @@
+<!-- begin add_screen.tmpl -->
+
+<!-- tmpl_set name="title" value="Membership &#187; Invite/Add" -->
+
+<!-- tmpl_set name="load_linedtextarea" value="1" --> 
+
+
+<div id="screentitle"> 
+	<div id="screentitlepadding">
+		 Membership (<!-- tmpl_var type_title -->)
+		&#187;
+		 <strong>
+			<!-- tmpl_if expr="(type eq 'list')" -->
+				Invite
+				<!-- tmpl_if expr="((list_settings.enable_mass_subscribe == 1) && ((root_login == 1) || (list_settings.enable_mass_subscribe_only_w_root_login != 1)))" --> 
+					/ Subscribe
+ 			    <!-- /tmpl_if -->
+			<!-- tmpl_else --> 
+				Add
+			<!-- /tmpl_if --> 
+			</strong>
+		&#187;
+		 Verify
+		&#187;
+		<!-- tmpl_if expr="(type eq 'list')" -->
+			Send Invitation
+			<!-- tmpl_if expr="((list_settings.enable_mass_subscribe == 1) && ((root_login == 1) || (list_settings.enable_mass_subscribe_only_w_root_login != 1)))" --> 
+				/ Subscribe
+			<!-- /tmpl_if -->
+		<!-- tmpl_else --> 
+			Add
+		<!-- /tmpl_if -->
+	</div>
+	<!-- tmpl_include help_link_widget.tmpl -->
+</div>
+<div id="add"></div>
+<div id="screen_meta" data-menu_highlight="add"></div>
+
+
+<form> 
+	<input type="hidden" id="s_program_url" name="s_program_url" value="<!-- tmpl_var S_PROGRAM_URL -->" /> 
+</form> 
+
+
+<!-- tmpl_if expr="(type eq 'list')" -->
+	
+	<!-- tmpl_if subscription_quota_reached -->
+		<div class="badweatherbox">
+		<p>
+		 <strong>Warning!</strong>
+		</p>
+		<p> You are at or above the number of 
+		 Subscribers you may have for this mailing list. 
+		 You may not subscribe any more.
+		</p>
+		</div>
+		
+		<!-- tmpl_if expr="(num_subscribers >= SUBSCRIPTION_QUOTA)" --> 
+			<!-- tmpl_include upgrade_to_pro_dada.tmpl -->
+		<!-- /tmpl_if --> 
+		
+	<!--tmpl_else-->
+	
+		<!-- tmpl_if use_subscription_quota --> 
+			<div class="badweatherbox">
+				<p>
+					There is currently a limit of, <!-- tmpl_var subscription_quota --> 
+					Subscribers allowed to be subscribed on your mailing list.
+				</p>
+			</div> 
+		<!-- /tmpl_if --> 
+		
+		<!-- tmpl_if SUBSCRIPTION_QUOTA --> 
+	
+			<div class="badweatherbox">			
+			<p>
+				<strong>Warning!</strong>
+			</p> 
+		
+			<p>There is a limit of <!-- tmpl_var SUBSCRIPTION_QUOTA -->
+			 subscriber(s) maximum allowed on any Mailing List. You currently have 
+			 <!-- tmpl_var num_subscribers --> Subscriber(s).
+			</p>
+		</div>
+	<!-- /tmpl_if --> 
+
+		
+	<!--/tmpl_if-->
+	
+<!--/tmpl_if-->
+
+<!-- tmpl_if list_is_closed -->
+		<div class="badweatherbox"> 
+		<p>
+		 	<strong>Disabled</strong>.
+	 	</p>
+		<p>
+			You currently have a <strong>Closed List</strong>.
+			 </p> 
+		</div>
+<!-- /tmpl_if --> 
+
+
+<!-- tmpl_if list_settings.use_add_list_import_limit --> 
+    <div class="clearskiesbox">
+        <p>
+            There is a set limit of 
+            <strong>
+                <!-- tmpl_var list_settings.add_list_import_limit -->
+            </strong>
+            addresses you may import at one time.
+        </p>
+    </div> 
+<!-- /tmpl_if --> 
+
+<!-- tmpl_if expr="(type eq 'list')" -->
+    <!-- tmpl_unless list_is_closed -->
+        <!-- tmpl_unless expr="((list_settings.enable_mass_subscribe == 1) && ((root_login == 1) || (list_settings.enable_mass_subscribe_only_w_root_login != 1)))" --> 
+            <div class="clearskiesbox">
+                <p>
+                    Importing Subscribers via the List Control Panel has been <strong>disabled.</strong>
+                </p>
+                <p>
+                    You may still <strong>Invite</strong> Subscribers to join. 
+                </p>
+            </div> 
+        <!-- /tmpl_unless --> 
+    <!-- /tmpl_unless --> 
+<!-- /tmpl_if -->
+
+
+
+<!-- tmpl_include list_type_switch_widget.tmpl -->
+	
+<!-- tmpl_if list_is_closed -->
+
+<!-- tmpl_else --> 
+
+
+<!-- tmpl_if expr="(type eq 'list')" -->
+    <p><strong>CSV Format to use for Import:</strong></p>
+    <p><code>Email Address<!-- tmpl_loop fields -->, <!-- tmpl_var name --><!-- /tmpl_loop --><!-- tmpl_if expr="(type eq 'list')" -->, Profile Password<!-- /tmpl_if --></code></p>
+<!-- /tmpl_if --> 
+
+	<fieldset> 
+		<legend>Upload Your Addresses</legend>
+
+
+        <p>	    
+         <label for="new_email_file">
+         Upload
+         </label>
+         a text file <!-- tmpl_if expr="(type eq 'list')" --> (<strong><!-- tmpl_var HTML_CHARSET --> encoded</strong>) in the <strong>CSV format</strong> mentioned above<!-- /tmpl_if -->.
+        </p>
+
+
+
+		<style>
+		.ui-progressbar .ui-progressbar-value { background-image: url(<!-- tmpl_var SUPPORT_FILES_URL -->/static/images/jquery.ui/pbar-ani.gif); }
+		</style>
+		<div id="show_progress" class="clearskiesbox">
+			<div id="progressbarWrapper" style="width:500px;height:22px;margin-left:auto;margin-right:auto" class="ui-widget-default">
+			<div id="progressbar" style="height:100%;"></div>
+			</div>
+			<div id="upload_status"></div>
+		</div>
+
+
+	<form id="fileupload" enctype="multipart/form-data" action="<!-- tmpl_var S_PROGRAM_URL -->" method="post" accept-charset="<!-- tmpl_var HTML_CHARSET -->">
+		
+
+
+	<input type="hidden" name="f"    id="f" value="add" />
+	<input type="hidden" name="type" value="<!-- tmpl_var type -->" />
+	<input type="file"   name="new_email_file" id="new_email_file" />
+	<input type="hidden" name="process" value="1" />
+	<input type="hidden" name="rand_string" id="rand_string" value="<!-- tmpl_var rand_string -->" />
+	<input type="hidden" name="method" value="via_file_upload" /> 
+	
+
+	
+	
+	 <div class="buttonfloat">
+	  <input type="reset"  class="cautionary" value="Clear Changes" />
+	  <input type="submit" value="Verify Addresses..." <!-- tmpl_if expr="((type eq 'list') && (subscription_quota_reached == 1))" --> disabled="disabled" class="disabled"<!-- tmpl_else -->class="processing"<!-- /tmpl_if --> />
+	 </div>
+	 <div class="floatclear"></div>
+	</form>
+
+
+	</fieldset> 
+	
+
+
+
+
+	<fieldset> 
+		<legend>Paste Your Addresses</legend>
+
+
+
+        <!-- tmpl_if expr="(type eq 'list')" -->        
+	        <p>Or, 
+    	            Enter addresses
+    	      <!-- tmpl_if expr="(type eq 'list')" --> (<strong><!-- tmpl_var HTML_CHARSET --> encoded</strong>) in the <strong>CSV format</strong> mentioned above<!-- /tmpl_if -->.
+    	  </p> 
+        <!-- tmpl_else --> 
+            <p>
+    	        <label for="new_emails">
+    	                Enter
+    	        </label> addresses, (one address per line)
+	        </p>
+        <!-- /tmpl_if --> 
+
+
+	<form name="paste_addresses"  action="<!-- tmpl_var S_PROGRAM_URL -->" method="post" accept-charset="<!-- tmpl_var HTML_CHARSET -->">
+	 <input type="hidden" name="f"    id="f" value="add" />
+	 <input type="hidden" name="type" value="<!-- tmpl_var type -->" />
+	 <input type="hidden" name="process" value="1" />
+	 <input type="hidden" name="rand_string" id="rand_string" value="<!-- tmpl_var rand_string -->" />
+	 <input type="hidden" name="method" value="via_textarea" /> 
+
+<p>
+ <textarea name="new_emails" id="new_emails" rows="10" cols="40" style="padding:0;width:90%"></textarea>
+</p>
+
+
+
+	 <div class="buttonfloat">
+	  <input type="reset"  class="cautionary" value="Clear Changes" />
+	  <input type="submit"                    value="Verify Addresses..." <!-- tmpl_if expr="((type eq 'list') && (subscription_quota_reached == 1))" --> disabled="disabled" class="disabled"<!-- tmpl_else -->class="processing"<!-- /tmpl_if -->/>
+	 </div>
+	 <div class="floatclear"></div>
+	</form>
+
+	</fieldset> 
+    
+    
+	<fieldset> 
+	
+		<legend>
+		<!-- tmpl_if expr="(type eq 'list')" -->
+			Invite
+			<!-- tmpl_if expr="((list_settings.enable_mass_subscribe == 1) && ((root_login == 1) || (list_settings.enable_mass_subscribe_only_w_root_login != 1)))" --> 
+				/ Subscribe
+			<!-- /tmpl_if -->
+		<!-- tmpl_else --> 
+			Add
+		<!-- /tmpl_if -->
+	
+		 Just One Address:
+		</legend>
+		
+		
+		<p>
+            Or, just <strong>enter</strong> one address, below:
+        </p>
+
+        
+        
+        
+	<div id="add_one"> 
+	
+		<form name="via_add_one"  action="<!-- tmpl_var S_PROGRAM_URL -->" method="post" accept-charset="<!-- tmpl_var HTML_CHARSET -->">
+	
+		 <input type="hidden" name="f"    id="f" value="add" />
+		 <input type="hidden" name="type" value="<!-- tmpl_var type -->" />
+		 <input type="hidden" name="process" value="1" />
+		 <input type="hidden" name="rand_string" id="rand_string" value="<!-- tmpl_var rand_string -->" />
+
+		<input type="hidden" name="method" value="via_add_one" /> 
+
+		 <p>
+		     <label for="email" class="label_profile_fields">
+		      Email Address:
+		     </label>
+		    <input type="text" name="email" id="email" value=""  />
+		    </p>
+	
+		<!-- tmpl_if expr="(type eq 'list')" -->
+		
+    		<!-- tmpl_loop fields --> 
+    		    <p>
+    		     <label for="<!-- tmpl_var name escape=HTML -->" class="label_profile_fields">
+    		      <!-- tmpl_var label escape="HTML" --> (<!-- tmpl_var name escape="HTML" -->): 
+    		     </label>
+    		    <input type="text" name="<!-- tmpl_var name escape=HTML -->" id="<!-- tmpl_var name escape=HTML -->" value="<!-- tmpl_var value escape=HTML -->"  />
+    		    <!-- tmpl_if required -->
+		        <span class="error">
+		            * Required
+		        </span>
+		    <!-- /tmpl_if -->
+    		    </p>
+    		<!--/tmpl_loop-->
+		
+    	    <p>
+    	     <label for="<!-- tmpl_var name escape=HTML -->" class="label_profile_fields">
+    	      Profile Password: 
+    	     </label>
+    	    <input type="text" name="profile_password" id="profile_password" value=""  />
+    	    </p>
+	    
+	    <!-- /tmpl_if --> 
+	    
+		 <div class="buttonfloat">
+		  <input type="reset"  class="cautionary" value="Clear Changes" />
+		  <input type="submit"                    value="Verify Address..." <!-- tmpl_if expr="((type eq 'list') && (subscription_quota_reached == 1))" --> disabled="disabled" class="disabled"<!-- tmpl_else -->class="processing"<!-- /tmpl_if -->/>
+		 </div>
+		 <div class="floatclear"></div>
+
+	</form> 
+	
+		
+	</div> 
+
+	</fieldset> 
+
+<!-- /tmpl_if -->
+
+
+<!-- end add_screen.tmpl -->

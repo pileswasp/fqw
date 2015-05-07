@@ -1,0 +1,494 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Advanced Installation Configuration w/Dada Mail Installer</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Advanced-Configuration-with-the-Dada-Mail-Installer">Advanced Configuration with the Dada Mail Installer</a>
+    <ul>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#Configure-Profiles">Configure Profiles</a>
+        <ul>
+          <li><a href="#Profile-Administration-Email">Profile Administration Email</a></li>
+          <li><a href="#Enabled-Features">Enabled Features</a>
+            <ul>
+              <li><a href="#CAPTCHA">CAPTCHA</a></li>
+              <li><a href="#Magic-Subscription-Forms">Magic Subscription Forms</a></li>
+              <li><a href="#Help-Screen">Help Screen</a></li>
+              <li><a href="#Profile-Login">Profile Login</a></li>
+              <li><a href="#Profile-Registration">Profile Registration</a></li>
+              <li><a href="#Password-Reset">Password Reset</a></li>
+              <li><a href="#Profile-Fields">Profile Fields</a></li>
+              <li><a href="#Mailing-List-Subscriptions">Mailing List Subscriptions</a></li>
+              <li><a href="#Password-Protected-Directory-Information">Password Protected Directory Information</a></li>
+              <li><a href="#Update-Email-Address">Update Email Address</a></li>
+              <li><a href="#Change-Password">Change Password</a></li>
+              <li><a href="#Profile-Deletion">Profile Deletion</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#Configure-Caching">Configure Caching</a>
+        <ul>
+          <li><a href="#Enable-Screen-Cache">Enable Screen Cache</a></li>
+          <li><a href="#Enable-Data-Cache">Enable Data Cache</a></li>
+        </ul>
+      </li>
+      <li><a href="#Configure-Debugging">Configure Debugging</a></li>
+      <li><a href="#Configure-Global-Template-Options">Configure Global Template Options</a>
+        <ul>
+          <li><a href="#Set-a-Global-User-Facing-Template">Set a Global, User-Facing Template</a></li>
+          <li><a href="#Server-Absolute-Path-or-URL-to-your-User-Template">Server Absolute Path or URL to your User Template:</a></li>
+          <li><a href="#Test-Your-User-Template">Test Your User Template</a></li>
+        </ul>
+      </li>
+      <li><a href="#Configure-Security-Options">Configure Security Options</a>
+        <ul>
+          <li><a href="#Hide-Administration-Link">Hide Administration Link</a></li>
+          <li><a href="#Disable-Outside-Logins">Disable Outside Logins</a></li>
+          <li><a href="#Admin-Flavor-Name">Admin Flavor Name</a></li>
+          <li><a href="#Sign-In-Flavor-Name">Sign In Flavor Name</a></li>
+        </ul>
+      </li>
+      <li><a href="#Configure-CAPTCHA">Configure CAPTCHA</a>
+        <ul>
+          <li><a href="#CAPTCHA-Type">CAPTCHA Type</a>
+            <ul>
+              <li><a href="#Test-CAPTCHA-Configuration">Test CAPTCHA Configuration</a></li>
+            </ul>
+          </li>
+          <li><a href="#reCAPTCHA-Mailhide">reCAPTCHA Mailhide</a>
+            <ul>
+              <li><a href="#Test-reCAPTCHA-Mailhide-Configuration">Test reCAPTCHA Mailhide Configuration</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#Configure-Global-Mailing-List-Options">Configure Global Mailing List Options</a>
+        <ul>
+          <li><a href="#Enable-Global-Unsubscribe">Enable Global Unsubscribe</a></li>
+          <li><a href="#Enable-Global-Black-List">Enable Global Black List</a></li>
+        </ul>
+      </li>
+      <li><a href="#Configure-Global-Mass-Mailing-Options">Configure Global Mass Mailing Options</a>
+        <ul>
+          <li><a href="#Mass-Mailings-at-Once-Limit">Mass Mailings at Once Limit</a></li>
+          <li><a href="#Multiple-Mailing-List-Sending">Multiple Mailing List Sending</a></li>
+          <li><a href="#Mass-Mailings-Stale-After">Mass Mailings Stale After</a></li>
+        </ul>
+      </li>
+      <li><a href="#Configure-Confirmation-Token-Options">Configure Confirmation Token Options</a></li>
+      <li><a href="#Configure-Program-Name">Configure Program Name</a></li>
+      <li><a href="#Configure-Secure-Program-URL">Configure Secure Program URL</a></li>
+      <li><a href="#Configure-Amazon-SES">Configure Amazon SES</a></li>
+      <li><a href="#Configure-Mandrill">Configure Mandrill</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Advanced-Configuration-with-the-Dada-Mail-Installer">Advanced Configuration with the Dada Mail Installer</h1>
+
+<p>This doc covers the options in the Dada Mail Installer, under the heading, <b>Advanced Configuration (Optional)</b></p>
+
+<p>If you&#39;re looking for general instructions on how to use the Dada Mail Installer, look no further than,</p>
+
+<p><a href="install_dada_mail.pod.html">install_dada_mail.pod.html</a></p>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>Dada Mail&#39;s global configuration is saved in a file called, <code>.dada_config</code>, which itself is saved in the, <code>.dada_files/.configs</code> directory. The file is plain text, but is a valid Perl script, so be <i>very, very</i> careful if/when you edit it by hand. The installer is generally provided to you so don&#39;t have to do this, but many, many global configuration options exist, that aren&#39;t supported by the Dada Mail Installer. For a rundown of what&#39;s fully available, see:</p>
+
+<p><a href="global_variables.pod.html">global_variables.pod.html</a></p>
+
+<p>We&#39;ll be listing the actual global variables used, when discussing what the installer configures for you. You do have the option to edit the <code>.dada_config</code> file that the installer creates, to make even more customizations.</p>
+
+<p>As a warning, the installer only supports reading in, and editing variables that are presented to you, in the Installer itself. That means anything that&#39;s not presented to you, will be lost if you change the configuration, with the Installer again. Because of this, you&#39;ll want to put your own unsupported (by the Installer) configuration changes in a centralized place in your <code>.dada_config</code> file, so you can easily (manually - copy and paste!) move them back to the <code>.dada_config</code> file that&#39;s generated.</p>
+
+<h2 id="Configure-Profiles">Configure Profiles</h2>
+
+<p>Profiles allow your users to manage their own subscriptions, in one centralized location. For an overview of Dada Mail Profiles, see:</p>
+
+<p><a href="features-profiles.pod.html">features-profiles.pod.html</a></p>
+
+<p>In general, this option allows you to configure the, <code>$PROFILE_OPTIONS</code> config variable, which is explained in detail in the doc above. You&#39;ll notice that not all of the parameters in that variable are supported by the installer.</p>
+
+<h3 id="Profile-Administration-Email">Profile Administration Email</h3>
+
+<p>The Profile Administration Email holds an email address that used for any transactional email messages that go out for Profile tasks. Since Dada Mail Profiles aren&#39;t tied to any one mailing list, Dada Mail won&#39;t know exactly what address to use.</p>
+
+<p>We highly encourage you to fill out this variable, or these email messages may not be sent out correctly. You may use just an email address:</p>
+
+<pre><code>        me@mydomain.com</code></pre>
+
+<p>a little more fancy, with a full email header, with phrase:</p>
+
+<pre><code>        &quot;My First and Last Name!&quot; &lt;me@mydomain.com&gt;</code></pre>
+
+<p>You may set two email addresses:</p>
+
+<pre><code>        &quot;My First and Last Name!&quot; &lt;me@mydomain.com&gt;, &quot;Another User&quot; &lt;someone.else@example.com&gt;&#39;, </code></pre>
+
+<p>Although the <code>From:</code> header that goes out will only hold <b>one</b> email address.</p>
+
+<p>If Profiles are enabled and the Profile Administration Email is left blank, the List Owner email address of one of your mailing lists will be used instead.</p>
+
+<h3 id="Enabled-Features">Enabled Features</h3>
+
+<h4 id="CAPTCHA">CAPTCHA</h4>
+
+<p>Registration for Dada Mail Profiles can be verified along with a CAPTCHA. We recommend this feature, if CAPTCHA is available.</p>
+
+<h4 id="Magic-Subscription-Forms">Magic Subscription Forms</h4>
+
+<p>Magic Subscription Forms are pre-filled out with the user&#39;s email address, if they&#39;re logged into Dada Mail.</p>
+
+<h4 id="Help-Screen">Help Screen</h4>
+
+<p>Allows you to show/hide the, <b>What are Dada Mail Profiles?</b> link and screen. You&#39;ll see this link in the top-right corner of the user-facing UI, by default.</p>
+
+<h4 id="Profile-Login">Profile Login</h4>
+
+<p>Allows your users to log into their Profile. Disabling this feature will basically disable much of Profiles, so be careful when disabling.</p>
+
+<h4 id="Profile-Registration">Profile Registration</h4>
+
+<p>Controls whether a new user may register to a new Dada Mail Profile. If disabled, a user may still be registered by doing the following:</p>
+
+<ul>
+
+<li><p>Subscribing to a new mailing list</p>
+
+<p>If Profiles are enabled, and a user does not already have a Profile, subscribing to a mailing list will create a new Profile for them, and the credentials will be sent to them, in the, &quot;Subscription Successful!&quot; email message.</p>
+
+</li>
+<li><p>The List Owner editing their Profile</p>
+
+<p>Profiles can be edited in the, <b>Manage Subscribers - View</b> screen.</p>
+
+</li>
+</ul>
+
+<h4 id="Password-Reset">Password Reset</h4>
+
+<p>Controls whether the, <b>Forgot Your Profile Password?</b> form is shown or not. If it&#39;s not shown, a user&#39;s Profile password may still be reset by a List Owner, if they&#39;re logged in with the Dada Mail Root Password.</p>
+
+<h4 id="Profile-Fields">Profile Fields</h4>
+
+<p>Controls whether the user may edit their own Profile Fields in their own Profile (once logged in). If disabled, a user&#39;s Profile Fields can still be edited by a List Owner, if they&#39;re logged in with the Dada Mail Root Password.</p>
+
+<h4 id="Mailing-List-Subscriptions">Mailing List Subscriptions</h4>
+
+<p>Controls whether the, <b>Your Mailing List Subscriptions</b> section is visible to your user in their Profile (once logged in).</p>
+
+<h4 id="Password-Protected-Directory-Information">Password Protected Directory Information</h4>
+
+<p>Controls whether The, <b>Password Protect Directories</b> section is visible to your user in their Profile (once logged in). If disabled, Protected Directories will <b>still be available</b> if any are set up, just not listed in the user&#39;s Profile.</p>
+
+<h4 id="Update-Email-Address">Update Email Address</h4>
+
+<p>Controls whether the, <b>Update Your Profile Email Address </b> section is visible to your user in their Profile (once logged in). If disabled, a user&#39;s Profile password can still be edited by a List Owner, if they&#39;re logged in with the Dada Mail Root Password.</p>
+
+<h4 id="Change-Password">Change Password</h4>
+
+<p>Controls whether the, <b> Change Your Profile Password </b> section is visible to your user in their Profile (once logged in).</p>
+
+<h4 id="Profile-Deletion">Profile Deletion</h4>
+
+<p>Controls whether the, <b>Delete This Profile</b> section is visible to your user in their Profile (once logged in).</p>
+
+<h2 id="Configure-Caching">Configure Caching</h2>
+
+<p>Dada Mail caches information, so to not have to constantly connect to your backend database and/or perform time-consuming calculations.</p>
+
+<h3 id="Enable-Screen-Cache">Enable Screen Cache</h3>
+
+<p>The Screen Cache caches the HTML screens you would see in your web browser. We suggest to always have it enabled, unless you&#39;re making customizations to the templates themselves, in which case it&#39;s exceptionally convenient to disable the Screen Cache.</p>
+
+<p><b>Config Variable:</b> <code>$SCREEN_CACHE</code></p>
+
+<h3 id="Enable-Data-Cache">Enable Data Cache</h3>
+
+<p>The Data Cache caches mostly JSON data created by Dada Mail for the graphs and charts it produces. Most of these graphs and charts are produced by the Tracker plugin, but other charts do exist. Since this data is cached, the data shown is not always 100% current. You may disable the Data Cache if you&#39;d like to have the data shown always be the newest data available.</p>
+
+<p><b>Config Variable:</b> <code>$DATA_CACHE</code></p>
+
+<h2 id="Configure-Debugging">Configure Debugging</h2>
+
+<p>Dada Mail&#39;s log tracing and debugging options can be configured in this section. Tracing writes extra lines to your error log, in an attempt to provide extra information about the workings of Dada Mail, that you can then go through, to make sure the app is working as it&#39;s supposed to.</p>
+
+<p>We don&#39;t suggest keeping any of these debugging settings enabled for production use, as your error log will grow fairly large in size.</p>
+
+<p>For more information on what each option enables, see the section on the, <code>$DEBUG_TRACE</code> and <code>%CPAN_DEBUG_SETTINGS</code> variables, in <b>Advanced Error Logging and Reporting</b>: <a href="http://dadamailproject.com/d/FAQ-errors.pod.html#advanced_error_logging_and_reporting">http://dadamailproject.com/d/FAQ-errors.pod.html#advanced_error_logging_and_reporting</a></p>
+
+<h2 id="Configure-Global-Template-Options">Configure Global Template Options</h2>
+
+<p>Global Template Options allow you to set a <b>Global</b>, user-facing template. That&#39;s the template that&#39;s shown for basically anything that&#39;s not the Admin List Control Panel.</p>
+
+<p>Although you can set a list-specific template, this leaves any screen that&#39;s not tied to a specific mailing list left using the default template, which you may not find desirable. Setting a global, user-facing template here will fill in that needed customization. If you&#39;re happy with the global List Template, you may find no need to make mailing-list specific templates, as they&#39;ll use whatever you set here.</p>
+
+<p>How to create a template is covered in detail in the chapter, Introduction to Dada Mail HTML Screen Templates</p>
+
+<h3 id="Set-a-Global-User-Facing-Template">Set a Global, User-Facing Template</h3>
+
+<p>Check this option, if you&#39;d like to set a Gloval, User-Facing Template. You&#39;ll be setting where this template can be found, right below this option -</p>
+
+<h3 id="Server-Absolute-Path-or-URL-to-your-User-Template">Server Absolute Path or URL to your User Template:</h3>
+
+<p>This is where you&#39;ll want to enter <i>either</i> the absolute path to your template file, or the URL that it can be found at.</p>
+
+<p><b>Config Variable:</b> <code>$USER_TEMPLATE</code></p>
+
+<h3 id="Test-Your-User-Template">Test Your User Template</h3>
+
+<p>Use this button to check if Dada Mail will be able to retrieve your template. Currently this button only checks if the template can be found, not if the template is valid.</p>
+
+<h2 id="Configure-Security-Options">Configure Security Options</h2>
+
+<h3 id="Hide-Administration-Link">Hide Administration Link</h3>
+
+<p>Dada Mail usually shows a simple link to the administration login screen, on the bottom of the default screen. If you would rather this link not be so publically advertised, you my check this option.</p>
+
+<p>You may always get to the administration page by pointing your browser to an address like this:</p>
+
+<p><a href="http://mysite.com/cgi-bin/dada/mail.cgi/admin">http://mysite.com/cgi-bin/dada/mail.cgi/admin</a></p>
+
+<p>This is a small security measure but may just stop people from snooping further.</p>
+
+<h3 id="Disable-Outside-Logins">Disable Outside Logins</h3>
+
+<p>This option controls whether login information posted to Dada Mail can only be allowed by a form supplied by Dada Mail itself. This means, you can&#39;t create a different form, outside the program to provide a way to login (or do something similar programmatically)</p>
+
+<p>More so than any other option, this variable attempts to stop attempts of logging into a list by automated means.</p>
+
+<h3 id="Admin-Flavor-Name">Admin Flavor Name</h3>
+
+<p>Complementary to <b>Hide Administration Link</b>, <b>Admin Flavor Name</b> allows you to set the URL needed to access the screen that has the form to log into all the mailing lists administrated by Dada Mail and to the form to create a new mailing list.</p>
+
+<p>By default, this is set to, <code>admin</code>, which means to access this screen, you&#39;d go to a URL that looks like this:</p>
+
+<p><a href="http://example.com/cgi-bin/dada/mail.cgi/admin">http://example.com/cgi-bin/dada/mail.cgi/admin</a></p>
+
+<p>If you set the <b>Admin Flavor Name</b> to something like, <b>kookoo</b>, you&#39;d then access this screen via the following URL;</p>
+
+<p><a href="http://example.com/cgi-bin/dada/mail.cgi/kookoo">http://example.com/cgi-bin/dada/mail.cgi/kookoo</a></p>
+
+<p>When setting this option remember:</p>
+
+<ul>
+
+<li><p>no spaces in the name</p>
+
+</li>
+</ul>
+
+<p>Valid values:</p>
+
+<ul>
+
+<li><p>poopoo1234</p>
+
+</li>
+<li><p>agabaga</p>
+
+</li>
+<li><p>JKdsfkKJjjkkjjk</p>
+
+</li>
+</ul>
+
+<p>Invalid values:</p>
+
+<ul>
+
+<li><p>fads fdas asdf</p>
+
+</li>
+<li><p>You Get The Point</p>
+
+</li>
+</ul>
+
+<p>Don&#39;t set this variable to anything that Dada Mail already uses, like:</p>
+
+<ul>
+
+<li><p>subscribe</p>
+
+</li>
+<li><p>unsubscribe</p>
+
+</li>
+<li><p>login</p>
+
+</li>
+<li><p>logout</p>
+
+</li>
+<li><p>list</p>
+
+</li>
+<li><p>archive</p>
+
+</li>
+</ul>
+
+<p>etc. A good way to make sure would be to append, &quot;admin&quot; to your value, like this:</p>
+
+<ul>
+
+<li><p>adminfoofoo</p>
+
+</li>
+<li><p>adminlalalala</p>
+
+</li>
+<li><p>adminwhakawhaka</p>
+
+</li>
+</ul>
+
+<p>No checks will be made to make sure you don&#39;t have this value set to something already present, so do be careful setting this variable.</p>
+
+<p><b>Global Variable:</b> <code>$ADMIN_FLAVOR_NAME</code></p>
+
+<h3 id="Sign-In-Flavor-Name">Sign In Flavor Name</h3>
+
+<p>Similar to <b>Admin Flavor Name</b>, <b>Sign In Flavor Name</b> holds the URL that allows you to log into a particular list (usually), although it is sometimes used to re-login into any of your lists - very similar to the administration screen, but does not give you the form to create a new list.</p>
+
+<p>The same naming rules apply for this variable as they do for <b>Admin Flavor Name</b>,. It&#39;s also suggested that you append, &quot;sign_in&quot; to the value you set this, like so:</p>
+
+<ul>
+
+<li><p>sign_in_fdskjasdf</p>
+
+</li>
+<li><p>sign_in_sneaky_pete</p>
+
+</li>
+</ul>
+
+<p>etc.</p>
+
+<p><b>Global Variable:</b> <code>$SIGN_IN_FLAVOR_NAME</code></p>
+
+<h2 id="Configure-CAPTCHA">Configure CAPTCHA</h2>
+
+<p>Dada Mail uses CAPTCHA challenge-response tests optionally for many things: as a additional step to confirm a subscription, for the Forward a Friend form, and other places.</p>
+
+<p>Dada Mail also supports Mailhide, which uses the reCAPTCHA system to easily protect email addresses shown in Dada Mail&#39;s public archives.</p>
+
+<p>In this section, we can configure the CAPTCHA options in Dada Mail:</p>
+
+<h3 id="CAPTCHA-Type">CAPTCHA Type</h3>
+
+<p>Dada Mail allows you to choose between two CAPTCHA types: it&#39;s Default, and reCAPTCHA. If available, we suggest using the reCAPTCHA system, as it&#39;s more sophisticated, than the CAPTCHA system shipped with Dada Mail. reCAPTCHA does require the, <code>CAPTCHA::reCAPTCHA</code> CPAN module installed.</p>
+
+<p>You&#39;ll also need to sign up for an API key at the reCAPTCHA site: <a href="http://www.google.com/recaptcha">http://www.google.com/recaptcha</a>. Once you&#39;ve signed up, you&#39;ll need to input both the Public and Private reCAPTCHA API key into Dada Mail. Dada Mail will also need the Remote Host filled out - this is basically your domain name, (example.com).</p>
+
+<h4 id="Test-CAPTCHA-Configuration">Test CAPTCHA Configuration</h4>
+
+<p>Once you&#39;ve made your selection of what type of CAPTCHA system to use, and inputted any necessary information, you may use the, <b>Test CAPTCHA Configuration</b> button to make sure the CAPTCHA system is working. Results should be shown below the button, as well as an example of the CAPTCHA widget. If the widget does not show, double-check that the information you&#39;ve added is correct.</p>
+
+<h3 id="reCAPTCHA-Mailhide">reCAPTCHA Mailhide</h3>
+
+<p>reCAPTCHA Mailhide is also supported, and also needs a Public and Private API key, which can be created here: <a href="http://www.google.com/recaptcha/mailhide/">http://www.google.com/recaptcha/mailhide/</a> - NOTE! That this API key pair is different from your reCAPTHCA public/private key - they&#39;re not interchangeable.</p>
+
+<h4 id="Test-reCAPTCHA-Mailhide-Configuration">Test reCAPTCHA Mailhide Configuration</h4>
+
+<p>You may use the, <b>Test reCAPTCHA Mailhide Configuration</b> button to make sure the Mailhide system is working. Results should be shown below the button, as well as an example of a protected email address. If the example does not show, double-check that the information you&#39;ve added is correct.</p>
+
+<h2 id="Configure-Global-Mailing-List-Options">Configure Global Mailing List Options</h2>
+
+<h3 id="Enable-Global-Unsubscribe">Enable Global Unsubscribe</h3>
+
+<p>When enabled, <b>Global Unsubscribe</b> will remove a member from all mailing lists, when they&#39;re removed from one mailing list.</p>
+
+<h3 id="Enable-Global-Black-List">Enable Global Black List</h3>
+
+<p>When enabled, members of all mailing list&#39;s Black Lists will be pooled together, when addresses are verified for subscription.</p>
+
+<h2 id="Configure-Global-Mass-Mailing-Options">Configure Global Mass Mailing Options</h2>
+
+<p>Some mass mailing options are set globally, as sending limitations may be account-wide, rather than mailing list-wide. Mailing List-specific Mass Mailing Options are found in the List Control Panel, under: <b>Mail Sending - Mass Mailing Options</b></p>
+
+<h3 id="Mass-Mailings-at-Once-Limit">Mass Mailings at Once Limit</h3>
+
+<p>This sets how many different mass mailings may go out from an installation of Dada Mail at one time. Conservatively, this is set to, <b>1</b> by default.</p>
+
+<p>There are a few reasons why you wouldn&#39;t want to set this to any higher limit, one being that there&#39;s a possibility that there is a limit on how many email messages you are allowed to go out in a specific period of time.</p>
+
+<p>Another reason is that sending out too many messages at once may cause the server your running to be overloaded.</p>
+
+<p>But, if you&#39;ve got the bandwidth, and the horsepower, feel free to raise this limit.</p>
+
+<p><b>Global Variable:</b> <code>$MAILOUT_AT_ONCE_LIMIT</code></p>
+
+<h3 id="Multiple-Mailing-List-Sending">Multiple Mailing List Sending</h3>
+
+<p>Check this option to enable multiple mailing list sending. In a nutshell, when enabled, you&#39;ll have the option to send the same message to multiple mailing lists, at one time. For more information, see:</p>
+
+<p><a href="features-multiple_list_sending.pod.html">features-multiple_list_sending.pod.html</a></p>
+
+<p><b>Global Variable:</b> <code>$MULTIPLE_LIST_SENDING</code></p>
+
+<p>This option does not change the <code>$MULTIPLE_LIST_SENDING_TYPE</code> variable - it&#39;s set to, <code>merged</code>, by default.</p>
+
+<h3 id="Mass-Mailings-Stale-After">Mass Mailings Stale After</h3>
+
+<p><b>Mass Mailings Stale After</b> sets how long a mailout can go with no mailing activity until Dada Mail itself won&#39;t automatically reload it, from the point it stopped.</p>
+
+<p>This option attempts to safegaurd you against having a dropped mailing that you&#39;ve, &quot;forgotten&quot; about reloading, &quot;mysteriously&quot; and unintentionally.</p>
+
+<p>A mailout may still be reloaded if this limit has been surpassed, but it must be done manually, through the list control panel.</p>
+
+<p><b>Global Variable:</b> <code>$MAILOUT_STALE_AFTER</code></p>
+
+<h2 id="Configure-Confirmation-Token-Options">Configure Confirmation Token Options</h2>
+
+<p>Confirmation Tokens are the random letters and numbers you&#39;ll see at the end of confirmation URLs in subscription and unsubcription links (among other things).</p>
+
+<p>The token corresponds to information in your database, information we don&#39;t necessarily want embedded in the URL itself.</p>
+
+<p>Dada Mail keeps this information around for awhile, so that these confirmation links work.But, this information can take up space in your database, so there is an expiration date associated with them. By default, Dada Mail keeps the information around for 60 days, before removing them.</p>
+
+<p>If you&#39;re running a public mailing list, we do not suggest setting this to be under 30 days, as the unsubscribe link that depends on these confirmation tokens is required by the CAN SPAM law to be operable for 30 days.</p>
+
+<h2 id="Configure-Program-Name">Configure Program Name</h2>
+
+<p>The Program Name, set to either <b>Dada Mail</b> or, <b>Pro Dada</b> by default may be changed here. This name change will be reflected throughout the entire application, but the image used by default in the upper left hand corner will also need to be changed. We do suggest that you simply make your own template, rather than swapping this one image out.</p>
+
+<h2 id="Configure-Secure-Program-URL">Configure Secure Program URL</h2>
+
+<p>The Secure Program URL holds the URL you&#39;d like to use for Dada Mail&#39;s List Control Panel. For example, if you can map your Program URL to either an, <code>http://</code> URL, or a, <code>https://</code> address, you can set regular access to,</p>
+
+<pre><code>    http://example.com/cgi-bin/dada/mail.cgi</code></pre>
+
+<p>and access to the List Control Panel on a secure connection:</p>
+
+<pre><code>    https://example.com/cgi-bin/dada/mail.cgi</code></pre>
+
+<h2 id="Configure-Amazon-SES">Configure Amazon SES</h2>
+
+<p>You may set up Dada Mail to send via Amazon&#39;s Simple Email Service. This is a third party email sending service, which may have a much higher daily email quota and sending rate than what may be allowed on your own hosting account. Amazon SES does charge a fairly low rate for their service (about $0.10 per thousand messages sent). For more information, see the Amazon SES own site (<a href="http://aws.amazon.com/ses/">http://aws.amazon.com/ses/</a>) and Dada Mail&#39;s docs on Amazon SES (<a href="http://dadamailproject.com/d/features-amazon_ses_support.pod.html">http://dadamailproject.com/d/features-amazon_ses_support.pod.html</a>)</p>
+
+<p>Amazon SES does have a long list of required Perl CPAN modules that need to be installed, before SES sending will work. If any modules are not installed, the installer will list which CPAN modules are still needed.</p>
+
+<p>To configure Dada Mail to use SES sending, first check the checkbox labeled,<b> Configure Amazon SES</b> Then, you will need to give the installer your <b>AWS Access Key ID</b> and a <b>AWS Secret Access Key</b>. To test your information, click the, <b>Test Your AWS Credentials</b> button.</p>
+
+<h2 id="Configure-Mandrill">Configure Mandrill</h2>
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Subscription Approval System</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Subscription-Approval-System-for-Dada-Mail">Subscription Approval System for Dada Mail!</a>
+    <ul>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#Enabling">Enabling</a></li>
+      <li><a href="#Using">Using</a></li>
+      <li><a href="#Shortcomings">Shortcomings</a></li>
+      <li><a href="#Subscription-Options-disabled">&quot;Subscription&quot; Options disabled</a></li>
+      <li><a href="#Nothings-really-easily-editable">Nothing&#39;s really easily editable</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Subscription-Approval-System-for-Dada-Mail">Subscription Approval System for Dada Mail!</h1>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>Subscription Approval allows the list owner of a mailing list to make the final decision of if a would-be subscriber is allowed to join a mailing list.</p>
+
+<p>What&#39;s neat is that the entire rest of the subscription process, including the closed-loop opt-in can still be enabled and used - this just tacks on (yet) another step.</p>
+
+<p>The other neat thing is, if you find some of those other steps uneeded and redundant, this allows you to have another, alternative and direct confirmation process, without giving up too much security.</p>
+
+<h2 id="Enabling">Enabling</h2>
+
+<p>This feature can be enabled per list, in the list control panel under,</p>
+
+<p><i>Your Mailing list - Options</i></p>
+
+<p>Looking for the fieldset labeled,</p>
+
+<p><i>Subscription Requests Approving/Denying</i></p>
+
+<p>Check the option labeled,</p>
+
+<p><i>Enable Subscription Requests Approving/Denying </i></p>
+
+<p>All set!</p>
+
+<h2 id="Using">Using</h2>
+
+<p>When a would-be subscriber completes the subscription confirmation process, they&#39;ll be told that their subscription is being held until the list owner approves it.</p>
+
+<p>At the same time, an email message will be sent to the list owner, with instructions on how to approve, or deny a subscription.</p>
+
+<p>The list owner may also log into their mailing list control panel and view all the awaiting addresses to be approved by visiting:</p>
+
+<p><i>Your Subscribers - View</i></p>
+
+<p>Click the button on the top labeled,</p>
+
+<p><i>Subscription Requests</i></p>
+
+<p>This should present the list owner with the entire list of addresses that are awaiting approval.</p>
+
+<p>There are two buttons to act upon this list of address.</p>
+
+<p>Check the addresses you&#39;d like to work with and either press the button labeled,</p>
+
+<p><i>Approved Checked Subscription Requests</i></p>
+
+<p>to approve requests, or press the button labeled,</p>
+
+<p><i>Deny Checked Subscription Requests</i></p>
+
+<p>to deny requests.</p>
+
+<h2 id="Shortcomings">Shortcomings</h2>
+
+<h2 id="Subscription-Options-disabled">&quot;Subscription&quot; Options disabled</h2>
+
+<p>Since this feature basically skips *over* all the options you can set in the, <i>Subscriptions</i> fieldset in the, <i>Your Mailing List - Options</i> screen, so none of those options are available, if this feature is turned on.</p>
+
+<h2 id="Nothings-really-easily-editable">Nothing&#39;s really easily editable</h2>
+
+<p>Even though the email messages that get sent out and the, &quot;Subscription Successful&quot; HTML message *are* templated out, the interface to edit them on a per-list basis has not been made.</p>
+
+<p>You may edit them on a installation-wide basis by editing the defaults in the Config.pm file.</p>
+
+
+</body>
+
+</html>
+
+

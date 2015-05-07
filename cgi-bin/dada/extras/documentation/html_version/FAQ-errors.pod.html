@@ -1,0 +1,960 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Error FAQ</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#The-Dada-Mail-Error-FAQ">The Dada Mail Error FAQ</a>
+    <ul>
+      <li><a href="#In-Browser-Error-Messages">In-Browser Error Messages</a></li>
+      <li><a href="#Error-Messages-Because-of-Incorrect-File-Permissions">Error Messages Because of Incorrect File Permissions</a>
+        <ul>
+          <li><a href="#an-error-occurred-while-processing-this-directive">[an error occurred while processing this directive]</a></li>
+          <li><a href="#Internal-Server-Error">Internal Server Error</a></li>
+        </ul>
+      </li>
+      <li><a href="#Error-Message:-403-Forbidden">Error Message: 403 Forbidden</a>
+        <ul>
+          <li><a href="#mod_rewrite">mod_rewrite</a></li>
+          <li><a href="#mod_security">mod_security</a></li>
+        </ul>
+      </li>
+      <li><a href="#Program-Error-Messages---Yikes-App-Server-Problem">Program Error Messages - Yikes! App/Server Problem!</a>
+        <ul>
+          <li><a href="#Viewing-Dada-Mails-Error-Log">Viewing Dada Mail&#39;s Error Log</a></li>
+        </ul>
+      </li>
+      <li><a href="#Reporting-Errors">Reporting Errors</a></li>
+      <li><a href="#Advanced-Error-Logging-and-Reporting">Advanced Error Logging and Reporting</a></li>
+      <li><a href="#Difficult-to-Trace-Errors">Difficult to Trace Errors</a></li>
+      <li><a href="#Tracing-CPAN-modules-with-CPAN_DEBUG_SETTINGS">Tracing CPAN modules with %CPAN_DEBUG_SETTINGS</a></li>
+      <li><a href="#DEBUG_TRACE---Making-Dada-Mails-Own-Modules-More-Verbose">$DEBUG_TRACE - Making Dada Mail&#39;s Own Modules More Verbose</a></li>
+      <li><a href="#General-Problems">General Problems</a></li>
+      <li><a href="#Mass-Mailing-Messages-Are-Not-Delivered-or-Are-Delivered-to-Junk-Spam-Folder">Mass Mailing Messages Are Not Delivered or Are Delivered to Junk/Spam Folder</a>
+        <ul>
+          <li><a href="#Hosting-Account-Hourly-Email-Sending-Limit">Hosting-Account Hourly Email Sending Limit</a></li>
+          <li><a href="#Message-Content">Message Content</a></li>
+          <li><a href="#Mail-Server-Black-Listed">Mail Server Black Listed</a></li>
+        </ul>
+      </li>
+      <li><a href="#Problems-Logging-In">Problems Logging In</a></li>
+      <li><a href="#Links-in-Dada-Mail-dont-work-just-go-to-the-default-screen">Links in Dada Mail don&#39;t work/just go to the default screen</a></li>
+      <li><a href="#Duplicate-Email-Addresses-in-Your-Mailing-List">Duplicate Email Addresses in Your Mailing List</a></li>
+      <li><a href="#Template-Problems">Template Problems</a>
+        <ul>
+          <li><a href="#Changes-made-to-USER_TEMPLATE-or-ADMIN_TEMPLATE-variables-make-no-difference-to-layout-design">Changes made to $USER_TEMPLATE or $ADMIN_TEMPLATE variables make no difference to layout/design</a></li>
+        </ul>
+      </li>
+      <li><a href="#Diagnosing-Error-Messages">Diagnosing Error Messages</a></li>
+      <li><a href="#cannot-do-statement-at-add_subscriber-Duplicate-entry-0-for-key-1">cannot do statement (at add_subscriber)! Duplicate entry &#39;0&#39; for key 1</a></li>
+      <li><a href="#Died-at-usr-lib-perl5-5.8.8-base.pm-line-85">Died at /usr/lib/perl5/5.8.8/base.pm line 85</a></li>
+      <li><a href="#Dada-Mail-works-great-Until-I-try-to-create-a-new-list">Dada Mail works great! Until I try to create a new list...</a></li>
+      <li><a href="#lock-files">lock files?</a></li>
+      <li><a href="#CPAN-Perl-modules-conflicts">CPAN Perl modules/conflicts</a></li>
+      <li><a href="#Data::Dumper-object-version-2.102-does-not-match-Data::Dumper::VERSION-2.121-at">Data::Dumper object version 2.102 does not match $Data::Dumper::VERSION 2.121 at....</a></li>
+      <li><a href="#Guts.pm:-opening-angle-bracket">Guts.pm: / &lt; # opening angle bracket</a></li>
+      <li><a href="#cant-open-usr-home-path-to-your-dada_lists-to-read">can&#39;t open /usr/home/path/to/your/dada_lists to read</a></li>
+      <li><a href="#cant-open-usr-home-myaccout-lists-to-read:-Permission-denied">can&#39;t open /usr/home/myaccout/lists to read: Permission denied</a></li>
+      <li><a href="#is-only-avaliable-with-the-XS-version">is only avaliable with the XS version</a></li>
+      <li><a href="#I-get-the-Congratulations-startup-screen-but">I get the &#39;Congratulations&#39; startup screen, but ...</a></li>
+      <li><a href="#No-mail-is-being-sent-and-I-get-this-error-in-my-logs">No mail is being sent and I get this error in my logs:</a></li>
+      <li><a href="#Cant-locate-JSON.pm-charts-graphs-that-never-load">Can&#39;t locate JSON.pm, charts/graphs that never load</a></li>
+      <li><a href="#Cant-locate-MIME-Base64.pm">Can&#39;t locate MIME/Base64.pm</a></li>
+      <li><a href="#Software-error:-ndbm-store-returned--1-errno-28">Software error: ndbm store returned -1, errno 28</a></li>
+      <li><a href="#I-moved-my-lists-from-one-server-to-another-and-reinstalled-Dada-Mail.-Now-when-I-try-access-my-lists-I-get-this-error">I moved my lists from one server to another and reinstalled Dada Mail. Now when I try access my lists, I get this error:</a></li>
+      <li><a href="#couldnt-tie-home-path-to-your-dada_files-mj-listshortname-for-reading:-File-exists-at">couldn&#39;t tie /home/path/to/your/dada_files/mj-listshortname for reading: File exists at [...]</a></li>
+      <li><a href="#How-do-I-restore-my-lists">How do I restore my lists?</a></li>
+      <li><a href="#password-is-blank---Error">password is blank! - Error.</a></li>
+      <li><a href="#Beatitude-scheduled_mailings.pl">Beatitude (scheduled_mailings.pl)</a>
+        <ul>
+          <li><a href="#Byte-order-is-not-compatible">Byte order is not compatible</a></li>
+        </ul>
+      </li>
+      <li><a href="#Hosting-Company-Specific-Problems">Hosting Company-Specific Problems</a></li>
+      <li><a href="#Frontpage-Extensions-enabled-accounts">Frontpage Extensions-enabled accounts</a></li>
+      <li><a href="#Send-a-Webpage-Problems">Send a Webpage Problems</a></li>
+      <li><a href="#Cant-locate-object-method-redirects-via-package-HTTP::Headers">Can&#39;t locate object method &quot;redirects&quot; via package &quot;HTTP::Headers&quot;</a></li>
+      <li><a href="#Cant-call-method-verify_data-on-an-undefined-value-at">Can&#39;t call method &quot;verify_data&quot; on an undefined value at...</a></li>
+      <li><a href="#Assets-w-URLS-w-Query-Strings-break">Assets w/URLS w/Query Strings break</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="The-Dada-Mail-Error-FAQ">The Dada Mail Error FAQ</h1>
+
+<h2 id="In-Browser-Error-Messages">In-Browser Error Messages</h2>
+
+<p><b>In-Browser Error Messages</b> are error messages that you may receive in your browser window when interacting with Dada Mail.</p>
+
+<p>For security purposes, Dada Mail is <i>not</i> set up to show verbose error messages within your browser window. You will need to consult your Server/Dada Mail error log to see the specific problem.</p>
+
+<p>In-browser error messages can also be vague or sometimes downright misleading (an error 404 File Not Found when clearly that&#39;s not the case!) - don&#39;t interpret in-browser error messages alone!</p>
+
+<p>If you do get an in-browser error message, please find the lines in the error log that correspond to your problem. Lines in the error log are usually <b>time stamped</b>, facilitating your search.</p>
+
+<h2 id="Error-Messages-Because-of-Incorrect-File-Permissions">Error Messages Because of Incorrect File Permissions</h2>
+
+<p>Dada Mail&#39;s, <code>mail.cgi</code> script, as well as all of its plugins and extensions that you are utilizing will need to have their file permissions changed so that they can be executed, when you visit them in your web browser. This usually means changing the file permissions to, <b>755</b>.</p>
+
+<p>The directories that the <code>mail.cgi</code> script lives in (<i>dada</i>), as well as Dada Mail&#39;s plugins/extensions (<i>dada/plugins</i>,<i>dada/extensions</i>&gt;) should also be set to <b>755</b>.</p>
+
+<p>You may receive one of the following messages in your browser window if the permissions are not set correctly:</p>
+
+<h3 id="an-error-occurred-while-processing-this-directive">[an error occurred while processing this directive]</h3>
+
+<h3 id="Internal-Server-Error">Internal Server Error</h3>
+
+<pre><code>        The server encountered an internal error or misconfiguration and was unable to complete your request.
+    
+        Please contact the server administrator, you@example.com and inform them of the time the error occurred, and anything you might have done that may have caused the error.
+    
+        More information about this error may be available in the server error log.</code></pre>
+
+<p>Generally, when you receive the above errors, it is <b>not</b> a problem with Dada Mail itself, but rather simply incorrect file permissions.</p>
+
+<p>If file permissions do seem correct, there may be another underlying problem, such as incorrect file ownership, incorrect web server setup, etc. In that case, you will want to look in the <b>server&#39;s error log</b>.</p>
+
+<h2 id="Error-Message:-403-Forbidden">Error Message: 403 Forbidden</h2>
+
+<pre><code>        Forbidden
+
+        You don&#39;t have permission to access /cgi-bin/dada/mail.cgi on this server.
+
+        Additionally, a 500 Internal Server Error error was encountered while trying to use an ErrorDocument to handle the request.</code></pre>
+
+<p>This in-browser message can happen for a variety of reasons. Again - in-browser messages can be misleading and vague, which makes debugging them hard.</p>
+
+<p>For example, you may receive this error because of additional server configuration using <code>.htaccess</code> files. The directives in <code>.htaccess</code> files may be set for, and utilized by other web apps you have installed on your hosting account, so simply removing them is not a good idea.</p>
+
+<p>An easy way to diagnose that this is a the problem is to rename your base <code>.htaccess</code> file to move it out of the way, and then run Dada Mail. If Dada Mail runs, without the, <b>403 Forbidden</b> error - there&#39;s something in your <code>.htaccess</code> file that&#39;s stopping Dada Mail from running correctly.</p>
+
+<p>By far, the worst offender of long, verbose and sloppy <code>.htaccess</code> file directives is <b>Wordpress</b>. If you&#39;re running Wordpress and Dada Mail, prepare to troubleshoot <code>.htaccess</code> directive problems.</p>
+
+<h3 id="mod_rewrite">mod_rewrite</h3>
+
+<p>The <code>mod_rewrite</code> Apache Module, if configured incorrectly, can stop Dada Mail from working. Dada Mail does not require you to use this directive. You will want to disable <code>mod_rewrite</code> for Dada Mail.</p>
+
+<p>One way to do this is to create a <b>new</b> <code>.htaccess</code> file in your, <b>dada</b> directory, with this directive:</p>
+
+<pre><code>        RewriteEngine Off</code></pre>
+
+<p>to disable <code>mod_rewrite</code> for Dada Mail.</p>
+
+<h3 id="mod_security">mod_security</h3>
+
+<p>If the <code>mod_security</code> Apache module is enabled for your hosting is enabled, it may get in the way of normal, safe operations of Dada Mail.</p>
+
+<p>One solution would be to disable <code>mod_security</code> in whole or in part for Dada Mail by creating an <code>.htaccess</code> file with the correct directive to disable <code>mod_security</code>. Depending on the version of <code>mod_security</code> you&#39;re using, that directive will be different. An example would be:</p>
+
+<pre><code>        &lt;IfModule mod_security.c&gt;
+                SecFilterInheritance Off
+        &lt;/IfModule&gt;</code></pre>
+
+<p>Again - the correct directive for your version of <code>mod_security</code> could be different.</p>
+
+<h2 id="Program-Error-Messages---Yikes-App-Server-Problem">Program Error Messages - Yikes! App/Server Problem!</h2>
+
+<p>If Dada Mail has a problem completing a task, it will show its <i>own error message</i>, similar to what&#39;s below:</p>
+
+<pre><code>        Yikes! App/Server Problem!
+        
+        We apologize, but the server encountered a problem when attempting to complete its task.
+        
+        More information about this error may be available in the program&#39;s own error log.
+        
+        Contact the Server Admin
+        
+        Time of error: (Time Stamp)</code></pre>
+
+<p>For security reasons, Dada Mail will <i>not</i> show the complete error in the browser window. To find out what the actually error is, you will need to consult <b>Dada Mail&#39;s own error log</b></p>
+
+<h3 id="Viewing-Dada-Mails-Error-Log">Viewing Dada Mail&#39;s Error Log</h3>
+
+<p>If you&#39;ve set up Dada Mail using the included Dada Mail Installer, Dada Mail&#39;s error log is located within your <code>.dada_files</code> directory, at the following path:</p>
+
+<p><i>.dada_files/.logs/errors.txt</i></p>
+
+<p>If you are having trouble finding your error log, or did not use the Dada Mail Installer, you can find exactly where the error log is set in within your <b>dada/DADA/Config.pm</b> file, under the variable, <code>$PROGRAM_ERROR_LOG</code>. The line looks similar to this:</p>
+
+<pre><code>        $PROGRAM_ERROR_LOG = &quot;/home/youraccount/.dada_files/.logs/errors.txt&quot;;</code></pre>
+
+<p>You may read the error log file directly by downloading it, etc.</p>
+
+<p>If the error you&#39;re receiving doesn&#39;t stop you from logging into your List Control Panel, you may also use the <b>Log Viewer</b> plugin to view the error log as well. This plugin is also installed by default when you install Dada Mail using its built in Installer.</p>
+
+<p>You&#39;ll find a link for the Log View plugin on the left hand menu, under: <b>Plugins - Log Viewer</b>. Once on the Log Viewer screen, Find the popup menu labeled, <b>View Log:</b> and change it to, <b>Error Log</b>. The Log Viewer should refresh and show the last few lines of your Dada Mail error log.</p>
+
+<h2 id="Reporting-Errors">Reporting Errors</h2>
+
+<p>Please save the support community the need to ask you and come prepared with the following information, or as much as you can gather/is relevant:</p>
+
+<ul>
+
+<li><p>Version of Dada Mail</p>
+
+<p>Please always give the version of Dada Mail you&#39;re using</p>
+
+</li>
+<li><p>Error log snippets</p>
+
+<p>Error log lines are time stamped. Please do not post your ENTIRE error log, but rather simply lines that are time stamped around the time you&#39;re having problems or suspect problems are occuring.</p>
+
+</li>
+<li><p>What, if anything you did to cause the problem</p>
+
+<p>If there&#39;s a couple of steps needed to create the problem, it&#39;s helpful to describe those steps to the community, so that we all can try to recreate the problem, ourselves.</p>
+
+</li>
+</ul>
+
+<p>Please use the Dada Mail Support Boards, Discussion List and/or Issues Tracker to report errors and receive help through the Dada Mail community. Frequently asked-about problems are listed below, hopefully with advice and solutions.</p>
+
+<p>If you do post a question about an error to the Dada Mail support boards or dadadev mailing list, the first thing you&#39;re usually going to be asked is error log snippets, as well as the <b>Version of Dada Mail</b> you are running.</p>
+
+<ul>
+
+<li><p>Boards/Forums</p>
+
+<p><a href="http://dadamailproject.com/support/boards">http://dadamailproject.com/support/boards</a></p>
+
+</li>
+<li><p>Discussion List</p>
+
+<p><a href="http://dadamailproject.com/cgi-bin/dada/mail.cgi/list/dadadev/">http://dadamailproject.com/cgi-bin/dada/mail.cgi/list/dadadev/</a></p>
+
+</li>
+<li><p>Issues Tracker</p>
+
+<p><a href="http://github.com/justingit/dada-mail/issues">http://github.com/justingit/dada-mail/issues</a></p>
+
+</li>
+</ul>
+
+<h2 id="Advanced-Error-Logging-and-Reporting">Advanced Error Logging and Reporting</h2>
+
+<p>The following advice is for advanced users of Dada Mail:</p>
+
+<h2 id="Difficult-to-Trace-Errors">Difficult to Trace Errors</h2>
+
+<p>If Dada Mail is acting improperly, you can change how verbose Dada Mail reports warning and errors.</p>
+
+<h2 id="Tracing-CPAN-modules-with-CPAN_DEBUG_SETTINGS">Tracing CPAN modules with %CPAN_DEBUG_SETTINGS</h2>
+
+<p>Dada Mail uses Perl modules from various sources - mostly CPAN. Each of these modules is written by a different person/persons and usually have their own way of setting debug/tracing levels.</p>
+
+<p>In Dada Mail, the CPAN modules that have a debugging/tracing scheme are listed in the, <b>%CPAN_DEBUG_SETTINGS</b> Config.pm variable. More information:</p>
+
+<p><b>global_variables.pod.html#_cpan_debug_settings</b></p>
+
+<p>Enabling debugging settings in these modules may help debug issues such as:</p>
+
+<ul>
+
+<li><p>SQL Database Connections</p>
+
+</li>
+<li><p>Templating System</p>
+
+</li>
+<li><p>&quot;Send a Webpage&quot; function</p>
+
+</li>
+<li><p>POP3 and SMTP server connections</p>
+
+</li>
+</ul>
+
+<h2 id="DEBUG_TRACE---Making-Dada-Mails-Own-Modules-More-Verbose">$DEBUG_TRACE - Making Dada Mail&#39;s Own Modules More Verbose</h2>
+
+<p>Some of the various modules that make up Dada Mail also have their own debug tracing modes.</p>
+
+<p>The following modules have debug tracing:</p>
+
+<ul>
+
+<li><p>DADA_App_DBIHandle</p>
+
+<p><code>DADA::App::DBIHandle</code></p>
+
+<p>Handles the connection between the SQL server and Dada Mail. See also the, <b>DBI</b> key/value in <code>%CPAN_DEBUG_SETTINGS</code></p>
+
+</li>
+<li><p>DADA_App_Subscriptions</p>
+
+<p><code>DADA::App::Subscriptions</code></p>
+
+<p>For various things dealing with the subscription list.</p>
+
+</li>
+<li><p>DADA_Mail_MailOut</p>
+
+<p><code>DADA::Mail::MailOut</code></p>
+
+<p>Monitors Mass Mailings</p>
+
+</li>
+<li><p>DADA_Mail_Send</p>
+
+<p><code>DADA::Mail::Send</code></p>
+
+<p>Send email messages, including mass mailings.</p>
+
+</li>
+</ul>
+
+<h2 id="General-Problems">General Problems</h2>
+
+<h2 id="Mass-Mailing-Messages-Are-Not-Delivered-or-Are-Delivered-to-Junk-Spam-Folder">Mass Mailing Messages Are Not Delivered or Are Delivered to Junk/Spam Folder</h2>
+
+<h3 id="Hosting-Account-Hourly-Email-Sending-Limit">Hosting-Account Hourly Email Sending Limit</h3>
+
+<p>Many shared hosting accounts have hourly email sending quotas, that will need to send below.</p>
+
+<p><b>See the FAQ on Mass Mail Sending:</b> <a>FAQ-mailing_list_sending.pod.html</a></p>
+
+<p>The majority of mass mailing delivery problems is from sending over your hosting account&#39;s hourly email limit.</p>
+
+<h3 id="Message-Content">Message Content</h3>
+
+<p>Dada Mail goes to pretty good lengths in an attempt to make sure the formatting of the messages sent with it are well structured. It is up to you to make sure the messages that you write are also well structured:</p>
+
+<ul>
+
+<li><p>No Sloppy HTML coding</p>
+
+<p>If you&#39;re sending HTML, make sure that the HTML code itself is not sloppy. The more HTML tags you have in relation to actual text you have, the more suspicious a HTML message will look.</p>
+
+</li>
+<li><p>Be careful of certain phrases</p>
+
+<p>Many of the mail filtering software used looks for keywords that will trigger your message to be flagged. A list of all of them is in constant flux and is too large to list here. The easiest thing to do is to test your message out.</p>
+
+<p>Lyris provides a free content check at:</p>
+
+<p>http://lyris.com/contentchecker/</p>
+
+<p>It&#39;s somewhat barebones, and you&#39;ll receive some marketing information from the company once you&#39;re done, but it uses a similar backend to what I test Dada Mail with, which, if you&#39;re interested, is a fine program called, SpamAssassin:</p>
+
+<p>http://spamassassin.org</p>
+
+<p>I&#39;m personally very happy with Spam Assassin&#39;s development and thank my lucky stars each time it blocks the billions of SPAM I personally receive a day. Mail filtering software like SpamAssassin is not going to go away any time soon and the best thing to do is work in conjunction with it, rather than to try to find holes in which to get past it.</p>
+
+</li>
+</ul>
+
+<p>Other reasources dealing with the content of your message, primarily:</p>
+
+<ul>
+
+<li><p>Some Tips for Legitimate Senders to Avoid False Positives</p>
+
+<p>http://wiki.apache.org/spamassassin/AvoidingFpsForSenders?highlight=%28CategoryFaq%29</p>
+
+</li>
+<li><p>HTML Emails - Taming the Beast</p>
+
+<p>http://www.thinkvitamin.com/features/design/html-emails</p>
+
+</li>
+<li><p>CSS and Email, Kissing in a Tree</p>
+
+<p>http://www.alistapart.com/articles/cssemail/</p>
+
+</li>
+<li><p>Frugal Marketing: That&#39;s not Spam, That&#39;s My Newsletter!</p>
+
+<p>http://www.frugalmarketing.com/dtb/notspamnews.shtml</p>
+
+</li>
+<li><p>SpamCon Foundation: Best practices for marketers</p>
+
+<p>http://www.spamcon.org/directories/best-practices.shtml</p>
+
+</li>
+<li><p>Bulk e-mail HOWTO:</p>
+
+<p>http://spam.abuse.net/marketerhelp/bulk-howto.shtml</p>
+
+</li>
+</ul>
+
+<h3 id="Mail-Server-Black-Listed">Mail Server Black Listed</h3>
+
+<p>Email Black Lists are lists of sites, servers and individual addresses that are flagged as being abusive to the shared and open system of the web. There are many ways to become black listed and services that will blacklist you. Different services use different methods - it&#39;s an anarchic mess that works sometimes.</p>
+
+<p>Resources to check:</p>
+
+<ul>
+
+<li><p>SpamCop.net</p>
+
+<p>SpamCop receives individual reports of spam from its users and keeps a database of abusive activity based on the IP address the mail originates from. If you have setup an abuse email address for you domain (usually, abuse@example.com, where example.com is your domain name), you should receive a copy of the complaint. If not, you can check your status at:</p>
+
+<p>http://www.spamcop.net/bl.shtml</p>
+
+<p>I belive SpamCop&#39;s blacklist is one that expires over time and if you reply to the abuse emails, you can come to a conclusion that may get you off quicker.</p>
+
+</li>
+<li><p>mx toolbox Blacklist Check</p>
+
+<p>http://www.mxtoolbox.com/blacklists.aspx</p>
+
+<p>Searches through many, many email blacklists at one time.</p>
+
+</li>
+<li><p>Individual&#39;s Block List</p>
+
+<p>Black List&#39;s can also be individual, which isn&#39;t something you&#39;re going to be able to control. There&#39;s two main reasons that someone would block your message - they genuinely don&#39;t want to receive mail from you, or it&#39;s a mistake.</p>
+
+<p>The only way to get off an individual block list is to have the individual take you off.</p>
+
+</li>
+</ul>
+
+<h2 id="Problems-Logging-In">Problems Logging In</h2>
+
+<p>Sometimes, people find that it&#39;s impossible to log into Dada Mail&#39;s list control panel.</p>
+
+<p>Some things to double-check:</p>
+
+<ul>
+
+<li><p>Make SURE you&#39;re using the right password</p>
+
+<p>Sounds simple, but you never know</p>
+
+</li>
+<li><p>Browser? Cookies?</p>
+
+<p>Make sure your browser, firewall and connection to Dada Mail is allowing cookies to be sent, received and stored.</p>
+
+<p>Dada Mail relies on session information saved in browser cookies.</p>
+
+</li>
+</ul>
+
+<p>If those problems don&#39;t help matters, sometimes it helps to set Dada Mail to use a different session type.</p>
+
+<p>The session type is set in the config variable, <code>$SESSION_DB_TYPE</code>. It can be set to, <code>SQL</code> (you&#39;ll need to setup the SQL backend for this to work), <code>DB</code>, <code>PlainText</code> - and, if all else fails, <code>Classic</code>.</p>
+
+<p>All these session types work the same way, but <code>Classic</code> is the least secure - we don&#39;t recommend using it, but if it helps you get out of a pinch, then it can help you get out of a pinch.</p>
+
+<h2 id="Links-in-Dada-Mail-dont-work-just-go-to-the-default-screen">Links in Dada Mail don&#39;t work/just go to the default screen</h2>
+
+<p>If you&#39;re having problems with links in Dada Mail being seemingly broken - for example, going to:</p>
+
+<p><a href="http://example.com/cgi-bin/dada/mail.cgi/admin">http://example.com/cgi-bin/dada/mail.cgi/admin</a></p>
+
+<p>Doesn&#39;t bring you to the admin script, but instead simply goes to the default screen, you may have a problem with a separate web app or server configuration impacting Dada Mail.</p>
+
+<p>This could be solved by turning off <code>mod_rewrite</code> for the directory Dada Mail resides in:</p>
+
+<p>Create an <code>.htaccess</code> file in your, <code>dada</code> directory and placing this directive inside it:</p>
+
+<pre><code>        RewriteEngine off</code></pre>
+
+<h2 id="Duplicate-Email-Addresses-in-Your-Mailing-List">Duplicate Email Addresses in Your Mailing List</h2>
+
+<p>If there are duplicate email addresses in your mailing list, please open up a bug report.</p>
+
+<p><a href="http://github.com/justingit/dada-mail/issues">http://github.com/justingit/dada-mail/issues</a></p>
+
+<p>At least in the Dada Mail program, duplicates should never be present.</p>
+
+<p>If you are edited the plain text list files (if you&#39;re using the default back end), or if you&#39;re using the SQL dada_subscribers SQL backend directly, then all bets are off, in terms of duplicates. You CAN, easily add duplicates to a mailing list by working with the backends directly. We suggest not doing this, but rather, using the provided Perl API.</p>
+
+<h2 id="Template-Problems">Template Problems</h2>
+
+<h3 id="Changes-made-to-USER_TEMPLATE-or-ADMIN_TEMPLATE-variables-make-no-difference-to-layout-design">Changes made to $USER_TEMPLATE or $ADMIN_TEMPLATE variables make no difference to layout/design</h3>
+
+<p>If you&#39;re trying to change the layout/design of Dada Mail, but any changes you make do no seem to take hold, see if Screen Caching isn&#39;t enabled - it should be enabled by default. Your changes will not be visible, until after you have flushed out the cache.</p>
+
+<p>See the doc on the Screen Cache feature for more information:</p>
+
+<p><a href="features-screen_cache.pod.html">features-screen_cache.pod.html</a></p>
+
+<h2 id="Diagnosing-Error-Messages">Diagnosing Error Messages</h2>
+
+<h2 id="cannot-do-statement-at-add_subscriber-Duplicate-entry-0-for-key-1">cannot do statement (at add_subscriber)! Duplicate entry &#39;0&#39; for key 1</h2>
+
+<p>I&#39;ve seen this error, when the Dada Mail SQL database isn&#39;t imported correctly. My advice is to export your list from within Dada Mail&#39;s List Control Panel (Your Subscribers -&gt; View, Open List in New Window) Drop the dada_subscribers table, recreate the table and subscribe the subscribers back into your database via Dada Mail&#39;s list control panel (Your Subscribers -&gt; Add)</p>
+
+<h2 id="Died-at-usr-lib-perl5-5.8.8-base.pm-line-85">Died at /usr/lib/perl5/5.8.8/base.pm line 85</h2>
+
+<p>Upon visiting Dada Mail in your web browser, you get this fairly unhelpful message:</p>
+
+<pre><code> Died at /usr/lib/perl5/5.8.8/base.pm line 85.
+ BEGIN failed--compilation aborted at /DADA/MailingList/Subscribers.pm line 11.
+ Compilation failed in require at mail.cgi line 172.
+ BEGIN failed--compilation aborted at mail.cgi line 172.</code></pre>
+
+<p>Most likely what&#39;s happening is this:</p>
+
+<p>The server you&#39;re running Dada Mail on doesn&#39;t have a DB file type available. Solution? Use the SQL backends.</p>
+
+<p>If this happens after a <i>server</i> upgrade and a Dada Mail installation that <b>was</b> working, suddenly doesn&#39;t, yell at your webhost for taking away support for a DB file backend. I&#39;d say something like:</p>
+
+<pre><code> Dear Web Host, 
+ 
+ I was using your fine service, until one day I realized
+ you had taken away support for the Berkeley DB database ( or similar) library 
+ 
+ Yours, 
+ 
+ -- Your Name</code></pre>
+
+<p>If they do, your Dada Mail may magically work. If they don&#39;t, restore your lists (instructions are in this FAQ). If *that* doesn&#39;t work, you may have to switch to the SQL backend anyways and manually recreate your lists. Thems the breaks, I guess.</p>
+
+<h2 id="Dada-Mail-works-great-Until-I-try-to-create-a-new-list">Dada Mail works great! Until I try to create a new list...</h2>
+
+<p><i>Once I fill out all the information and click the submit button, the program returns a 500 error message. What&#39;s going on?</i></p>
+
+<p>Most likley, Dada Mail does not have enough permissions to write files into the directory you supplied in the <b>$FILES</b> variable - (If you&#39;re using the advanced setup, we&#39;re also talking about the <b>$ARCHIVES</b>, <b>$BACKUPS</b>, <b>$TEMPLATES</b>, <b>$TMP</b> and <b>$LOGS directories</b>.)</p>
+
+<p>This usually occurs if the UNIX user that created the directory differs from the UNIX user that Dada Mail is running as. For example, sometimes cgi scripts, like Dada Mail are run as, &quot;nobody&quot;, or, &quot;apache&quot;, for security reasons. If this is the case, you&#39;re going to have to change the permissions of the directories mentioned to: <b>777</b>.</p>
+
+<p>Note that this gives everyone who has access to these directories read/write permission, so be careful when applying this chmod. If you&#39;re uncomfortable doing this, see if you cannot run Dada Mail using a wrapper script. A wrapper script allows you to run a cgi script using a different UNIX user - usually whichever one is associated with your usual login username. A common wrapper script is one called, CGIWrap.</p>
+
+<h2 id="lock-files">lock files?</h2>
+
+<p><i>Dada Mail seems to be not working correctly. Viewing the error logs that I have setup - as per suggestion, give me back some odd cryptic messages about lockfiles not being removed, what do I do? Is it safe to manually remove these lockfiles?</i></p>
+
+<p><b>If</b> Dada Mail seems to be completely stuck, displaying only part of a screen, generally unusable, it is safe to delete the lock files - yes. Lock files should only be in use for seconds at the most, and then be automatically removed. If they&#39;re not, you can safely delete them yourself.</p>
+
+<p>Lockfiles that aren&#39;t removed and still have their filehandle open may because of a larger problem you shouldn&#39;t ignore - either there&#39;s a bug in Dada Mail, or your server is being bombarded with requests - more than Dada Mail can handle.</p>
+
+<p>I&#39;ve found this to be true when Dada Mail is trying to load complex archive messages. If this is the case for you as well, you may want to play around with the, <b>$MIME_OPTIMIZE</b> Config.pm variable.</p>
+
+<h2 id="CPAN-Perl-modules-conflicts">CPAN Perl modules/conflicts</h2>
+
+<p><b>Introduction:</b></p>
+
+<p>Dada Mail relies on specific Perl CPAN libraries that have a compiled version and a pure perl version. Usually, the compiled version is there as an option to enhance the speed of execution of the routines of the library itself. It&#39;s a good thing.</p>
+
+<p><b>Problem:</b></p>
+
+<p>You cannot bundle the compiled version of these libraries within Dada Mail, because they need to be compiled specifically for the OS that Dada Mail will run on, and that list is very large.</p>
+
+<p><b>Solution?</b></p>
+
+<p>At the moment, Dada Mail comes with a Pure Perl version of every CPAN Perl library module that it <b>requires</b>. Here is the list:</p>
+
+<ul>
+
+<li><p>MIME::Base64</p>
+
+</li>
+<li><p>MIME::QuotedPrint</p>
+
+</li>
+<li><p>Data::Dumper</p>
+
+</li>
+<li><p>Digest</p>
+
+</li>
+<li><p>Digest::MD5</p>
+
+</li>
+<li><p>JSON</p>
+
+</li>
+</ul>
+
+<p>So, if you do not have these modules installed - it&#39;s OK, Dada Mail comes with the pure perl version of them.</p>
+
+<p><b>Problem With This Solution:</b></p>
+
+<p>The catch 22 to this is: if you HAVE these modules installed - and it&#39;s a really good chance you have at least one in the group installed, Dada Mail may produce an error saying basically, &quot;I&#39;ve got a newer/different/better version already! - whatcha doin&#39;?!&quot;</p>
+
+<p><b>Solution to the Problem of the First Solution:</b></p>
+
+<p>To counteract this, the above modules will be included in Dada Mail, <b>but</b> will not be active. This is done by appending, <b>-remove_to_install</b> to the file name/directory of these perl library modules. To make them active, rename the module to not include, <b>-remove_to_install</b>.</p>
+
+<p>Examples:</p>
+
+<dl>
+
+<dt id="Base64.pm-remove_to_install---Base64.pm">Base64.pm-remove_to_install -&gt; Base64.pm</dt>
+<dd>
+
+</dd>
+<dt id="Data-remove_to_install---Data">Data-remove_to_install -&gt; Data</dt>
+<dd>
+
+<p>(Note: Data is directory)</p>
+
+</dd>
+</dl>
+
+<p>These files/directories are located in the: <b>dada/DADA/perllib</b> directory of the Dada Mail distribution.</p>
+
+<p>If you can, install the compiled versions of these modules manually. If you can&#39;t/don&#39;t know how, rename the files as directed above. It&#39;s better to use the compiled version if you can. How to install these modules is a little over the pale of this particular document.</p>
+
+<h2 id="Data::Dumper-object-version-2.102-does-not-match-Data::Dumper::VERSION-2.121-at">Data::Dumper object version 2.102 does not match $Data::Dumper::VERSION 2.121 at....</h2>
+
+<p><b>Background:</b></p>
+
+<p>Data::Dumper is probably already installed on your account.</p>
+
+<p>Simply remove the copy that comes with Dada Mail by navigating to the <i>dada/DADA/perllib</i> directory and removing or moving the, <b>Data</b> directory.</p>
+
+<h2 id="Guts.pm:-opening-angle-bracket">Guts.pm: / &lt; # opening angle bracket</h2>
+
+<p>I&#39;m getting an error with the following (or similar) gobble-dee-gook:</p>
+
+<pre><code> Guts.pm: [Thu Jul 17 22:43:11 2003] Guts.pm: / 
+ &lt; # opening angle bracket [Thu Jul 17 22:43:11 2003] 
+ Guts.pm: [Thu Jul 17 22:43:11 2003] Guts.pm: [Thu Jul 17 
+ 22:43:11 2003] Guts.pm: [Thu Jul 17 22:43:11 2003] 
+ Guts.pm: (?: # Non-backreffing grouping paren 
+ [Thu Jul 17 22:43:11 2003] Guts.pm: [Thu Jul 17 22:43:11 2003] 
+ Guts.pm: [^&gt;&#39;&quot;] * # 0 or more thi/: regexp *+ operand could be empty 
+ at /DADA/App/Guts.pm line 1217. BEGIN failed--compilation aborted at mail.cgi 
+ line 87.</code></pre>
+
+<p>This error happens if you&#39;re server is running a version of Perl that&#39;s below version 5.005. Dada Mail requires at least version 5.005 of Perl and it&#39;s suggested that you use at least Perl 5.6. Dada Mail is developed and tested on a machine running Perl Version 5.8.</p>
+
+<p>Among major hosts that have a version of Perl that&#39;s below 5.005 is Earthlink. Dada Mail will not run correctly on an Earthlink account. It&#39;s suggested that if you do have an account on Earthlink and want to run Dada Mail that you thoughtfully express your wantings of an up-to-date version of Perl available on their servers. Or, move your account to a hosting company that responds to their customers wants and needs.</p>
+
+<p>To give you a brief history of Perl, Perl version 5.005 was released on 7/22/98. I don&#39;t think it&#39;s too much to ask that Dada Mail will only run on with a version of Perl that&#39;s five years old or less.</p>
+
+<h2 id="cant-open-usr-home-path-to-your-dada_lists-to-read">can&#39;t open /usr/home/path/to/your/dada_lists to read</h2>
+
+<p>I&#39;m getting a Software Error that says:</p>
+
+<pre><code>        can&#39;t open /usr/home/path/to/your/dada_lists to read: No such file or directory at /DADA/GUTS.pm </code></pre>
+
+<p>Did you change the first 4 variables in the Config.pm file? What&#39;s happening is that its looking for a directory on the server that doesn&#39;t exists.</p>
+
+<h2 id="cant-open-usr-home-myaccout-lists-to-read:-Permission-denied">can&#39;t open /usr/home/myaccout/lists to read: Permission denied</h2>
+
+<p>I&#39;m getting a sofware error that says:</p>
+
+<pre><code>        can&#39;t open /usr/home/myaccout/lists to read: Permission denied at /DADA/GUTS.pm </code></pre>
+
+<p>The directory that you specified in the Config.pm as the place to put your lists (the $FILES variable) exists, but isn&#39;t something Dada Mail can read and possibly write into. You&#39;ll need to change the permissions of this directoy. Usually, people on a regular hosting account will have to chmod the $FILES directory to 777.</p>
+
+<p>Just to reiterate, this is a <b>directory</b> not a <b>file</b>. All sorts of files are going to be written inside this directory, so be ready.,</p>
+
+<h2 id="is-only-avaliable-with-the-XS-version">is only avaliable with the XS version</h2>
+
+<p>This problems comes to the surface when attempting to use the default CAPTCHA backend, as well as attempting to use the SMTP over SSL</p>
+
+<p>This is a problem with the copies of <code>Scalar::Util</code> and, <code>List::Util</code> CPAN modules that come with Dada Mail.</p>
+
+<p>See if you have the following directories:</p>
+
+<p><i>dada/DADA/perllib/Scalar</i></p>
+
+<p><i>dada/DADA/perllib/List</i></p>
+
+<p>If so, renamed them:</p>
+
+<p><i>dada/DADA/perllib/Scalar-bak</i></p>
+
+<p><i>dada/DADA/perllib/List-bak</i></p>
+
+<p>and see if this problem clears up.</p>
+
+<h2 id="I-get-the-Congratulations-startup-screen-but">I get the &#39;Congratulations&#39; startup screen, but ...</h2>
+
+<p>I get the &#39;Congratulations&#39; startup screen, but when I enter my root password and click the button, I either see a 404 page, or nothing happens</p>
+
+<p>Did you set the $PROGRAM_URL variable in the Config.pm file? This variable is defaulted to this:</p>
+
+<pre><code>        $PROGRAM_URL =&#39;http://yoursite.com/cgi-bin/dada/mail.cgi&#39;;</code></pre>
+
+<p>Which, unless your domain is yoursite.com, is wrong. Change it to the URL that you have to access the mail.cgi script from.</p>
+
+<p>In your server configuration, can information be passed to the script using the <b>POST</b> method? If not, you&#39;re in trouble, cause Dada Mail needs that. 99.99% of the time, you&#39;ll be able to use the POST method to send information to a script, but sometimes, for security reasons, you won&#39;t be able to. This can be set in your servers configuration file, like httpd.conf.</p>
+
+<h2 id="No-mail-is-being-sent-and-I-get-this-error-in-my-logs">No mail is being sent and I get this error in my logs:</h2>
+
+<pre><code>        mail.cgi: Broken pipe at DADA/MAIL.pm </code></pre>
+
+<p>or I see this Software Error in my browser:</p>
+
+<pre><code>        Error: can&#39;t pipe to mail program using settings: |/usr/bin/sendmail -t </code></pre>
+
+<p>This means that the $MAILPROG variable in the Config.pm file is incorrect. If you have shell access to your server, type in this:</p>
+
+<pre><code>        which sendmail </code></pre>
+
+<p>to find out where the sendmail program is on your server, or ask your system administrator.</p>
+
+<p>If you&#39;re on a WinNT server, you&#39;re most likely not going to be using Sendmail this way, you should be sending all your mail using an SMTP server. Check out the Windows readme file for more information on how to set up your copy of Dada Mail for Windows.</p>
+
+<h2 id="Cant-locate-JSON.pm-charts-graphs-that-never-load">Can&#39;t locate JSON.pm, charts/graphs that never load</h2>
+
+<p>Dada Mail uses the Google Visualization API to create its charts and graphs. This API needs its data given to it in the JSON format and Dada Mail uses the <b>JSON</b> CPAN module to create the data. If you do not have this module currently installed, you will need to install it, yourself.</p>
+
+<p>See, <b>How to install CPAN modules</b>: <a href="http://dadamailproject.com/d/FAQ-general.pod.html#how_do_you_install__cpan_perl_modules">http://dadamailproject.com/d/FAQ-general.pod.html#how_do_you_install__cpan_perl_modules</a></p>
+
+<p>Dada Mail also ships with a disabled copy of <b>JSON</b>. In the <i>dada/DADA/perllib</i> directory, find the directory named,</p>
+
+<p><code>JSON-remove_to_install</code></p>
+
+<p>and the file named,</p>
+
+<p><code>JSON.pm-remove_to_install</code></p>
+
+<p>and rename them:</p>
+
+<p><code>JSON</code></p>
+
+<p>and,</p>
+
+<p><code>JSON.pm</code></p>
+
+<p>respectively.</p>
+
+<h2 id="Cant-locate-MIME-Base64.pm">Can&#39;t locate MIME/Base64.pm</h2>
+
+<p>I get an error like this:</p>
+
+<pre><code>        Software error: 
+        Can&#39;t locate MIME/Base64.pm in @INC (@INC contains: [...]</code></pre>
+
+<p>but everything is working fine, what&#39;s up?</p>
+
+<p>If we only knew. This looks like a bug in Mime::Lite - a part of Dada Mail that we really like (Ok, LOVE) , but wasn&#39;t developed by us, so we can&#39;t think why it&#39;s broken. Basically, don&#39;t worry about the message, it&#39;s more of a warning than anything, if a slightly annoying warning. There are directions in mail.cgi itself to get rid of &#39;em.</p>
+
+<h2 id="Software-error:-ndbm-store-returned--1-errno-28">Software error: ndbm store returned -1, errno 28</h2>
+
+<p>A little backgound on how Dada Mail stores its list settings and archives:</p>
+
+<p>Dada Mail stores list settings and archives in what are called &quot;DB Files&quot;; they&#39;re simpler than an SQL database, but have their advantages from completely flat file databases. There are a few different DB File formats, and Dada Mail can use many different kinds. Different DB File formats have different limitations. One of these limitations is the amound of information they can store in each key/value pair. If you go over this limit, you&#39;re going to receive something like:</p>
+
+<pre><code>        ndbm store returned -1, errno 28</code></pre>
+
+<p>Most likely, you&#39;ll experience this when sending out a list message. This is triggered from Dada Mail trying to archive a message into a DB FIle format that has a limitation on the amount of data it can hold. The message goes over this limit. The easiest fix is to turn off archiving.</p>
+
+<p>If you want to, you can play around with how Dada Mail picks what DB FIle to use. In the Config.pm file, find this line:</p>
+
+<pre><code>        BEGIN { @AnyDBM_File::ISA = qw(DB_File GDBM_File NDBM_File ODBM_File SDBM_File) } </code></pre>
+
+<p>DB_File, GDBM_File, NDBM_File, ODBM_File and SDBM_File are all different DB File Formats. DB_File is the best and they get poorer from there. If Dada Mail isn&#39;t using DB_File, it usually means it&#39;s not available. If you have root access on your server, you can always install it, it&#39;s free. Before doing that, please note that previous lists setup with a different DB File format will not work if you&#39;re uswithcing the DB File package. Dada Mail can only use one of these packages at a time. It&#39;s possible that all these DB File formats have import/export tools that you may want to investigate. If you don&#39;t know what file format you&#39;re using, try using the <b>file</b> command.</p>
+
+<h2 id="I-moved-my-lists-from-one-server-to-another-and-reinstalled-Dada-Mail.-Now-when-I-try-access-my-lists-I-get-this-error">I moved my lists from one server to another and reinstalled Dada Mail. Now when I try access my lists, I get this error:</h2>
+
+<pre><code> Software error: couldn&#39;t tie for reading: Permission denied</code></pre>
+
+<p>See the error faq about restoring your lists.</p>
+
+<h2 id="couldnt-tie-home-path-to-your-dada_files-mj-listshortname-for-reading:-File-exists-at">couldn&#39;t tie /home/path/to/your/dada_files/mj-listshortname for reading: File exists at [...]</h2>
+
+<p>See the error faq about restoring your lists.</p>
+
+<h2 id="How-do-I-restore-my-lists">How do I restore my lists?</h2>
+
+<p><b>Background</b></p>
+
+<p>By default, Dada Mail saves its <b>list settings</b> and <b>archives</b> (there&#39;s also an option to saved archived messages in an SQL table) in a binary type file called a Database File, or DB file for short. Sometimes these files can become binary-incompatible with the environment you&#39;re running Dada Mail under. This can happen if:</p>
+
+<ul>
+
+<li><p>Your hosting account was moved to a different server</p>
+
+</li>
+<li><p>You moved your hosting account to a different server</p>
+
+</li>
+<li><p>The server software was upgraded</p>
+
+</li>
+</ul>
+
+<p>Visit the following URL:</p>
+
+<p>http://example.com/cgi-bin/dada/mail.cgi?f=restore_lists</p>
+
+<p>You&#39;ll have to enter your Dada Mail Root Password and then you&#39;ll enter a screen that will allow you to restore your list settings/archives.</p>
+
+<p>If you&#39;re using a version of Dada Mail under 2.10.6 and you&#39;re still receive an error after restoring your list settings/archives, take note of the file that&#39;s throwing the error and manually back it up and remove it. Usually, this file either did not get restored properly, or, was an archive file that had no archives saved in it. A bug in the program prior to 2.10.6 would have the latter stuck, even with the restoration feature.</p>
+
+<p>Restoring list settings/archives is accomplished because Dada Mail keeps a plain text, platform agnostic version of your list settings/archives. This feature was put in Dada Mail, version 2.8.12. If you have a version of Dada Mail below this, this backup will not have been created. Upgrading Dada Mail will not create backups of a corrupted list to then restore from. List Setting/Archive restoration only worked with well after 2.9. If you have a installation of Dada Mail that needs to have lists restored that dates prior to 2.9, it&#39;s advised to upgrade to the latest version (make a backup, of course) of Dada Mail before attempting to restore your lists.</p>
+
+<p>Read below for ways to restore a list if you&#39;re running a version below 2.9.</p>
+
+<h2 id="password-is-blank---Error">password is blank! - Error.</h2>
+
+<p><i>I receive an error that says,</i></p>
+
+<p><i>List password for listshortname is blank! It is advised that you make sure your list settings file is not corrupted, or reset you list password. at /DADA/App/Session.pm line 123.</i></p>
+
+<p>List passwords shouldn&#39;t become blank on their own, so if your password isn&#39;t set, other settings may have been lost because of whatever had happened too. It *may* be a good idea to start a new list if this is the case.</p>
+
+<p>But! The easiest thing to solve this particular problem is to reset your password. In your web browser go to a URL like this:</p>
+
+<p>http://example.com/cgi-bin/dada/mail.cgi?f=email_password&amp;list=listshortname</p>
+
+<p>Where, <b>http://example.com/cgi-bin/dada/mail.cgi</b> is the URL to your Dada Mail and, <b>listshortname</b> is the listshortname that&#39;s giving you trouble.</p>
+
+<h2 id="Beatitude-scheduled_mailings.pl">Beatitude (scheduled_mailings.pl)</h2>
+
+<h3 id="Byte-order-is-not-compatible">Byte order is not compatible</h3>
+
+<p>The error will look similar to this,</p>
+
+<pre><code>        [Sat Sep 1 02:19:42 2012] scheduled_mailings.pl: Byte order is not compatible at /usr/local/lib/perl5/5.8.8/x86_64-linux/Storable.pm line 417, at ../DADA/perllib/MLDBM/Serializer/Storable.pm line 27</code></pre>
+
+<p>Try restoring your Schedules, by using going to the Restore Mailing Lists screen in Dada Mail - ie:</p>
+
+<p><a href="http://example.com/cgi-bin/dada/mail.cgi?f=restore_lists">http://example.com/cgi-bin/dada/mail.cgi?f=restore_lists</a></p>
+
+<p>You will only need to restore your mailing list Schedules.</p>
+
+<h2 id="Hosting-Company-Specific-Problems">Hosting Company-Specific Problems</h2>
+
+<h2 id="Frontpage-Extensions-enabled-accounts">Frontpage Extensions-enabled accounts</h2>
+
+<p>Frontpage and Frontpage Extensions do not play well with Dada Mail.</p>
+
+<p>If you receive errors that include file path with, <b>_vti_cnf</b></p>
+
+<p>For example:</p>
+
+<pre><code> [Tue Jul 11 13:19:34 2006] mail.cgi: Semicolon seems to be missing at
+ DADA/perllib/Mail/Field/_vti_cnf/AddrList.pm line 4.</code></pre>
+
+<p>You&#39;ve been hit with the mighty, Frontpage-Extensions-Corrupted-My-Dada-Mail problem.</p>
+
+<p>The, <i>_vti_cnf</i> directories have something to do with Frontpage - apparently, they hold some sort of configuration information for the program itself.</p>
+
+<p>Here&#39;s one thing you&#39;ll have to do - you may not like it, but this is the best way to solve the problem:</p>
+
+<p>You&#39;ll need to reinstall Dada Mail (I&#39;m not kidding), or go through ALL the directories that make up Dada Mail, and take out every directory called, <i>_vti_cnf</i> (it&#39;s like a virus, I know!)</p>
+
+<p>You&#39;ll then have to reinstall Dada Mail, but you have to make sure you do one very important step:</p>
+
+<p>Instead of installing both the, mail.cgi file and DADA (uppercase) directory in the, <i>dada</i> (lowercase) directory in your cgi-bin, you&#39;re going to have to place the <i>DADA</i> directory in a place that&#39;s somewhere other than under your public html directory, and also update the, <i>use lib</i> statements in the mail.cgi file - and any other script that uses the libraries that make up the <i>DADA</i> directory. Here&#39;s what you&#39;re looking for:</p>
+
+<pre><code> use lib qw(
+            ./ 
+            ./DADA 
+            ./DADA/perllib
+ ); </code></pre>
+
+<p>If you placed your, <i>DADA</i> directory at:</p>
+
+<pre><code> /home/youraccount/perllib_dada/DADA</code></pre>
+
+<p>You&#39;d change the <i>use lib</i> statement to:</p>
+
+<pre><code> use lib qw(
+             /home/youraccount/perllib_dada
+             /home/youraccount/perllib_dada/DADA
+             /home/youraccount/perllib_dada/DADA/perllib
+ ); </code></pre>
+
+<p>An annoyance for sure, but not the end of the world.</p>
+
+<p>Here is the other option:</p>
+
+<p>You can make a wrapper script that first goes through all the directories of Dada Mail for the _vti_cnf directories and removes them and their contents and then runs Dada Mail normally.</p>
+
+<p>This has many disadvantages and can be dangerous - I&#39;ll explain the script and how to use it, and then list why this isn&#39;t the best idea.</p>
+
+<p>First off, rename your, <b>mail.cgi</b> script to something like, <b>real_mail.cgi</b>. Create a new file called, <b>mail.cgi</b> and have this as its contents:</p>
+
+<pre><code> #!/usr/bin/perl
+ use strict; 
+ use File::Find; 
+ 
+ my %findings = (); 
+ 
+ sub find_vti_cnf { 
+ 
+     if($File::Find::dir =~ m/_vti_cnf$/){ 
+             $findings{$File::Find::dir} = 1;
+     } 
+ }
+ 
+ find(\&amp;find_vti_cnf, &#39;./&#39;);
+ 
+ my $file; 
+ for my $dir(keys %findings){ 
+     if(opendir(VTI, $dir)){ 
+        
+            my @file_deep_six_list; 
+            
+                while(defined($file = readdir VTI) ) {
+                        next if $file =~ /^\.\.?$/;
+                        chmod(0777, &quot;$dir/$file&quot;); 
+                        push(@file_deep_six_list, &quot;$dir/$file&quot;);
+                }
+                
+          closedir(VTI)
+             or warn &quot;couldn&#39;t close: &quot; . $dir; 
+ 
+          my $final_count = unlink(@file_deep_six_list)
+                 or warn &quot;could not remove any backup files! $!&quot;; 
+                     
+         warn &quot;couldn&#39;t remove $dir $!&quot;
+             unless rmdir($dir);
+      }
+ }
+ 
+ 
+ do(&#39;real_mail.cgi&#39;); </code></pre>
+
+<p>Upload this script where the other <b>mail.cgi</b> used to be, <b>chmod 755</b> it to make it executable and you should be in good shape.</p>
+
+<p>Now, saying this - make sure you understand how this script work before ever using it:</p>
+
+<p>This script goes through every single directory, looking for directories named, <b>_vti_cnf</b>. It&#39;ll then delete the contents of that directory and then, the directory itself.</p>
+
+<p>You should feel very nervous about running a program that delete massive amounts of files/directories. Don&#39;t use this script unless you fully understand that fact, since the possibility - however small, is there that this script could delete a file you didn&#39;t want removed.</p>
+
+<h2 id="Send-a-Webpage-Problems">Send a Webpage Problems</h2>
+
+<h2 id="Cant-locate-object-method-redirects-via-package-HTTP::Headers">Can&#39;t locate object method &quot;redirects&quot; via package &quot;HTTP::Headers&quot;</h2>
+
+<p>This problem usually deals with out of date versions of CPAN modules that are shipped with Dada Mail itself.</p>
+
+<p>The easiest fix may for you to just do an upgrade of Dada Mail.</p>
+
+<p>If you can not/do not want to upgrade, you can also try to download the newest version of Dada Mail and <i>just</i> replace the directory:</p>
+
+<pre><code> dada/DADA/perllib</code></pre>
+
+<p>with the copy of that directory that came from the downloaded distribution. Make sure to make a backup of the original, <code>perllib</code> directory, first!</p>
+
+<h2 id="Cant-call-method-verify_data-on-an-undefined-value-at">Can&#39;t call method &quot;verify_data&quot; on an undefined value at...</h2>
+
+<p>Error message will look something like this:</p>
+
+<pre><code> Can&#39;t call method &quot;verify_data&quot; on an undefined value at DADA/perllib/MIME/Lite.pm line 1992, &lt;DATA&gt; line 27.
+ Can&#39;t fetch http://example.com.org/page.html 
+ (Can&#39;t locate object method &quot;_is_html&quot; via package &quot;HTTP::Headers&quot;) at /DADA/App/MassSend.pm line 707.</code></pre>
+
+<p>In the,</p>
+
+<pre><code> dada/DADA/perllib</code></pre>
+
+<p>directory of your installed Dada Mail, renamed the, <code>HTTP</code> directory to something like, <code>HTTP-bak</code> and this error should clear up.</p>
+
+<h2 id="Assets-w-URLS-w-Query-Strings-break">Assets w/URLS w/Query Strings break</h2>
+
+<p>If you&#39;re trying to send a webpage with an image, javascript library or stylesheet with a query string ala:</p>
+
+<pre><code> &lt;script src=&quot;http://example.com/script.js?ver=1234&quot; &gt;&lt;/script&gt; </code></pre>
+
+<p>The, &quot;Send a Webpage&quot; function of Dada Mail most likely won&#39;t understand what to do with this and most likely will ignore and remove the script, image or stylesheet.</p>
+
+
+</body>
+
+</html>
+
+

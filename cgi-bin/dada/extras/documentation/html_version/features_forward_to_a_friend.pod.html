@@ -1,0 +1,105 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Forward to a Friend</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Forward-to-a-Friend">Forward to a Friend</a>
+    <ul>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#How-Forward-to-a-Friend-Works">How Forward to a Friend Works</a></li>
+      <li><a href="#CAPTCHA">CAPTCHA</a>
+        <ul>
+          <li>
+            <ul>
+              <li><a href="#More-Information">More Information</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#Adding-a-Forward-to-a-Friend-link-to-your-outgoing-mailing-list-messages">Adding a &quot;Forward to a Friend&quot; link to your outgoing mailing list messages</a>
+        <ul>
+          <li>
+            <ul>
+              <li><a href="#More-Information1">More Information:</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Forward-to-a-Friend">Forward to a Friend</h1>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>Dada Mail&#39;s <b>Forward to a Friend</b> system is a very simple mechanism to allow your readers and visitors to send a copy of a mailing list message out to someone else.</p>
+
+<p>Your readers do not have to even be subscribed to your mailing list to forward a message to a friend.</p>
+
+<h2 id="How-Forward-to-a-Friend-Works">How Forward to a Friend Works</h2>
+
+<p>The <b>Forward to a Friend</b> form is located at the bottom of any archived message. If you do not see it, make sure to enable the option in the list control panel under,</p>
+
+<p><b>Message Archives -&gt; Archive Options</b></p>
+
+<p>Look for the option labled, <b>Enable &quot;Forward to a Friend&quot;</b></p>
+
+<p>Your visitor will need to fill out <b>their email address</b>, <b>their friend or associate&#39;s email address</b>, fill out an optional <b>note</b> and click the, <b>Forward to a Friend</b> button.</p>
+
+<h2 id="CAPTCHA">CAPTCHA</h2>
+
+<p>There is an option to attach a CAPTCHA challenge/response to the form to stop abuse of the form itself and we absolutely suggest using it. You may enable CAPTCH in the list control panel, on that same screen by enabling the option:</p>
+
+<p><b>Enable CAPTCHA&#39;ing on the, &quot;Forward to a Friend&quot; Form</b></p>
+
+<h4 id="More-Information">More Information</h4>
+
+<p><b>CAPTCHA in Dada Mail:</b></p>
+
+<p><a href="http://dadamailproject.com/d/global_variables.pod.html#captcha_in_dada_mail">http://dadamailproject.com/d/global_variables.pod.html#captcha_in_dada_mail</a></p>
+
+<h2 id="Adding-a-Forward-to-a-Friend-link-to-your-outgoing-mailing-list-messages">Adding a &quot;Forward to a Friend&quot; link to your outgoing mailing list messages</h2>
+
+<p>You may add a, <b>Forward to a Friend</b> link to your outgoing mailing list message, by using the following tag:</p>
+
+<pre><code>        &lt;!-- tmpl_var forward_to_a_friend_link --&gt;</code></pre>
+
+<p>Since the <b>Forward to a Friend</b> doesn&#39;t work unless you have both <b>enabled archiving</b> and <b>Enabled Forward to a Friend</b>, you may want to wrap the link in <code>&lt;!-- tmpl_if ... --&gt;</code> tags, so that the link does not show if you have disabled either of these options. An example of this, in HTML would look like this:</p>
+
+<pre><code>        &lt;!-- tmpl_if list_settings.show_archives --&gt; 
+                &lt;!-- tmpl_if list_settings.archive_send_form --&gt; 
+        
+                        &lt;p style=&quot;font:.8em/1.6em Helvetica,Verdana,&#39;Sans-serif&#39;&quot;&gt;
+                         &lt;strong&gt;
+                          &lt;a href=&quot;&lt;!-- tmpl_var forward_to_a_friend_link --&gt;&quot;&gt;
+                           Forward this Message to a Friend &amp;#187;
+                          &lt;/a&gt;
+                         &lt;/strong&gt;
+                        &lt;/p&gt;
+                        
+                &lt;!-- /tmpl_if --&gt; 
+        &lt;!-- /tmpl_if --&gt;</code></pre>
+
+<h4 id="More-Information1">More Information:</h4>
+
+<p><b>The Dada Mail Email Template Syntax</b></p>
+
+<p><a href="http://dadamailproject.com/d/features-email_template_syntax.pod.html">http://dadamailproject.com/d/features-email_template_syntax.pod.html</a></p>
+
+
+</body>
+
+</html>
+
+

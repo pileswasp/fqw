@@ -1,0 +1,727 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>RESTful Web Services API</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#RESTful-Web-Services-API">RESTful Web Services API</a>
+    <ul>
+      <li><a href="#Experimental">Experimental</a></li>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#Public-and-Private-Keys">Public and Private Keys</a>
+        <ul>
+          <li><a href="#Perl-Client">Perl Client</a>
+            <ul>
+              <li><a href="#Synopsis">Synopsis</a></li>
+              <li><a href="#new">new</a></li>
+              <li><a href="#request-list-service-params">request($list, $service, $params)</a></li>
+            </ul>
+          </li>
+          <li><a href="#php-Client">php Client</a>
+            <ul>
+              <li><a href="#Synopsis1">Synopsis:</a></li>
+              <li><a href="#new1">new</a></li>
+              <li><a href="#request-list-service-params1">request($list, $service, $params)</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#Services">Services</a>
+        <ul>
+          <li><a href="#Accessing">Accessing</a></li>
+          <li><a href="#Payload">Payload</a></li>
+          <li><a href="#Services1">Services</a>
+            <ul>
+              <li><a href="#validate_subscription">validate_subscription</a></li>
+              <li><a href="#subscription">subscription</a></li>
+              <li><a href="#unsubscription">unsubscription</a></li>
+              <li><a href="#settings">settings</a></li>
+              <li><a href="#update_settings">update_settings</a></li>
+              <li><a href="#mass_email">mass_email</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="RESTful-Web-Services-API">RESTful Web Services API</h1>
+
+<h2 id="Experimental">Experimental</h2>
+
+<p>Dada Mail&#39;s RESTful API is currently in the <b>Experimental</b> stage and may change in the future. We would love to hear your feedback on how we can make things work better for you:</p>
+
+<p><a href="http://dadamailproject.com/contact">http://dadamailproject.com/contact</a></p>
+
+<p>The best way to do that, is to try it out!</p>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>Dada Mail&#39;s web services reveal some of the administrative features you&#39;ll find in Dada Mail&#39;s List Control Panel. Currently, there are services to allow you to verify subscriptions, subscribe addresses, as well as send mass mailings.</p>
+
+<p>These services are authenticated using an HMAC-with-Public/Private Hashes scheme. Data sent is not encrypted, so we suggest always to connect to the web service with an SSL connection.</p>
+
+<p>Example clients are currently available in <b>Perl</b> and <b>php</b> and allow you to access the services available remotely.</p>
+
+<h2 id="Public-and-Private-Keys">Public and Private Keys</h2>
+
+<p>Both the public and private keys for your mailing list can be accessed in the mailing list&#39;s control panel under,</p>
+
+<p><i>Your Mailing List - Web Services API</i></p>
+
+<p>You may also reset your keys. Doing so will invalidate any other key pairs for the mailing list you&#39;re currently working with.</p>
+
+<h3 id="Perl-Client">Perl Client</h3>
+
+<p>The Perl Client is called, <code>DadaMailWebService</code> and is located at <i>dada/extras/scripts/webservices/DadaMailWebService.pm</i>.</p>
+
+<p>You&#39;ll want to copy this module to the client side server you want to utilize the below API with.</p>
+
+<h4 id="Synopsis">Synopsis</h4>
+
+<pre><code>    #!/usr/bin/perl 
+
+    # Change this to path of the following module: 
+    use lib qw(./); 
+    use DadaMailWebService;
+
+    use CGI qw(:standard);
+    print header(); 
+    print &#39;&lt;pre&gt;&#39;; 
+
+    use Data::Dumper; 
+
+    my $server      = &#39;https://example.com/cgi-bin/dada/mail.cgi&#39;; 
+    my $list        = &#39;example&#39;;
+    my $public_key  = &#39;QvDYfEfsyV2IsxITFFFQ2&#39;;                        
+    my $private_key = &#39;oED89yPgN6DCAYPt6vAZ7YB5OKymHEANIjeE6fF6n&#39;;
+
+    my $ws = DadaMailWebService-&gt;new(
+        $server, 
+        $public_key, 
+        $private_key,
+    );
+    my $params = {  
+            addresses =&gt; [
+            {
+                email  =&gt; &#39;test9@example.com&#39;,
+                fields =&gt; {
+                    favorite_color =&gt; &quot;red&quot;, 
+                },
+                profile =&gt; {
+                    password =&gt; &#39;secret&#39;
+                }
+            },
+        ]
+    };
+
+    # Validate Addresses for Subscription
+    $results  = $ws-&gt;request(
+        $list, 
+        &#39;validate_subscription&#39;, 
+        $params, 
+    );
+    print Dumper($results); 
+
+    # Subscribe Addresses: 
+    $results  = $ws-&gt;request(
+        $list, 
+        &#39;subscription&#39;, 
+        $params,
+    );
+    print Dumper($results); 
+
+    # UNSubscribe Addresses: 
+    $results  = $ws-&gt;request(
+        $list, 
+        &#39;unsubscription&#39;, 
+        $params,
+    );
+    print Dumper($results); 
+
+
+    $params = {
+        subject =&gt; &quot;My Subject!&quot;, 
+        format  =&gt; &quot;Text&quot;,
+        message =&gt; &quot;Here&#39;s my message!&quot;, 
+        test    =&gt; 0
+    };
+    # Send a Mass Mailing: 
+    $results  = $ws-&gt;request(
+        $list, 
+        &#39;mass_email&#39;, 
+        $params,
+    );
+    print Dumper($results); 
+
+    # Get the List Settings: 
+    $results  = $ws-&gt;request(
+        $list, 
+        &#39;settings&#39;
+    ); # No params.
+    print Dumper($results); 
+
+    my $params = {  
+        settings =&gt; {
+                        &#39;list_name&#39; =&gt; &#39;New List Name&#39;,
+                        &#39;info&#39;      =&gt; &#39;New List Description!&#39;
+        } 
+    };
+    # Set List Settings: 
+    $results  = $ws-&gt;request(
+        $list, 
+        &#39;update_settings&#39;, 
+        $params
+    ); 
+    print Dumper($results); 
+    </code></pre>
+
+<h4 id="new">new</h4>
+
+<p>Initialize a new DadaMailWebService object with the <code>new</code> method, which takes three arguments:</p>
+
+<ul>
+
+<li><p>The URL of your Dada Mail install</p>
+
+</li>
+<li><p>public key</p>
+
+</li>
+<li><p>private key</p>
+
+</li>
+</ul>
+
+<h4 id="request-list-service-params">request($list, $service, $params)</h4>
+
+<p>The <code>request</code> method will make the request for the service you want, see the Synopsis above and web services description below on how to create the correct <code>$params</code>. Available services, for the second paramater are:</p>
+
+<ul>
+
+<li><p>validate_subscription</p>
+
+</li>
+<li><p>subscription</p>
+
+</li>
+<li><p>mass_email</p>
+
+</li>
+<li><p>settings</p>
+
+</li>
+<li><p>update_settings</p>
+
+</li>
+</ul>
+
+<p><code>request</code> returns the results of the request.</p>
+
+<h3 id="php-Client">php Client</h3>
+
+<p>The php Client is called, <code>DadaMailWebService.php</code> and is located at <i>dada/extras/scripts/webservices/DadaMailWebService.php</i>.</p>
+
+<p>You&#39;ll want to copy this file to the client side server you want to utilize the below API with.</p>
+
+<h4 id="Synopsis1">Synopsis:</h4>
+
+<pre><code>    &lt;?php 
+
+        require_once(&#39;DadaMailWebService.php&#39;); 
+
+        $server      = &#39;https://example.com/cgi-bin/dada/mail.cgi&#39;; 
+        $list        = &#39;example&#39;;
+        $public_key  = &#39;QvDYfEfsyV2IsxITFFFQ2&#39;;                        
+        $private_key = &#39;oED89yPgN6DCAYPt6vAZ7YB5OKymHEANIjeE6fF6n&#39;;
+
+        echo &#39;&lt;pre&gt;&#39;; 
+
+        $ws = new DadaMailWebService(
+            $server,
+            $public_key,
+            $private_key
+        );
+
+        $params = [
+            &#39;addresses&#39; =&gt; array(
+                [
+                    &#39;email&#39;  =&gt; &#39;test4@example.com&#39;,
+                    &#39;fields&#39; =&gt; [
+                        &#39;favorite_color&#39; =&gt; &#39;red&#39;, 
+                    ]
+                ]
+            ) 
+        ];
+
+        // Validate Addresses for Subscription
+        $results  = $ws-&gt;request(
+            $list, 
+            &#39;validate_subscription&#39;, 
+             $params
+        );
+        print_r($results) . &quot;\n\n\n&quot;; 
+
+        // Subscribe Addresses: 
+        $results  = $ws-&gt;request(
+            $list, 
+            &#39;subscription&#39;, 
+            $params
+        );
+        print_r($results) . &quot;\n\n\n&quot;; 
+
+        // UNSubscribe Addresses: 
+        $results  = $ws-&gt;request(
+            $list, 
+            &#39;unsubscription&#39;, 
+            $params
+        );
+        print_r($results) . &quot;\n\n\n&quot;; 
+
+
+        $params = [
+            &#39;subject&#39; =&gt; &quot;My Subject!&quot;, 
+            &#39;format&#39;  =&gt; &quot;Text&quot;,
+            &#39;message&#39; =&gt; &quot;Here&#39;s my message!&quot;,
+            &#39;test&#39;    =&gt; 0
+        ];
+        // Send a Mass Mailing: 
+        $results  = $ws-&gt;request(
+            $list, 
+            &#39;mass_email&#39;, 
+            $params
+        );
+        print_r($results) . &quot;\n\n\n&quot;; 
+
+
+        // Get the List Settings: 
+        $results  = $ws-&gt;request(
+            $list, 
+            &#39;settings&#39;
+        ); # No params.
+        print_r($results) . &quot;\n\n\n&quot;; 
+
+        $params = [
+            &#39;settings&#39; =&gt; array(
+                                &#39;list_name&#39; =&gt; &#39;New List Name&#39;,
+                                &#39;info&#39;      =&gt; &#39;New List Description!&#39;
+            ) 
+        ];
+
+        // Set List Settings: 
+        $results  = $ws-&gt;request(
+            $list, 
+            &#39;update_settings&#39;, 
+            $params
+        ); 
+        print_r($results) . &quot;\n\n\n&quot;; 
+
+    ?&gt;
+
+    </code></pre>
+
+<h4 id="new1">new</h4>
+
+<p>Initialize a new DadaMailWebService object with the <code>new</code> method, which takes three arguments:</p>
+
+<ul>
+
+<li><p>The URL of your Dada Mail install</p>
+
+</li>
+<li><p>public key</p>
+
+</li>
+<li><p>private key</p>
+
+</li>
+</ul>
+
+<h4 id="request-list-service-params1">request($list, $service, $params)</h4>
+
+<p>The <code>request</code> method will make the request for the service you want, see the Synopsis above and web services description below on how to create the correct <code>$params</code>. Available services, for the second paramater are:</p>
+
+<ul>
+
+<li><p>validate_subscription</p>
+
+</li>
+<li><p>subscription</p>
+
+</li>
+<li><p>mass_email</p>
+
+</li>
+<li><p>settings</p>
+
+</li>
+<li><p>update_settings</p>
+
+</li>
+</ul>
+
+<p><code>request</code> returns the results of the request.</p>
+
+<h2 id="Services">Services</h2>
+
+<p>Below is a description and explaination of the current web service, to allow you to implement your own client.</p>
+
+<h3 id="Accessing">Accessing</h3>
+
+<p>Dada Mail&#39;s RESTful services can be accessed using the URL to the <code>mail.cgi</code> script, with the following <code>PATH INFO</code>:</p>
+
+<p><i>https://example.com/cgi-bin/dada/mail.cgi/api/service_name/list/service/public_key/digest</i></p>
+
+<ul>
+
+<li><p>https://example.com/cgi-bin/dada/mail.cgi</p>
+
+<p>URL to your Dada Mail - notice we&#39;re accessing the <code>mail.cgi</code> script over SSL.</p>
+
+</li>
+</ul>
+
+<p>The PATH INFO broken down:</p>
+
+<ul>
+
+<li><p>api</p>
+
+<p>Tells Dada Mail you&#39;re using one of the support web services.</p>
+
+</li>
+<li><p>list</p>
+
+<p><code>list</code> should be set to the list shortname of the list you would like to work with</p>
+
+</li>
+<li><p>service</p>
+
+<p>Name of the service you would like to work with</p>
+
+</li>
+<li><p>public_key</p>
+
+<p>the <b>public key</b> for the mailing list you&#39;re working with. Both the public, and private key for your mailing list can be accessed in the mailing list&#39;s control panel under,</p>
+
+<p><i>Your Mailing List - Web Services API</i></p>
+
+</li>
+<li><p>digest</p>
+
+<p>Digest contains the HMAC SHA256 signature base64-encoded digest of your POST payload.The POST payload needs to be ordered alphabetically.</p>
+
+<p>Examples of how to create this in various languages can be found here:</p>
+
+<p><a href="http://www.jokecamp.com/blog/examples-of-creating-base64-hashes-using-hmac-sha256-in-different-languages/">http://www.jokecamp.com/blog/examples-of-creating-base64-hashes-using-hmac-sha256-in-different-languages/</a></p>
+
+<p>The public key and digest sure do make the URL unweildy (and cause problems with <code>mod_security</code>), so Dada Mail&#39;s web services also support putting these in the, <code>Authorization</code> header:</p>
+
+<pre><code>    Authorization: hmac public_key:digest</code></pre>
+
+<p>The <code>public key</code> and <code>digest</code> are separated by a colon. This is the setup we do suggest, and is what our example clients use as well. Other than making the URL looking tidier, it does stop perhaps sensitive information from being saved in the web server logs. Your public key is public - it&#39;s not supposed to be a sercret. The digest will change for each request made.</p>
+
+</li>
+</ul>
+
+<h3 id="Payload">Payload</h3>
+
+<p>Depending on the web service called, the payload is just HTTP POST variables.</p>
+
+<p>All web services, except, <code>settings</code> for Dada Mail only support using the POST method. The paramaters in the Payload must be in alphabetical order, so that the digest created on both the client and server match.</p>
+
+<p><code>settings</code> has no paramaters to pass, so is send using <b>GET</b>. The <code>nonce</code> (explained below), still needes to be passed, but is don so, in a http header named, <code>X-DADA-NONCE</code> header.</p>
+
+<h3 id="Services1">Services</h3>
+
+<h4 id="validate_subscription">validate_subscription</h4>
+
+<p><code>validate_subscription</code> takes a list of addresses (and associated metadata) and validates the subscription, but <b>does not subscribe any of the addresses</b>.</p>
+
+<p>The following paramaters are required to be passed:</p>
+
+<ul>
+
+<li><p>addresses</p>
+
+<p><code>addresses</code> hold the addresses you would like to work with. This data is passed as a JSON encoded string, as the data that can be passed can be complex. Example:</p>
+
+<pre><code>    [
+       {
+          &quot;profile&quot; : {
+             &quot;password&quot; : &quot;secret&quot;
+          },
+          &quot;email&quot; : &quot;test@example.com&quot;,
+          &quot;fields&quot; : {
+             &quot;last_name&quot; : &quot;Smith&quot;,
+             &quot;first_name&quot; : &quot;John&quot;
+          }
+       }
+    ]</code></pre>
+
+<p><b>email</b> holds the address you would like to subscribe.</p>
+
+<p><b>fields</b> holds any Profile Fields you would also like to save (<code>first_name</code>, <code>last_name</code>, etc).</p>
+
+<p><b>profile</b> currently only holds another paramater, <code>password</code>, which holds the password you would like the profile for your address to be set to.</p>
+
+<p>This JSON encoded string can be created in Perl like this:</p>
+
+<pre><code>    #!/usr/bin/perl 
+    use strict; 
+    use JSON; 
+    my $json = JSON-&gt;new-&gt;allow_nonref;
+    my $addresses = [
+        {
+            email  =&gt; &#39;test@example.com&#39;,
+            fields =&gt; {
+                first_name =&gt; &quot;John&quot;, 
+                last_name  =&gt; &quot;Smith&quot;, 
+            },
+            profile =&gt; {
+                password =&gt; &#39;secret&#39;
+            }
+        },
+    ];
+    print $json-&gt;pretty-&gt;encode($addresses);</code></pre>
+
+<p>and in php, like this:</p>
+
+<pre><code>    &lt;?php
+    $addresses = array(
+            [
+                &#39;email&#39;  =&gt; &#39;test@example.com&#39;,
+            
+                &#39;fields&#39; =&gt; [
+                    &#39;first_name&#39; =&gt; &quot;John&quot;, 
+                    &#39;last_name&#39;  =&gt; &quot;Smith&quot;, 
+                ],
+                &#39;profile&#39; =&gt; [
+                    &#39;password&#39; =&gt; &#39;secret&#39;
+                        ]
+            ],
+        );
+    print json_encode($addresses);
+    ?&gt;</code></pre>
+
+<p>Dada Mail&#39;s web services don&#39;t care the exact format of your JSON (would that be possible even, across different tools, written in different languages?), just that it&#39;s 100% valid JSON. `</p>
+
+</li>
+<li><p>nonce</p>
+
+<p><code>nonce</code> is created using Unix time and a random string of characters (8), separated by a colon. The nonce is checked to make sure a request is not too old (older than 5 minutes, currently) and in the future, the random characters will be checked to see if they have been passed before, within the time limit.</p>
+
+</li>
+</ul>
+
+<p>Returned will be a JSON document, returning your addresses, with a status, and a list of any errors found (if any). The above json, would return,</p>
+
+<pre><code>    {
+       &quot;status&quot; : 1,
+       &quot;results&quot; : [
+          {
+             &quot;profile&quot; : {
+                &quot;password&quot; : &quot;secret&quot;
+             },
+             &quot;email&quot; : &quot;test@example.com&quot;,
+             &quot;errors&quot; : {},
+             &quot;fields&quot; : {
+                &quot;first_name&quot; : &quot;John&quot;,
+                &quot;last_name&quot; : &quot;Smith&quot;
+             },
+             &quot;status&quot; : 1
+          }
+       ]
+    }</code></pre>
+
+<p><b>status</b>, when set to <code>1</code> tells you that the actual request is successful, and nothing incorrect was found (wrong public key, outdated request, incorrect hmac digest).</p>
+
+<p><b>results</b> holds the results of your validation. In this case, the address passed verification, and would be safe to subscribe. Let&#39;s say there&#39;s another profile field, <code>favorite_color</code> and that profile field was <b>required</b>.</p>
+
+<p>When you call this service you would receive the following JSON doc back,</p>
+
+<pre><code>    {
+       &quot;status&quot; : 1,
+       &quot;results&quot; : [
+          {
+             &quot;profile&quot; : {
+                &quot;password&quot; : &quot;secret&quot;
+             },
+             &quot;email&quot; : &quot;test@example.com&quot;,
+             &quot;errors&quot; : {
+                &quot;invalid_profile_fields&quot; : {
+                   &quot;favorite_color&quot; : {
+                      &quot;required&quot; : 1
+                   }
+                }
+             },
+             &quot;fields&quot; : {
+                &quot;first_name&quot; : &quot;John&quot;,
+                &quot;last_name&quot; : &quot;Smith&quot;
+             },
+             &quot;status&quot; : 0
+          }
+       ]
+    }</code></pre>
+
+<p>Errors returned back are the same for the following method:</p>
+
+<p><a href="http://dadamailproject.com/d/MailingList_Subscribers.pm.html#subscription_check">http://dadamailproject.com/d/MailingList_Subscribers.pm.html#subscription_check</a></p>
+
+<h4 id="subscription">subscription</h4>
+
+<p><code>subscription</code> takes a list of addresses (and associated metadata) and subscribes the addresses passed. Validation is done beforehand, and only addresses that passed validation will be subscribed.</p>
+
+<p>The following paramaters are required to be passed:</p>
+
+<p><b>addresses</b> - same as <code>validate_subscription</code></p>
+
+<p><b>nonce</b> - same as <code>validate_subscription</code></p>
+
+<p>Returned will be a JSON doc,</p>
+
+<pre><code>    {
+       &quot;status&quot; : 1,
+       &quot;results&quot; : {
+          &quot;skipped_addresses&quot; : n,
+          &quot;subscribed_addresses&quot; : nn
+       }
+    }</code></pre>
+
+<p><b>status</b> again will be set to, <code>1</code> if the request itself was successful (<code>0</code>, otherwise). <b>results</b> will hold two paramaters:</p>
+
+<p><b>subscribed_addresses</b> will return the number of addresses subscribed.</p>
+
+<p><b>skipped_addresses</b> will return the number of addresses that were not subscribed.</p>
+
+<p>This service does not tell you <i>why</i> an address was not subscribed, so it&#39;s highly suggested you validate the subscription, beforehand.</p>
+
+<h4 id="unsubscription">unsubscription</h4>
+
+<p><code>unsubscription</code> takes a list of addresses (no metadata need be added) and removes the addresses passed. Validation is done beforehand, and only addresses that passed validation will be unsubscribed.</p>
+
+<p>The following paramaters are required to be passed:</p>
+
+<p><b>addresses</b> - same as <code>validate_subscription</code>, except only the, <code>email</code> paramater is required, like this:</p>
+
+<pre><code>    [
+       {
+          &quot;email&quot; : &quot;test@example.com&quot;,
+       },
+       {
+          &quot;email&quot; : &quot;test2@example.com&quot;,
+       }
+       {
+          &quot;email&quot; : &quot;test3@example.com&quot;,
+       }
+    ]</code></pre>
+
+<p><b>nonce</b> - same as <code>validate_subscription</code></p>
+
+<p>Returned will be a JSON doc,</p>
+
+<pre><code>    {
+       &quot;status&quot; : 1,
+       &quot;results&quot; : {
+          &quot;skipped_addresses&quot; : n,
+          &quot;unsubscribed_addresses&quot; : nn
+       }
+    }</code></pre>
+
+<p><b>status</b> again will be set to, <code>1</code> if the request itself was successful (<code>0</code>, otherwise). <b>results</b> will hold two paramaters:</p>
+
+<p><b>unsubscribed_addresses</b> will return the number of addresses removed.</p>
+
+<p><b>skipped_addresses</b> will return the number of addresses that were not subscribed.</p>
+
+<p>This service does not tell you <i>why</i> an address was not unsubscribed.</p>
+
+<h4 id="settings">settings</h4>
+
+<p><code>settings</code> returns the mailing list settings (list, list_name, info, etc). No paramaters need to be passed, and unlike the other services presented here, you&#39;ll need to make the request via <code>GET</code> and put the <code>nonce</code> in the, <code>X-DADA-NONCE</code> header.</p>
+
+<p>Returned will be a JSON doc,</p>
+
+<pre><code>    {
+       &quot;status&quot; : 1,
+       &quot;results&quot; : {
+           &quot;settings&quot; : {
+              &quot;list&quot; :&#39;listshortname&#39;,
+              &quot;list_name&quot; : &#39;My list&#39;s name&#39;
+              etc, etc,  
+           }
+        }
+    }</code></pre>
+
+<p><b>status</b> again will be set to, <code>1</code> if the request itself was successful (<code>0</code>, otherwise).</p>
+
+<p><b>settings</b> - a key/value list of all settings for this mailing list.</p>
+
+<h4 id="update_settings">update_settings</h4>
+
+<p><b>update_settings</b> allows you to update your mailing list settings. The following paramaters are required to be passed:</p>
+
+<p><b>settings</b> - a key/value hash of the settings you would like to change. This data is passed as a JSON encoded string:</p>
+
+<pre><code>    {
+       &quot;list_name&quot; : &quot;my list name &quot;,
+       &quot;list&quot; : &quot;list&quot;
+    }</code></pre>
+
+<p>Returned will be a JSON doc,</p>
+
+<pre><code>    {
+       &quot;status&quot; : 1,
+       &quot;results&quot; : {
+            &quot;saved&quot; : 1
+           }
+        }
+    }</code></pre>
+
+<p><b>nonce</b> - same as <code>validate_subscription</code></p>
+
+<h4 id="mass_email">mass_email</h4>
+
+<p><i>This service is a proof of concept, and only provides a very simple mass mailing service</i></p>
+
+<p><b>mass_email</b> sends out a mass email to your Subscription List.</p>
+
+<p>The following paramaters are required to be passed:</p>
+
+<p><b>subject</b> - The subject of your message</p>
+
+<p><b>format</b> - The format of your message; either text or HTML</p>
+
+<p><b>message</b> - Your message.</p>
+
+<p><b>test</b> - can be set to either <code>1</code> or, <code>0</code>. If set to <code>1</code>, the message you send out will only be set to the List Owner, rather than the entire mailing list.</p>
+
+<p>Returned will be a JSON doc:</p>
+
+<pre><code>    {
+       &quot;status&quot; : 1,
+       &quot;results&quot; : {
+          &quot;message_id&quot; : n,
+       }
+    }</code></pre>
+
+<p><code>status</code> again will be set to, <code>1</code> if the request itself was successful (<code>0</code>, otherwise). <b>results</b> will hold just one paramater:</p>
+
+<p><code>message_id</code> is the message id associated with this particular mass mailing.</p>
+
+
+</body>
+
+</html>
+
+

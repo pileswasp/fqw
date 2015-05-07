@@ -1,0 +1,104 @@
+<!-- begin resend_conf_captcha_step.tmpl --> 
+
+<!-- tmpl_set name="title" value="Subscription Almost Complete" -->
+
+<!-- tmpl_set name="title" value="Problems with Confirmation Request" -->
+<!-- tmpl_set name="show_profile_widget" value="0" -->
+
+
+<h1>What Happened?</h1> 
+
+<!-- tmpl_if expr="rm eq 's'" --> 
+<p>
+	You recently asked to be subscribed to: 
+</p>
+<!-- tmpl_else --> 
+	You recently asked to be removed from: 
+<!-- /tmpl_if --> 
+
+<p>
+ <blockquote> 
+   <strong>
+    <!-- tmpl_var list_settings.list_name -->   
+   </strong>
+ </blockquote> 
+ 
+<p>
+ A confirmation email has been sent and the confirmation URL within that email needs to be followed. 
+
+Please double-check your inbox for this confirmation email. 
+</p>
+
+<p>If you did not receive this confirmation, make sure that this email 
+address: </p>
+
+ <blockquote>
+ <p>
+  <strong>
+   <a href="mailto:<!-- tmpl_var list_settings.list_owner_email -->"><!-- tmpl_var list_settings.list_owner_email --></a>
+  </strong>
+ </p>
+</blockquote>
+
+
+<p>is in your 
+ <strong> 
+  address book
+ </strong> 
+ or 
+ <strong> 
+  whitelist
+ </strong>
+ . Then, ask to be resent the confirmation email.
+</p>
+
+<p>
+ <strong> 
+  <a href="<!-- tmpl_var PROGRAM_URL -->/subscriber_help/<!-- tmpl_var list_settings.list -->/">
+   How to add <a href="mailto:<!-- tmpl_var list_settings.list_owner_email -->"><!-- tmpl_var list_settings.list_owner_email --></a> to your address book/white list
+  </a>
+ </strong> 
+</p>
+
+<h1>Resend the Confirmation Email</h1> 
+
+
+<p>
+ You may resend this confirmation by solving the CAPTCHA, below: 
+</p>
+
+<fieldset> 
+
+<!-- tmpl_if expr="captcha_auth == 0" --> 
+	<div class="badweatherbox"> 
+		<p> 
+		 CAPTCHA wasn't solved. Please try again:
+		</p>
+	</div>
+<!-- /tmpl_if --> 
+
+
+<form action="<!-- tmpl_var PROGRAM_URL -->" method="post" accept-charset="<!-- tmpl_var HTML_CHARSET -->"> 
+
+
+	<!-- tmpl_var CAPTCHA_string --> 
+
+
+	 <input type="hidden" name="flavor" value="<!-- tmpl_var flavor -->" /> 
+	 <input type="hidden" name="list"   value="<!-- tmpl_var list -->" /> 
+	 <input type="hidden" name="email"  value="<!-- tmpl_var email -->" /> 
+	 <input type="hidden" name="token"  value="<!-- tmpl_var token -->" /> 
+
+
+	  <input type="hidden" name="rm" value="<!-- tmpl_var rm -->" />
+
+	 <p>
+	  <input type="submit" value="Resend Confirmation" class="processing" /> 
+	 </p>
+
+</form> 
+
+</fieldset> 
+
+
+<!-- end resend_conf_captcha_step.tmpl --> 

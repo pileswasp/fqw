@@ -1,0 +1,180 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Profile Fields</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Profile-Fields">Profile Fields</a>
+    <ul>
+      <li><a href="#Profile-Fields-are-Shared-Between-Mailing-Lists">Profile Fields are Shared Between Mailing Lists.</a></li>
+      <li><a href="#Adding-a-New-Profile-Field">Adding a New Profile Field</a></li>
+      <li><a href="#Mail-Merging">Mail Merging</a>
+        <ul>
+          <li><a href="#More-Information">More Information:</a></li>
+        </ul>
+      </li>
+      <li><a href="#Partial-List-Sending">Partial List Sending</a></li>
+      <li><a href="#Subscriptions">Subscriptions</a></li>
+      <li><a href="#Importing-Subscribers">Importing Subscribers</a></li>
+      <li><a href="#Editing-Individual-Addresss-Profile-Data">Editing Individual Address&#39;s Profile Data</a></li>
+      <li><a href="#See-Also">See Also</a></li>
+      <li><a href="#Technical-Documentation">Technical Documentation</a>
+        <ul>
+          <li><a href="#Subscriber-Backend">Subscriber Backend</a>
+            <ul>
+              <li><a href="#DADA::MailingList::Subscribers">DADA::MailingList::Subscribers</a></li>
+            </ul>
+          </li>
+          <li><a href="#Profiles">Profiles</a>
+            <ul>
+              <li><a href="#Dada::Profile">Dada::Profile</a></li>
+              <li><a href="#DADA::Profile::Fields">DADA::Profile::Fields</a></li>
+              <li><a href="#DADA::Profile::Session">DADA::Profile::Session</a></li>
+              <li><a href="#DADA::ProfileFieldsManager">DADA::ProfileFieldsManager</a></li>
+            </ul>
+          </li>
+          <li><a href="#Templating-System">Templating System</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Profile-Fields">Profile Fields</h1>
+
+<p>Profile Fields are additional data that&#39;s associated with the email address of a Subscriber. These fields can generally hold anything you&#39;d like, and can be used to search through a subscription list, to create dynamic email messages (mail merging), and to be utilized when you only want to send to just part of a mailing list (partial sending).</p>
+
+<p>Profile Fields can be edited individually or enmass in the list control panel, or by the addressee themselves, when logged into their own Profile.</p>
+
+<h2 id="Profile-Fields-are-Shared-Between-Mailing-Lists">Profile Fields are Shared Between Mailing Lists.</h2>
+
+<p>One important general concept to understand is that Profile Field data is shared between mailing lists.</p>
+
+<p>If you create a new field called, <code>first_name</code> all your mailing lists will have this field, and any data associated with an address will show up for any mailing list that this address is a member of.</p>
+
+<p>Likewise, if you edit the Profile Field data, this new information will be reflected in all mailing lists.</p>
+
+<h2 id="Adding-a-New-Profile-Field">Adding a New Profile Field</h2>
+
+<p>Log into the list control panel <b>with the Dada Mail Root Password</b> (very important) to any currently created mailing list. On the left hand menu, under, <b>Profiles</b>, click, <b>Profile Fields</b></p>
+
+<p>This screen will allow you to add/remove Profile Fields. This screen will also let you set a fallback value. The fallback value is used in mail merging and is used as the value fo the field tag when no value is present. You may also set if the Profile Field is required or optional.</p>
+
+<p>Remember that profile fields are shared: removing any Profile Fields will permanently delete all data in all mailing lists.</p>
+
+<h2 id="Mail-Merging">Mail Merging</h2>
+
+<p>Mail Merging in Dada Mail in mailing list messages using Profile Fields is done using template tags.</p>
+
+<p>For example, say you have a field named, <code>first_name</code>. To use the value of the saved field in an email message, you&#39;d write the field as a tag, like this:</p>
+
+<pre><code>    &lt;!-- tmpl_var subscriber.first_name --&gt;
+    </code></pre>
+
+<p>Here&#39;s how you&#39;d use it, when placing this tag in part of a message:</p>
+
+<pre><code> Hello, &lt;!-- tmpl_var subscriber.first_name --&gt;
+ 
+      It&#39;s really nice to talk to you!
+      
+  -- Me.</code></pre>
+
+<h3 id="More-Information">More Information:</h3>
+
+<p>For more information, see the docs on <b>The Dada Mail Email Template Syntax</b>: <a href="http://dadamailproject.com/d/features-email_template_syntax.pod.html">http://dadamailproject.com/d/features-email_template_syntax.pod.html</a></p>
+
+<h2 id="Partial-List-Sending">Partial List Sending</h2>
+
+<p>You can search you Subscribers and send a mass mailing to part of this mailing list. For example, if you have a field named, <code>city</code>, you can tell Dada Mail, &quot;only send to people whose <code>city</code> value is set to, <b>Denver</b>.</p>
+
+<p>This can be done in the, <b>Send a Message</b> and, <b>Send a Webpage</b> screens. Click the, <b>Partial Mailing List Sending</b> tab. This tab is located below where you author your mailing list message.</p>
+
+<p>You&#39;ll be presented with a form that allows you to make simple queries and give you the option to preview who&#39;s going to receive the message. This form also allows you to search for subscribers between two subscription dates.</p>
+
+<p>Unlike profile data, this information is tied to individual subscriptions to each mailing list.</p>
+
+<h2 id="Subscriptions">Subscriptions</h2>
+
+<p>Dada Mail&#39;s mailing list subscription form allows visitors to your site to enter their email address, as well as Profile Fields.</p>
+
+<p>All Profile Fields will be shown, except (by default), Profile Fields that are prefixed with an underscore (&quot;_&quot;). For example, the field,</p>
+
+<pre><code> first_name</code></pre>
+
+<p>Will be shown! The field,</p>
+
+<pre><code> _secret_field</code></pre>
+
+<p>Will not. Consult the Config.pm file for how to set the special prefix.</p>
+
+<p>Profile Fields can be marked as, <b>Required</b>.</p>
+
+<p>You may acquire the HTML code needed to embed the subscription form in a webpage in the usual location: Under <b>Appearance and Templates </b>, click on, <b>Subscription Form HTML</b>.</p>
+
+<h2 id="Importing-Subscribers">Importing Subscribers</h2>
+
+<p>You may mass-import Subscribers to your mailing lists in the list control panel, under: <b>Membership - Add/Invite/Subscribe</b>. Make sure you&#39;ve <i>enabled</i> mass-import in <b>Your Mailing List - Options</b>, under:</p>
+
+<p><b>Advanced Options - Subscriptions</b> Check, <b> Allow Subscriptions in the List Control Panel, Without Confirmation</b> and optionally, <b>Only Allow when logged in with the Pro Dada Root Password</b></p>
+
+<p>Dada Mail accepts importing subscribers via a <code>.csv</code> file - something a spreadsheet app should be able to export for you, easily. The column order will be shown to you, at the top of this screen.</p>
+
+<h2 id="Editing-Individual-Addresss-Profile-Data">Editing Individual Address&#39;s Profile Data</h2>
+
+<p>You can edit an individual&#39;s address data in the list control. Under, <b>Your Subscribers</b>, click on, <b>View</b>.</p>
+
+<p>You&#39;ll be presented with a table of your subscribers Clicking on the email address of the subscriber will bring you to a screen for this particular subscriber. Click the, <b>Profile</b> tab to view/edit Profile data.</p>
+
+<h2 id="See-Also">See Also</h2>
+
+<h2 id="Technical-Documentation">Technical Documentation</h2>
+
+<h3 id="Subscriber-Backend">Subscriber Backend</h3>
+
+<h4 id="DADA::MailingList::Subscribers">DADA::MailingList::Subscribers</h4>
+
+<p><a href="MailingList_Subscribers.pm.html">MailingList_Subscribers.pm.html</a></p>
+
+<h3 id="Profiles">Profiles</h3>
+
+<h4 id="Dada::Profile">Dada::Profile</h4>
+
+<p><a href="Profile.pm.html">Profile.pm.html</a></p>
+
+<h4 id="DADA::Profile::Fields">DADA::Profile::Fields</h4>
+
+<p><a href="Profile_Fields.pm.html">Profile_Fields.pm.html</a></p>
+
+<h4 id="DADA::Profile::Session">DADA::Profile::Session</h4>
+
+<p><a href="Profile_Session.pm.html">Profile_Session.pm.html</a></p>
+
+<h4 id="DADA::ProfileFieldsManager">DADA::ProfileFieldsManager</h4>
+
+<p><a href="ProfileFieldsManager.pm.html">ProfileFieldsManager.pm.html</a></p>
+
+<h3 id="Templating-System">Templating System</h3>
+
+<p>The HTML Screen and Email Template parts of Dada Mail all use the same system. See:</p>
+
+<p><a href="Template_Widgets.pm.html#screen">Template_Widgets.pm.html#screen</a></p>
+
+<p>And also:</p>
+
+<p><a href="App_FormatMessages.pm.html#email_template">App_FormatMessages.pm.html#email_template</a></p>
+
+
+</body>
+
+</html>
+
+

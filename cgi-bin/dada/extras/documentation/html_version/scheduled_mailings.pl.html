@@ -1,0 +1,553 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Beatitude - Scheduled Mailings</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a>
+    <ul>
+      <li><a href="#DEPRECATED">DEPRECATED</a></li>
+    </ul>
+  </li>
+  <li><a href="#Obtaining-The-Plugin">Obtaining The Plugin</a></li>
+  <li><a href="#Description">Description</a></li>
+  <li><a href="#REQUIREMENTS">REQUIREMENTS</a></li>
+  <li><a href="#Installation">Installation</a></li>
+  <li><a href="#Lightning-Configuration-Installation-Instructions">Lightning Configuration/Installation Instructions</a></li>
+  <li><a href="#Manual-Installation">Manual Installation</a>
+    <ul>
+      <li><a href="#Configuring-scheduled_mailings.pl-Plugin-Side">Configuring scheduled_mailings.pl Plugin Side</a></li>
+      <li><a href="#Change-permissions-of-scheduled_mailings.pl-to-755">Change permissions of &quot;scheduled_mailings.pl&quot; to 755</a></li>
+      <li><a href="#Configure-your-.dada_config-file">Configure your .dada_config file</a></li>
+    </ul>
+  </li>
+  <li><a href="#Configuring-the-Cronjob-to-Automatically-Run-Beatitude">Configuring the Cronjob to Automatically Run Beatitude</a>
+    <ul>
+      <li><a href="#Setting-the-cronjob">Setting the cronjob</a>
+        <ul>
+          <li><a href="#Plugin_Config--Allow_Manual_Run">$Plugin_Config-&gt;{Allow_Manual_Run}</a></li>
+        </ul>
+      </li>
+      <li><a href="#Security-Concerns-and-Plugin_Config--Manual_Run_Passcode">Security Concerns and $Plugin_Config-&gt;{Manual_Run_Passcode}</a>
+        <ul>
+          <li><a href="#Other-options-you-may-pass">Other options you may pass</a></li>
+          <li><a href="#Notes-on-Setting-the-Cronjob-for-curl">Notes on Setting the Cronjob for curl</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#Command-Line-Interface">Command Line Interface</a>
+    <ul>
+      <li><a href="#Command-Line-Interface-for-Cronjobs">Command Line Interface for Cronjobs:</a></li>
+      <li><a href="#Change-the-lib-path">#1 Change the lib path</a></li>
+      <li><a href="#Set-the-cron-job">#2 Set the cron job</a></li>
+      <li><a href="#Running-Beatitude-via-the-command-line">Running Beatitude via the command line</a></li>
+      <li><a href="#Testing">Testing</a></li>
+      <li><a href="#Optional-Fun-Things">Optional Fun Things</a></li>
+    </ul>
+  </li>
+  <li><a href="#Misc.-Options">Misc. Options</a>
+    <ul>
+      <li><a href="#Plugin_Config--Plugin_URL">$Plugin_Config-&gt;{Plugin_URL}</a></li>
+      <li><a href="#Plugin_Config--Allow_Manual_Run1">$Plugin_Config-&gt;{Allow_Manual_Run}</a></li>
+      <li><a href="#Plugin_Config--Manual_Run_Passcode">$Plugin_Config-&gt;{Manual_Run_Passcode}</a></li>
+    </ul>
+  </li>
+  <li><a href="#Debugging">Debugging</a></li>
+  <li><a href="#FAQs">FAQs</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Beatitude - A Scheduled Mailer for Dada Mail</p>
+
+<h2 id="DEPRECATED">DEPRECATED</h2>
+
+<p>This plugin has been marked as <b>deprecated</b>, and we&#39;ve taken one giant step in integrating scheduling of mass mailings into the core of Dada Mail with this release.</p>
+
+<p>The new system and Beatitude do not share any code, and each system&#39;s method of scheduling a mailing are separate, which is going to lead to confusion.</p>
+
+<h1 id="Obtaining-The-Plugin">Obtaining The Plugin</h1>
+
+<p>Beatitude is located in the, <i>dada/plugins</i> directory of the Dada Mail distribution, under the name: <i>scheduled_mailings.pl</i></p>
+
+<h1 id="Description">Description</h1>
+
+<p>Beatitude is a plugin for Dada Mail that allows you to compose email messages to be scheduled for sending in the future.</p>
+
+<p>Highly configurable, messages themselves can be in PlainText, HTML or multipart/alternative and have an unlimited number of attachments. The message itself can be composed in the plugin itself, fetched from a file or from a webpage.</p>
+
+<p>The schedules themselves can be anywhere from one minute to years into the future and can be repeated infinitely. Schedules also have many safegaurds to help send only new content; for example: if a scheduled mailing is created to send the contents of a URL once a day, it will only send that URL if the contents are different from the previous day.</p>
+
+<h1 id="REQUIREMENTS">REQUIREMENTS</h1>
+
+<ul>
+
+<li><p>Familiarity with setting cron jobs</p>
+
+<p>If you do not know how to set up a cron job, attempting to set one up for Beatitude will result in much aggravation. Please read up on the topic before attempting!</p>
+
+</li>
+<li><p>The Storable Module</p>
+
+<p>If you have perl 5.8, this should already be installed. If it&#39;s not, you can grab it here:</p>
+
+<pre><code>        http://search.cpan.org/~ams/Storable</code></pre>
+
+</li>
+<li><p>Shell Access to Your Hosting Account</p>
+
+<p>Shell Access is sometimes required to set up a cronjob, using the:</p>
+
+<pre><code> crontab -e</code></pre>
+
+<p>command. You may also be able to set up a cron tab using a web-based control panel tool, like Cpanel.</p>
+
+<p>Shell access also facilitates testing of the program.</p>
+
+</li>
+</ul>
+
+<h1 id="Installation">Installation</h1>
+
+<p>This plugin can be installed during a Dada Mail install/upgrade, using the included installer that comes with Dada Mail. The below installation instructions go through how to install the plugin manually.</p>
+
+<p>If you do install this way, note that you still have set the cronjob, which is covered below.</p>
+
+<h1 id="Lightning-Configuration-Installation-Instructions">Lightning Configuration/Installation Instructions</h1>
+
+<p>To get to the point:</p>
+
+<ul>
+
+<li><p>Upload the scheduled_mailings.pl script into the cgi-bin/dada/plugins directory (if it&#39;s not already there)</p>
+
+</li>
+<li><p>chmod 755 the scheduled_mailings.pl script</p>
+
+</li>
+<li><p>run the plugin via a web browser.</p>
+
+</li>
+<li><p>Set the cronjob</p>
+
+</li>
+</ul>
+
+<h1 id="Manual-Installation">Manual Installation</h1>
+
+<h2 id="Configuring-scheduled_mailings.pl-Plugin-Side">Configuring scheduled_mailings.pl Plugin Side</h2>
+
+<h2 id="Change-permissions-of-scheduled_mailings.pl-to-755">Change permissions of &quot;scheduled_mailings.pl&quot; to 755</h2>
+
+<p>The, <code>scheduled_mailings.pl</code> plugin will be located in your, <i>dada/plugins</i> diretory. Change the script to, <code>755</code></p>
+
+<h2 id="Configure-your-.dada_config-file">Configure your .dada_config file</h2>
+
+<p>Now, edit your <code>.dada_config</code> file, so that it shows the plugin in the left-hand menu, under the, <b>Plugins</b> heading:</p>
+
+<p>First, see if the following lines are present in your <code>.dada_config</code> file:</p>
+
+<pre><code> # start cut for list control panel menu
+ =cut
+
+ =cut
+ # end cut for list control panel menu</code></pre>
+
+<p>If they are, remove them.</p>
+
+<p>Then, find these lines:</p>
+
+<pre><code> #                                      {
+ #                                      -Title      =&gt; &#39;Scheduled Mailings&#39;,
+ #                                      -Title_URL  =&gt; $PLUGIN_URL.&quot;/scheduled_mailings.pl&quot;,
+ #                                      -Function   =&gt; &#39;scheduled_mailings&#39;,
+ #                                      -Activated  =&gt; 1,
+ #                                      },</code></pre>
+
+<p>Uncomment the lines, by taking off the, &quot;#&quot;&#39;s:</p>
+
+<pre><code>                                        {
+                                        -Title      =&gt; &#39;Scheduled Mailings&#39;,
+                                        -Title_URL  =&gt; $PLUGIN_URL.&quot;/scheduled_mailings.pl&quot;,
+                                        -Function   =&gt; &#39;scheduled_mailings&#39;,
+                                        -Activated  =&gt; 1,
+                                        },</code></pre>
+
+<p>Save your <code>.dada_config</code> file.</p>
+
+<h1 id="Configuring-the-Cronjob-to-Automatically-Run-Beatitude">Configuring the Cronjob to Automatically Run Beatitude</h1>
+
+<p>We&#39;re going to assume that you already know how to set up the actual cronjob, but we&#39;ll be explaining in depth on what the cronjob you need to set is.</p>
+
+<h2 id="Setting-the-cronjob">Setting the cronjob</h2>
+
+<p>Generally, setting the cronjob to have Beatitude run automatically just means that you have to have a cronjob access a specific URL. The URL looks something like this:</p>
+
+<pre><code> http://example.com/cgi-bin/dada/plugins/scheduled_mailings.pl?run=1&amp;verbose=1</code></pre>
+
+<p>Where, <i>http://example.com/cgi-bin/dada/plugins/scheduled_mailings.pl</i> is the URL to your copy of scheduled_mailings.pl</p>
+
+<p>You&#39;ll see the specific URL used for your installation of Dada Mail in the web-based control panel for Beatitude, under the fieldset legend, Manually Run Beatitude. under the heading, Manual Run URL:</p>
+
+<p>This will have Beatitude check any awaiting messages.</p>
+
+<p>You may have to look through your hosting account&#39;s own FAQ, Knowledgebase and/or other docs to see exactly how you invoke a URL via a cronjob.</p>
+
+<p>A Pretty Good Guess of what the entire cronjob should be set to is located in the web-based crontrol panel for Beatitude, under the fieldset legend, <b>Manually Run Beatitude</b>, under the heading, <b>curl command example (for a cronjob)</b>:</p>
+
+<p>From my testing, this should work for most Cpanel-based hosting accounts.</p>
+
+<p>Here&#39;s the entire thing explained:</p>
+
+<p>In all these examples, I&#39;ll be running the script every 5 minutes ( */5 * * * * ) - tailor to your taste.</p>
+
+<ul>
+
+<li><p>Using Curl:</p>
+
+<pre><code> */5 * * * * /usr/local/bin/curl -s --get --data run=1 --url http://example.com/cgi-bin/dada/plugins/scheduled_mailings.pl</code></pre>
+
+</li>
+<li><p>Using Curl, a few more options (we&#39;ll cover those in just a bit):</p>
+
+<pre><code> */5 * * * * /usr/local/bin/curl -s --get --data run=1\;verbose=0\;test=0 --url http://example.com/cgi-bin/dada/plugins/scheduled_mailings.pl</code></pre>
+
+</li>
+</ul>
+
+<h3 id="Plugin_Config--Allow_Manual_Run">$Plugin_Config-&gt;{Allow_Manual_Run}</h3>
+
+<p>If you DO NOT want to use this way of invoking the program to check awaiting messages and send them out, make sure to change the variable, $Plugin_Config-{Allow_Manual_Run}&gt; to, 0:</p>
+
+<pre><code> $Plugin_Config-&gt;{Allow_Manual_Run}    = 0;</code></pre>
+
+<p>at the top of the scheduled_mailings.pl script. If this variable is not set to, 1 this method will not work.</p>
+
+<h2 id="Security-Concerns-and-Plugin_Config--Manual_Run_Passcode">Security Concerns and $Plugin_Config-&gt;{Manual_Run_Passcode}</h2>
+
+<p>Running the plugin like this is somewhat risky, as you&#39;re allowing an anonymous web browser to run the script in a way that was originally designed to only be run either after successfully logging into the list control panel, or, when invoking this script via the command line.</p>
+
+<p>If you&#39;d like, you can set up a simple Passcode, to have some semblence of security over who runs the program. Do this by setting the, <code>$Plugin_Config-{Manual_Run_Passcode}</code> variable in the scheduled_mailings.pl source itself.</p>
+
+<p>If you set the variable like so:</p>
+
+<pre><code>    $Plugin_Config-&gt;{Manual_Run_Passcode} = &#39;sneaky&#39;;</code></pre>
+
+<p>You&#39;ll then have to change the URL in these examples to:</p>
+
+<pre><code> http://example.com/cgi-bin/dada/plugins/scheduled_mailings.pl?run=1&amp;passcode=sneaky</code></pre>
+
+<h3 id="Other-options-you-may-pass">Other options you may pass</h3>
+
+<p>You can control quite a few things by setting variables right in the query string:</p>
+
+<ul>
+
+<li><p>passcode</p>
+
+<p>As mentioned above, the <code>$Plugin_Config-{Manual_Run_Passcode}</code> allows you to set some sort of security while running in this mode. Passing the actual password is done in the query string:</p>
+
+<pre><code> http://example.com/cgi-bin/dada/plugins/scheduled_mailings.pl?run=1&amp;passcode=sneaky</code></pre>
+
+</li>
+<li><p>verbose</p>
+
+<p>By default, you&#39;ll receive the a report of how Beatitude is doing checking the schedules and if it does send out one.</p>
+
+<p>This is sometimes not so desired, especially in a cron environment, since all this informaiton will be emailed to you (or someone) everytime the script is run. You can run Beatitude with a cron that looks like this:</p>
+
+<pre><code> */5 * * * * /usr/local/bin/curl -s --get --data run=1 --url http://example.com/cgi-bin/dada/plugins/scheduled_mailings.pl &gt;/dev/null 2&gt;&amp;1</code></pre>
+
+<p>The, &gt;/dev/null 2&gt;&amp;1 line throws away any values returned.</p>
+
+<p>Since all the information being returned from the program is done sort of indirectly, this also means that any problems actually running the program will also be thrown away.</p>
+
+<p>If you set verbose to, ``0&#39;&#39;, under normal operation, Beatitude won&#39;t show any output, but if there&#39;s a server error, you&#39;ll receive an email about it. This is probably a good thing. Example:</p>
+
+<pre><code> * * * * * /usr/local/bin/curl -s --get --data run=1\;verbose=0 --url http://example.com/cgi-bin/dada/plugins/scheduled_mailings.pl</code></pre>
+
+</li>
+<li><p>test</p>
+
+<p>Runs Beatitude in test mode by checking the messages awaiting and parsing them, but not actually carrying out any sending.</p>
+
+</li>
+</ul>
+
+<h3 id="Notes-on-Setting-the-Cronjob-for-curl">Notes on Setting the Cronjob for curl</h3>
+
+<p>You may want to check your version of curl and see if there&#39;s a speific way to pass a query string. For example, this:</p>
+
+<pre><code> */5 * * * * /usr/local/bin/curl -s http://example.com/cgi-bin/dada/plugins/scheduled_mailings.pl?run=1&amp;passcode=sneaky</code></pre>
+
+<p>Doesn&#39;t work for me.</p>
+
+<p>I have to use the --get and --data flags, like this:</p>
+
+<pre><code> */5 * * * * /usr/local/bin/curl -s --get --data run=1\;passcode=sneaky --url http://example.com/cgi-bin/dada/plugins/scheduled_mailings.pl</code></pre>
+
+<p>my query string is this part:</p>
+
+<pre><code> run=1\;passcode=sneaky</code></pre>
+
+<p>And also note I had to escape the, ; character. You&#39;ll probably have to do the same for the &amp; character.</p>
+
+<p>Finally, I also had to pass the actual URL of the plugin using the --url flag.</p>
+
+<h1 id="Command-Line-Interface">Command Line Interface</h1>
+
+<p>There&#39;s a slew of optional arguments you can give to this script. To use Beatitude via the command line, first change into the directory that Beatitude resides in, and issue the command:</p>
+
+<pre><code> ./scheduled_mailings.pl --help</code></pre>
+
+<h2 id="Command-Line-Interface-for-Cronjobs">Command Line Interface for Cronjobs:</h2>
+
+<p>One reason that the web-based way of running the cronjob is better, is that it doesn&#39;t involve reconfiguring the plugin, every time you upgrade. This makes the web-based invoking a bit more convenient.</p>
+
+<h2 id="Change-the-lib-path">#1 Change the lib path</h2>
+
+<p>You&#39;ll need to explicitly state where both the:</p>
+
+<ul>
+
+<li><p>Absolute Path to the site-wide Perl libraries</p>
+
+</li>
+<li><p>Absolute Path of the local Dada Mail libraries</p>
+
+</li>
+</ul>
+
+<p>I&#39;m going to rush through this, since if you want to run Beatitude this way you probably know the terminology, but:</p>
+
+<p>This script will be running in a different environment and from a different location than what you&#39;d run it as, when you visit it in a web-browser. It&#39;s annoying, but one of the things you have to do when running a command line script via a cronjob.</p>
+
+<p>As an example: <code>use lib qw()</code> lines probably look like:</p>
+
+<pre><code> use lib qw(
+ 
+ ../ 
+ ../DADA/perllib 
+ ../../../../perl 
+ ../../../../perllib 
+ 
+ );</code></pre>
+
+<p>To this list, you&#39;ll want to append your site-wide Perl Libraries and the path to the Dada Mail libraries.</p>
+
+<p>If you don&#39;t know where your site-wide Perl libraries are, try running this via the command line:</p>
+
+<pre><code> perl -e &#39;print $_ .&quot;\n&quot; for @INC&#39;; </code></pre>
+
+<p>If you do not know how to run the above command, visit your Dada Mail in a web browser, log into your list and on the left hand menu and: click, <b>About Dada Mail</b></p>
+
+<p>Under <b>Script Information</b>, click the, <b> +/- More Information</b> link and under the, <b>Perl Library Locations</b>, select each point that begins with a, &quot;/&quot; and use those as your site-wide path to your perl libraries.</p>
+
+<h2 id="Set-the-cron-job">#2 Set the cron job</h2>
+
+<p>Cron Jobs are scheduled tasks. We&#39;re going to set a cron job to test for new messages every 5 minutes. Here&#39;s an example cron tab:</p>
+
+<pre><code>  */5  *  *  *  * /usr/bin/perl /home/myaccount/cgi-bin/dada/plugins/scheduled_mailings.pl &gt;/dev/null 2&gt;&amp;1</code></pre>
+
+<p>Where, <i>/home/myaccount/cgi-bin/dada/plugins/scheduled_mailings.pl</i> is the full path to the script we just configured.</p>
+
+<p>If all this lib path changin&#39; isn&#39;t up your alley, try this instead:</p>
+
+<p>make NO changes in the plugin regarding the perl lib paths, but change the cronjob to something like this:</p>
+
+<p>*/5 * * * * cd /home/myaccount/cgi-bin/dada/plugins; /usr/bin/perl ./scheduled_mailings.pl &gt;/dev/null 2&gt;&amp;1</p>
+
+<p>This should setup so the plugin is run from the, <i>plugins</i> directory and the Dada Mail and Perl libraries can be found, automatically. A lot easier.</p>
+
+<h2 id="Running-Beatitude-via-the-command-line">Running Beatitude via the command line</h2>
+
+<p>Since this program is also command line tool, you can execute it via a command line. Running Beatitude without any flags will have it check if any schedules should be run, and mail messages that need to be mailed.</p>
+
+<pre><code> prompt&gt;./scheduled_mailings.pl</code></pre>
+
+<p>I suggest before you do that, you test the scheduled_mailings.pl script.</p>
+
+<h2 id="Testing">Testing</h2>
+
+<p>You can pass the <b>--test</b> argument to scheduled_mailings.pl to make sure everything is workings as it should. The <b>--test</b> argument does not take any arguments. If everything is set up correctly, you&#39;ll get back a verbose message of the going&#39;s on of the script:</p>
+
+<pre><code> prompt&gt;./scheduled_mailings.pl --test
+ 
+ ------------------------------------------------------------------------
+ Running Schedule For: mytestlist
+ Current time is: June 26th 2003 - 5:25 pm
+     No schedules to run.
+ ------------------------------------------------------------------------</code></pre>
+
+<p>In this example, Beatitude checked schedules to be run for the &#39;mytestlist&#39; list, found none, and exited. If there is a schedule to run, the output my look like this:</p>
+
+<pre><code> ------------------------------------------------------------------------
+ Running Schedule For: mytestlist
+ Current time is: June 26th 2003 - 5:33 pm
+ 
+     Examining Schedule: &#39;Justin&#39;s Test Schedule&#39;
+     &#39;Justin&#39;s Test Schedule&#39; is active -  
+         Schedule last checked:     June 26th 2003 - 5:31 pm
+         Next mailing should be on: June 26th 2003 - 5:33 pm
+             &#39;Justin&#39;s Test Schedule&#39; scheduled to run now! 
+ ------------------------------------------------------------------------</code></pre>
+
+<h2 id="Optional-Fun-Things">Optional Fun Things</h2>
+
+<p>There&#39;s a slew of optional arguments you can give to this script:</p>
+
+<ul>
+
+<li><p>--verbose</p>
+
+<pre><code>  prompt&gt;./scheduled_mailings.pl --verbose</code></pre>
+
+<p>passing the --verbose parameter is like giving this script some coffee. Similar to what you&#39;d see if you ran the script using:</p>
+
+<pre><code> prompt&gt;./scheduled_mailings.pl --test
+ </code></pre>
+
+<p>But the scheduled mailings will actually get sent.</p>
+
+</li>
+<li><p>--log</p>
+
+<p>If you pass a filename to the script it&#39;ll write a log entry that will look the same as what&#39;s outputted when you run with the <b>--verbose</b> flag.</p>
+
+<p>If you don&#39;t want to pass the log each time, you can set a log in the <b>$Plugin_Config-</b>{Log}&gt; variable.</p>
+
+</li>
+<li><p>--version</p>
+
+<pre><code> prompt&gt;./scheduled_mailings.pl --version</code></pre>
+
+<p>WIll print out both the version of Beatitude and also of Dada Mail. Good for debugging. Looks like this:</p>
+
+<pre><code> Beatitude version: .1
+ Dada Mail version: 2.8.8</code></pre>
+
+</li>
+<li><p>--list</p>
+
+<pre><code> ./scheduled_mailings.pl --list myslistshortname</code></pre>
+
+<p>If you want to run schedules for only one list, you can pass the <b>--list</b> argument to scheduled_mailings.pl with a listshortname as its value.</p>
+
+</li>
+</ul>
+
+<h1 id="Misc.-Options">Misc. Options</h1>
+
+<h2 id="Plugin_Config--Plugin_URL">$Plugin_Config-&gt;{Plugin_URL}</h2>
+
+<p>Sometimes, the plugin has a hard time guessing what its own URL is. If this is happening, you can manually set the URL of the plugin in <b>$Plugin_Config-</b>{Plugin_URL}&gt;</p>
+
+<h2 id="Plugin_Config--Allow_Manual_Run1">$Plugin_Config-&gt;{Allow_Manual_Run}</h2>
+
+<p>Allows you to invoke the plugin to check and send awaiting messages via a URL. See, &quot;The Easy Way&quot; cronjob setting up docs, above.</p>
+
+<h2 id="Plugin_Config--Manual_Run_Passcode">$Plugin_Config-&gt;{Manual_Run_Passcode}</h2>
+
+<p>Allows you to set a passcode if you want to allow manually running the plugin. See, &quot;The Easy Way&quot; cronjob setting up docs, above.</p>
+
+<h1 id="Debugging">Debugging</h1>
+
+<p>Beatitude can be a bit difficult to set up, if you&#39;ve never set up a similar script before. Here&#39;s a few things I do, to make sure a Beatitude install is working correctly:</p>
+
+<p>First off, I install Beatitude, using the directions above.</p>
+
+<p>Then, I&#39;ll make a test list, so if something goes wrong, no one will be affected. I won&#39;t add any subscribers, since it won&#39;t be necessary. Any test messages I send out will go to the list owner (me).</p>
+
+<p>I&#39;ll then create a new schedule to send a message, every minute and repeat that schedule, indefinitely.</p>
+
+<p>Then, I&#39;ll connect to the server via ssh, and run the command to run Beatitude, exactly as I would type the command in the crontab - except perhaps I&#39;ll put that --verbose flag on there, so I can see what&#39;s happening.</p>
+
+<p>It takes a minute for the first message to be sent, and after that, every minute, if I run the command, I&#39;ll get a mailing. This will let me know that the schedules are firing correctly, and that I have the correct command to run Beatitude.</p>
+
+<p>If that&#39;s working, I&#39;ll set the cronjob - and have it run every five minutes or so. I&#39;ll get some coffee.</p>
+
+<p>I&#39;ll come back and if I have a few messages that I didn&#39;t send, I&#39;ll know the cronjob did its job.</p>
+
+<h1 id="FAQs">FAQs</h1>
+
+<ul>
+
+<li><p>I keep getting, &#39;permission denied&#39; errors, what&#39;s wrong?</p>
+
+<p>It&#39;s very possible that Beatitude can&#39;t read your subscription database or the list settings database. This is because Dada Mail may be running under the webserver&#39;s username, usually, <b>nobody</b>, and not what Beatitude is running under, usually your account username.</p>
+
+<p>You&#39;ll need to do a few things:</p>
+
+<ul>
+
+<li><p>Change the permissions of the list subscription and settings databases</p>
+
+<p>You&#39;ll most likely need to change the permissions of these files to, &#39;777&#39;. PlainText subscription databases have the format of <b>listshortname.list</b> and are usually located where you set the <b>$FILES</b> Config file variable. .List settings Databases have the format of <b>mj-listshortname</b> and are usually located in the same location.</p>
+
+</li>
+<li><p>Change the $FILE_CHMOD variable</p>
+
+<p>So you don&#39;t need to change the permissions of the list files for every new list you create, set the $FILE_CMOD Config variable to 0777:</p>
+
+<pre><code>        $FILE_CHMOD = 0777; 
+        </code></pre>
+
+<p>Notice there are no quotes around 0777.</p>
+
+</li>
+</ul>
+
+</li>
+<li><p>I found a bug in this program, what do I do?</p>
+
+<p>Report it to the bug tracker:</p>
+
+<p>http://sourceforge.net/tracker/?group_id=13002&amp;atid=113002</p>
+
+</li>
+<li><p>What&#39;s up with the name, Beatitude?</p>
+
+<p><b>Beatitude</b>, in a historical context, refers to one of the eight sayings the Christian prophet, Jesus is believed to have said on the Sermon on the Mount. Each saying starts with, &quot;Blessed are the...&quot; - a similar saying over and over again, much like sending a similar message again and again</p>
+
+<p>It also means, &quot;a state of supreme happiness&quot;.</p>
+
+<p>But to me, I think of <b>Beatitude</b> as almost a shorthand for, <b>Beat Attitude</b>; the Beat Generation being a group of writers whose inner circle included Jack Kerouac, Allen Ginsberg, William Bourroughs, Gregory Corso and many more.</p>
+
+<p><i>To Kerouac, &quot;Beat&quot; -- a shorthand term for &quot;beatitude&quot; and the idea that the downtrodden are saintly -- was not about politics but about spirituality and art.</i> -<b>Douglas Brinkley</b></p>
+
+<p>A modern Beatitude would be Ginsberg&#39;s <i>Please Master</i>, found in the book, <b>Fall of America</b>.</p>
+
+<p>The Beat Generation attempted to <i>communicate</i> the thoughts, ideas and adventures of their normal lives. I can only hope that communication with my <b>Beatitude</b> will be a tenth that incredible.</p>
+
+<p>My personal bookshelf is overflowing with books from the Beat Generation authors and one reason I moved to Boulder, CO, and then Denver, CO was because of the Denver adventures of Sal Paradise and Dean Moriarty in <i>On The Road</i> and to be close to the <b>Jack Kerouac School of Disembodied Poets</b> in Boulder, CO.</p>
+
+</li>
+</ul>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni http://justinsimoni.com All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

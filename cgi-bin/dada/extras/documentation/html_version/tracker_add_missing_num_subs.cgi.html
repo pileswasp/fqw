@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>tracker_add_missing_num_subs.cgi</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#tracker_add_missing_num_subs.cgi">tracker_add_missing_num_subs.cgi</a></li>
+  <li><a href="#Description">Description</a></li>
+  <li><a href="#Configuration">Configuration</a></li>
+  <li><a href="#Using">Using</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="tracker_add_missing_num_subs.cgi">tracker_add_missing_num_subs.cgi</h1>
+
+<h1 id="Description">Description</h1>
+
+<p>Around v5.0.0 to v5.0.3 (the actually version this problem happens is fuzzy), there is/was a problem with the Tracker plugin, where it wouldn&#39;t successfully track the <b>Number of Subscribers</b> at the time of a mass mailing, or this metric wasn&#39;t being tracked, because of a user preference (<i>Enable Subscriber Count Logging</i> was <b>unchecked</b>).</p>
+
+<p>Some related bugs:</p>
+
+<p><b>https://github.com/justingit/dada-mail/issues/281</b></p>
+
+<p>This leads to a major problem, as Tracker uses this one metric to grab all the mass mailings that it shows in its reports. No &quot;Number of Subscriber&quot; report, no report for anything else.</p>
+
+<p><code>tracker_add_missing_num_subs.cgi</code> adds that missing entry into the database. You can get a preview of what this plugin will most likely achieve in the Tracker before running this script. In the Tracker Preferences, uncheck the option, <b>Clean Up Tracker Reports</b>. Your missing entries should now be shown, although other, &quot;garbage&quot; entries will probably also be shown, such as Test Mass Mailings.</p>
+
+<p>Since the number of subscribers of a past mass mailing is unknown, it will simply add a new entry and record, <code>0</code> subscribers. (You may later manualy fix this in the SQL table, if you would like.).</p>
+
+<p>This script also makes some assumptions, so not to make a new &quot;Number of Subscribers&quot; entry for every single thing in the Tracker Log:</p>
+
+<ul>
+
+<li><p>Doesn&#39;t already have a, &quot;num_subscribers&quot; entry</p>
+
+<p>Only mass mailings with missing &quot;num_subscribers&quot; entries will be looked at.</p>
+
+<p>This also means that it&#39;s safe to re-run this script multiple times, if you find the desire to do so.</p>
+
+</li>
+<li><p>Mass Mailings with an Archived Message but no, &quot;num_subscribers&quot; entry will be given one</p>
+
+</li>
+<li><p>Mass Mailings without an Archived Message and too few total Tracker entries will NOT be given a new &quot;num_subscriber&quot; entry</p>
+
+<p>At the moment, this limit is a paltry, <b>5</b>, and you may change this limit on the top of the script, in the variable,</p>
+
+<p><code>$need_this_many_entries</code></p>
+
+</li>
+</ul>
+
+<p>This plugin also only works with any of the <b>SQL</b> backends, and does not work with the <b>Default</b> (plaintext logs) Backend.</p>
+
+<h1 id="Configuration">Configuration</h1>
+
+<p>No configuration will need to be done in this script itself. The permissions of this script simply need to be set to, <code>755</code>.</p>
+
+<h1 id="Using">Using</h1>
+
+<p>Please fix backup the <b>dada_mass_mailing_event_log</b> table in your SQL database. Although this script will not <i>remove</i> any data from your database, it will potentially <i>add</i> data and add quite a bit data.</p>
+
+<p>Visit <code>tracker_add_missing_num_subs.cgi</code> in your web browser, or run the script via the command line. Be aware that running the script may potentially take several minutes, depending on how many entries in the database you have, how many lists you have - things like that.</p>
+
+<p>Once the script is finished, visit the Tracker plugin and see if the missing Message entries are now visible. The Tracker Summary graph itself will probably have some wildly changing entries, as the actual <b>Subscribers</b> data is not available.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

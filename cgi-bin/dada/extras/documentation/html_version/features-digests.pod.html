@@ -1,0 +1,141 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Message Digests</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Digests">Digests</a>
+    <ul>
+      <li><a href="#Enabling">Enabling</a></li>
+      <li><a href="#Setting-Frequency-of-Digests">Setting Frequency of Digests</a></li>
+      <li><a href="#Setting-Delivery-Preferences">Setting Delivery Preferences</a>
+        <ul>
+          <li><a href="#List-Owner">List Owner</a></li>
+          <li><a href="#Subscriber">Subscriber</a></li>
+        </ul>
+      </li>
+      <li><a href="#Digest-Email-Template">Digest Email Template</a>
+        <ul>
+          <li><a href="#tmpl_var-subscriber">&lt;!-- tmpl_var subscriber.* --&gt;</a></li>
+          <li><a href="#tmpl_var-list_settings">&lt;!-- tmpl_var list_settings.* --&gt;</a></li>
+          <li><a href="#tmpl_var-num_messages">&lt;!-- tmpl_var num_messages --&gt;</a></li>
+          <li><a href="#tmpl_loop-digest_messages">&lt;!-- tmpl_loop digest_messages --&gt;</a>
+            <ul>
+              <li><a href="#tmpl_var-archive_id">&lt;!-- tmpl_var archive_id --&gt;</a></li>
+              <li><a href="#tmpl_var-date">&lt;!-- tmpl_var date.* --&gt;</a></li>
+            </ul>
+          </li>
+          <li><a href="#tmpl_var-subscriber1">&lt;!-- tmpl_var subscriber.* --&gt;</a></li>
+          <li><a href="#subject">subject</a></li>
+          <li><a href="#plaintext_message">plaintext_message</a></li>
+          <li><a href="#html_message">html_message</a></li>
+          <li><a href="#message_blurb">message_blurb</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Digests">Digests</h1>
+
+<h2 id="Enabling">Enabling</h2>
+
+<p>Digests can be enabled in the Bridge plugin. Under, <b>Digest</b>, check the option, <b>Enable Digests</b> and save your settings.</p>
+
+<h2 id="Setting-Frequency-of-Digests">Setting Frequency of Digests</h2>
+
+<p>Under the, <b>Enable Digests</b> setting, you may set the frequency of the messages sent out. <b>Note:</b> digest messages will not be sent out, if there are no messages sent between the last digest sent out, and whenever Dada Mail checks for new digests to be sent out.</p>
+
+<h2 id="Setting-Delivery-Preferences">Setting Delivery Preferences</h2>
+
+<p>Delivery Preferences can be set by both the List Owner, and individual subscribers. Each mailing list has separate delivery preferences.</p>
+
+<h3 id="List-Owner">List Owner</h3>
+
+<p>In the List Control Panel navigate to, Membership - View and click on the address you would like to work with. Click the, <b>Delivery Preferences</b> tab and choose among the three options for delivery: <b>Receive Individual Messages</b>, <b>Receive Messages in a Digest</b>, or, <b>Hold Mailings</b>.</p>
+
+<h3 id="Subscriber">Subscriber</h3>
+
+<p>A subscriber may log into their Profile (<a href="http://example.com/cgi-bin/dada/mail.cgi/profile">http://example.com/cgi-bin/dada/mail.cgi/profile</a>, for example). Every mailing list that has digest enabled will have a similar for to choose their delivery preferences.</p>
+
+<h2 id="Digest-Email-Template">Digest Email Template</h2>
+
+<p>The Email Template for the digest message can be edited in Bridge. Click the, <b>Customize Email Templates...</b> button and locate the template labeled, <b>Digest Message</b> The Subject, as well PlainText and HTML versions of the Digest message may be customized.</p>
+
+<p>The following tags are supported:</p>
+
+<h3 id="tmpl_var-subscriber">&lt;!-- tmpl_var subscriber.* --&gt;</h3>
+
+<p>Subscriber tags, referring to the subscriber that receives the message. For example:</p>
+
+<pre><code>    &lt;!-- tmpl_var subscriber.email --&gt; 
+    
+    &lt;!-- tmpl_var subscriber.first_name --&gt;
+    </code></pre>
+
+<h3 id="tmpl_var-list_settings">&lt;!-- tmpl_var list_settings.* --&gt;</h3>
+
+<h3 id="tmpl_var-num_messages">&lt;!-- tmpl_var num_messages --&gt;</h3>
+
+<p>Holds the number of messages in the digest</p>
+
+<h3 id="tmpl_loop-digest_messages">&lt;!-- tmpl_loop digest_messages --&gt;</h3>
+
+<p>The <code>digest_messages</code> tag holds the list of digest messages. You can loop over all the digest messages available (and print out information about them), like this:</p>
+
+<pre><code>    &lt;!-- tmpl_loop digest_messages --&gt;
+        ...
+    &lt;!-- /tmpl_loop --&gt;
+    </code></pre>
+
+<p>within this loop, the following tags are available:</p>
+
+<h4 id="tmpl_var-archive_id">&lt;!-- tmpl_var archive_id --&gt;</h4>
+
+<p>Holds the internal id of the archived message. You can then construct a link to the message you&#39;ll find in Dada Mail&#39;s public archives, like this,</p>
+
+<pre><code>    &lt;!-- tmpl_var PROGRAM_URL --&gt;/archive/&lt;!-- tmpl_var list_settings.list --&gt;/&lt;!-- tmpl_var archive_id/</code></pre>
+
+<h4 id="tmpl_var-date">&lt;!-- tmpl_var date.* --&gt;</h4>
+
+<p><code>date</code> tags are available within the digest_messages loop, and will correspond to the date of the archived message. Date tags are listed at:</p>
+
+<p><a href="http://dadamailproject.com/d/features-email_template_syntax.pod.html#Date-related-tags">http://dadamailproject.com/d/features-email_template_syntax.pod.html#Date-related-tags</a></p>
+
+<p>Tags listed in, <b>Flexible Date and Time formats</b> are not currently supported.</p>
+
+<h3 id="tmpl_var-subscriber1">&lt;!-- tmpl_var subscriber.* --&gt;</h3>
+
+<p><code>subscriber</code> tags are supported, and will correspond to the original Sender of the message (rather than the subscriber who is receiving the digest message)</p>
+
+<h3 id="subject">subject</h3>
+
+<p>Holds the Subject of the message</p>
+
+<h3 id="plaintext_message">plaintext_message</h3>
+
+<p>Holds the PlainText version of the message originally sent out.</p>
+
+<h3 id="html_message">html_message</h3>
+
+<p>Holds the HTML version of the message originally sent out</p>
+
+<h3 id="message_blurb">message_blurb</h3>
+
+<p>Holds a PlainText snippet of the message originally sent.</p>
+
+
+</body>
+
+</html>
+
+

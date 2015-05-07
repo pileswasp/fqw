@@ -1,0 +1,460 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Bridge - Discussion Lists and Email Sending from your Mail Reader</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Bridge">Bridge</a></li>
+  <li><a href="#Description">Description</a></li>
+  <li><a href="#User-Guide">User Guide</a></li>
+  <li><a href="#Obtaining-The-Plugin">Obtaining The Plugin</a></li>
+  <li><a href="#Installation">Installation</a></li>
+  <li><a href="#Mailing-List-Configuration">Mailing List Configuration</a>
+    <ul>
+      <li><a href="#Enable-Bridge">Enable Bridge</a></li>
+      <li><a href="#List-Email-Configuration">List Email Configuration</a>
+        <ul>
+          <li><a href="#Setup-As:-POP3-Account">Setup As: POP3 Account</a>
+            <ul>
+              <li><a href="#Set-the-cronjob">Set the cronjob</a></li>
+            </ul>
+          </li>
+          <li><a href="#Setup-As:-Mail-Forward">Setup As: Mail Forward</a></li>
+        </ul>
+      </li>
+      <li><a href="#Testing-Bridge">Testing Bridge.</a></li>
+      <li><a href="#Additional-Mailing-List-Configuration">Additional Mailing List Configuration</a></li>
+    </ul>
+  </li>
+  <li><a href="#Advanced-Topics">Advanced Topics</a></li>
+  <li><a href="#Plugin-Configuration-Settings">Plugin Configuration Settings</a>
+    <ul>
+      <li><a href="#Plugin_Name">Plugin_Name</a></li>
+      <li><a href="#Plugin_URL">Plugin_URL</a></li>
+      <li><a href="#Allow_Manual_Run">Allow_Manual_Run</a></li>
+      <li><a href="#Manual_Run_Passcode">Manual_Run_Passcode</a></li>
+      <li><a href="#MessagesAtOnce">MessagesAtOnce</a></li>
+      <li><a href="#Max_Size_Of_Any_Message">Max_Size_Of_Any_Message</a></li>
+      <li><a href="#Soft_Max_Size_Of_Any_Message">Soft_Max_Size_Of_Any_Message</a></li>
+      <li><a href="#Allow_Open_Discussion_List">Allow_Open_Discussion_List</a></li>
+      <li><a href="#Room_For_One_More_Check">Room_For_One_More_Check</a></li>
+      <li><a href="#Enable_POP3_File_Locking">Enable_POP3_File_Locking</a></li>
+      <li><a href="#Check_List_Owner_Return_Path_Header">Check_List_Owner_Return_Path_Header</a></li>
+      <li><a href="#Check_Multiple_Return_Path_Headers">Check_Multiple_Return_Path_Headers</a></li>
+      <li><a href="#Advanced-Cronjobs">Advanced Cronjobs</a></li>
+      <li><a href="#Disallowing-running-Bridge-manually-via-URL">Disallowing running Bridge manually (via URL)</a></li>
+      <li><a href="#Security-Concerns-Manual_Run_Passcode">Security Concerns &quot;Manual_Run_Passcode&quot;</a>
+        <ul>
+          <li><a href="#Additional-Options">Additional Options</a></li>
+          <li><a href="#Notes-on-Setting-the-Cronjob-for-curl">Notes on Setting the Cronjob for curl</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#Command-Line-Interface">Command Line Interface</a>
+    <ul>
+      <li><a href="#Command-Line-Interface-for-Cronjobs">Command Line Interface for Cronjobs:</a></li>
+    </ul>
+  </li>
+  <li><a href="#Manual-Installation">Manual Installation</a>
+    <ul>
+      <li><a href="#Configuring-Bridges-Plugin-Side">Configuring Bridge&#39;s Plugin Side</a></li>
+      <li><a href="#Change-the-permissions-of-the-bridge.cgi-script-to-755">#1 Change the permissions of the, bridge.cgi script to, &quot;755&quot;</a></li>
+      <li><a href="#Configure-your-outside-config-file-.dada_config">#2 Configure your outside config file (.dada_config)</a></li>
+    </ul>
+  </li>
+  <li><a href="#Debugging">Debugging</a>
+    <ul>
+      <li><a href="#Debugging-your-POP3-account-information">Debugging your POP3 account information</a></li>
+    </ul>
+  </li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+</ul>
+
+<h1 id="Bridge">Bridge</h1>
+
+<h1 id="Description">Description</h1>
+
+<p><b>Bridge</b> is one of the most powerful plugins that comes with Dada Mail. Once installed and configured, Bridge allows you to both send Announce Only messages from your mail reader, as well as set up a Discussion Lists, where all members of your mailing list can join in and start talking to each other via email.</p>
+
+<p>Bridge also allows you to set up your mailing list as an email discussion list: Each member of your mailing list may send messages to the List Email, which will then be sent to the entire mailing list.</p>
+
+<p>Messages are received by sending to the <b>List Email</b>. The List Email will need to be set up manually for each mailing list you will want to use Bridge and can be either a regular <b>POP3 email account</b>, which Bridge will log into on a schedule, or an <b>Email Forward</b>, which will forward the message directly to the plugin itself.</p>
+
+<h1 id="User-Guide">User Guide</h1>
+
+<p>The below documentation goes into detail on how to <i>install</i> and <i>configure</i> Bridge. A user guide for Bridge is available in the Dada Mail Manual chapter, <b>Using Bridge</b>:</p>
+
+<p><a href="http://dadamailproject.com/pro_dada/using_bridge.html">http://dadamailproject.com/pro_dada/using_bridge.html</a></p>
+
+<p>For more information on Pro Dada/Dada Mail Manual:</p>
+
+<p><a href="http://dadamailproject.com/purchase/pro.html">http://dadamailproject.com/purchase/pro.html</a></p>
+
+<h1 id="Obtaining-The-Plugin">Obtaining The Plugin</h1>
+
+<p>Bridge is located in the, <i>dada/plugins</i> directory of the Dada Mail distribution, under the name: <i>bridge.cgi</i></p>
+
+<h1 id="Installation">Installation</h1>
+
+<p>This plugin can be installed during a Dada Mail install/upgrade, using the included installer that comes with Dada Mail. Under, <b>Plugins/Extensions</b>, check, <b>Bridge</b>.</p>
+
+<p>Manual installation isn&#39;t recommended, but is outlined later in this doc.</p>
+
+<h1 id="Mailing-List-Configuration">Mailing List Configuration</h1>
+
+<p>Once you&#39;ve installed Bridge, you may access it via the List Control Panel. Bridge is located in the left hand menu, under, <b>Plugins</b>.</p>
+
+<p>Before you can start using Bridge for your mailing list, there&#39;s two things that will have to be done: the first is to <b>enable</b> the plugin; the second is to configure your <b>List Email</b>.</p>
+
+<h2 id="Enable-Bridge">Enable Bridge</h2>
+
+<p>In Bridge&#39;s control panel, under, <b>General</b>, uncheck the option, <b>Disable sending using this method</b>. Save your changes.</p>
+
+<h2 id="List-Email-Configuration">List Email Configuration</h2>
+
+<p>The List Email is the address that you will be sending your email messages, to be broadcasted to your entire mailing list.</p>
+
+<p>There&#39;s a few constraints you want to keep in mind when creating the List Email. Most likely, the address is going to be on the same domain that you install Dada Mail and it&#39;s going to be an address that you&#39;re not already using; either somewhere else in Dada Mail, or as another general email address.</p>
+
+<p>The List Email can either be a normal POP3 email account, or a Mail Forward.</p>
+
+<p>A <b>POP3 account</b> is fairly easy to set up, as its similar to setting up any mail reader - and Bridge basically acts as a mail reader, while checking messages sent to this account. It does require you to set up an additional cronjob (scheduled task), to check this account on a regular schedule; for example: every 5 minutes.</p>
+
+<p>A <b>Mail Forward</b> does not need this additional cronjob created, but may be slightly trickier to set up on the mail forward side of things. Before attempting, make sure that you can set up a mail forward that can <b>Pipe to a Program</b>, and not simply forward to another email address.</p>
+
+<h3 id="Setup-As:-POP3-Account">Setup As: POP3 Account</h3>
+
+<p>Toggle the radio buttons labeled, <b>Setup As</b> to, <b>POP3 Account</b>.</p>
+
+<p>Create a new POP3 Account. This email account will be the email address you will send messages to. Additional fields should be shown, where you may plug in the POP3 Login information for this email address ( POP3 Server, POP3 Username, POP3 Password, etc.). You may test that the login credentials are working by clicking the button labeled, <b>Test POP3 Login Information...</b>.</p>
+
+<p>Once the login information works with Bridge, Save your changes.</p>
+
+<h4 id="Set-the-cronjob">Set the cronjob</h4>
+
+<p>Once you&#39;ve saved your POP3 login info, set the cronjob for Bridge. An <i>example</i> of a cronjob that should work, can be found in the textbox labeled, <i>cronjob command using curl (example)</i>. We recommend setting the cronjob to run every 5 minutes, or less.</p>
+
+<p>Other options for cronjobs exist and are detailed, below, if the provided example doesn&#39;t work.</p>
+
+<h3 id="Setup-As:-Mail-Forward">Setup As: Mail Forward</h3>
+
+<p>Toggle the radio buttons labeled, <b>Setup As</b> to, <b>Email Forward</b>. An <i>example</i> of the command you&#39;ll need to work with Bridge will be shown.</p>
+
+<p>Create a new Mail Forward, and use the example shown as a starting point for the piped command. Here&#39;s an example,</p>
+
+<pre><code> |/home/youraccount/public_html/cgi-bin/dada/plugins/bridge.cgi --inject --list yourlist</code></pre>
+
+<p>If you&#39;re setting the command in cPanel (or something similar) and it asks you to, &quot;<i>enter a path relative to your home directory</i>&quot;, you may need to simply remove the &quot;pipe&quot; <b>|</b> and the path to your home directory <i>/home/youraccount</i>, plugging in this, instead:</p>
+
+<pre><code>        public_html/cgi-bin/dada/plugins/bridge.cgi --inject --list yourlist</code></pre>
+
+<h2 id="Testing-Bridge">Testing Bridge.</h2>
+
+<p>Once you&#39;ve enabled Bridge, and set up the List Email, it&#39;s time to test the plugin. Simply send a message to your List Email. To make things easier, make sure to send the message from the List Owner&#39;s email address, which is allowed to send to both announce-only and discussion type mailing lists. If a message is sent out to your entire mailing list, congratulations: Bridge is working.</p>
+
+<h2 id="Additional-Mailing-List-Configuration">Additional Mailing List Configuration</h2>
+
+<p>In Bridge&#39;s List Control Panel and below, <b>List Email Configuration</b> section, are additional settings you may customize, depending on how you&#39;d like your mailing list to function.</p>
+
+<h1 id="Advanced-Topics">Advanced Topics</h1>
+
+<h1 id="Plugin-Configuration-Settings">Plugin Configuration Settings</h1>
+
+<p>The below settings are available to you, if you wish to further configure Bridge. These settings can be configured inside your <code>.dada_config</code> file.</p>
+
+<p>First, search and see if the following lines are present in your <code>.dada_config</code> file:</p>
+
+<pre><code> # start cut for plugin configs
+ =cut
+
+ =cut
+ # end cut for plugin configs</code></pre>
+
+<p>If they are present, remove them.</p>
+
+<p>You can then configure the plugin variables on these lines:</p>
+
+<pre><code>        Bridge =&gt; {
+        
+                Plugin_Name                         =&gt; undef,
+                Plugin_URL                          =&gt; undef,
+                Allow_Manual_Run                    =&gt; undef,
+                Manual_Run_Passcode                 =&gt; undef,
+                MessagesAtOnce                      =&gt; undef,
+                Soft_Max_Size_Of_Any_Message        =&gt; undef,
+                Max_Size_Of_Any_Message             =&gt; undef,
+                Allow_Open_Discussion_List          =&gt; undef,
+                Room_For_One_More_Check             =&gt; undef,
+                Enable_POP3_File_Locking            =&gt; undef,
+                Check_List_Owner_Return_Path_Header =&gt; undef,
+                Check_Multiple_Return_Path_Headers  =&gt; undef,
+        
+        },</code></pre>
+
+<h2 id="Plugin_Name">Plugin_Name</h2>
+
+<p>The name of the plugin. By default, <b>Bridge</b>.</p>
+
+<h2 id="Plugin_URL">Plugin_URL</h2>
+
+<p>Sometimes, the plugin has a hard time guessing what its own URL is. If this is happening, you can manually set the URL of the plugin in <code>Plugin_URL</code>.</p>
+
+<h2 id="Allow_Manual_Run">Allow_Manual_Run</h2>
+
+<p>Allows you to invoke the plugin to check and send awaiting messages via a URL.</p>
+
+<h2 id="Manual_Run_Passcode">Manual_Run_Passcode</h2>
+
+<p>Allows you to set a passcode if you want to allow manually running the plugin.</p>
+
+<h2 id="MessagesAtOnce">MessagesAtOnce</h2>
+
+<p>You can specify how many messages you want to have the program actually handle per execution of the script by changing the, <code>MessagesAtOnce</code> variable. By default, it&#39;s set conservatively to, <code>1</code>.</p>
+
+<h2 id="Max_Size_Of_Any_Message">Max_Size_Of_Any_Message</h2>
+
+<p>Sets a hard limit on how large a single message can actually be, before you won&#39;t allow the message to be processed. If a message is too large, it&#39;ll be simple deleted. A warning will be written in the error log, but the original sender will not be notified.</p>
+
+<h2 id="Soft_Max_Size_Of_Any_Message">Soft_Max_Size_Of_Any_Message</h2>
+
+<p>Like its brethren, <code>Max_Size_Of_Any_Message</code> <code>Soft_Max_Size_Of_Any_Message</code> sets the maximum size of a message that&#39;s accepted, but If the message falls between, <code>Soft_Max_Size_Of_Any_Message</code> and, <code>Max_Size_Of_Any_Message</code> a, &quot;Your email message is too big!&quot; email message will be sent to the original poster.</p>
+
+<p>Set the size in octects.</p>
+
+<h2 id="Allow_Open_Discussion_List">Allow_Open_Discussion_List</h2>
+
+<p>If set to, <code>1</code> a new option will be available in Bridge&#39;s list control panel to allow you to have a discussion list that anyone can send messages to.</p>
+
+<h2 id="Room_For_One_More_Check">Room_For_One_More_Check</h2>
+
+<p><code>Room_For_One_More_Check</code> looks to see how many mass mailings are currently in the mass mailing queue. If its at or above the limit set in <code>$MAILOUT_AT_ONCE_LIMIT</code>, Bridge will not attempt to look for and (possibly) create another mass mailing to join the queue.</p>
+
+<h2 id="Enable_POP3_File_Locking">Enable_POP3_File_Locking</h2>
+
+<p>When set to, <code>1</code>, Bridge will use a simple lockfile scheme to make sure that it does not check the same POP3 account at the same time another copy of the plugin is doing the exact same thing, saving you from potentially sending out multiple copies of the same message.</p>
+
+<p>Sometimes, the simple POPp3 lock in Dada Mail gets stale, and a deadlock happens. Setting this configuration to, <code>0</code> disables lockfiles. Stale locks will be deleted by the app after a day of being stale.</p>
+
+<h2 id="Check_List_Owner_Return_Path_Header">Check_List_Owner_Return_Path_Header</h2>
+
+<p>When testing the validity of a received message, Dada Mail will look to see if the, <code>Return-Path</code> header matches what&#39;s set in the, <code>From</code> header. If they do not match, this test fails and the message will be rejected. Setting, <code>Check_List_Owner_Return_Path_Header</code> to, <code>0</code> will disable this test.</p>
+
+<h2 id="Check_Multiple_Return_Path_Headers">Check_Multiple_Return_Path_Headers</h2>
+
+<p><code>Check_Multiple_Return_Path_Headers</code> is another validity test for received messages. This time, the message is looked to see if it has more than one <code>Return-Path</code> header. If it does, it is rejected. If you set, <code>Check_Multiple_Return_Path_Headers</code> to, <code>0</code>, this test will be disabled.</p>
+
+<h2 id="Advanced-Cronjobs">Advanced Cronjobs</h2>
+
+<p>A cronjob will need to be set for Bridge, if you have a mailing list that uses a POP3 account for its List Email. If you are using Mail Forwards only, no cronjob needs to be set.</p>
+
+<p>Generally, setting the cronjob to have Bridge run automatically just means that you have to have a cronjob access a specific URL. The URL looks something like this:</p>
+
+<pre><code> http://example.com/cgi-bin/dada/plugins/bridge.cgi?run=1&amp;verbose=1</code></pre>
+
+<p>Where, <i>http://example.com/cgi-bin/dada/plugins/bridge.cgi</i> is the URL to your copy of bridge.cgi</p>
+
+<p>You&#39;ll see the specific URL used for your installation of Dada Mail in the web-based control panel for Bridge, under the label, <b> Manual Run URL:</b></p>
+
+<p>This should work for most Cpanel-based hosting accounts.</p>
+
+<p>Here&#39;s the entire cronjob explained:</p>
+
+<p>In this example, I&#39;ll be running the script every 5 minutes ( */5 * * * * ) - tailor to your taste.</p>
+
+<pre><code>        */5 * * * * /usr/local/bin/curl -s --get --data run=1\;verbose=0\; --url http://example.com/cgi-bin/dada/plugins/bridge.cgi</code></pre>
+
+<h2 id="Disallowing-running-Bridge-manually-via-URL">Disallowing running Bridge manually (via URL)</h2>
+
+<p>If you DO NOT want to use this way of invoking the program to check awaiting messages and send them out, make sure to set the <b>plugin config variable</b> (which we&#39;ll cover below) <code>Allow_Manual_Run</code> to, <code>0</code>.</p>
+
+<h2 id="Security-Concerns-Manual_Run_Passcode">Security Concerns &quot;Manual_Run_Passcode&quot;</h2>
+
+<p>If you&#39;d like, you can set up a simple <b>Passcode</b>, to have some semblence of security over who runs the program. Do this by setting the, plugin config, <code>Manual_Run_Passcode</code> to a password-like string:</p>
+
+<pre><code>        Manual_Run_Passcode                 =&gt; &#39;sneaky&#39;, </code></pre>
+
+<p>In this example, you&#39;ll then have to change the URL in these examples to:</p>
+
+<pre><code> http://example.com/cgi-bin/dada/plugins/bridge.cgi?run=1&amp;passcode=sneaky</code></pre>
+
+<h3 id="Additional-Options">Additional Options</h3>
+
+<p>You can control quite a few things by setting variables right in the query string:</p>
+
+<ul>
+
+<li><p>passcode</p>
+
+<p>As mentioned above, the <code>Manual_Run_Passcode</code> allows you to set some sort of security while running in this mode. Passing the actual password is done in the query string:</p>
+
+<pre><code> http://example.com/cgi-bin/dada/plugins/bridge.cgi?run=1&amp;passcode=sneaky</code></pre>
+
+</li>
+<li><p>verbose</p>
+
+<p>By default, you&#39;ll receive the a report of how Bridge is doing downloading awaiting messages, validating them and sending them off.</p>
+
+<p>This is sometimes not so desired, especially in a cron environment, since all this informaiton will be emailed to you (or someone) everytime the script is run. You can run Bridge with a cron that looks like this:</p>
+
+<pre><code> */5 * * * * /usr/local/bin/curl -s --get --data run=1 --url http://example.com/cgi-bin/dada/plugins/bridge.cgi &gt;/dev/null 2&gt;&amp;1</code></pre>
+
+<p>The, &gt;/dev/null 2&gt;&amp;1 line throws away any values returned.</p>
+
+<p>Since all the information being returned from the plugin is done sort of indirectly, this also means that any problems actually running the program will also be thrown away.</p>
+
+<p>If you set verbose to, <code>0</code>, under normal operation, Bridge won&#39;t show any output, but if there&#39;s a server error, you&#39;ll receive an email about it. This is probably a good thing. Example:</p>
+
+<pre><code> * * * * * /usr/local/bin/curl -s --get --data run=1\;verbose=0 --url http://example.com/cgi-bin/dada/plugins/bridge.cgi</code></pre>
+
+</li>
+<li><p>test</p>
+
+<p>Runs Bridge in test mode by checking the messages awaiting and parsing them, but not actually carrying out any sending.</p>
+
+</li>
+</ul>
+
+<h3 id="Notes-on-Setting-the-Cronjob-for-curl">Notes on Setting the Cronjob for curl</h3>
+
+<p>You may want to check your version of curl and see if there&#39;s a speific way to pass a query string. For example, this:</p>
+
+<pre><code> */5 * * * * /usr/local/bin/curl -s http://example.com/cgi-bin/dada/plugins/bridge.cgi?run=1&amp;passcode=sneaky</code></pre>
+
+<p>Doesn&#39;t work for me.</p>
+
+<p>I have to use the --get and --data flags, like this:</p>
+
+<pre><code> */5 * * * * /usr/local/bin/curl -s --get --data run=1\;passcode=sneaky --url http://example.com/cgi-bin/dada/plugins/bridge.cgi</code></pre>
+
+<p>my query string is this part:</p>
+
+<pre><code> run=1\;passcode=sneaky</code></pre>
+
+<p>And also note I had to escape the, ; character. You&#39;ll probably have to do the same for the &amp; character.</p>
+
+<p>Finally, I also had to pass the actual URL of the plugin using the --url flag.</p>
+
+<h1 id="Command-Line-Interface">Command Line Interface</h1>
+
+<p>This plugin can also be invoked in a command line interface.</p>
+
+<p>To use Bridge via the command line, first change into the directory that Bridge resides in, and issue the command:</p>
+
+<pre><code> ./bridge.cgi --help</code></pre>
+
+<h2 id="Command-Line-Interface-for-Cronjobs">Command Line Interface for Cronjobs:</h2>
+
+<p>You can also invoke <code>bridge.cgi</code> from the command line interface for cronjobs. The secret is to actually have two commands in one. The first command changes into the same directory as the <code>bridge.cgi</code> script, the second invokes the script with the parameters you&#39;d like.</p>
+
+<p>For example:</p>
+
+<pre><code> */5 * * * * cd /home/myaccount/cgi-bin/dada/plugins; /usr/bin/perl ./bridge.cgi  &gt;/dev/null 2&gt;&amp;1</code></pre>
+
+<p>Where, <i>/home/myaccount/cgi-bin/dada/plugins</i> is the full path to the directory the <code>bridge.cgi</code> script is located.</p>
+
+<h1 id="Manual-Installation">Manual Installation</h1>
+
+<h2 id="Configuring-Bridges-Plugin-Side">Configuring Bridge&#39;s Plugin Side</h2>
+
+<h2 id="Change-the-permissions-of-the-bridge.cgi-script-to-755">#1 Change the permissions of the, bridge.cgi script to, &quot;755&quot;</h2>
+
+<p>Find the <code>bridge.cgi</code> script in your <i>dada/plugins</i> directory. Change its permissions to, <code>755</code></p>
+
+<h2 id="Configure-your-outside-config-file-.dada_config">#2 Configure your outside config file (.dada_config)</h2>
+
+<p>You&#39;ll most likely want to edit your outside config file (<code>.dada_config</code>) so that it shows Bridge in the left-hand menu, under the, <b>Plugins</b> heading.</p>
+
+<p>First, see if the following lines are present in your <code>.dada_config</code> file:</p>
+
+<pre><code> # start cut for list control panel menu
+ =cut
+
+ =cut
+ # end cut for list control panel menu</code></pre>
+
+<p>If they are, remove them.</p>
+
+<p>Then, find these lines:</p>
+
+<pre><code> #                                      {-Title      =&gt; &#39;Discussion Lists&#39;,
+ #                                       -Title_URL  =&gt; $PLUGIN_URL.&quot;/bridge.cgi&quot;,
+ #                                       -Function   =&gt; &#39;bridge&#39;,
+ #                                       -Activated  =&gt; 1,
+ #                                      },</code></pre>
+
+<p>Uncomment the lines, by taking off the, &quot;#&quot;&#39;s:</p>
+
+<pre><code>                                        {-Title      =&gt; &#39;Discussion Lists&#39;,
+                                         -Title_URL  =&gt; $PLUGIN_URL.&quot;/bridge.cgi&quot;,
+                                         -Function   =&gt; &#39;bridge&#39;,
+                                         -Activated  =&gt; 1,
+                                        },</code></pre>
+
+<p>Save your <code>.dada_config</code> file.</p>
+
+<p>You can now log into your List Control Panel and under the, <b>plugins</b> heading you should now see a link entitled, &quot;Bridge&quot;. Clicking that link will allow you to set up Bridge.</p>
+
+<h1 id="Debugging">Debugging</h1>
+
+<h2 id="Debugging-your-POP3-account-information">Debugging your POP3 account information</h2>
+
+<p>The easiest way to debug your POP3 account info is to actually test it out.</p>
+
+<p>If you have a command line, drop into it and connect to your POP3 server, like so:</p>
+
+<pre><code> prompt:]telnet pop3.example.com 110
+ Trying 12.123.123.123...
+ Connected to pop3.example.com.
+ Escape character is &#39;^]&#39;.
+ +OK &lt;37892.1178250885@hedwig.summersault.com&gt;
+ user user%example.com
+ +OK 
+ pass sneaky
+ +OK 
+ list</code></pre>
+
+<p>In the above example, <b>pop3.example.com</b> is your POP3 server. You&#39;ll be typing in:</p>
+
+<pre><code>  user user%example.com</code></pre>
+
+<p>and:</p>
+
+<pre><code>  pass sneaky</code></pre>
+
+<p>(changing them to their real values) when prompted. This is basically what bridge.cgi does itself.</p>
+
+<p>If you don&#39;t have a command line, try adding an account in a desktop mail reader. If these credentials work there, they&#39;ll most likely work for bridge.cgi.</p>
+
+<p>If your account information is correct and also logs in when you test the pop3 login information through bridge.cgi yourself, check to see if there isn&#39;t an email filter attached the account that looks at messages before they&#39;re delivered to the POP3 Mailbox and outright deletes messages because it triggered a flag.</p>
+
+<p>This could be the cause of mysterious occurences of messages never reaching the POP3 Mailbox.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright (c) 1999 - 2014 Justin Simoni All rights reserved.</p>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

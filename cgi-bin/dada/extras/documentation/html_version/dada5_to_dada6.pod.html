@@ -1,0 +1,404 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Dada Mail 5.x to Dada Mail 6.x Guide</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Dada-Mail-5-to-Dada-Mail-6-Upgrade-Guide">Dada Mail 5 to Dada Mail 6 Upgrade Guide</a>
+    <ul>
+      <li><a href="#Focus">Focus</a></li>
+      <li><a href="#JavaScript-UI-UX-Breathing-Growing-Room">JavaScript UI/UX Breathing/Growing Room</a></li>
+      <li><a href="#Towards-a-new-web-framework">Towards a new web framework</a></li>
+      <li><a href="#Database-Schema">Database Schema</a></li>
+      <li><a href="#Perl-Version-Requirements">Perl Version Requirements</a></li>
+      <li><a href="#Config.pm-documentation-removed">Config.pm documentation removed</a></li>
+      <li><a href="#dada_config-file">.dada_config file</a></li>
+      <li><a href="#Removed-variables:-FILES-TEMPLATES-TMP-BACKUPS-ARCHIVES-LOGS">Removed variables: $FILES, $TEMPLATES, $TMP, $BACKUPS, $ARCHIVES, $LOGS</a></li>
+      <li><a href="#Added-variable:-BACKEND_DB_TYPE-Removed-variables:-SUBSCRIBER_DB_TYPE-ARCHIVE_DB_TYPE-SETTINGS_DB_TYPE-SESSION_DB_TYPE-BOUNCE_SCORECARD_DB_TYPE-CLICKTHROUGH_DB_TYPE">Added variable: $BACKEND_DB_TYPE; Removed variables: $SUBSCRIBER_DB_TYPE, $ARCHIVE_DB_TYPE, $SETTINGS_DB_TYPE, $SESSION_DB_TYPE, $BOUNCE_SCORECARD_DB_TYPE, $CLICKTHROUGH_DB_TYPE</a></li>
+      <li><a href="#SQL_PARAMS:-removed-table-names">%SQL_PARAMS: removed table names</a></li>
+      <li><a href="#Installer">Installer</a></li>
+      <li><a href="#Database-Connection-Bounce-Handler-POP3-Connection-Testers">Database Connection, Bounce Handler POP3 Connection Testers</a></li>
+      <li><a href="#Installer-can-now-grab-information-from-the-previous-installation">Installer can now grab information from the previous installation</a></li>
+      <li><a href="#Template-Changes">Template Changes</a></li>
+      <li><a href="#templates-directory-move">&quot;templates&quot; directory move</a></li>
+      <li><a href="#Plugins:-Templated-out">Plugins: Templated out</a></li>
+      <li><a href="#JavaScript-images-and-css-files-removed-from-templates-directory-relocated-in-static-directory">JavaScript, images and css files removed from templates directory, relocated in, &quot;static&quot; directory</a>
+        <ul>
+          <li><a href="#Inline-JavaScript-removed-from-template-files">Inline JavaScript removed from template files</a></li>
+        </ul>
+      </li>
+      <li><a href="#JavaScript">JavaScript</a></li>
+      <li><a href="#Migration-from-Prototype-Scriptaculous-to-jQuery-jQueryUI">Migration from Prototype/Scriptaculous to jQuery/jQueryUI</a></li>
+      <li><a href="#Static-Files-directory-location-SUPPORT_FILES-config-variable-Installation-and-Configuration">Static Files directory location, $SUPPORT_FILES config variable, Installation and Configuration</a></li>
+      <li><a href="#Clickthrough-Message-Opens-etc-tracking-support-dropped-for-Default-Backend">Clickthrough/Message Opens, etc tracking support dropped for Default Backend</a></li>
+      <li><a href="#List-Control-Panel">List Control Panel</a></li>
+      <li><a href="#Admin-Menu">Admin Menu</a>
+        <ul>
+          <li><a href="#View-Subscribers:-Shows-of-Subscribers">View Subscribers: Shows # of Subscribers</a></li>
+          <li><a href="#Monitor-Your-Mailings---Auto-Updated">Monitor Your Mailings - Auto Updated</a></li>
+        </ul>
+      </li>
+      <li><a href="#List-Control-Panel-Screens">List Control Panel Screens</a></li>
+      <li><a href="#Mass-Mailing-Send-a-Message">Mass Mailing &gt;&gt; Send a Message</a></li>
+      <li><a href="#Membership-View">Membership &gt;&gt; View</a>
+        <ul>
+          <li><a href="#Breakdown-by-Domain-Graph">Breakdown by Domain Graph</a></li>
+          <li><a href="#Search-Autocomplete">Search Autocomplete</a></li>
+        </ul>
+      </li>
+      <li><a href="#Membership-Recent-Activity">Membership &gt;&gt; Recent Activity</a>
+        <ul>
+          <li><a href="#Subscription-Trends-graph">Subscription Trends graph</a></li>
+        </ul>
+      </li>
+      <li><a href="#WYSIWYG-editors-and-Template-Tags">WYSIWYG editors and Template Tags</a></li>
+      <li><a href="#Data-Cache">Data Cache</a></li>
+      <li><a href="#Plugins">Plugins</a></li>
+      <li><a href="#Tracker">Tracker</a>
+        <ul>
+          <li><a href="#Expanded-location-based-information">Expanded location-based information</a></li>
+          <li><a href="#City-Reports-by-IP-Address">City Reports by IP Address</a></li>
+          <li><a href="#Included-City-Geo-IP-Data">Included City Geo IP Data</a></li>
+          <li><a href="#An-open-is-recorded-when-a-clickthrough-is-recorded-when-no-open-is-previously-recorded">An, &quot;open&quot; is recorded, when a, &quot;clickthrough&quot; is recorded when no &quot;open&quot; is previously recorded.</a></li>
+        </ul>
+      </li>
+      <li><a href="#Bounce-Handler">Bounce Handler</a>
+        <ul>
+          <li><a href="#Filename-change:-dada_bounce_handler.pl-to-bounce_handler.cgi">Filename change: dada_bounce_handler.pl to bounce_handler.cgi</a></li>
+          <li><a href="#Rules">Rules</a></li>
+          <li><a href="#More-Rules-Added">More Rules Added</a></li>
+        </ul>
+      </li>
+      <li><a href="#Bridge">Bridge</a>
+        <ul>
+          <li><a href="#Filename-change:-dada_bridge.pl-to-bridge.cgi">Filename change: dada_bridge.pl to bridge.cgi</a></li>
+          <li><a href="#List-Email-Mail-Forwarding-Support">List Email Mail Forwarding Support</a></li>
+          <li><a href="#Clean-Up-Replies-Filter---Disabled">Clean Up Replies Filter - Disabled</a></li>
+        </ul>
+      </li>
+      <li><a href="#Scheduled-Mailings---DEPRECATED">Scheduled Mailings - DEPRECATED</a></li>
+      <li><a href="#Extensions">Extensions</a></li>
+      <li><a href="#dada_digest.pl---REMOVED">dada_digest.pl - REMOVED</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Dada-Mail-5-to-Dada-Mail-6-Upgrade-Guide">Dada Mail 5 to Dada Mail 6 Upgrade Guide</h1>
+
+<h2 id="Focus">Focus</h2>
+
+<p>The focus of this major release of Dada Mail is to make room for growth of the app, by creating a better foundation for future features.</p>
+
+<h2 id="JavaScript-UI-UX-Breathing-Growing-Room">JavaScript UI/UX Breathing/Growing Room</h2>
+
+<p>Dada Mail&#39;s UI/UX has been migrated to jQuery, from Prototype, where development has all but ceased.</p>
+
+<p>The vast majority of Dada Mail&#39;s extra functionality through JavaScript is done in an unobtrusive way. A great example of new features allowed with this JS library move is the rewritten and redesigned Tracker plugin.</p>
+
+<h2 id="Towards-a-new-web-framework">Towards a new web framework</h2>
+
+<p>Dada Mail is written with the thinnest of veneer of a web framework, and the next major version of Dada Mail may be a migration to a more robust web framework such as CGI::Application, Catalyst, or Mojolicious. v6 of Dada Mail moves the various components that make up Dada Mail (Perl code, JavaScript code, templates, images, stylesheets) into consolidated bundles of files and directories that are more sensible than previous versions.</p>
+
+<h2 id="Database-Schema">Database Schema</h2>
+
+<p>For most people, there are <b>no</b> changes in any of the database schemas between Dada Mail 5 and Dada Mail 6. If you are using the <b>PostgreSQL</b> backend, do note that the <b>dada_sessions</b> table is slightly different. You will want to <code>DROP</code> the current <b>dada_sessions</b> table you have, and recreate the table:</p>
+
+<pre><code>        CREATE TABLE dada_sessions (
+            id CHAR(32) NOT NULL PRIMARY KEY,
+            a_session BYTEA NOT NULL
+        );</code></pre>
+
+<p>Again, this is only for <b>PostgreSQL</b>.</p>
+
+<p>Upgrading is fairly straightforward, with no need for any Dada Mail 5 to Dada Mail 6 SQL upgrade scripts.</p>
+
+<p>When using the Dada Mail Installer (which you should use, when installing or upgrading), you will definitely want to create a new <code>.dada_config</code> file, when asked.</p>
+
+<p>There is one new config variable, <code>$SUPPORT_FILES</code> that needs to be set up correctly. If you do not make a new <code>.dada_config</code> file, or install manually, without putting in this new variable, the upgrade will not work.</p>
+
+<h2 id="Perl-Version-Requirements">Perl Version Requirements</h2>
+
+<p>This is currently <b>no</b> change in the Perl Version requirement of v5.8.1. This may change, before a stable release of v6 is released, most likely to v5.10.x of Perl. We&#39;re still working on that.</p>
+
+<h2 id="Config.pm-documentation-removed">Config.pm documentation removed</h2>
+
+<p>Documentation that was in the Config.pm has been cleaned up, revised, updated and moved to the, <i>dada/extras/documentation/pod_source/global_variables.pod</i> file.</p>
+
+<h2 id="dada_config-file">.dada_config file</h2>
+
+<p>The <code>.dada_config</code> file that&#39;s generated by the included installer has undergone a few changes.</p>
+
+<h2 id="Removed-variables:-FILES-TEMPLATES-TMP-BACKUPS-ARCHIVES-LOGS">Removed variables: $FILES, $TEMPLATES, $TMP, $BACKUPS, $ARCHIVES, $LOGS</h2>
+
+<p>These variables were added to the <code>.dada_config</code> file, but are almost kept the same as the default, ala:</p>
+
+<pre><code>        $FILES                    = $DIR . &#39;/.lists&#39;;
+        $TEMPLATES                = $DIR . &#39;/.templates&#39;;
+        $TMP                      = $DIR . &#39;/.tmp&#39;;
+        $BACKUPS                  = $DIR . &#39;/.backups&#39;;
+        $ARCHIVES                 = $DIR . &#39;/.archives&#39;;
+        $LOGS                     = $DIR . &#39;/.logs&#39;;</code></pre>
+
+<p>Instead of taking up extra space and line noise, these files are simply added to the <code>dada/DADA/Config.pm</code> file as the default. You may still add these variables in the <code>.dada_config</code> file to change their default, but it&#39;s not really recommended. The, <code>$DIR</code> variable has been added to the <code>dada/DADA/Config.pm</code> as a true config variable, so you do not want to have the first line read,</p>
+
+<pre><code>        my $DIR         = &#39;/home/account/.dada_files&#39;;</code></pre>
+
+<p>Simply,</p>
+
+<pre><code>        $DIR         = &#39;/home/account/.dada_files&#39;;</code></pre>
+
+<p>Will be fine. Keeping, <code>my</code> will probably break things.</p>
+
+<h2 id="Added-variable:-BACKEND_DB_TYPE-Removed-variables:-SUBSCRIBER_DB_TYPE-ARCHIVE_DB_TYPE-SETTINGS_DB_TYPE-SESSION_DB_TYPE-BOUNCE_SCORECARD_DB_TYPE-CLICKTHROUGH_DB_TYPE">Added variable: $BACKEND_DB_TYPE; Removed variables: $SUBSCRIBER_DB_TYPE, $ARCHIVE_DB_TYPE, $SETTINGS_DB_TYPE, $SESSION_DB_TYPE, $BOUNCE_SCORECARD_DB_TYPE, $CLICKTHROUGH_DB_TYPE</h2>
+
+<p>For the SQL backend, all these variables are already set the same, ala:</p>
+
+<pre><code>        $SUBSCRIBER_DB_TYPE       = &#39;SQL&#39;; 
+        $ARCHIVE_DB_TYPE          = &#39;SQL&#39;; 
+        $SETTINGS_DB_TYPE         = &#39;SQL&#39;; 
+        $SESSION_DB_TYPE          = &#39;SQL&#39;; 
+        $BOUNCE_SCORECARD_DB_TYPE = &#39;SQL&#39;;
+        $CLICKTHROUGH_DB_TYPE     = &#39;SQL&#39;;</code></pre>
+
+<p>For the Default backend, they&#39;re set like this:</p>
+
+<pre><code>        $SUBSCRIBER_DB_TYPE       = &#39;PlainText&#39;; 
+        $ARCHIVE_DB_TYPE          = &#39;Db&#39;; 
+        $SETTINGS_DB_TYPE         = &#39;Db&#39;; 
+        $SESSION_DB_TYPE          = &#39;Db&#39;;
+        $BOUNCE_SCORECARD_DB_TYPE = &#39;Db&#39;;
+        $CLICKTHROUGH_DB_TYPE     = &#39;Db&#39;;</code></pre>
+
+<p>To reduce line noise, <code>$BACKEND_DB_TYPE</code> is being introduced. If set to, <code>SQL</code>, it&#39;ll set the other variables accordingly. Same with setting this variable to, <code>Default</code>.</p>
+
+<h2 id="SQL_PARAMS:-removed-table-names">%SQL_PARAMS: removed table names</h2>
+
+<p>Remove to further lesson the line noise.</p>
+
+<h2 id="Installer">Installer</h2>
+
+<h2 id="Database-Connection-Bounce-Handler-POP3-Connection-Testers">Database Connection, Bounce Handler POP3 Connection Testers</h2>
+
+<p>The installer now has inline testers for both your Database Connection, and the Bounce Handler&#39;s POP3 Connection, to help you make sure these work, before committing to an installation.</p>
+
+<h2 id="Installer-can-now-grab-information-from-the-previous-installation">Installer can now grab information from the previous installation</h2>
+
+<p>When using the installer to upgrade a current Dada Mail, it&#39;ll able to grab some of the configuration information from your previous installation: Program URL, Support Files Directory, Dada Mail Root Password, Backend Options, Plugin/Extensions that were previously installed, and your WYSIWYG options.</p>
+
+<p><i>(If you added additional configuration variables after an install has completed, you will still have to re-add these manually)</i></p>
+
+<p>This can help save time during an upgrade and ensure that everything goes smoothly. You can also re-enable the installer, after a successful initial installation, to <i>change</i> your Dada Mail configuration - for example: add/remove a plugin.</p>
+
+<h2 id="Template-Changes">Template Changes</h2>
+
+<h2 id="templates-directory-move">&quot;templates&quot; directory move</h2>
+
+<p>In v5, template files lived in the directory:</p>
+
+<p><i>dada/DADA/Template/templates</i></p>
+
+<p>They are now located in:</p>
+
+<p><i>dada/templates</i></p>
+
+<p>It&#39;s hoped that this directory move will make it easier for people to find the <code>templates</code> directory. This directory is still in the, <code>dada</code> directory, instead of, say, the, <code>static</code> directory since template files are themselves little, simply programs, that need to be interpreted, and aren&#39;t themselves actually static.</p>
+
+<h2 id="Plugins:-Templated-out">Plugins: Templated out</h2>
+
+<p>There was a voluminous amount of inline HTML in the plugins/extensions that are shipped with Dada Mail. This HTML is now saved in separate template files, which you can find in,</p>
+
+<p><i>dada/templates/plugins</i></p>
+
+<p>Each plugin has its own directory for its templates, eg: <i>dada/templates/plugins/tracker</i>, etc.</p>
+
+<p>The Scheduled Mailings plugin still has program generated and inline HTML. It&#39;s a big mess.</p>
+
+<h2 id="JavaScript-images-and-css-files-removed-from-templates-directory-relocated-in-static-directory">JavaScript, images and css files removed from templates directory, relocated in, &quot;static&quot; directory</h2>
+
+<p>Many static files that used to reside in the, <i>templates</i> directory have been moved to the, <i>static</i> directory, to be served directly from the webserver. These include JavaScript, image and cascading stylesheet files.</p>
+
+<p>This change should help performance of the app. These files are also not cached in Dada Mail&#39;s Screen Cache, as they&#39;re going to be served faster by the webserver simply as static files.</p>
+
+<h3 id="Inline-JavaScript-removed-from-template-files">Inline JavaScript removed from template files</h3>
+
+<p>The vast majority of JavaScript that may have been found inline in the template files has been removed. You will now find that code in the, <i>static/javascripts/dada_mail.js</i> file.</p>
+
+<h2 id="JavaScript">JavaScript</h2>
+
+<h2 id="Migration-from-Prototype-Scriptaculous-to-jQuery-jQueryUI">Migration from Prototype/Scriptaculous to jQuery/jQueryUI</h2>
+
+<p>All JavaScript that relied on the Prototype/Scriptaculous libraries has been migrated to jQuery/jQueryUI. The Modalbox Prototype library has been ported to Jack Moore&#39;s excellent ColorBox: <a href="http://www.jacklmoore.com/colorbox">http://www.jacklmoore.com/colorbox</a></p>
+
+<h2 id="Static-Files-directory-location-SUPPORT_FILES-config-variable-Installation-and-Configuration">Static Files directory location, $SUPPORT_FILES config variable, Installation and Configuration</h2>
+
+<p>Dada Mail now separates out its static files needed for the app, from the dynamic template files. These static files ship with the app under the directory,</p>
+
+<p><i>dada/static</i></p>
+
+<p>When you install Dada Mail using the included Installer, this entire directory will be copied to the publicly accessable directory that you specify, so that they may be served directly by the webserver. JavaScript, images and cascading style sheets will be served from this directory.</p>
+
+<p>In previous versions of Dada Mail, these files were served via Dada Mail, creating a new running instance of the app per request, which is slow, awkward and confusing.</p>
+
+<p>Both the server path, and URL to this directory will be saved in your <code>.dada_config</code> file, under the varible, <code>$SUPPORT_FILES</code>. This variable is required to be correctly configured, for Dada Mail to work.</p>
+
+<p>This does create an additional thing that needs to be configured for Dada Mail to be successfully installed, but we feel this extra step is worth it, for performance and for future features of the app.</p>
+
+<h2 id="Clickthrough-Message-Opens-etc-tracking-support-dropped-for-Default-Backend">Clickthrough/Message Opens, etc tracking support dropped for Default Backend</h2>
+
+<p>The Tracker plugin and all of its functionality now requires the use of one of the SQL backends.</p>
+
+<h2 id="List-Control-Panel">List Control Panel</h2>
+
+<h2 id="Admin-Menu">Admin Menu</h2>
+
+<h3 id="View-Subscribers:-Shows-of-Subscribers">View Subscribers: Shows # of Subscribers</h3>
+
+<p>The, &quot;View Subscribers&quot; Admin Menu now shows the number of subscribers you have on the current mailing list you&#39;re logged into. This is automatically updated every 5 minutes</p>
+
+<h3 id="Monitor-Your-Mailings---Auto-Updated">Monitor Your Mailings - Auto Updated</h3>
+
+<p>The, &quot;Monitor Your Mailings&quot; Admin Menu shows how many mass mailings are going out on the current mailing lsit you&#39;re logged into, as well as the total number of mass mailings that are going out. This is now automatically updated every 5 minutes.</p>
+
+<h2 id="List-Control-Panel-Screens">List Control Panel Screens</h2>
+
+<h2 id="Mass-Mailing-Send-a-Message">Mass Mailing &gt;&gt; Send a Message</h2>
+
+<p>Options for Mass Mailing, including File Attachments, Archive Options, etc have been moved to a tabbed interface.</p>
+
+<h2 id="Membership-View">Membership &gt;&gt; View</h2>
+
+<h3 id="Breakdown-by-Domain-Graph">Breakdown by Domain Graph</h3>
+
+<p>The Breakdown by Domain graph, that used to be in the Tracker plugin has been moved to the <b>Membership - View screen</b>. Clicking on any of the pie slices will perform a search on the domain you have selected.</p>
+
+<h3 id="Search-Autocomplete">Search Autocomplete</h3>
+
+<p>The Subscriber search form has autocomplete capabilities, which searches and matches on email addresses</p>
+
+<h2 id="Membership-Recent-Activity">Membership &gt;&gt; Recent Activity</h2>
+
+<h3 id="Subscription-Trends-graph">Subscription Trends graph</h3>
+
+<p>The <b>Recent Activity</b> screen now has a graph labeled, <b>Subscription Trends</b>. This graph shows daily, as well as cumulative data on Subscriptions and Unsubscriptions on your mailing list.</p>
+
+<h2 id="WYSIWYG-editors-and-Template-Tags">WYSIWYG editors and Template Tags</h2>
+
+<p>In version &lt; 6 of Dada Mail, when template tags like,</p>
+
+<pre><code>        &lt;!-- tmpl_var list_settings.list_name --&gt; </code></pre>
+
+<p>are entered in the rich text (rather than source view) of the WYSIWYG editor, the &quot;&lt;&quot;, and, &quot;&gt;&quot; characters are converted into their HTML entities, so the source of your message now looks like this:</p>
+
+<pre><code>        &amp;lt;!-- tmpl_var list_settings.list_name --&amp;gt;</code></pre>
+
+<p>Which breaks the tag, and you will see the original template tag, which will not be converted to its value.</p>
+
+<p>In v6, Dada Mail will look for these types of conversions, and convert them back, fixing the template tag, to be parsed correctly.</p>
+
+<h2 id="Data-Cache">Data Cache</h2>
+
+<p>Dada Mail now has a data cache, for things like generated JSON files. This data cache can be managed with the new, <code>DADA::App::DataCache</code> module and can be enabled/disabled using the <code>$DADA_CACHE</code> config variable. Old cached data will be removed periodically (1 hour), automatically. The data cache is located in the,</p>
+
+<p><i>.dada_files/.tmp/_dada_cache</i></p>
+
+<p>directory. The files, as well as the directory itself, may be safely removed at any time.</p>
+
+<h2 id="Plugins">Plugins</h2>
+
+<h2 id="Tracker">Tracker</h2>
+
+<p>The Tracker plugin has been essentially rewritten, and its features have been expanded. All charts, graphs and maps generated are now interactive and mousing over various parts of the chart/graph/map will reveal additional information. The UI itself has been redesigned, as well.</p>
+
+<p>The new charts/graphs/maps are powered by the Google Visualization API. Data, in the JSON format is created for Dada Mail using the Perl CPAN module, JSON (<a href="http://search.cpan.org/~makamaka/JSON/">http://search.cpan.org/~makamaka/JSON/</a>). This module will need to be installed on your hosting platform for these charts/graphs/maps to be created.</p>
+
+<p>Although not part of the standard Perl Library, the module proves to be so useful, that it&#39;s usually already installed on many hosting platforms (like LWP, CGI, etc). Dada Mail will be shipped with a copy of this module, although it will be disabled (enabling just means renaming a file and a directory - covered in the Error FAQ)</p>
+
+<h3 id="Expanded-location-based-information">Expanded location-based information</h3>
+
+<p>As well as country-specific information, Tracker now supports showing information on a city-specific level.</p>
+
+<h3 id="City-Reports-by-IP-Address">City Reports by IP Address</h3>
+
+<p>Reports are now generated per country, breaking down then by city, and then by individual IP address that may have caused an event, (a message open, clickthrough, forward, archive view) and listed in chronological order.</p>
+
+<h3 id="Included-City-Geo-IP-Data">Included City Geo IP Data</h3>
+
+<p>Dada Mail now comes with both a country Geo IP database, as well as a city-level Geo IP database. The city-level database is fairly large - ~20 megs., but it&#39;s utility is worth its size. Geo IP data is provided by <a href="http://maxmind.com">http://maxmind.com</a>, who also provide more accurate country/city data, on a subscription.</p>
+
+<p>The distro of Dada Mail is much larger - around 20 megs. compressed, rather than ~7.5 megs for v5 of Dada Mail. This additional size is mostly from the bundled city-level Geo IP database.</p>
+
+<p>Both the city, and country-level Geo IP databases can be found in the,</p>
+
+<p><i>dada/data</i></p>
+
+<p>directory.</p>
+
+<h3 id="An-open-is-recorded-when-a-clickthrough-is-recorded-when-no-open-is-previously-recorded">An, &quot;open&quot; is recorded, when a, &quot;clickthrough&quot; is recorded when no &quot;open&quot; is previously recorded.</h3>
+
+<p>What this means, is this:</p>
+
+<p>Opens are counted when a special embedded image is loaded from the email message you send out. This works well, except when images are not displayed by default by the mail reader, which is often the default for mail readers, or if you&#39;re sending out a PlainText message, which does not support embedded images.</p>
+
+<p>To counteract that, Dada Mail supports simply counting a &quot;clickthrough&quot; also as an, &quot;open&quot;, if it hasn&#39;t also already recorded an open for that specific user, and that specific email message. This is going to lead to a potentially higher - and more accurate open rate in Tracker.</p>
+
+<h2 id="Bounce-Handler">Bounce Handler</h2>
+
+<h3 id="Filename-change:-dada_bounce_handler.pl-to-bounce_handler.cgi">Filename change: dada_bounce_handler.pl to bounce_handler.cgi</h3>
+
+<p>Make sure to update any cronjobs, links, etc.</p>
+
+<h3 id="Rules">Rules</h3>
+
+<p>The Bounce Handler Rules, used to match the type of bounced message that gets sent to the bounce handler, has been moved out of the code and into its own file, which you may find at,</p>
+
+<p><i>dada/data/bounce_handler_rules.pl</i></p>
+
+<p>You may also copy the file, and place it in your,</p>
+
+<p><i>.dada_files/.configs</i></p>
+
+<p>directory, make your own changes/customizations, and the Bounce Handler will use your copy, instead of what ships with Dada Mail.</p>
+
+<h3 id="More-Rules-Added">More Rules Added</h3>
+
+<p>Over 10 new rules have been added to the Bounce Handler Rules. For the most part, these rules are easy to understand and only match a specific type of bounce, making them easy to modify.</p>
+
+<h2 id="Bridge">Bridge</h2>
+
+<h3 id="Filename-change:-dada_bridge.pl-to-bridge.cgi">Filename change: dada_bridge.pl to bridge.cgi</h3>
+
+<p>Make sure to update any cronjobs, links, etc.</p>
+
+<h3 id="List-Email-Mail-Forwarding-Support">List Email Mail Forwarding Support</h3>
+
+<p>You may now set up a List Email as a Mail Forward, that pipes a message directory to Dada Bridge, rather than as a POP3 email account, that is checked on a schedule via a cronjob. This should greatly help any lag between when the message is sent to the List Email address, and when the message is checked by Bridge, and sent out to the entire mailing list.</p>
+
+<h3 id="Clean-Up-Replies-Filter---Disabled">Clean Up Replies Filter - Disabled</h3>
+
+<p>This experimental feature doesn&#39;t work very well and has been disabled in v6.</p>
+
+<h2 id="Scheduled-Mailings---DEPRECATED">Scheduled Mailings - DEPRECATED</h2>
+
+<p>The current scheduled_mailings.pl plugin, as it currently stands, needs a rewrite and isn&#39;t currently benefitting from the advances of code style, best practices and techniques offered by the rest of Dada Mail.</p>
+
+<p>Unless rewritten, it will be removed in a future version of Dada Mail.</p>
+
+<h2 id="Extensions">Extensions</h2>
+
+<h2 id="dada_digest.pl---REMOVED">dada_digest.pl - REMOVED</h2>
+
+
+</body>
+
+</html>
+
+

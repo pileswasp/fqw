@@ -1,0 +1,174 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>DADA::App::LogSearch</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#VERSION">VERSION</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#SUBROUTINES-METHODS">SUBROUTINES/METHODS</a>
+    <ul>
+      <li><a href="#new">new</a></li>
+      <li><a href="#search">search</a></li>
+      <li><a href="#html_highlight_line">html_highlight_line</a></li>
+    </ul>
+  </li>
+  <li><a href="#Example">Example</a></li>
+  <li><a href="#DIAGNOSTICS">DIAGNOSTICS</a></li>
+  <li><a href="#BUGS-AND-LIMITATIONS">BUGS AND LIMITATIONS</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>DADA::App::LogSearch - Simple Searching of PlainText Logs for Dada Mail</p>
+
+<h1 id="VERSION">VERSION</h1>
+
+<p>Refer to the version of Dada Mail that this module comes in.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code> my $query     = &#39;find me&#39;; 
+ my $searcher  = DADA::App::LogSearch-&gt;new; 
+ 
+ my $results   = $searcher-&gt;search({
+        -query =&gt; $query,
+        -files =&gt; [&#39;/home/account/dada_files/logs/dada_usage.txt&#39;], 
+ 
+ }); </code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module provides a very simple interface to find a term in a list of files that you supply.</p>
+
+<h1 id="SUBROUTINES-METHODS">SUBROUTINES/METHODS</h1>
+
+<h2 id="new">new</h2>
+
+<p>Takes no arguments. Returns a DADA::App::LogSearch object.</p>
+
+<h2 id="search">search</h2>
+
+<p>Takes <b>two</b> arguments - both are required. They are:</p>
+
+<ul>
+
+<li><p>-query</p>
+
+<p>Its value should be a string.</p>
+
+<p>This is the search term you&#39;re looking for. If you&#39;re search term has a space in it, for example, <i>search term</i>, this module will search for <b>both</b> <i>search</i> and <i>term</i> seperately.</p>
+
+</li>
+<li><p>-files</p>
+
+<p>Its value should be an array ref</p>
+
+<p>This is the list of files you&#39;d like to search in. Use absolute paths to these files, ala:</p>
+
+<pre><code> my $results   = $searcher-&gt;search({
+        -query =&gt; $query,
+        -files =&gt; [
+                   &#39;/home/account/dada_files/logs/dada_usage.txt&#39;,
+                   &#39;/home/account/dada_files/logs/errors.txt&#39;
+                 ], 
+  
+ }); </code></pre>
+
+</li>
+</ul>
+
+<p>This method will return a hashref. The key of the hashref is the name of the log file that you gave. Each value of the hashref is an arrayfref that holds the lines that match your query.</p>
+
+<h2 id="html_highlight_line">html_highlight_line</h2>
+
+<p>Takes two arguments - both are required -</p>
+
+<p>They are:</p>
+
+<ul>
+
+<li><p>-query</p>
+
+<p>Its value should be a string.</p>
+
+<p>This is the search term you&#39;re looking for.</p>
+
+</li>
+<li><p>-line</p>
+
+<p>Its value is a string - basically, one of the results that the LogSearch object brings back.</p>
+
+</li>
+</ul>
+
+<h1 id="Example">Example</h1>
+
+<p>Here&#39;s an example of how this object can be used:</p>
+
+<pre><code>  use DADA::App::LogSearch
+  my $query     = &#39;find me&#39;; 
+  
+  my $searcher  = DADA::App::LogSearch-&gt;new; 
+ 
+  my $results   = $searcher-&gt;search({
+        -query =&gt; $query,
+        -files =&gt; [
+                   &#39;/home/account/dada_files/logs/dada_usage.txt&#39;,
+                   &#39;/home/account/dada_files/logs/errors.txt&#39;
+                 ], 
+ 
+ }); 
+ 
+ for my $file_name(keys %$results){ 
+     if($results-&gt;{$file_name}-&gt;[0]){ 
+         print &#39;&lt;h1&gt;&#39; . $file_name . &#39;&lt;/h1&gt;&#39;; 
+         for my $l(@{$results-&gt;{$file_name}}){ 
+             print &#39;&lt;p&gt;&#39; . $searcher-&gt;html_highlight_line({-query =&gt;  $query, -line =&gt; $l }) . &#39;&lt;/p&gt;&#39;;               
+          }
+      }
+  }
+         
+ </code></pre>
+
+<h1 id="DIAGNOSTICS">DIAGNOSTICS</h1>
+
+<h1 id="BUGS-AND-LIMITATIONS">BUGS AND LIMITATIONS</h1>
+
+<p>Please report problems to the author of this module</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Justin Simoni</p>
+
+<p>See: http://dadamailproject.com/contact</p>
+
+<h1 id="LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</h1>
+
+<p>Copyright (c) 2006 - 2011 Justin Justin Simoni All rights reserved.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

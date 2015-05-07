@@ -1,0 +1,137 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Upgrade Dada Mail</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Upgrading-Dada-Mail">Upgrading Dada Mail</a>
+    <ul>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#Step-1-Rename-the-dada-Directory">Step #1 Rename the, &quot;dada&quot; Directory</a></li>
+      <li><a href="#Step-2-Install-the-new-Dada-Mail">Step #2 Install the new Dada Mail</a></li>
+      <li><a href="#Choose-Upgrade">Choose, &quot;Upgrade&quot;</a></li>
+      <li><a href="#Upgrade-Options">Upgrade Options</a>
+        <ul>
+          <li><a href="#Create-a-new-.dada_config-file">Create a new .dada_config file</a>
+            <ul>
+              <li><a href="#Why-Create-a-new-.dada_config-file">Why Create a new .dada_config file?</a></li>
+            </ul>
+          </li>
+          <li><a href="#Use-the-current-.dada_config-file">Use the current .dada_config file</a></li>
+        </ul>
+      </li>
+      <li><a href="#Changelog">Changelog</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Upgrading-Dada-Mail">Upgrading Dada Mail</h1>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>These docs will guide you through an installation of Dada Mail, originally installed and configured with the included Dada Mail Installer.</p>
+
+
+
+<div class="see_also">
+<p> For information on how to upgrade Dada Mail from an install that wasn't done using the included Dada Mail Installer, see, <a href="./FAQ-install_upgrade.pod.html#upgrading_dada_mail_from_different_installation_types">Upgrading Dada Mail From Different Installation Types</a></p>
+</div> 
+
+<h2 id="Step-1-Rename-the-dada-Directory">Step #1 Rename the, &quot;dada&quot; Directory</h2>
+
+<p>Dada Mail, &quot;The Program&quot; is the collection of files and directories that are in the directory called, <code>dada</code>.</p>
+
+<p>The, <code>dada</code> directory has a structure like this:</p>
+
+<pre><code> cgi-bin (directory)
+    - dada (directory, _lower_ case)
+        - mail.cgi 
+        - DADA (directory, UPPER case)
+            - App (directory)
+            - Config.pm
+            - etc, etc, etc</code></pre>
+
+<p>This is Dada Mail, <b>The Program</b></p>
+
+<p>Simply rename this directory on your hosting account from:</p>
+
+<pre><code> dada</code></pre>
+
+<p>to something like:</p>
+
+<pre><code> dada-old_ver</code></pre>
+
+<p>Moving the directory:</p>
+
+<ul>
+
+<li><p>Keeps a backup that is known to work</p>
+
+</li>
+<li><p>Makes sure we don&#39;t overwrite the old version of the program with the new version</p>
+
+</li>
+<li><p>Makes sure we don&#39;t mix up the old version of Dada Mail with the new version of Dada Mail</p>
+
+</li>
+</ul>
+
+<h2 id="Step-2-Install-the-new-Dada-Mail">Step #2 Install the new Dada Mail</h2>
+
+<p>Upgrading will now be similar to installing Dada Mail (<a href="http://dadamailproject.com/d/install_dada_mail.pod.html">http://dadamailproject.com/d/install_dada_mail.pod.html</a>)</p>
+
+<p>Except, that on the first screen, instead of choosing, &quot;Install&quot; -</p>
+
+<h2 id="Choose-Upgrade">Choose, &quot;Upgrade&quot;</h2>
+
+<p>The first screen of the installer will ask you if you&#39;d like to <b>Install</b>, or <b>Upgrade</b> Dada Mail. Choose, <b>Upgrade</b>.</p>
+
+<p>A new form field will appear labeled, <b>Current .dada_files Location</b>.</p>
+
+<p>If it can automatically be found, the textbox will already be filled with the absolute path to the parent directory of where the <code>.dada_files</code> directory lives. If this path looks correct, click, <b>Continue...</b>.</p>
+
+<p>If this isn&#39;t the correct location, or no location was pre-filled in, fill in the correct location manually. The installer shouldn&#39;t allow you to continue, unless this directory is successfully found.</p>
+
+<h2 id="Upgrade-Options">Upgrade Options</h2>
+
+<p>Two new options are presented to you in the installer, if you are <b>upgrading</b>.</p>
+
+<h3 id="Create-a-new-.dada_config-file">Create a new .dada_config file</h3>
+
+<p>Select this option if you are <b>upgrading between major versions</b> of Dada Mail. For example, version <b>5</b>.0.0 to version <b>6</b>.0.0 or, from version 6.<b>0</b>.0 to version 6.<b>2</b>.0.</p>
+
+<h4 id="Why-Create-a-new-.dada_config-file">Why Create a new .dada_config file?</h4>
+
+<p>Changes are periodically made to Dada Mail&#39;s default configuration and it&#39;s a good idea to have the installer create a new <code>.dada_config</code> file to take advantage of any new enhancements and also to keep your <code>.dada_config</code> file current and compatible with your new copy of Dada Mail. If you are unsure, use the option to create a new .dada_config file&gt;</p>
+
+<p>The Installer will read your old <code>.dada_config</code> file and pre-fill in the configuration that can be set on this screen. Give it a quick look-over and make sure the information looks correct and make any changes that you would like. This is a good oppourtunity to add/remove installed plugins, or do more advanced configurations, like set up Amazon SES sending.</p>
+
+<p>If you have manually editing the <code>.dada_config</code> file, note that the installer does not support moving over any manual edits when you upgrade. You will need to manually copy over these configurations after the upgrade is completed. The Installer will make a backup of your previous <code>.dada_config</code> file, to make this easy to do.</p>
+
+<h3 id="Use-the-current-.dada_config-file">Use the current .dada_config file</h3>
+
+<p>Select this option if you are upgrading between minor versions of Dada Mail. For example, version 5.0.<b>0</b> to 5.0.<b>1</b>.</p>
+
+<p>The rest of the installer form will be hidden, as no extra configuration is needed.</p>
+
+<h2 id="Changelog">Changelog</h2>
+
+<p>It&#39;s a <b><i>very very</i></b> good idea to look at the changelog and note <b>any</b> incompatibilities between versions. It&#39;s possible that incompatibilities could break your installation, when you upgrade.</p>
+
+<p>Changelog: <a href="http://dadamailproject.com/d/changes_7_x.pod.html">http://dadamailproject.com/d/changes_7_x.pod.html</a></p>
+
+
+</body>
+
+</html>
+
+

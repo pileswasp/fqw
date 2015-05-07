@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Unsubscription System</title>
+<link rel="stylesheet" href="/Users/justin/Documents/DadaMail/build/tmp/dada/extras/documentation/pod_source/pod_styles.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:vxd@glow.apple.com" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#Dada-Mails-Unsubscription-System">Dada Mail&#39;s Unsubscription System</a>
+    <ul>
+      <li><a href="#Introduction">Introduction</a></li>
+      <li><a href="#Essential-Things-You-Need-to-Know">Essential Things You Need to Know</a></li>
+      <li><a href="#ALWAYS-Have-an-Unsubscription-Link-Present-in-Your-Mailing-List-Messages">ALWAYS Have an Unsubscription Link Present in Your Mailing List Messages</a></li>
+      <li><a href="#The-Unsubscription-Link">The Unsubscription Link</a></li>
+      <li><a href="#The-Unsubscription-Process">The Unsubscription Process</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="Dada-Mails-Unsubscription-System">Dada Mail&#39;s Unsubscription System</h1>
+
+<h2 id="Introduction">Introduction</h2>
+
+<p>Having a reliable, easy-to-use Unsubscription/Removal system is essential for any healthy mailing list system. Dada Mail&#39;s unsubscription system should prove to be both</p>
+
+<h2 id="Essential-Things-You-Need-to-Know">Essential Things You Need to Know</h2>
+
+<h2 id="ALWAYS-Have-an-Unsubscription-Link-Present-in-Your-Mailing-List-Messages">ALWAYS Have an Unsubscription Link Present in Your Mailing List Messages</h2>
+
+<p>As well as required to conform to US laws dealing with running a mailing list, the unsubscription link allows a subscriber to remove themselves from your mailing list, without any intervention from the List Owner, saving everyone time.</p>
+
+<h2 id="The-Unsubscription-Link">The Unsubscription Link</h2>
+
+<p>In Dada Mail, a unique Unsubscription Link is generated automatically by Dada Mail. You may place the unsubsription link wherever you would link in your message, using the unsubscription tag, which looks like this:</p>
+
+<pre><code>        &lt;!-- tmpl_var list_unsubscribe_link --&gt; </code></pre>
+
+<p>When a message is sent out, this template tag will be replaced with a unique to your subscriber/list/massing mailing unsubscription link.</p>
+
+<p>Usually, the unsubscription link will be found in the <b>footer</b> of your mailing list message. To make things easy, Dada Mail already has a simple mailing list message template, that allows you to set your own footer - the default template, with the unsubscription link present.</p>
+
+<p>For PlainText messages, it&#39;ll look something like this:</p>
+
+<pre><code>        Subscription Reminder: You&#39;re Subscribed to, &lt;!-- tmpl_var list_settings.list_name --&gt; 
+        Using the address: &lt;!-- tmpl_var subscriber.email --&gt;
+
+        From: &lt;!-- tmpl_var list_settings.list_owner_email --&gt;
+        &lt;!-- tmpl_var list_settings.physical_address --&gt;
+
+        Unsubscribe Automatically:
+        &lt;!-- tmpl_var list_unsubscribe_link --&gt;</code></pre>
+
+<p>(there&#39;s also an HTML version with more formatting, for your HTML messages)</p>
+
+<p>The information in this footer gives your subscriber essential information to unsubscribe, include the name of your list, the email address that they&#39;re subscribed to, and the Unsubscription Link, itself.</p>
+
+<p>You can customize your Mailing List Message template in the List Control Panel, under <b>Appearance and Templates Email Message Templates</b></p>
+
+<p>If the unsubscription link is not found somewhere in your mailing list message, <b>Dada Mail will prepend your message with one</b>, to make absolutely certain a working unsubscription link is available.</p>
+
+<h2 id="The-Unsubscription-Process">The Unsubscription Process</h2>
+
+<p>If a subsriber would like to remove themselves from your mailing list, they will only have to click on the unsubscription link, located in your message.</p>
+
+<p>This will bring the user to a screen, with a simple form, comprised of a single text box to re-enter their email address, and a button to push, to remove their address. An optional, &quot;email hint&quot; can be shown, which let&#39;s the user see part of the email address that needs to be entered to successfully unsubscribe the address.</p>
+
+<p>Once the email address is entered, and the form submitted - that&#39;s it: the user is unsubscribed from your mailing list.</p>
+
+
+</body>
+
+</html>
+
+

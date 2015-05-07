@@ -1,0 +1,404 @@
+<!-- begin send_url_screen.tmpl -->
+
+<div id="screen_meta" data-menu_highlight="send_url_email"></div>
+
+<!-- tmpl_set name="title" value="Mass Mailing &#187; Send a Webpage" -->
+<!-- tmpl_set name="load_wysiwyg_editor" value="1" -->
+<!-- tmpl_set name="load_datetimepicker" value="1" -->
+
+
+<div id="screentitle"> 
+	<div id="screentitlepadding">
+	 	Mass Mailing 
+	 	    &#187; 
+	 	    Send a Webpage
+	 	    <!-- tmpl_if draft_id --> 
+	 	        &#187; 
+	 	        <!-- tmpl_if expr="(draft_role eq 'draft')" --> 
+	 	             Draft
+	 	        <!-- /tmpl_if -->
+	 	        <!-- tmpl_if expr="(draft_role eq 'stationary')" --> 
+	 	            Stationary
+	 	        <!-- /tmpl_if -->
+	 	        <!-- tmpl_if expr="(draft_role eq 'schedule')" --> 
+	 	            Schedule
+	 	        <!-- /tmpl_if -->
+	 	    <!-- /tmpl_if -->
+	</div>
+	<!-- tmpl_include help_link_widget.tmpl -->
+</div>
+<div id="send_url_email"></div> 
+
+
+<form name="mass_mailing" id="mass_mailing" action="<!-- tmpl_var name="S_PROGRAM_URL" -->" method="post">
+
+	<div id="entire_form">
+	  <div id="form_widgets">
+	      
+      <!-- tmpl_include test_sent_notice_widget.tmpl --> 
+      <!-- tmpl_include send_email_schedule_options_widget.tmpl -->
+      <!-- tmpl_include ses_email_verification_widget.tmpl -->
+      <!-- tmpl_include mass_mailing_limit_notice_widget.tmpl --> 
+      <!-- tmpl_include discussion_list_support_notice_widget.tmpl --> 
+
+
+    <!-- tmpl_if draft_id --> 
+        <!-- tmpl_if expr="(draft_role eq 'draft')" --> 
+        	<div class="clearskiesbox">
+        		<p>
+        			Draft message restored below:
+        		</p>
+        	</div> 
+        <!-- /tmpl_if -->
+        <!-- tmpl_if expr="(draft_role eq 'stationary')" --> 
+            <!-- tmpl_if done --> 
+                <!-- tmpl_include changes_saved_dialog_box_widget.tmpl  -->
+            <!-- /tmpl_if -->
+        <!-- /tmpl_if -->     
+    <!-- /tmpl_If -->
+
+ <input type="hidden" name="s_program_url" id="s_program_url" value="<!-- tmpl_var S_PROGRAM_URL -->" />
+ <input type="hidden" id="f" name="f" value="send_url_email" />
+ <input type="hidden" name="support_files_url" id="support_files_url" value="<!-- tmpl_var SUPPORT_FILES_URL -->" />
+ 
+
+<!-- tmpl_unless can_use_mime_lite_html -->
+	 
+	 <div class="disabled">
+	  <p class="error">
+	   Disabled. The 'MIME::Lite::HTML' Perl Library needs to be installed, or is missing required components. More information below:
+	  </p>
+	  <pre> 
+		<!-- tmpl_var mime_lite_html_error -->
+	  </pre> 
+	 </div>
+	 
+<!-- tmpl_else-->
+	 <!-- tmpl_unless can_use_lwp_simple -->
+		  <div class="disabled">
+		  <p class="error">
+		   Disabled. The 'LWP' Perl Library needs to be installed. More information below: 
+		  </p>
+		  <pre> 
+			<!-- tmpl_var lwp_simple_error --> 
+		  </pre> 
+		 </div> 
+			<!-- tmpl_else-->
+
+        <!-- tmpl_if list_settings.group_list --> 
+            <div class="clearskiesbox">
+			<p>
+				Discussion List Support is enabled and Discussion List preferences will be honored.
+        	</p>
+		</div>
+		<!--/tmpl_if--> 
+
+    <input type="hidden" id="draft_alert"        name="draft_alert"           value="<!-- tmpl_var draft_alert default="0" -->" />
+    <input type="hidden" id="draft_id"           name="draft_id"              value="<!-- tmpl_var draft_id -->"                /> 
+    <input type="hidden" id="draft_enabled"      name="draft_enabled"         value="<!-- tmpl_var draft_enabled -->"           />
+    <input type="hidden" id="draft_role"         name="draft_role"            value="<!-- tmpl_var draft_role -->"              />
+    <input type="hidden" id="restore_from_draft" name="restore_from_draft"    value="<!-- tmpl_var restore_from_draft -->"      />
+
+<!-- tmpl_include draft_notice_widget.tmpl --> 
+
+<!-- tmpl_include message_headers_fieldset_widget.tmpl --> 
+	
+	<fieldset> 
+		 <legend>Message Body [<a href="#" onclick="$.colorbox({inline:true, href:$('#message_body_help')})">?</a>]</legend>
+
+		<div id="tabs"> 
+
+			<ul>
+					<li>
+						<a href="#html_message">
+							HTML Version
+						</a>
+					</li>
+					<li>
+						<a href="#plaintext_message">
+							PlainText Version
+						</a>
+					</li>
+				</ul>
+				
+	
+  	    <div id="html_message">
+		<p>
+		<input type="radio" name="content_from" id="content_from_url" value="url" checked="checked" />
+			  <label for="content_from_url">
+		   Grab content from this webpage address (URL):
+		  </label>
+		  <br />
+		  <input type="text" name="url" id="url" class="full" value="http://" />
+		</p>
+		<p>
+		  <input type="radio" name="content_from" id="content_from_textarea" value="content_from_textarea" />
+			  <label for="content_from_textarea">
+			   Use the following HTML as content:
+			  </label>
+		  </p>
+		  
+
+		<!-- tmpl_include html_message_form_field_widget.tmpl --> 
+	
+<h2>Advanced Options</h2>
+		<table>
+		  <tr>
+		   <td>
+			<p>
+			 <strong>
+			  Images in this webpage should:
+			 </strong>
+			</p>
+		  
+			<p>
+			 <input type="radio" name="url_options" id="extern" value="extern" checked="checked" />
+			  <label for="extern">
+			   have their URLs changed to absolute
+			 </label> 
+			 
+			 
+			 <!-- DEV as far as I can tell, this option doesn't work!
+			 -js
+			 
+			 <br />
+			 <input type="radio" name="url_options" value="location" />
+			 be embedded in the message itself, using the 'Content-Location' header
+			 
+			 --> 
+			 
+			 
+			 <br />
+			 <input type="radio" name="url_options" value="cid" id="cid" />
+			  <label for="cid">
+			   be embedded in the message itself 
+			 </label>
+			 
+		<!-- tmpl_unless can_display_attachments --> 
+				 
+				 <br />
+				 <p class="error"> 
+				  Warning: your current Archive backend does not support archiving messages with embedded images.
+				  When viewed, these archived messages may be missing images or formatted incorrectly.
+				 </p>
+				 
+		<!--/tmpl_unless--> 
+			 
+			</p>
+		   </td>
+		  </tr>
+		  <tr> 
+			<td>
+			<p>	<input type="checkbox" name="remove_javascript" id="remove_javascript" checked="checked" value="1" />
+			 
+			  <label for="remove_javascript">
+				Remove Javascript
+			   </label> <em>(highly recommended)</em>
+			 </p>
+			</td>
+	
+		  </tr> 
+		  <tr>
+		   <td>
+			<table class="simplebox">
+			 <tr>
+			  <td>
+			   <p>
+				<strong>
+				 Restricted URL Information
+				</strong>
+				   </p>
+				  </td>
+				  <td>
+			   <p>
+				(
+				<em>
+				 optional
+				</em>
+				)
+			   </p>
+			  </td>
+			 </tr>
+			 <tr>
+			  <td>
+			   <p align="right">
+				<strong>
+				 username:
+				</strong>
+			   </p>
+			  </td>
+			  <td>
+			   <p>
+				<input type="text" name="url_username" />
+			   </p>
+			  </td>
+			 </tr>
+			 <tr>
+			  <td>
+			   <p align="right">
+				<strong>
+				 password:
+				</strong>
+			   </p>
+			  </td>
+			  <td>
+			   <p>
+				<input type="text" name="url_password" />
+			   </p>
+			  </td>
+			 </tr>
+			 <tr>
+			  <td>
+			   <p align="right">
+				<strong>
+				 proxy:
+				</strong>
+			   </p>
+			  </td>
+			  <td>
+			   <p>
+				<input type="text" name="proxy" />
+			   </p>
+			  </td>
+			 </tr>
+			</table>
+		   </td>
+		  </tr>
+		 </table>
+
+</div> 
+
+<div id="plaintext_message"> 
+		 
+		<p>
+		  <input type="radio" name="auto_create_plaintext" id="auto_create_plaintext" value="1" checked="checked" />
+		  <label for="auto_create_plaintext">
+		   Create a PlainText version automatically
+		  </label>
+		  <br />
+		  <em>
+		   Will NOT work if you use a username/password or proxy.
+		  </em>
+		 </p>
+		 <p>
+		  <input type="radio" name="auto_create_plaintext" id="no_auto_create_plaintext" value="0" />
+		  <label for="no_auto_create_plaintext">
+		   Use the text below as the PlainText version:
+		  </label>
+		 </p>
+		 <p>
+			 <!-- tmpl_include plaintext_message_form_field_widget.tmpl -->
+		 </p>
+	</div> 
+	
+</div> 
+
+</fieldset>
+
+
+
+<div id="tabs_mass_mailing_options">
+	<ul>
+		<li>
+			<a href="#send_email_archive_options">
+ 				Archiving
+			</a>
+		</li>
+		<!-- tmpl_if MULTIPLE_LIST_SENDING --> 
+		
+			<li>
+				<a href="#multiple_list_sending">
+	 				Multiple List Sending
+				</a>
+			</li>
+		<!-- /tmpl_if --> 
+		<!-- tmpl_if can_have_subscriber_fields --> 
+			<li>
+				<a href="#partial_sending_options">
+	 				 Partial Mailing List Sending 
+				</a>
+			</li>
+		<!-- /tmpl_if --> 
+		
+
+<!-- tmpl_if comment --> 
+
+					<li>
+						<a href="#file_attachments">
+			 				 File Attachments
+						</a>
+					</li>
+
+<!-- /tmpl_if --> 
+		<!-- tmpl_if can_have_subscriber_fields --> 
+		<li>
+			<a href="#subscriber_field_tags_listing">
+ 				 Subscriber Fields
+			</a>
+		</li>
+		<!-- /tmpl_if --> 
+		<li>
+			<a href="#send_email_test_recipient">
+ 				 Testing
+			</a>
+		</li>
+
+		</ul>
+		
+	<div id="send_email_archive_options">		
+	<!-- tmpl_include send_email_archive_options_widget.tmpl -->
+	</div> 
+	<!-- tmpl_if MULTIPLE_LIST_SENDING --> 
+		<div id="multiple_list_sending">		
+		<!-- tmpl_include multiple_list_sending_widget.tmpl --> 
+		</div> 
+	<!-- /tmpl_if --> 
+	
+	<!-- tmpl_if can_have_subscriber_fields --> 
+		<div id="partial_sending_options">		
+		<!-- tmpl_include partial_sending_options_widget.tmpl --> 
+		</div> 
+	<!-- /tmpl_if --> 
+	
+	<!-- tmpl_if comment --> 
+				<div id="file_attachments">		
+				<!-- tmpl_include file_attachments_widget.tmpl -->
+				</div> 
+	<!-- /tmpl_if --> 
+	<!-- tmpl_if can_have_subscriber_fields --> 
+		<div id="subscriber_field_tags_listing">		
+		<!-- tmpl_include subscriber_field_tags_listing_widget.tmpl --> 
+		</div> 
+	<!-- /tmpl_if --> 
+
+	<div id="send_email_test_recipient">		
+	<!-- tmpl_include send_email_test_recipient_widget.tmpl --> 
+	</div> 
+	
+</div>		 
+	<!-- /tmpl_unless -->
+ 
+<!-- /tmpl_unless -->
+
+</div>
+
+
+<div id="top_floating_button_wrapper">
+  <div id="buttons">
+	<!-- tmpl_include send_a_list_message_button_widget.tmpl -->
+  </div>
+</div>
+
+</div>
+
+</form>
+
+
+
+
+
+<!-- tmpl_include send_url_email_message_body_help_widget.tmpl -->		
+
+ 
+
+<!-- end send_url_screen.tmpl -->
